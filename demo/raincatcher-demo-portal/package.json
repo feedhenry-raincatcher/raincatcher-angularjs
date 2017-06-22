@@ -1,8 +1,7 @@
 {
-  "name": "fh-wfm-demo-portal",
-  "version": "2.8.0",
-  "description": "A WFM2 PoC using the mediator pattern",
-  "repository": "https://github.com/feedhenry-raincatcher/raincatcher-demo-portal.git",
+  "name": "@raincatcher/demo-portal",
+  "version": "1.0.0",
+  "description": "Example demo portal application",
   "engines": {
     "node": ">=4.4 <=6.10"
   },
@@ -14,7 +13,7 @@
   "keywords": [
     "wfm"
   ],
-  "author": "Brian Leathem",
+  "author": "feedhenry-raincatcher@redhat.com",
   "license": "MIT",
   "dependencies": {
     "cors": "2.8.3",

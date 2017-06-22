@@ -45,4 +45,4 @@ Before publishing the typescript modules, do a manual compilation step via `npm 
 
  `npm run bootstrap` - perform boostrap for all modules
 
- `npm run start` - run top level applications
+ `npm run start` - run demo applications
