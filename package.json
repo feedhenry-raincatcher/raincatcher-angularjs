@@ -8,8 +8,6 @@
     "cleanInstall": "lerna exec npm install --ignore-scripts",
     "bootstrap": "lerna bootstrap",
     "start": "lerna run start  --parallel --stream --scope=@raincatcher/demo-*",
-    "docs": "lerna exec -- typedoc --out docs/ --excludePrivate",
-    "lint": "tslint '*/*/src/**/*.ts' '*/*/test/**/*.ts'",
     "build": "lerna run build",
     "clean": "lerna run clean"
   },
