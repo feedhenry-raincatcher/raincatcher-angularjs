@@ -8,10 +8,11 @@ services:
 - mongodb
 script:
 - npm run bootstrap
-- npm run lint
 - npm test
 cache:
   directories:
     - node_modules
-    - demo/server/node_modules
-    - cloud/datasync/node_modules
+    - demo/portal/node_modules
+    - demo/mobile/node_modules
+    - packages/workflow-angular/node_modules
+    - packages/workorder-angular/node_modules
