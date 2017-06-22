@@ -46,7 +46,3 @@ Before publishing the typescript modules, do a manual compilation step via `npm 
  `npm run bootstrap` - perform boostrap for all modules
 
  `npm run start` - run top level applications
-
- `npm run build` - execute the build command for all modules, compiling TypeScript sources to JavaScript
-
- `npm run cleanInstall` - perform install without executing additional scripts
