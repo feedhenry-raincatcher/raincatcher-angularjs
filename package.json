@@ -1,7 +1,7 @@
 {
-  "name": "raincatcher",
+  "name": "raincatcher-angular",
   "version": "1.0.0",
-  "description": "Feedhenry Raincatcher Core Repository",
+  "description": "Feedhenry Raincatcher Angular Repository",
   "main": "index.js",
   "scripts": {
     "test": "lerna run test",
