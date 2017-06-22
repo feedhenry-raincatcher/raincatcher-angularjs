@@ -1,7 +1,7 @@
 {
   "name": "@raincatcher/workflow-angular",
-  "version": "0.2.6",
-  "description": "An Angular 1 Implementation of the fh-wfm-workflow module",
+  "version": "1.0.0",
+  "description": "An Angularjs implementation for workflows",
   "main": "lib/workflow-ng.js",
   "repository": {
     "type": "git",
