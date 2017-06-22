@@ -1,11 +1,22 @@
-# RainCatcher
-Feedhenry RainCatcher Angularjs Repository
-Default UI implementation for Raincatcher
+# Feedhenry RainCatcher Angularjs
 
-## About RainCatcher angularjs
+Reference mobile and website implementation for RainCatcher
 
-Raincatcher angularjs is default UI implementation for [Raincatcher Core Framework](https://github.com/feedhenry-raincatcher/raincatcher-core).
+## About RainCatcher ~ngularjs
+
+RainCatcher Angularjs is reference mobile and website implementation for [Raincatcher Core Framework](https://github.com/feedhenry-raincatcher/raincatcher-core).
 For more information about RainCatcher please refer to main repository.
+
+## Quick start
+
+Install all dependencies
+
+    npm run bootstrap
+
+Start demo applications
+
+    npm run start
+
 
 ## Repository folder structure
 
@@ -18,31 +29,12 @@ contained in the following directories:
 
   <dt>demo/</dt>
   <dd>Full-fledged demo applications, showcasing the usage of multiple modules</dd>
-
-  <dt>templates/</dt>
-  <dd>Templates and examples for other packages in the repository</dd>
 </dl>
-
-## Creating a new package
-
-In order to create a new package, we recommend duplicating
-[`examples/base`](./examples/base/README.md), which is a sample base that contains the skeleton
-expected of a new package. Refer to the linked README for more details.
-
-### Using modules from JavaScript
-
-We recommend users to write their code in TypeScript, especially if their new RainCatcher-based solution is a greenfield project, however JavaScript usage is partially supported by editor plugins that will still offer suggestions based on the TypeScript interfaces and access to jsdoc annotations:
-
-See the example on [examples/js]() for more information also for reusing the unit test suites from JavaScript code.
-
-### Publishing modules
-
-Before publishing the typescript modules, do a manual compilation step via `npm run build` on the root of the repository.
 
 ### Repository commands
 
  `npm run test` - run unit tests
 
- `npm run bootstrap` - perform boostrap for all modules
+ `npm run bootstrap` - install required dependencies for modules
 
  `npm run start` - run demo applications
