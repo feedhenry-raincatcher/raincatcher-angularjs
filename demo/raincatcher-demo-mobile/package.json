@@ -1,18 +1,18 @@
 {
-  "name": "fh-wfm-demo-mobile",
-  "version": "2.10.0",
-  "description": "A WFM2 PoC using the mediator pattern",
-  "repository": "https://github.com/feedhenry-raincatcher/raincatcher-demo-mobile.git",
+  "name": "@raincatcher/demo-mobile",
+  "version": "1.0.0",
+  "description": "Example demo mobile application",
   "engines": {
     "node": ">=4.4 <=6.10"
   },
   "scripts": {
+    "start": "grunt",
     "test": "grunt eslint"
   },
   "keywords": [
     "wfm"
   ],
-  "author": "Brian Leathem",
+  "author": "feedhenry-raincatcher@redhat.com",
   "license": "MIT",
   "dependencies": {
     "angular": "1.6.4",

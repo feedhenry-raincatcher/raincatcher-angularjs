@@ -7,9 +7,7 @@
     "test": "lerna run test",
     "cleanInstall": "lerna exec npm install --ignore-scripts",
     "bootstrap": "lerna bootstrap",
-    "start": "lerna run start  --parallel --stream --scope=@raincatcher/demo-*",
-    "build": "lerna run build",
-    "clean": "lerna run clean"
+    "start": "lerna run start  --parallel --stream --scope=@raincatcher/demo-*"
   },
   "repository": {
     "type": "git",
