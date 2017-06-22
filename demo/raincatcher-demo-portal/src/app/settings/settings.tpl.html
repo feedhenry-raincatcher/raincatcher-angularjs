@@ -1,0 +1,27 @@
+<div class="md-toolbar-tools">
+  <h3>Settings</h3>
+</div>
+
+<div layout="row">
+
+  <md-card>
+    <md-card-title>
+      <md-card-title-text>
+        <span class="md-headline">Reset All Data</span>
+      </md-card-title-text>
+
+    </md-card-title>
+    <md-card-content>
+      <p>
+        <b>Warning!!</b> This will erase <b>ALL</b> data.
+
+        This should not be used in production applications. It is intended for development purposes only.
+      </p>
+    </md-card-content>
+
+    <md-card-actions layout="column" layout-align="start">
+      <md-button ng-click="ctrl.resetData($event)" class="md-raised md-accent md-warn">Reset All Data</md-button>
+    </md-card-actions>
+
+  </md-card>
+</div>

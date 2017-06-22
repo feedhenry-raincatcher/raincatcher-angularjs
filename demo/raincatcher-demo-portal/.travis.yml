@@ -1,0 +1,28 @@
+language: node_js
+group: edge
+sudo: required
+services:
+  - mongodb
+  - docker
+node_js:
+  - '4.4.3'
+  - '6.9.1'
+before_install:
+  - npm install grunt-cli -g
+script:
+  - npm test
+  - bash <(curl https://gist.githubusercontent.com/raincatcher-bot/01ac4cdb3b0770bdb58489dbc17ed6b6/raw/6205a628c3616f6736fd866d5f0fba0a781ec1e4/sonarqube.sh)
+install:
+  - npm install
+notifications:
+  email: false
+  slack:
+    on_success: change
+    on_failure: always
+    rooms:
+      secure: >-
+        DA2nMfXaQ/oE8Mj3MjTOyBlZeAnydaO0X7F26RDjfXvqqA1rg7cbZLOsCIjUNvcSLOq8Ax1jfTBvwtrSLzOcyIwHhHvHBIj/sS888O8tu5o6nlAwCEKVjyVO3ZzagZfnLAw52oSIRdLNa1f0iDLa3KqkHzaSGkhAvhPpFhhh6lLiUGoRBCRYiyiAQyZF2PhAw8VtzKHtWZVwxPbiY02+PhFooYEHf/b+RNb1UyQ4dc6VuT4Jel/ubq3Y6T+u5oN5ezXUIUxe+LqkqCi7LGcipkFlo6m26gx0d0PfYy+XlzCAXZIx+2yrWvsF7G65JnYPzvPbET1Lzvc05FQNQ2uckpZwOEyMYxWAiOzNZYd4BKtJJiNfYeL81s3+WovhsTkAAabGuXQm1lm+fseMzP+0X6uHRC54eCcmSAVpjNIE1JxNe7ro8GDZHh50zKxywLlWrq2mrRWzXFObkGEw5TRrn3UUNZAqFpFa3Uqz3TZ3LAequqik+VzmCOUivlmL7rOIjneBEMb2tri1iP/SCx2u+5jaKaHViJQ/Nk3J9hfLD0HD2Nu6RV8GsygBtKsOp10xCW4mL/DtDWkKHsdkuMOwZz8nWrXn1ipi3w3DD5aTCR0E3r5R55G/gncsgFYbxX/czbN7PwyiaqEQ1OrLjtGcm5yGllW/XqK1pVwIQUzPbNA=
+    on_pull_requests: false
+cache:
+  directories:
+    - node_modules

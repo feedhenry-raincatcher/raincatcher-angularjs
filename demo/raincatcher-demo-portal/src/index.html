@@ -1,0 +1,25 @@
+<!doctype html>
+<html ng-app="app">
+  <head>
+    <base href="./">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <link rel="stylesheet" href="css/angular-material.css">
+    <link rel="stylesheet" href="css/c3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="css/portal.css" rel="stylesheet">
+
+    <script defer charset="utf-8" src="app/vendor.js"></script>
+    <script defer charset="utf-8" src="app/bundle.js"></script>
+    <script src='https://maps.googleapis.com/maps/api/js?v=3.exp'></script>
+  </head>
+  <body layout="column" class="wfm-portal">
+    <div ng-if="!ready" flex layout="row" layout-align="center center" class="spinner-overlay">
+      <md-progress-circular md-diameter="160" md-mode="indeterminate"></md-progress-circular>
+    </div>
+    <div ui-view layout="column" flex></div>
+  </body>
+</html>
