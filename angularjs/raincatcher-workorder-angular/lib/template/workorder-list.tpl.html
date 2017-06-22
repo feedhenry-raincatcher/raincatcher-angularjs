@@ -1,0 +1,34 @@
+<md-toolbar>
+  <div class="md-toolbar-tools">
+    <h3>
+      <span>Workorders</span>
+    </h3>
+  </div>
+</md-toolbar>
+
+<form action="#" class="persistent-search" hide-xs hide-sm>
+  <label for="search"><i class="material-icons">search</i></label>
+  <input type="text" name="search" placeholder="Search" ng-model="searchValue" ng-change="ctrl.applyFilter(searchValue)">
+</form>
+
+<md-list>
+  <md-list-item
+    ng-repeat="workorder in ctrl.workorders"
+    ng-click="ctrl.selectWorkorder($event, workorder)"
+    ng-class="{active: ctrl.selected.id === workorder.id}"
+    class="md-2-line workorder-item"
+  >
+  <workorder-status ng-class="ctrl.getColorIcon(workorder)" status="ctrl.resultMap[workorder.id].status"></workorder-status>
+
+    <div class="md-list-item-text">
+      <h3>{{workorder.title}}</h3>
+      <p>{{workorder.address}}</p>
+      <md-icon ng-if="workorder._syncStatus" md-font-set="material-icons" class="material-icons sync-error-icon">
+        sync_problem
+      </md-icon>
+      <i ng-if="workorder._syncStatus" class="sync-error-message"> Sync failed: {{workorder._syncStatus.message}} </i>
+
+    </div>
+    <md-divider></md-divider>
+  </md-list-item>
+</md-list>

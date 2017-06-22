@@ -1,0 +1,1 @@
+require('./workflow-step-detail-directive');

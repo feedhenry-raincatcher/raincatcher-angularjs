@@ -1,0 +1,21 @@
+language: node_js
+node_js:
+  - '0.10'
+  - '4.4'
+sudo: false
+services:
+  - docker
+before_install:
+script:
+  - npm test
+  - bash <(curl https://gist.githubusercontent.com/raincatcher-bot/01ac4cdb3b0770bdb58489dbc17ed6b6/raw/6205a628c3616f6736fd866d5f0fba0a781ec1e4/sonarqube.sh)
+notifications:
+  email: false
+  slack:
+    on_success: change
+    on_failure: always
+    rooms:
+      secure: >-
+        iHK7ImeibSqdTffQV6Ixf4Ns8xtlubcjoIPy1+tIFeFinJbaRS7AEW6ch+LVt9kRMCpLIwhzcKEH3q9h3IFjAFCbuKbVRRJiMK92/uXeNMY+mRUNpRdzpQxhFkrRr4RGvSFR8MH4hGjX9XLqI15Q8je1C8dGeB5JOj8HUqJqKsEm5ZePNbqlR+YDNOAdwRPIlslbGqR79pSJe6WJwtmzgFbtGwtj/MYyDZDW17hw5zs8Hwm2ogYi143PbUok58VHsxYRShwidtimdgPnuPdiljADAJ9bdBGcxUiLmYxRMYlzf6y5cTUWvWnFh+KTRxFbtVIy4Yn+V6JV4E+XNSQ8J8GEmibB26m0GX1Ku6GO2sGW/OwHrulJhXWpoIeoP1QF0QdMyBWVB0ErhgSkVGI35Rxab6mFN01pF7mDg1AM2aJLYrpoaCeTJ/XC2tArEOhmimapfuzUQJTLNOiNto+qqBMjIO96hFzntIkFPznWEPWDXbv59jnVG3kYZ/Qg6Xkd+5BxWJ+2tmtJrAA4gLCwOK0DNy/N6FxcKJTFFrSIlDW2y/XmNPNY4lhRMvgUtO+D0RcldW0JfiuPQElK++J2HrlR0yOzXqpemBV7mK3UKEdciUz51jHp1MgrzE2NHGTEL6nadg0VNFhEpqmH8Ni5ec226x7nd9GRAQYktXeWuBs=
+    on_pull_requests: false
+

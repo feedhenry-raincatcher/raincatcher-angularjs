@@ -1,0 +1,49 @@
+<md-toolbar class="content-toolbar">
+  <div class="md-toolbar-tools">
+    <h3>
+      {{wfdCtrl.workflow.title}}
+    </h3>
+    <span flex></span>
+    <md-button class="md-icon-button" aria-label="Edit" ui-sref="app.workflow.edit({workflowId: wfdCtrl.workflow.id || wfdCtrl.workflow._localuid})">
+      <md-icon md-font-set="material-icons">edit</md-icon>
+    </md-button>
+    <md-button class="md-icon-button" aria-label="Delete" ng-click="wfdCtrl.delete($event, wfdCtrl.workflow)">
+      <md-icon md-font-set="material-icons">delete</md-icon>
+    </md-button>
+  </div>
+</md-toolbar>
+
+<div class="wfm-maincol-scroll" ng-if="wfdCtrl.workflow">
+  <div id="stepList" ng-model="wfdCtrl.workflow.steps" as-sortable="wfdCtrl.dragControlListeners">
+    <md-card ng-repeat="step in wfdCtrl.workflow.steps track by $index"  as-sortable-item>
+      <md-card-content as-sortable-item-handle>
+        <workflow-step-detail step="step"></workflow-step-detail>
+      </md-card-content>
+
+
+      <md-card-actions layout="row" layout-align="end center">
+
+        <md-button class="md-icon-button" aria-label="Edit Step"
+                   ui-sref="app.workflow.step({workflowId: wfdCtrl.workflow.id, code:step.code})">
+          <md-icon md-font-set="material-icons">create</md-icon>
+        </md-button>
+        <md-button class="md-icon-button" aria-label="Delete Step"
+                   ng-click="wfdCtrl.deleteStep($event, step, $index, wfdCtrl.workflow)">
+          <md-icon md-font-set="material-icons">delete sweep</md-icon>
+        </md-button>
+
+      </md-card-actions>
+
+
+    </md-card>
+    <md-card>
+      <md-card-content>
+        <h2 class="md-title">Add new step</h2>
+        <workflow-step-form></worflow-step-form>
+      </md-card-content>
+    </md-card>
+    <md-button class="md-fab" aria-label="Add Workflow" ui-sref="app.workflow.add">
+      <md-icon md-font-set="material-icons">add</md-icon>
+    </md-button>
+  </div>
+</div>

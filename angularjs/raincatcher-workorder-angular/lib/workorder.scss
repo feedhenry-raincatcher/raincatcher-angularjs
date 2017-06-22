@@ -1,0 +1,34 @@
+// todo: central place for variables
+
+$success: #388E3C; //green700
+$danger: #F44336; //red 500
+$warning: #FFC107; // amber 500
+
+.workorder-item{
+  .md-list-item-inner{
+    align-items: stretch!important;
+  }
+  .md-list-item-text{
+    margin-left: 26px!important;
+  }
+
+  workorder-status{
+    width: 30px;
+      &.success md-icon{ color:   $success  }
+      &.danger md-icon{  color:   $danger   }
+      &.warning md-icon{ color:   $warning  }
+
+    md-icon{
+      vertical-align: top;
+    }
+  }
+}
+
+// overwrites wierdo margin angular matterial adds to long text modifier.
+.md-long-text{
+  margin: 0!important;
+}
+
+workorder-form md-input-container .md-errors-spacer {
+    min-height: 0;
+}

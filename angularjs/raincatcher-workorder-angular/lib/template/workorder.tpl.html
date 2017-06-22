@@ -1,0 +1,93 @@
+  <md-list>
+    <md-list-item class="md-2-line" ng-show="workorder.id">
+      <md-icon md-font-set="material-icons">portrait</md-icon>
+      <div class="md-list-item-text" >
+        <h3>{{workorder.id}}</h3>
+        <p>Workorder id</p>
+      </div>
+      <md-divider></md-divider>
+    </md-list-item>
+
+    <md-list-item class="md-2-line" >
+      <md-icon>
+        <workorder-status ng-class="ctrl.getColorIcon(status)" status="status"></workorder-status>
+    </md-icon>
+        <div class="md-list-item-text">
+           <h3>{{status || "New"}}</h3>
+           <p>Status</p>
+        </div>
+      </md-list-item>
+    </md-button>
+    <md-divider></md-divider>
+
+    <md-list-item class="md-2-line md-long-text">
+      <md-icon md-font-set="material-icons">place</md-icon>
+      <div class="md-list-item-text">
+         <h3>{{workorder.location[0]}}, {{workorder.location[1]}}</h3>
+         <p>
+           {{workorder.address}}
+         </p>
+      </div>
+    </md-list-item>
+    <md-divider></md-divider>
+
+    <md-list-item class="md-2-line" >
+      <md-icon md-font-set="material-icons">assignment</md-icon>
+      <div class="md-list-item-text">
+        <h3>{{workorder.title}}</h3>
+        <p>Workorder</p>
+      </div>
+    </md-list-item>
+    <md-divider></md-divider>
+
+    <md-list-item class="md-2-line" >
+      <md-icon md-font-set="material-icons">event</md-icon>
+      <div class="md-list-item-text">
+        <h3>{{workorder.startTimestamp | date:'yyyy-MM-dd' }}</h3>
+        <p>Start Date</p>
+      </div>
+    </md-list-item>
+    <md-divider></md-divider>
+
+    <md-list-item class="md-2-line" >
+      <md-icon md-font-set="material-icons">schedule</md-icon>
+      <div class="md-list-item-text">
+        <h3>{{workorder.startTimestamp | date:'HH:mm:ss Z' }}</h3>
+        <p>Start Time</p>
+      </div>
+    </md-list-item>
+    <md-divider></md-divider>
+
+    <md-list-item class="md-2-line" ng-if="workorder.finishTimestamp">
+      <md-icon md-font-set="material-icons">event</md-icon>
+      <div class="md-list-item-text">
+        <h3>{{workorder.finishTimestamp | date:'yyyy-MM-dd' }}</h3>
+        <p>Finish Date</p>
+      </div>
+    </md-list-item>
+    <md-divider></md-divider>
+
+    <md-list-item class="md-2-line" ng-if="workorder.finishTimestamp" >
+      <md-icon md-font-set="material-icons">schedule</md-icon>
+      <div class="md-list-item-text">
+        <h3>{{workorder.finishTimestamp | date:'HH:mm:ss Z' }}</h3>
+        <p>Finish Time</p>
+      </div>
+    </md-list-item>
+    <md-divider></md-divider>
+
+    <md-list-item class="md-2-line" ng-show="assignee && assignee.name">
+      <md-icon md-font-set="material-icons">person</md-icon>
+      <div class="md-list-item-text">
+        <h3>{{assignee.name}}</h3>
+        <p>Asignee</p>
+      </div>
+    </md-list-item>
+    <md-divider></md-divider>
+
+  </md-list>
+
+  <md-subheader class="md-no-sticky">Work Summary</md-subheader>
+  <p class="md-body-1" layout-padding layout-margin>
+    {{workorder.summary}}
+  </p>

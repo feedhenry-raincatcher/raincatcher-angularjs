@@ -1,0 +1,1 @@
+require('./workflow-result-directive');

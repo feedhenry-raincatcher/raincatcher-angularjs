@@ -1,0 +1,41 @@
+<md-toolbar class="content-toolbar">
+  <div class="md-toolbar-tools" ng-if="ctrl.workorder.id || ctrl.workorder._localuid">
+    <h3>
+      Work order : {{ctrl.workorder.title}}
+    </h3>
+
+    <span flex></span>
+    <md-button ng-if="ctrl.adminMode" class="md-icon-button" aria-label="Edit" ui-sref="app.workorder.edit({workorderId: ctrl.workorder.id || ctrl.workorder._localuid})">
+      <md-icon md-font-set="material-icons">edit</md-icon>
+    </md-button>
+    <md-button ng-if="ctrl.adminMode" class="md-icon-button" aria-label="Delete" ng-click="ctrl.delete($event, ctrl.workorder)">
+      <md-icon md-font-set="material-icons">delete</md-icon>
+    </md-button>
+  </div>
+</md-toolbar>
+
+<div class="wfm-maincol-scroll" ng-if="ctrl.workorder.id || ctrl.workorder._localuid">
+
+  <workorder workorder="ctrl.workorder" status="ctrl.result.status" assignee="ctrl.assignee"></workorder>
+
+  <md-card ng-if="ctrl.adminMode">
+    <md-progress-linear md-mode="determinate" ng-value="ctrl.progress"></md-progress-linear>
+    <md-card-title>
+      <md-card-title-text>
+        <span class="md-headline">Workflow: {{ctrl.workflow.title}}</span>
+      </md-card-title-text>
+    </md-card-title>
+    <md-card-content>
+      <p class="md-body-1" ng-if="! ctrl.result.stepResults || ctrl.result.stepResults || isEmpty">
+        No workflow submissions.
+      </p>
+      <workflow-result ng-if="ctrl.adminMode" result="ctrl.result" workflow="ctrl.workflow"></workflow-result>
+    </md-card-content>
+  </md-card>
+
+</div><!-- wfm-maincol-scroll -->
+
+
+<md-button ng-if="ctrl.adminMode" class="md-fab" aria-label="New Workorder" ui-sref="app.workorder.new">
+  <md-icon md-font-set="material-icons">add</md-icon>
+</md-button>

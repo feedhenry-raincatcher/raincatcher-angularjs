@@ -1,0 +1,30 @@
+<div ng-if="ctrl.model">
+
+  <md-toolbar class="content-toolbar md-primary">
+    <div class="md-toolbar-tools">
+      <h3>{{(ctrl.model.id || ctrl.model._localuid) ? 'Update' : 'Create'}} workflow</h3>
+      <span flex></span>
+      <md-button class="md-icon-button" aria-label="Close" ng-click="ctrl.selectWorkflow($event, ctrl.model)">
+        <md-icon md-font-set="material-icons">close</md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+
+  <div class="wfm-maincol-scroll">
+    <form name="workflowForm" ng-submit="ctrl.done(workflowForm.$valid)" novalidate layout-padding layout-margin>
+
+      <div>
+        <md-input-container class="md-block">
+          <label>Title</label>
+          <input type="text" id="title" name="title" ng-model="ctrl.model.title" required>
+          <div ng-messages="workflow.title.$error" ng-if="ctrl.submitted || workflowForm.title.$dirty">
+            <div ng-message="required">A title is required.</div>
+          </div>
+        </md-input-container>
+      </div>
+
+      <md-button type="submit" class="md-raised md-primary">{{ctrl.model.id ? 'Update' : 'Create'}} Workflow</md-button>
+    </form>
+  </div>
+</div>
+

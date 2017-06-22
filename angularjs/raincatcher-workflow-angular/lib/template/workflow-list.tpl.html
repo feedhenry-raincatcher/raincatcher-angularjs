@@ -1,0 +1,28 @@
+<md-toolbar>
+  <div class="md-toolbar-tools">
+    <h3>
+      <span>Workflows</span>
+    </h3>
+  </div>
+</md-toolbar>
+
+<form action="#" class="persistent-search">
+  <label for="search"><i class="material-icons">search</i></label>
+  <input type="text" id="search" placeholder="Search" ng-model="searchValue" ng-change="ctrl.applyFilter(searchValue)">
+</form>
+
+<md-list ng-if="ctrl.workflows">
+  <md-list-item ng-repeat="workflow in ctrl.workflows" ng-click="ctrl.selectWorkflow($event, workflow)"
+                ng-class="{active: selected.id === (workflow.id || workflow._localuid)}" >
+    <div class="md-list-item-text">
+      <p>
+        {{workflow.title}} <br/>
+        <md-icon ng-if="workflow._syncStatus" md-font-set="material-icons" class="material-icons sync-error-icon">
+          sync_problem
+        </md-icon>
+        <i ng-if="workflow._syncStatus" class="sync-error-message"> Sync failed: {{workflow._syncStatus.message}} </i>
+      </p>
+    </div>
+    <md-divider></md-divider>
+  </md-list-item>
+</md-list>

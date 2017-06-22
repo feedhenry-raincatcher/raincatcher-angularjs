@@ -1,0 +1,7 @@
+<div class="workflow" >
+  <workflow-progress ng-if="ctrl.workflow" workflow="ctrl.workflow" step-index="ctrl.stepIndex"></workflow-progress>
+
+  <div class="workflow-content">
+    <workflow-step ng-if="ctrl.stepCurrent" id="workflow-step" workorder="ctrl.workorder" step="ctrl.stepCurrent"></workflow-step>
+  </div>
+</div>
