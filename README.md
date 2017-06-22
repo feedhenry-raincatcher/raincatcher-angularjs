@@ -1,23 +1,11 @@
 # RainCatcher
-Feedhenry RainCatcher Core Repository
+Feedhenry RainCatcher Angularjs Repository
+Default UI implementation for Raincatcher
 
-## About RainCatcher
+## About RainCatcher angularjs
 
-## Developing
-
-RainCatcher supports and is tested on Node.JS@4 and should run on latest LTS.
-
-Check your Node.JS version running `node -v`
-
-### Setup
-
-```bash
-git clone https://github.com/feedhenry-raincatcher/raincatcher-core.git
-cd raincatcher
-npm install -g lerna
-npm install
-lerna bootstrap
-```
+Raincatcher angularjs is default UI implementation for [Raincatcher Core Framework](https://github.com/feedhenry-raincatcher/raincatcher-core).
+For more information about RainCatcher please refer to main repository.
 
 ## Repository folder structure
 
@@ -25,14 +13,11 @@ This repository contains many subpackages managed through [Lerna](https://lernaj
 contained in the following directories:
 
 <dl>
-  <dt>client/</dt>
-  <dd>Front-end packages, from API clients to user interface modules</dd>
-
-  <dt>cloud/</dt>
-  <dd>Cloud app packages, intended to be run on an Node.JS environment</dd>
+  <dt>angularjs/</dt>
+  <dd>Packages implementing angularjs directives and other ui components used in demo applications</dd>
 
   <dt>demo/</dt>
-  <dd>Full-fledged Demo applications, showcasing the usage of multiple modules</dd>
+  <dd>Full-fledged demo applications, showcasing the usage of multiple modules</dd>
 
   <dt>templates/</dt>
   <dd>Templates and examples for other packages in the repository</dd>
@@ -43,73 +28,6 @@ contained in the following directories:
 In order to create a new package, we recommend duplicating
 [`examples/base`](./examples/base/README.md), which is a sample base that contains the skeleton
 expected of a new package. Refer to the linked README for more details.
-
-## Package structure
-
-### Directories
-
-<dl>
-  <dt>src/</dt>
-  <dd>Contains the TypeScript sources.</dd>
-
-  <dt>test/</dt>
-  <dd>The unit tests for the module. Should contain a `mocha.opts` file for configuring Mocha.</dd>
-
-  <dt>coverage/ and .nyc_output</dt>
-  <dd>Istanbul output, should be .gitignored.</dd>
-</dl>
-
-### Module structure
-
-RainCatcher modules are written in [TypeScript](http://typescriptlang.org).
-
-The main files are modules that by default export a class containing the main implementation for the module's intent,
-with a named export containing a public interface that should be depended upon, and reimplemented.
-
-```typescript
-import Implementation, { PublicInterface } from '@raincatcher/module';
-```
-
-See the [Reusing unit tests](#reusing-unit-tests) section in order to know how to leverage the existing test suites on
-custom implementations.
-
-#### Default exports
-
-For each module, the default export is the main implementation itself, as the most common scenario is it being used by
-the requiring code.
-
-Other RainCatcher modules depend only on the interfaces explained in the [next section](#public-interface)
-
-#### Public interface
-
-Along with the default export, all modules include a public interface definition that are depended upon by other
-RainCatcher modules instead of depending on the implementation itself.
-See the [BaseModule](examples/base/src/index.ts) for an example.
-
-This is done so they can be more easily replaced or extended by custom implementations.
-Custom modules can skip this concern.
-
-#### Unit test structure
-
-For each module unit tests are present on the `test/` folder, the Mocha default for storing the `mocha.opts` file as well.
-
-Since code that requires a module's tests are most likely interested in a reusable test suite, the `test/index.ts` file's default export should be a function that receives all the required parameters for running the test suite on a given implementation of the interface.
-
-```typescript
-import publicInterfaceTestSuite from '@raincatcher/module/test';
-import { PublicInterface } from '@raincatcher/module';
-
-class MyClass implements PublicInterface {
-  // ...
-}
-
-// test/MyClass.ts
-describe('MyClass', function() {
-  publicInterfaceTestSuite(MyClass);
-});
-```
-
-Tests for the module's specific implementation can be included as other files inside the same folder.
 
 ### Using modules from JavaScript
 
@@ -130,8 +48,6 @@ Before publishing the typescript modules, do a manual compilation step via `npm 
  `npm run bootstrap` - perform boostrap for all modules
 
  `npm run start` - run top level applications
-
- `npm run lint` - execute tslint for all modules
 
  `npm run build` - execute the build command for all modules, compiling TypeScript sources to JavaScript
 
