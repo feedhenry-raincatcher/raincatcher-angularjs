@@ -11,21 +11,17 @@ function createMainAppRoute($stateProvider, $urlRouterProvider) {
       abstract: true,
       templateUrl: 'app/main.tpl.html',
       resolve: {
-        profileData: function(userClient) {
-          return userClient.getProfile();
-        },
-        syncManagers: function(syncPool, profileData) {
-          return syncPool.syncManagerMap(profileData);
-        },
-        workorderManager: function(syncManagers) {
-          return syncManagers.workorders;
-        },
-        workflowManager: function(syncManagers) {
-          return syncManagers.workflows;
-        }
+        // profileData: function(userClient) {
+        //   return userClient.getProfile();
+        // },
+        // workorderManager: function(syncManagers) {
+        //   return syncManagers.workorders;
+        // },
+        // workflowManager: function(syncManagers) {
+        //   return syncManagers.workflows;
+        // }
       },
-      controller: function($rootScope, $scope, $state, $mdSidenav, mediator, profileData) {
-        $scope.profileData = profileData;
+      controller: function($rootScope, $scope, $state, $mdSidenav, mediator) {
         $scope.toggleSidenav = function(event, menuId) {
           $mdSidenav(menuId).toggle();
           event.stopPropagation();

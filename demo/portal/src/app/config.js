@@ -2,7 +2,6 @@ var angular = require('angular');
 
 
 /**
- *
  * Configuration script for the main portal application.
  *
  * This script sets up the resolvers for the sync managers used to manage:
@@ -26,21 +25,17 @@ function AppConfig($stateProvider, $urlRouterProvider) {
         columns: 3
       },
       resolve: {
-        profileData: function(userClient) {
-          return userClient.getProfile();
-        },
-        syncManagers: function(syncPool, profileData) {
-          return syncPool.syncManagerMap(profileData);
-        },
-        workorderManager: function(syncManagers) {
-          return syncManagers.workorders;
-        },
-        workflowManager: function(syncManagers) {
-          return syncManagers.workflows;
-        }
+        // profileData: function(userClient) {
+        //   return userClient.getProfile();
+        // },
+        // workorderManager: function(syncManagers) {
+        //   return syncManagers.workorders;
+        // },
+        // workflowManager: function(syncManagers) {
+        //   return syncManagers.workflows;
+        // }
       },
-      controller: function($scope, $state, $mdSidenav, mediator, profileData) {
-        $scope.profileData = profileData;
+      controller: function($scope, $state, $mdSidenav, mediator) {
         $scope.$state = $state;
         $scope.toggleSidenav = function(event, menuId) {
           $mdSidenav(menuId).toggle();

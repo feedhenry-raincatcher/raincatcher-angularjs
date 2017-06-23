@@ -7,7 +7,7 @@ angular.module('app', [
   require('angular-material'),
   require('ng-sortable'),
   require('./feedhenry')
-  // Commented until this modules will be
+  // Commented until this modules will be migrated
   // , require('@raincatcher/workorder-angular')({
   //   mode: "admin",
   //   listColumnViewId: "column2",

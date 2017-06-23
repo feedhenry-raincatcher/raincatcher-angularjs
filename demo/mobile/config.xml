@@ -2,9 +2,9 @@
 <widget id="com.redhat.demo.wfm" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>FeedHenry WFM</name>
   <description>
-        A demo of the RHMAP WFM modules.
+      A demo mobile of the Feedhenry RainCatcher
     </description>
-  <author email="bleathem@gmail.com" href="http://feedhenry.org">
+  <author email="feedhenry-raincatcher@redhat.com" href="http://feedhenry.org">
       Red Hat Mobile
   </author>
   <content src="index.html"/>

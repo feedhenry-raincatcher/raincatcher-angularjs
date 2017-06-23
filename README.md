@@ -2,7 +2,7 @@
 
 Reference mobile and website implementation for RainCatcher
 
-## About RainCatcher ~ngularjs
+## About RainCatcher Angularjs
 
 RainCatcher Angularjs is reference mobile and website implementation for [Raincatcher Core Framework](https://github.com/feedhenry-raincatcher/raincatcher-core).
 For more information about RainCatcher please refer to main repository.
