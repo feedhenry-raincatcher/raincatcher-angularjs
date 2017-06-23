@@ -1,0 +1,329 @@
+$primary-text-color: rgba(0,0,0,.87);
+$secondary-text-color: rgba(0,0,0,.54);
+$divider-text-color: rgba(0,0,0,.12);
+
+$white-text-color: rgba(255,255,255,1);
+$white-secondary-text-color: rgba(255,255,255,.7);
+
+$primary-color: #3F51B5;
+$secondary-color: #303F9F;
+
+$accent-color-1: #a63db8;
+$accent-color-2: #4d5bb3;
+$accent-color-3: #1aa094;
+$accent-color-4: #283593;
+
+$success: #388E3C;//green700
+$danger: #F44336; //red 500
+
+.success{ color: $success;}
+.danger{ color: $danger;}
+
+// TODO uncomment once modules are rafactored
+// @import 'node_modules/@raincatcher/workflow-angular/lib/workflow.scss';
+// @import 'node_modules/@raincatcher/workorder-angular/lib/workorder.scss';
+
+// tabs
+md-tabs md-tab-item{
+  color: $secondary-text-color !important;
+}
+
+md-toolbar.md-warn > md-tabs.md-default-theme, md-tabs > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active, md-toolbar.md-warn > md-tabs.md-default-theme, md-tabs > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused{
+  color: $primary-color !important;
+}
+
+.user-info-header{
+  background-size: cover;
+  background-position: center center;
+  background-color: #333;
+  h1{
+    margin: 0;
+    padding: 180px 16px 16px;
+    color: #fff;
+    background-image: linear-gradient(to top,rgba(0,0,0,.6) 10%, transparent 60%);
+  }
+}
+
+// wfm-file-list ==========
+
+.wfm-file-list{
+  md-icon {margin-top: 0!important}
+  md-list-item{
+    display: flex;
+    align-items: center;
+    .md-list-item-text{
+      margin: 8px 0;
+      display: flex;
+      align-items: center;
+      img{
+        max-height: 70px;
+        margin: 8px 10px 8px 0;
+      }
+    }
+  }
+}
+
+// Chip
+
+.wfm-chip{
+  background-color: $divider-text-color;
+  display: inline-block;
+  margin-left: 8px;
+  border-radius: 16px;
+}
+
+.wfm-chip-picture{
+  float: left;
+  img{
+    border-radius: 50%;
+    height: 32px;
+    width: 32px;
+    display: block;
+  }
+}
+
+.wfm-chip-name{
+  display: inline-block;
+  margin: 0 12px 0 8px;
+}
+
+.wfm-chip-no-picture{
+  line-height: 32px;
+  background-color: $primary-color;
+  color: #fff;
+  .wfm-chip-name{
+    margin: 0 12px;
+  }
+}
+
+// appform phone
+.phone-display{
+ // TODO add this image to the project
+  background: url(/img/iPhone-6.png) no-repeat 0 0;
+  width: 485px;
+  height: 891px;
+  .app-form{
+    width: 342px;
+    height: 598px;
+    border: 1px solid $divider-text-color;
+    border-top: none;
+    position: relative;
+    top: 120px;
+    left: 51px;
+    overflow: auto;
+    .workflow-actions{
+      margin-top: 40px;
+      position: static;
+      box-shadow: none;
+      border-top: 1px solid $divider-text-color;
+    }
+  }
+}
+
+// Header styles
+.md-toolbar-tools h1 {
+  font-size: inherit;
+  font-weight: inherit;
+  margin: inherit;
+}
+
+md-list{
+  margin: 0;
+  padding: 0;
+}
+
+// Search
+
+.persistent-search{
+  position: relative;
+  label{ position: absolute;
+    left: 16px;
+    top: 13px;
+    color: $secondary-text-color;
+  }
+  input{
+    font-size: 16px;
+    display: block;
+    border: none;
+    width: calc(100% - 89px);
+    padding: 15px 16px 14px 72px;
+ //   background: tan ;
+    border-bottom: 1px solid $divider-text-color;
+    border-right: 1px solid $divider-text-color;
+  }
+}
+
+// Sidenav area
+
+md-sidenav md-list{
+  padding: 0;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+md-list-item button{
+  border-radius: 0!important;
+}
+
+md-list-item.list-header{
+  min-height: 64px;
+  color: #fff;
+  background: #3F51B5;
+}
+
+md-list-item.active .md-button, md-list-item.active .md-button:hover{
+  background: #E8EAF6!important;
+  cursor: default;
+}
+
+.main-toolbar{
+  z-index: 99999999;
+}
+
+.dividerdemoBasicUsage .face {
+  border-radius: 30px;
+  border: 1px solid #ddd;
+  width: 48px;
+  margin: 16px; }
+
+
+//empty state
+.empty-state{
+  text-align: center;
+  color: rgba(0,0,0,.54);
+}
+
+
+// Main column
+.wfm-maincol-scroll{
+  overflow-y: auto;
+  height: calc(100vh - 131px);
+  &.wfm-maincol-scroll_with-menu{
+    height: calc(100vh - 179px);
+  }
+}
+
+// Inner column
+.inner-column{
+  md-list{
+    background: rgba(0,0,0,.05);
+    overflow-y: auto;
+    height: calc(100vh - 180px);
+  }
+  md-list-item.active .md-button, md-list-item.active .md-button:hover{
+  background: #fff!important;
+    md-toolbar{
+      border-right: 1px solid rgba(0,0,0,.24)
+    }
+  }
+}
+
+
+// FAB
+
+.md-fab{
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+}
+
+/* ************************************** */
+/* Mandatory CSS required for ng-sortable */
+/* ************************************** */
+
+.as-sortable-item, .as-sortable-placeholder {
+    display: block;
+}
+
+.as-sortable-item {
+    -ms-touch-action: none;
+    touch-action: none;
+    overflow: hidden;
+}
+
+.as-sortable-item-handle {
+    cursor: move;
+    cursor: -webkit-grab;
+    cursor: -moz-grab;
+}
+
+.as-sortable-placeholder {
+}
+
+.as-sortable-drag {
+    position: absolute;
+    left: inherit !important;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+.as-sortable-hidden {
+    display: none !important;
+}
+
+.as-sortable-un-selectable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.worflow-steps-actions {
+  position: relative;
+}
+
+.worflow-add-in-list {
+  margin-left: 20px;
+  margin-top: 30px;
+  position: relative;
+}
+
+/* ******************************************* */
+/* Optional CSS, default style for ng-sortable */
+/* ******************************************* */
+
+.as-sortable-item, .as-sortable-placeholder {
+  min-height: 20px;
+  margin-bottom: 10px;
+  border-radius: 2px;
+}
+
+.as-sortable-item {
+  padding: 0 16px;
+}
+
+.as-sortable-item-handle {
+}
+
+.as-sortable-placeholder {
+  border: 1px dashed darkgrey;
+  box-sizing: border-box;
+  background-color: #dbdbdb;
+}
+
+.as-sortable-drag {
+  opacity: .8;
+}
+
+.as-sortable-hidden {
+}
+
+#gmap_canvas {
+}
+
+#gmap_canvas img {
+  max-width: none!important;
+  background: none!important;
+}
+
+.spinner-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  background-color: rgba(0,0,0,0.5); /*dim the background*/
+}

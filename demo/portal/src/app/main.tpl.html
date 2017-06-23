@@ -1,0 +1,38 @@
+<md-toolbar layout="row" class="md-primary md-hue-2 md-whiteframe-z1 main-toolbar">
+  <div class="md-toolbar-tools">
+    <md-button ng-click="toggleSidenav($event, 'left')" hide-gt-sm class="md-icon-button">
+      <md-icon aria-label="Menu" md-font-set="material-icons">menu</md-icon>
+    </md-button>
+    <h1 ng-click="navigateTo('app.home')">FeedHenry Work Force Management</h1>
+  </div>
+</md-toolbar>
+
+  <div layout="row" flex>
+
+    <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')">
+      <md-list>
+        <md-list-item ng-click="navigateTo('app.workorder')" ng-class="{active: $state.includes('app.workorder')}">
+          <md-icon md-font-set="material-icons">assignment</md-icon>
+          <p>Workorders</p>
+        </md-list-item>
+        <md-list-item ng-click="navigateTo('app.workflow')" ng-class="{active: $state.includes('app.workflow')}">
+          <md-icon md-font-set="material-icons">cached</md-icon>
+          <p>Workflows</p>
+        </md-list-item>
+        <md-divider></md-divider>
+
+        <md-list-item ng-click="navigateTo('app.login')">
+          <md-icon md-font-set="material-icons">exit_to_app</md-icon>
+          <p>Logout</p>
+        </md-list-item>
+
+      </md-list>
+    </md-sidenav>
+
+    <md-content id="content" layout="row" flex>
+      <div flex="33" ui-view name="column2" class="inner-column" ng-class="{hide: $state.current.data.columns < 3}"></div>
+      <!--template loaded here -->
+      <div flex ui-view name="content"></div>
+    </md-content>
+
+</div>
