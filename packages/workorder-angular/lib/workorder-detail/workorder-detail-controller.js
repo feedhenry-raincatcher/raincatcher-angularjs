@@ -1,23 +1,21 @@
 var CONSTANTS = require('../constants');
 
 /**
- *
  * Controller for displaying workorder details to the user.
- * @param mediator
  * @param WORKORDER_CONFIG
  * @constructor
  */
 
-function WorkorderDetailController(mediator, WORKORDER_CONFIG, workorderStatusService) {
+function WorkorderDetailController($state, WORKORDER_CONFIG, workorderStatusService, workorderFlowService) {
   var self = this;
 
   self.adminMode = WORKORDER_CONFIG.adminMode;
 
   self.selectWorkorder = function(event, workorder) {
     if (workorder.id) {
-      mediator.publish('wfm:workorder:selected', workorder);
+      workorderFlowService.workorderSelected(workorder);
     } else {
-      mediator.publish('wfm:workorder:list');
+      workorderFlowService.listWorkorders();
     }
 
     event.preventDefault();
@@ -30,4 +28,4 @@ function WorkorderDetailController(mediator, WORKORDER_CONFIG, workorderStatusSe
 }
 
 
-angular.module(CONSTANTS.WORKORDER_DIRECTIVE).controller('WorkorderDetailController', ["mediator", 'WORKORDER_CONFIG', 'workorderStatusService', WorkorderDetailController]);
+angular.module(CONSTANTS.WORKORDER_DIRECTIVE).controller('WorkorderDetailController', ['$state','WORKORDER_CONFIG', 'workorderStatusService', 'workorderFlowService', WorkorderDetailController]);

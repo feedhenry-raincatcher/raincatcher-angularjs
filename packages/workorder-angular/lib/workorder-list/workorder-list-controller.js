@@ -1,18 +1,12 @@
 var CONSTANTS = require('../constants');
 
 /**
- *
  * Controller for listing Workorders
  *
- * @param $scope
- * @param {Mediator} mediator
- * @param {WorkorderMediatorService} workorderMediatorService
- * @param workorderStatusService
- * @param $q
  * @constructor
  */
 
-function WorkorderListController($scope, mediator, workorderMediatorService, $q, workorderStatusService) {
+function WorkorderListController($scope, workorderApiService, $q, workorderStatusService) {
   var self = this;
   var _workorders = [];
 
@@ -20,7 +14,7 @@ function WorkorderListController($scope, mediator, workorderMediatorService, $q,
   self.resultMap = {};
 
   function refreshWorkorderData() {
-    $q.all([workorderMediatorService.listWorkorders(), workorderMediatorService.resultMap()]).then(function(results) {
+    $q.all([workorderApiService.listWorkorders(), workorderApiService.resultMap()]).then(function(results) {
       self.workorders = results[0];
       _workorders = results[0];
       self.resultMap = results[1];
@@ -30,10 +24,11 @@ function WorkorderListController($scope, mediator, workorderMediatorService, $q,
   refreshWorkorderData();
 
   //Whenever the list is updated from the server, refresh the workorder list.
-  workorderMediatorService.subscribeToListUpdated($scope, refreshWorkorderData);
+  workorderApiService.subscribeToListUpdated($scope, refreshWorkorderData);
 
   self.selectWorkorder = function(event, workorder) {
-    mediator.publish('wfm:ui:workorder:selected', workorder);
+      workorderFlowService.workorderSelected(workorder);
+
     event.preventDefault();
     event.stopPropagation();
   };
@@ -59,4 +54,4 @@ function WorkorderListController($scope, mediator, workorderMediatorService, $q,
   };
 }
 
-angular.module(CONSTANTS.WORKORDER_DIRECTIVE).controller('WorkorderListController', ['$scope', 'mediator', 'workorderMediatorService', '$q', 'workorderStatusService', WorkorderListController]);
+angular.module(CONSTANTS.WORKORDER_DIRECTIVE).controller('WorkorderListController', ['$scope', 'workorderApiService', '$q', 'workorderStatusService', WorkorderListController]);

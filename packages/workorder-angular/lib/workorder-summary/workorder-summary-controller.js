@@ -1,7 +1,7 @@
 var CONSTANTS = require('../constants');
 var debug = require('../utils/logger')(__filename);
 
-function WorkorderSummaryController($scope, $mdDialog, mediator, $stateParams, workorderMediatorService, $q, WORKORDER_CONFIG) {
+function WorkorderSummaryController($scope, $mdDialog, $state, $stateParams, workorderApiService, $q, WORKORDER_CONFIG) {
   var self = this;
 
   self.adminMode = WORKORDER_CONFIG.adminMode;
@@ -11,20 +11,20 @@ function WorkorderSummaryController($scope, $mdDialog, mediator, $stateParams, w
 
   function refreshWorkorderData() {
     //Need to read the workorder from the state parameter
-    var workorderPromise = workorderMediatorService.readWorkorder(workorderId);
+    var workorderPromise = workorderApiService.readWorkorder(workorderId);
 
     var workflowPromise = workorderPromise.then(function(workorder) {
-      return workorderMediatorService.readWorkflow(workorder.workflowId);
+      return workorderApiService.readWorkflow(workorder.workflowId);
     });
 
     var resultPromise = workorderPromise.then(function(workorder) {
-      return $q.when(workorderMediatorService.resultMap().then(function(resultMap) {
+      return $q.when(workorderApiService.resultMap().then(function(resultMap) {
         return resultMap[workorder.id];
       }));
     });
 
     var workerPromise = workorderPromise.then(function(workorder) {
-      return workorder && workorder.assignee ? workorderMediatorService.readUser(workorder.assignee) : $q.when(null);
+      return workorder && workorder.assignee ? workorderApiService.readUser(workorder.assignee) : $q.when(null);
     });
     //TODO: Error handling
     $q.all([workorderPromise, workflowPromise, resultPromise, workerPromise])
@@ -41,7 +41,7 @@ function WorkorderSummaryController($scope, $mdDialog, mediator, $stateParams, w
 
   refreshWorkorderData();
   // Whenever the list is updated from the server, refresh the workorder list.
-  workorderMediatorService.subscribeToListUpdated($scope, refreshWorkorderData);
+  workorderApiService.subscribeToListUpdated($scope, refreshWorkorderData);
 
 
 
@@ -60,10 +60,10 @@ function WorkorderSummaryController($scope, $mdDialog, mediator, $stateParams, w
       .ok('Proceed')
       .cancel('Cancel');
     $mdDialog.show(confirm).then(function() {
-      return workorderMediatorService.removeWorkorder(workorder)
+      return workorderApiService.removeWorkorder(workorder)
         .then(function() {
           //Finished removing the workorder, go back to the list.
-          mediator.publish('wfm:ui:workorder:list');
+             $state.go('app.workorder', null, { reload: true });
         }, function(err) {
           //TODO: Error Handling
           throw err;
@@ -73,4 +73,4 @@ function WorkorderSummaryController($scope, $mdDialog, mediator, $stateParams, w
 }
 
 
-angular.module(CONSTANTS.WORKORDER_DIRECTIVE).controller('WorkorderSummaryController', ['$scope', '$mdDialog', 'mediator', '$stateParams', 'workorderMediatorService', '$q', 'WORKORDER_CONFIG', WorkorderSummaryController]);
+angular.module(CONSTANTS.WORKORDER_DIRECTIVE).controller('WorkorderSummaryController', ['$scope', '$mdDialog', '$state', '$stateParams', 'workorderApiService', '$q', 'WORKORDER_CONFIG', WorkorderSummaryController]);
