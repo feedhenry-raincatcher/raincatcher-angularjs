@@ -18,8 +18,15 @@ module.exports = function(grunt) {
           run: true
         }
       }
+    },
+    wfmTemplate: {
+      module: "wfm.workorder.directives",
+      templateDir: "lib/template",
+      outputDir: "dist"
     }
   });
+
+  grunt.loadNpmTasks('fh-wfm-template-build');
   grunt.registerTask('test', ['eslint', 'mochaTest']);
   grunt.registerTask('default', ['test']);
 };

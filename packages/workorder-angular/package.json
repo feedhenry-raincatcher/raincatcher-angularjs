@@ -4,8 +4,8 @@
   "description": "Angular UI Implementation of Workorders",
   "main": "lib/workorder-ng.js",
   "scripts": {
-    "build": "wfm-template-build -m 'wfm.workorder.directives' -t lib/template",
-    "watch": "wfm-template-build -w -m 'wfm.workorder.directives' -t lib/template",
+    "build": "grunt wfmTemplate:build",
+    "watch": "grunt wfmTemplate:watch",
     "test": "grunt test"
   },
   "author": "feedhenry-raincatcher@redhat.com",
@@ -24,10 +24,10 @@
     "shortid": "2.2.6"
   },
   "devDependencies": {
+    "fh-wfm-template-build": "0.2.1",
     "body-parser": "1.15.0",
     "chai": "^3.5.0",
     "eslint": "^3.17.1",
-    "fh-wfm-template-build": "0.2.1",
     "grunt": "1.0.1",
     "grunt-eslint": "18.0.0",
     "grunt-mocha-test": "0.13.2",
