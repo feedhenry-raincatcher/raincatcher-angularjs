@@ -1,5 +1,4 @@
 var CONSTANTS = require('../constants');
-var debug = require('../utils/logger')(__filename);
 
 function WorkorderSummaryController($scope, $mdDialog, $state, $stateParams, workorderApiService, $q, WORKORDER_CONFIG) {
   var self = this;
@@ -34,7 +33,6 @@ function WorkorderSummaryController($scope, $mdDialog, $state, $stateParams, wor
         self.result = results[2];
         self.assignee = results[3];
       }).catch(function(err) {
-        debug("ERROR", err);
         console.log("ERROR", err);
       });
   }

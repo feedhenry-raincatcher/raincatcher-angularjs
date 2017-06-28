@@ -7,14 +7,13 @@ var CONSTANTS = require('../constants');
  *
  * @param $scope
  * @param $mdDialog
- * @param mediator
  * @param $stateParams
- * @param workflowMediatorService
+ * @param workflowApiService
  * @param $timeout
  * @param $q
  * @constructor
  */
-function WorkflowDetailController($scope, $mdDialog, mediator, $stateParams, workflowMediatorService, $q, $timeout) {
+function WorkflowDetailController($scope, $mdDialog, $stateParams, workflowApiService, workflowFlowService, $q, $timeout) {
   var self = this;
   self.workflow = null;
 
@@ -22,18 +21,17 @@ function WorkflowDetailController($scope, $mdDialog, mediator, $stateParams, wor
   self.dragControlListeners = {
     containment: '#stepList',
     orderChanged :  function() {
-      workflowMediatorService.updateWorkflow(self.workflow);
+      workflowApiService.updateWorkflow(self.workflow);
     }
   };
 
-  $q.all([workflowMediatorService.readWorkflow($stateParams.workflowId), workflowMediatorService.listWorkorders()]).then(function(results) {
+  $q.all([workflowApiService.readWorkflow($stateParams.workflowId), workflowApiService.listWorkorders()]).then(function(results) {
     $timeout(function() {
       self.workflow = results[0];
       self.workorders = results[1];
     });
   });
 
-  //TODO: Can optimise..
   function showDeleteDialog(workorders, event) {
     var workflowId  = self.workflow.id || self.workflow._localuid;
 
@@ -71,10 +69,10 @@ function WorkflowDetailController($scope, $mdDialog, mediator, $stateParams, wor
 
     showDeleteDialog(self.workorders, event)
       .then(function() {
-        return workflowMediatorService.removeWorkflow(workflow);
+        return workflowApiService.removeWorkflow(workflow);
       })
       .then(function() {
-        mediator.publish(workflowMediatorService.workflowUITopics.getTopic(CONSTANTS.TOPICS.LIST));
+        workflowFlowService.goToWorkflowList();
       }, function(err) {
         //TODO: Proper Error Handling.
         throw err;
@@ -87,12 +85,12 @@ function WorkflowDetailController($scope, $mdDialog, mediator, $stateParams, wor
       if (workflow.steps[stepIndex].code === step.code) {
         workflow.steps.splice(stepIndex, 1);
       }
-      workflowMediatorService.updateWorkflow(workflow)
+      workflowApiService.updateWorkflow(workflow)
         .then(function(_workflow) {
-          mediator.publish(workflowMediatorService.workflowUITopics.getTopic(CONSTANTS.TOPICS.SELECTED), _workflow);
+          workflowFlowService.goToWorkflowDetails(_workflow);
         });
     });
   };
 }
 
-angular.module(CONSTANTS.WORKFLOW_DIRECTIVE_MODULE).controller('WorkflowDetailController', ['$scope', '$mdDialog', 'mediator', '$stateParams', 'workflowMediatorService', '$q', '$timeout', WorkflowDetailController]);
+angular.module(CONSTANTS.WORKFLOW_DIRECTIVE_MODULE).controller('WorkflowDetailController', ['$scope', '$mdDialog', '$stateParams', 'workflowApiService', 'workflowFlowService', '$q', '$timeout', WorkflowDetailController]);

@@ -3,7 +3,7 @@ var CONSTANTS = require('../constants');
 /**
  * Service for controlling flow (transitions) for workorders
  */
-angular.module(CONSTANTS.WORKORDER_MODULE_ID).service(CONSTANTS.WORKORDER_FLOW_SERVICE,
+angular.module('wfm.workorder.flowservices',[]).service(CONSTANTS.WORKORDER_FLOW_SERVICE,
   ["$state", "WORKORDER_CONFIG", "workorderApiService", function ($state, WORKORDER_CONFIG, workorderApiService) {
 
     function workorderSelected(workorder) {
@@ -29,3 +29,5 @@ angular.module(CONSTANTS.WORKORDER_MODULE_ID).service(CONSTANTS.WORKORDER_FLOW_S
       listWorkorders: listWorkorders
     }
   }]);
+
+module.exports = 'wfm.workorder.flowservices';

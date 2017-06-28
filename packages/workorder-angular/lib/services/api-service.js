@@ -3,6 +3,10 @@ var CONSTANTS = require('../constants');
 function WorkorderApiService() {
 };
 
+WorkorderApiService.prototype.listWorkorders = function listWorkorders() {
+  return;
+};
+
 WorkorderApiService.prototype.readWorkorder = function readWorkorder(workorderId) {
   return;
 };
@@ -62,6 +66,8 @@ WorkorderApiService.prototype.resultMap = function () {
     });
 };
 
-angular.module(CONSTANTS.WORKORDER_MODULE_ID).service(CONSTANTS.WORKORDER_API_SERVICE, ["WORKORDER_CONFIG", function (WORKORDER_CONFIG) {
+angular.module('wfm.workorder.apiservices', []).service(CONSTANTS.WORKORDER_API_SERVICE, ["WORKORDER_CONFIG", function (WORKORDER_CONFIG) {
   return new WorkorderApiService(WORKORDER_CONFIG);
 }]);
+
+module.exports = 'wfm.workorder.apiservices'

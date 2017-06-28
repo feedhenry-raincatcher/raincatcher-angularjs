@@ -1,7 +1,6 @@
 'use strict';
 var CONSTANTS = require('./constants');
 
-
 module.exports = function(config) {
   config = config || {};
   angular.module(CONSTANTS.WORKORDER_MODULE_ID, [
@@ -11,7 +10,5 @@ module.exports = function(config) {
     require('./services/flow-service'),
     require('./directive')(config),
   ]);
-  return 'wfm.workorder';
+  return CONSTANTS.WORKORDER_MODULE_ID;
 };
-
-

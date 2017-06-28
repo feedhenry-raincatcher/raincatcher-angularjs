@@ -4,20 +4,19 @@ var CONSTANTS = require('../constants');
 /**
  * Controller for editing / creating Workflows
  * @param $scope
- * @param workflowMediatorService
+ * @param workflowApiService
  * @param $stateParams
  * @param $q
- * @param mediator
  * @param $timeout
  * @constructor
  */
-function WorkflowFormController($scope, workflowMediatorService, $stateParams, $q, mediator, $timeout) {
+function WorkflowFormController($scope, workflowApiService, workflowFlowService, $stateParams, $q, $timeout) {
   var self = this;
   self.model = false;
   self.submitted = false;
 
   //If there is no workflow ID, then we are creating a new workflow.
-  var workflowPromise = $stateParams.workflowId ? workflowMediatorService.readWorkflow($stateParams.workflowId) : $q.when({
+  var workflowPromise = $stateParams.workflowId ? workflowApiService.readWorkflow($stateParams.workflowId) : $q.when({
     steps: []
   });
 
@@ -32,23 +31,23 @@ function WorkflowFormController($scope, workflowMediatorService, $stateParams, $
     self.submitted = true;
     if (isValid) {
       var hasId = self.model.id || self.model._localuid;
-      var createUpdatePromise = hasId ? workflowMediatorService.updateWorkflow(self.model) : workflowMediatorService.createWorkflow(self.model);
+      var createUpdatePromise = hasId ? workflowApiService.updateWorkflow(self.model) : workflowApiService.createWorkflow(self.model);
 
       createUpdatePromise.then(function(updatedCreatedWorkflow) {
-        mediator.publish(workflowMediatorService.workflowUITopics.getTopic(CONSTANTS.TOPICS.SELECTED), updatedCreatedWorkflow);
+        workflowFlowService.goToWorkflowDetails(updatedCreatedWorkflow);
       });
     }
   };
 
   self.selectWorkflow = function(event, workflow) {
     if (workflow.id) {
-      mediator.publish(workflowMediatorService.workflowUITopics.getTopic(CONSTANTS.TOPICS.SELECTED), workflow);
+      workflowFlowService.goToWorkflowDetails(workflow);
     } else {
-      mediator.publish(workflowMediatorService.workflowUITopics.getTopic(CONSTANTS.TOPICS.LIST));
+      workflowFlowService.goToWorkflowList();
     }
     event.preventDefault();
     event.stopPropagation();
   };
 }
 
-angular.module(CONSTANTS.WORKFLOW_DIRECTIVE_MODULE).controller("WorkflowFormController", ['$scope', 'workflowMediatorService', '$stateParams', '$q', 'mediator', '$timeout', WorkflowFormController]);
+angular.module(CONSTANTS.WORKFLOW_DIRECTIVE_MODULE).controller("WorkflowFormController", ['$scope', 'workflowApiService', 'workflowFlowService', '$stateParams', '$q', '$timeout', WorkflowFormController]);

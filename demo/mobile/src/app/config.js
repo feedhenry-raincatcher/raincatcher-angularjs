@@ -21,7 +21,7 @@ function createMainAppRoute($stateProvider, $urlRouterProvider) {
         //   return syncManagers.workflows;
         // }
       },
-      controller: function($rootScope, $scope, $state, $mdSidenav, mediator) {
+      controller: function($rootScope, $scope, $state, $mdSidenav) {
         $scope.toggleSidenav = function(event, menuId) {
           $mdSidenav(menuId).toggle();
           event.stopPropagation();
