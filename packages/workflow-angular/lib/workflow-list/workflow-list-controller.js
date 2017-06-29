@@ -5,13 +5,12 @@ var CONSTANTS = require('../constants');
  * Controller for listing workorders
  *
  * @param $scope
- * @param mediator
  * @param $stateParams
- * @param {WorkflowMediatorService} workflowMediatorService
+ * @param {workflowApiService} workflowApiService
  * @param $timeout
  * @constructor
  */
-function WorkflowListController($scope, mediator, $stateParams, workflowMediatorService, $timeout) {
+function WorkflowListController($scope, $stateParams, workflowApiService, $timeout) {
   var self = this;
   self.workflows = null;
   self.selectedWorkflowId = $stateParams.workflowId;
@@ -19,7 +18,7 @@ function WorkflowListController($scope, mediator, $stateParams, workflowMediator
 
 
   function refreshWorkflows() {
-    workflowMediatorService.listWorkflows().then(function(workflows) {
+    workflowApiService.listWorkflows().then(function(workflows) {
       $timeout(function() {
         _workflows = workflows;
         self.workflows = workflows;
@@ -29,11 +28,11 @@ function WorkflowListController($scope, mediator, $stateParams, workflowMediator
 
   refreshWorkflows();
 
-  workflowMediatorService.subscribeToWorkflowCRUDDoneTopics($scope, refreshWorkflows);
+  workflowApiService.subscribeToWorkflowCRUDDoneTopics($scope, refreshWorkflows);
 
   self.selectWorkflow = function(event, workflow) {
     self.selectedWorkflowId = workflow.id;
-    mediator.publish(workflowMediatorService.workflowUITopics.getTopic(CONSTANTS.TOPICS.SELECTED), workflow);
+    workflowFlowService.goToWorkflowDetails(workflow);
   };
 
   //TODO : Should be a service.
@@ -46,4 +45,4 @@ function WorkflowListController($scope, mediator, $stateParams, workflowMediator
   };
 }
 
-angular.module(CONSTANTS.WORKFLOW_DIRECTIVE_MODULE).controller('WorkflowListController', [ '$scope', 'mediator', '$stateParams', 'workflowMediatorService', '$timeout', WorkflowListController]);
+angular.module(CONSTANTS.WORKFLOW_DIRECTIVE_MODULE).controller('WorkflowListController', [ '$scope',  '$stateParams', 'workflowApiService', 'workflowFlowService', '$timeout', WorkflowListController]);

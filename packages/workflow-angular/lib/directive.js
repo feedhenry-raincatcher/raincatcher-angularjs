@@ -3,25 +3,22 @@
 var CONSTANTS = require('./constants');
 
 /**
- *
  * Entry point for the fh-wfm-workflow module.
  *
  * @param {object} config - Config for the fh-wfm-workflow module
  * @returns {string}
  */
 module.exports = function(config) {
-  angular.module(CONSTANTS.WORKFLOW_DIRECTIVE_MODULE, [
-    'wfm.core.mediator'
-  ]).constant("WORKFLOW_CONFIG", config);
+  angular.module(CONSTANTS.WORKFLOW_DIRECTIVE_MODULE, []).constant("WORKFLOW_CONFIG", config);
 
   //Adding any html templates to the $template cache for this module.
   require('../dist');
 
-  //Running any functionality required for when the module starts
-  require('./initialisation');
+  //Workflow api facade
+  require('./services/api-service');
 
-  //Creating the service that publishes / subscribes any mediator topics related to this module.
-  require('./mediator-service');
+  //Creating the service that interacts with angular router
+  require('./services/flow-service');
 
   //This is the functionality required to progress through a workflow.
   require('./workflow-process');

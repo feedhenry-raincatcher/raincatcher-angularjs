@@ -47,25 +47,3 @@ This is the identifier for the Angular view where the list of Workorders will be
 | workorder | Listing the detail for a single Workorder |
 | workorder-summary | Listing the detail for the workorder, along with the result, if completed. |
 | workorder-form | A form for updating and deleting Workorders |
-
-## Topics
-
-As part of rendering Workorders, this module publishes and subscribes to several topics. These topics can be implemented in your application or you can use the fh-wfm-workorder module that already has implementations for these topics.
-
-### Published Topics
-
-Each of the following topics subscribes to the `error` and `done` topics. If the parameter includes a `topicUid`, the error topic should have the `topicUid` appended to the `done` or `error` topic.
-
-| Topic | Parameters |
-| ---- | ----------- |
-| *wfm:workorders:list* | NONE |
-| *wfm:workorders:read* | `{id: "IDOFWORKORDER", topicUID: "IDOFWORKORDER}` |
-| *wfm:workorders:create* | `{ workorderToCreate: workorderToCreate, topicUid: topicUid}` |
-| *wfm:workorders:update* | `{ workorderToUpdate: workorderToCreate, topicUid: topicUid}` |
-| *wfm:workorders:remove* | `{ id: "IDOFWORKORDER, topicUid: "IDOFWORKORDER"}` |
-| *wfm:workflows:list* | NONE |
-| *wfm:workflows:read* | `{id: workflowId, topicUid: workflowId}` |
-| *wfm:results:list* | NONE |
-| *wfm:users:list* | NONE |
-| *wfm:users:read* | `{id: userId, topicUid: userId}` |
-

@@ -1,12 +1,10 @@
 'use strict';
 var CONSTANTS = require('./constants');
-
-
 module.exports = function(config) {
   config = config || {};
 
   config.adminMode = config.mode === CONSTANTS.MODES.ADMIN;
-  angular.module(CONSTANTS.WORKORDER_DIRECTIVE, ['wfm.core.mediator'])
+  angular.module(CONSTANTS.WORKORDER_DIRECTIVE, [])
     .constant("WORKORDER_CONFIG", config);
 
   require('../dist');

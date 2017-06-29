@@ -35,7 +35,7 @@ function AppConfig($stateProvider, $urlRouterProvider) {
         //   return syncManagers.workflows;
         // }
       },
-      controller: function($scope, $state, $mdSidenav, mediator) {
+      controller: function($scope, $state, $mdSidenav) {
         $scope.$state = $state;
         $scope.toggleSidenav = function(event, menuId) {
           $mdSidenav(menuId).toggle();

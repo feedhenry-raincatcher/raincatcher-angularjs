@@ -9,13 +9,12 @@ var CONSTANTS = require('../../constants');
  *
  * @param $scope
  * @param $state
- * @param mediator
- * @param workflowMediatorService
+ * @param workflowApiService
  * @param $timeout
  * @param $stateParams
  * @constructor
  */
-function WorkflowProcessStepsController($scope, $state, mediator, workflowMediatorService, $timeout, $stateParams) {
+function WorkflowProcessStepsController($scope, $state, workflowApiService, $timeout, $stateParams) {
   var self = this;
   var workorderId = $stateParams.workorderId;
 
@@ -46,18 +45,18 @@ function WorkflowProcessStepsController($scope, $state, mediator, workflowMediat
   }
 
   self.back = function() {
-    workflowMediatorService.previousStep(workorderId).then(function(workflowSummary) {
+    workflowApiService.previousStep(workorderId).then(function(workflowSummary) {
       updateWorkflowState(workflowSummary);
     });
   };
 
   //Beginning the workflow
-  workflowMediatorService.beginWorkflow(workorderId).then(function(workflowSummary) {
+  workflowApiService.beginWorkflow(workorderId).then(function(workflowSummary) {
     updateWorkflowState(workflowSummary);
   });
 
-  mediator.subscribeForScope("wfm:workflow:step:done", $scope, function(submission) {
-    workflowMediatorService.completeStep({
+  workflowApiService.nextStepSubscriber(function(submission) {
+    workflowApiService.completeStep({
       workorderId: workorderId,
       submission: submission,
       stepCode: self.stepCurrent.code
@@ -66,9 +65,9 @@ function WorkflowProcessStepsController($scope, $state, mediator, workflowMediat
     });
   });
 
-  mediator.subscribeForScope("wfm:workflow:step:back", $scope, function() {
+  workflowApiService.previousStepSubscriber(function() {
     self.back();
   });
 }
 
-angular.module(CONSTANTS.WORKFLOW_DIRECTIVE_MODULE).controller('WorkflowProcessStepsController', ['$scope', '$state', 'mediator', 'workflowMediatorService', '$timeout', '$stateParams', WorkflowProcessStepsController]);
+angular.module(CONSTANTS.WORKFLOW_DIRECTIVE_MODULE).controller('WorkflowProcessStepsController', ['$scope', '$state', 'workflowApiService', '$timeout', '$stateParams', WorkflowProcessStepsController]);

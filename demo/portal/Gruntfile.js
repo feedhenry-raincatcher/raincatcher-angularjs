@@ -15,7 +15,7 @@ module.exports = function(grunt) {
     alias: {
     },
     external: [
-      'lodash', 'q', 'rx', 'async', 'c3', 'd3', 'mediator-js', 'angular', 'angular-ui-router', 'angular-material', 'ng-sortable'
+      'lodash', 'q', 'rx', 'async', 'c3', 'd3', 'angular', 'angular-ui-router', 'angular-material', 'ng-sortable'
     ]
   };
 

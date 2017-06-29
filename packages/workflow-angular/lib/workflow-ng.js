@@ -7,7 +7,6 @@ module.exports = function(config) {
 
   angular.module(CONSTANTS.WORKFLOW_MODULE_ID, [
     require('./directive')(config)
-    , require('./service.js')
   ]);
 
   return CONSTANTS.WORKFLOW_MODULE_ID;

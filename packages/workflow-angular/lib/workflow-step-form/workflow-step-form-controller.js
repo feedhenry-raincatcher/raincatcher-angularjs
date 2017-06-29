@@ -1,7 +1,7 @@
 var CONSTANTS = require('../constants');
 var _ = require('lodash');
 
-function WorkflowStepFormController($scope, mediator, workflowMediatorService, $q, $timeout, $stateParams) {
+function WorkflowStepFormController($scope, workflowApiService, workflowFlowService, $q, $timeout, $stateParams) {
   var self = this;
   self.submitted = false;
   var existingStep;
@@ -33,7 +33,7 @@ function WorkflowStepFormController($scope, mediator, workflowMediatorService, $
     }
   }
 
-  workflowMediatorService.readWorkflow($stateParams.workflowId).then(function(workflow) {
+  workflowApiService.readWorkflow($stateParams.workflowId).then(function(workflow) {
     $timeout(function() {
       self.workflow = workflow;
       setUpStepData();
@@ -53,17 +53,17 @@ function WorkflowStepFormController($scope, mediator, workflowMediatorService, $
         self.workflow.steps.push(self.model.step);
       }
 
-      workflowMediatorService.updateWorkflow(self.workflow).then(function(updatedWorkflow) {
-        mediator.publish(workflowMediatorService.workflowUITopics.getTopic(CONSTANTS.TOPICS.SELECTED), updatedWorkflow);
+      workflowApiService.updateWorkflow(self.workflow).then(function(updatedWorkflow) {
+        workflowFlowService.goToWorkflowDetails(updatedWorkflow);
       });
     }
   };
 
   self.selectWorkflow = function(event, workflow) {
-    mediator.publish(workflowMediatorService.workflowUITopics.getTopic(CONSTANTS.TOPICS.SELECTED), workflow);
+    workflowFlowService.goToWorkflowDetails(workflow);
     event.preventDefault();
     event.stopPropagation();
   };
 }
 
-angular.module(CONSTANTS.WORKFLOW_DIRECTIVE_MODULE).controller("WorkflowStepFormController", ['$scope', 'mediator', 'workflowMediatorService', '$q', '$timeout', '$stateParams', WorkflowStepFormController]);
+angular.module(CONSTANTS.WORKFLOW_DIRECTIVE_MODULE).controller("WorkflowStepFormController", ['$scope', 'workflowApiService', 'workflowFlowService', '$q', '$timeout', '$stateParams', WorkflowStepFormController]);

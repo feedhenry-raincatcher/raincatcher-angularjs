@@ -3,44 +3,37 @@ var CONSTANTS = require('../constants');
 /**
  *
  * Controller for editing and creating workorders.
- *
- * @param $scope
- * @param mediator
- * @param workorderMediatorService
- * @param $stateParams
- * @param $q
- *
  * @constructor
  */
-function WorkorderFormController($scope, mediator, workorderMediatorService, $stateParams, $q) {
+function WorkorderFormController($scope, $state, workorderApiService, workorderFlowService, $stateParams, $q) {
   var self = this;
   var today = new Date();
-  today.setHours(today.getHours()-24);
+  today.setHours(today.getHours() - 24);
   $scope.today = today.toISOString();
   var maxDate = new Date();
-  maxDate.setFullYear(today.getFullYear()+100);
+  maxDate.setFullYear(today.getFullYear() + 100);
   $scope.maxDate = maxDate.toISOString();
   self.submitted = false;
 
 
-  var workorderId  = $stateParams.workorderId;
+  var workorderId = $stateParams.workorderId;
   //Need workorder, workflows, workers
   //If there is a workorder ID in the state URL, then we are editing a worokorder, otherwise we are creating a new one.
-  var workorderPromise = workorderId ? workorderMediatorService.readWorkorder(workorderId) : $q.when({location: []});
-  var workflowsPromise = workorderMediatorService.listWorkflows();
-  var workersPromise = workorderMediatorService.listUsers();
+  var workorderPromise = workorderId ? workorderApiService.readWorkorder(workorderId) : $q.when({ location: [] });
+  var workflowsPromise = workorderApiService.listWorkflows();
+  var workersPromise = workorderApiService.listUsers();
 
-  self.selectWorkorder = function(event, workorder) {
+  self.selectWorkorder = function (event, workorder) {
     if (workorder.id) {
-      mediator.publish('wfm:ui:workorder:selected', workorder);
+      workorderFlowService.workorderSelected(workorder);
     } else {
-      mediator.publish('wfm:ui:workorder:list');
+      workorderFlowService.listWorkorders();
     }
     event.preventDefault();
     event.stopPropagation();
   };
 
-  self.done = function(isValid) {
+  self.done = function (isValid) {
     self.submitted = true;
     if (isValid) {
       self.model.startTimestamp = new Date(self.model.startDate);
@@ -59,21 +52,20 @@ function WorkorderFormController($scope, mediator, workorderMediatorService, $st
 
       var createUpdatePromise;
       if (!self.model.id && self.model.id !== 0) {
-        createUpdatePromise = workorderMediatorService.createWorkorder(workorderToCreate);
+        createUpdatePromise = workorderApiService.createWorkorder(workorderToCreate);
       } else {
-        createUpdatePromise = workorderMediatorService.updateWorkorder(workorderToCreate);
+        createUpdatePromise = workorderApiService.updateWorkorder(workorderToCreate);
       }
 
-      createUpdatePromise.then(function() {
+      createUpdatePromise.then(function () {
         //Finished with the update/create, go back to the list.
-        mediator.publish('wfm:ui:workorder:selected', workorderToCreate);
+        workorderFlowService.workorderSelected(workorderToCreate);
       });
     }
   };
 
-
   //TODO: Error handling
-  $q.all([workorderPromise, workflowsPromise, workersPromise]).then(function(results) {
+  $q.all([workorderPromise, workflowsPromise, workersPromise]).then(function (results) {
     self.model = results[0];
     self.workflows = results[1];
     self.workers = results[2];
@@ -90,4 +82,4 @@ function WorkorderFormController($scope, mediator, workorderMediatorService, $st
   });
 }
 
-angular.module(CONSTANTS.WORKORDER_DIRECTIVE).controller('WorkorderFormController', ['$scope', 'mediator', 'workorderMediatorService', '$stateParams', '$q', WorkorderFormController]);
+angular.module(CONSTANTS.WORKORDER_DIRECTIVE).controller('WorkorderFormController', ['$scope', '$state', 'workorderApiService', 'workorderFlowService', '$stateParams', '$q', WorkorderFormController]);

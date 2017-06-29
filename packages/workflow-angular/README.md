@@ -8,7 +8,6 @@ This module is packaged in a CommonJS format, exporting the name of the Angular 
 The module can be included in an angular.js as follows:
 
 ```javascript
-
 var config = {
   mode: 'admin',
   listColumnViewId: 'listColumnView',
@@ -37,7 +36,7 @@ This is the identifier for the Angular view where the main Workflow views will b
 #### listColumnViewId (Optional)
 
 This is the identifier for the Angular view where the list of Workflows will be rendered into.
-This is useful for organising where the lists will be rendered on-screen.
+This is useful for organizing where the lists will be rendered on-screen.
 If not specified, the lists will be rendered into the `mainColumnViewId`.
 This is only used for the `admin` mode of the module.
 
@@ -71,62 +70,10 @@ The `workflow-process-steps` route publishes topics to get the current state of 
 Based on the state, the `workflow-step` directive renders the template defined in the workflow step.
 At this point, control is passed to the module that implements the individual step.
 
-
-## Topics
-
-As part of rendering Workflows, this module publishes and subscribes to several topics.
-These topics can be implemented in your application or you can use the fh-wfm-workflow module that already has implementations for these topics.
-
-### Published Topics
-
-Each of the following topics subscribes to the `error` and `done` topics.
-If the parameter includes a `topicUid`, the error topic should have the `topicUid` appended to the `done` or `error` topic.
-
-| Topic | Parameters |
-| ---- | ----------- |
-| *wfm:workflows:list* | NONE |
-| *wfm:workflows:read* | `{id: "IDOFWORKFLOW", topicUID: "IDOFWORKFLOW"}` |
-| *wfm:workflows:create* | `{ workflowToCreate: workflowToCreate, topicUid: topicUid}` |
-| *wfm:workflows:update* | `{ workflowToUpdate: workflowToCreate, topicUid: topicUid}` |
-| *wfm:workflows:remove* | `{ id: "IDOFWORKFLOW, topicUid: "IDOFWORKFLOW"}` |
-| *wfm:workorders:list* | NONE |
-
-#### Step Topics
-
-The following topics allow the updating of the workflow state to progress through a workflow.
-
-Each of the `done` topics for the following topics contin the following parameters
-
-
-```
-{
-    workflow: {
-      //The details of the current workflow being progressed
-    },
-    workorder: {
-      //The details of the current workorder being progressed
-    },
-    result: {
-      //The current result object for this workorder being progressed
-    },
-    nextStepIndex: 0 //The index of the next step to display
-    step: {
-        //The details of the step to display
-    }
-}
-```
-
-| Topic | Parameters |
-| ---- | ----------- |
-| *wfm:workflows:step:begin*| `{workorderId: "WORKORDERID", topicUid: "WORKORDERID"}` |
-| *wfm:workflows:step:summary*| `{workorderId: "WORKORDERID", topicUid: "WORKORDERID"}` |
-| *wfm:workflows:step:previous*| `{workorderId: "WORKORDERID", topicUid: "WORKORDERID"}` |
-| *wfm:workflows:step:complete*| `{workorderId: "WORKORDERID", topicUid: "WORKORDERID", submission: {...}, stepCode: "CODEOFCOMPLETEDSTEP"}` |
-
 ## Development
 
 Install module dependencies
-    
+
       npm install
 
 Link module into your app

@@ -8,15 +8,15 @@ angular.module('wfm-mobile', [
   require('angular-ui-router'),
   require('angular-material'),
   // Commented until this modules will be migrated
-  // require('@raincatcher/workflow-angular')({
-  //   mode: "user",
-  //   mainColumnViewId: "content@app"
-  // }),
-  // require('@raincatcher/workorder-angular')({
-  //   mode: "user",
-  //   mainColumnViewId: "content@app",
-  //   toolbarViewId: "toolbar@app"
-  // })
+  require('@raincatcher/workflow-angular')({
+    mode: "user",
+    mainColumnViewId: "content@app"
+  }),
+  require('@raincatcher/workorder-angular')({
+    mode: "user",
+    mainColumnViewId: "content@app",
+    toolbarViewId: "toolbar@app"
+  })
 ]);
 
 require('./config');
