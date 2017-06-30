@@ -18,7 +18,7 @@
     "angular-messages": "1.5.3",
     "angular-ui-router": "0.2.18",
     "bluebird": "^3.5.0",
-    "lodash": "4.7.0",
+    "lodash": "4.7.0"
   },
   "devDependencies": {
     "fh-wfm-template-build": "0.2.1",
