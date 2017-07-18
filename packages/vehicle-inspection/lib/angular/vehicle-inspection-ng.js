@@ -1,6 +1,7 @@
 'use strict';
 
 var ngModule = angular.module('wfm.vehicle-inspection', []);
+var handler = require('./vehicle-inspection-handler');
 
 require('../../dist');
 
@@ -24,13 +25,12 @@ ngModule.directive('vehicleInspectionForm', function($templateCache) {
     var self = this;
     self.model = {};
     self.back = function(event) {
-      // FIXME implement step back event
+      handler.previous(new Task(self.model), syncRepository.getProcessInstance(self.model.workorderId));
       event.preventDefault();
       event.stopPropagation();
     };
     self.done = function(event) {
-      // FIXME implement step done event
-      // done(self.model);
+      handler.next(new Task(self.model), syncRepository.getProcessInstance(self.model.workorderId));
       event.preventDefault();
       event.stopPropagation();
     };
@@ -39,4 +39,7 @@ ngModule.directive('vehicleInspectionForm', function($templateCache) {
   };
 });
 
-module.exports = 'wfm.vehicle-inspection';
+module.exports = function(config) {
+
+  return 'wfm.vehicle-inspection';
+};

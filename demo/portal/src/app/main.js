@@ -6,18 +6,19 @@ angular.module('app', [
   require('angular-ui-router'),
   require('angular-material'),
   require('ng-sortable'),
-  require('./feedhenry')
+  require('./feedhenry'),
   // Commented until this modules will be migrated
-  , require('@raincatcher/workorder-angular')({
+  require('@raincatcher/workorder-angular')({
     mode: "admin",
     listColumnViewId: "column2",
     mainColumnViewId: "content@app"
-  })
-  , require('@raincatcher/workflow-angular')({
+  }),
+  require('@raincatcher/workflow-angular')({
     mode: "admin",
     listColumnViewId: "column2",
     mainColumnViewId: "content@app"
-  })
+  }),
+  require('@raincatcher/vehicle-inspection')
 ]);
 
 require('./config');

@@ -1,4 +1,29 @@
 var CONSTANTS = require('../constants');
+var _ = require('lodash');
+
+var taskFixtures = [
+  {
+    type: 'vehicle-inspection',
+    status: 0,
+    assigneeId: 'trever'
+  }
+];
+var processFixtures = [
+  {
+    id: 'process1',
+    displayName: 'Test Process 1',
+    tasks: _.cloneDeep(taskFixtures)
+  }
+];
+var processInstanceFixtures = [
+  {
+    id: 'processInstance1',
+    displayName: 'Test ProcessInstance 1',
+    tasks: _.cloneDeep(taskFixtures),
+    processId: 'process1',
+    assigneeId: 'trever'
+  }
+];
 
 function WorkflowApiService(config) {
 }
@@ -8,6 +33,7 @@ function WorkflowApiService(config) {
  * @returns {Promise}
  */
 WorkflowApiService.prototype.listWorkflows = function () {
+  return processFixtures;
 };
 
 /**
@@ -16,6 +42,7 @@ WorkflowApiService.prototype.listWorkflows = function () {
  * @returns {Promise}
  */
 WorkflowApiService.prototype.listWorkorders = function () {
+  return processInstanceFixtures;
 };
 
 
@@ -26,6 +53,7 @@ WorkflowApiService.prototype.listWorkorders = function () {
  * @returns {Promise}
  */
 WorkflowApiService.prototype.readWorkflow = function (workflowId) {
+  return processFixtures[0];
 };
 
 /**
@@ -35,6 +63,7 @@ WorkflowApiService.prototype.readWorkflow = function (workflowId) {
  * @returns {Promise}
  */
 WorkflowApiService.prototype.readWorkorder = function (workorderId) {
+  return processInstanceFixtures[1];
 };
 
 /**
@@ -46,6 +75,7 @@ WorkflowApiService.prototype.readWorkorder = function (workorderId) {
  * @returns {Promise}
  */
 WorkflowApiService.prototype.updateWorkflow = function (workflowToUpdate) {
+  this.processFixtures[0] = workflowToUpdate;
 };
 
 
@@ -57,6 +87,7 @@ WorkflowApiService.prototype.updateWorkflow = function (workflowToUpdate) {
  * @returns {Promise}
  */
 WorkflowApiService.prototype.createWorkflow = function (workflowToCreate) {
+  this.processFixtures.push(workflowToCreate);
 };
 
 /**
