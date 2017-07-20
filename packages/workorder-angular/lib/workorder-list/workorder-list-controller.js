@@ -6,7 +6,7 @@ var CONSTANTS = require('../constants');
  * @constructor
  */
 
-function WorkorderListController($scope, workorderApiService, $q, workorderStatusService) {
+function WorkorderListController($scope, workorderApiService, workorderFlowService, $q, workorderStatusService) {
   var self = this;
   var _workorders = [];
 
@@ -54,4 +54,4 @@ function WorkorderListController($scope, workorderApiService, $q, workorderStatu
   };
 }
 
-angular.module(CONSTANTS.WORKORDER_DIRECTIVE).controller('WorkorderListController', ['$scope', 'workorderApiService', '$q', 'workorderStatusService', WorkorderListController]);
+angular.module(CONSTANTS.WORKORDER_DIRECTIVE).controller('WorkorderListController', ['$scope', 'workorderApiService', 'workorderFlowService', '$q', 'workorderStatusService', WorkorderListController]);
