@@ -1,8 +1,8 @@
 var CONSTANTS = require('../constants');
 
-function WorkflowApiService(config, workflowService, workorderService) {
-  this.workflowService = workflowService;
-  this.workorderService = workorderService;
+function WorkflowApiService(config) {
+  this.workflowService = {};
+  this.workorderService = {};
 }
 
 /**
@@ -145,6 +145,6 @@ WorkflowApiService.prototype.previousStepSubscriber = function(subscriberFunctio
 WorkflowApiService.prototype.completeStep = function(parameters) {
 };
 
-angular.module(CONSTANTS.WORKFLOW_DIRECTIVE_MODULE).service(CONSTANTS.WORKFLOW_API_SERVICE, ['WORKFLOW_CONFIG', 'workflowService', 'workorderService', function(WORKFLOW_CONFIG, workflowService, workorderService) {
-  return new WorkflowApiService(WORKFLOW_CONFIG, workflowService, workorderService);
+angular.module(CONSTANTS.WORKFLOW_DIRECTIVE_MODULE).service(CONSTANTS.WORKFLOW_API_SERVICE, ['WORKFLOW_CONFIG', function(WORKFLOW_CONFIG) {
+  return new WorkflowApiService(WORKFLOW_CONFIG);
 }]);

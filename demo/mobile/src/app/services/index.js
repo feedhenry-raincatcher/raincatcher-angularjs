@@ -1,8 +1,7 @@
 
-angular.module('wfm.common.apiservices',[]);
+angular.module('wfm.common.apiservices', ['wfm.sync']);
 
 require("./resultService");
-require("./userService");
 require('./wfmService');
 require('./workflowService');
 require('./workorderService');

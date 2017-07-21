@@ -8,6 +8,8 @@ angular.module('wfm-mobile', [
   require('angular-ui-router'),
   require('angular-material'),
   // Set of the data services
+  require('./modules/user'),
+  require('./modules/sync'),
   require('./services'),
   require('@raincatcher/workflow-angular')({
     mode: "user",
