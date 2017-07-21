@@ -1,6 +1,9 @@
 var Promise = require("bluebird");
 
-function WorkorderApiService() {
+function WorkorderApiService(syncManager) {
+  this.syncManager = syncManager;
+  console.log('hello from WorkorderApiService');
+  console.log(syncManager);
 }
 
 /**
@@ -85,7 +88,7 @@ WorkorderApiService.prototype.listResults = function listResults() {
 WorkorderApiService.prototype.resultMap = function() {
   return this.listResults()
     .then(function(results) {
-      WorkorderApiService.prototype.map = {};
+      var map = {};
       results.forEach(function(result) {
         map[result.workorderId] = result;
       });
@@ -93,6 +96,6 @@ WorkorderApiService.prototype.resultMap = function() {
     });
 };
 
-angular.module('wfm.common.apiservices').service("workorderService", function() {
-  return new WorkorderApiService();
-});
+angular.module('wfm.common.apiservices').service("workorderService", ["syncManager", function(syncManager) {
+  return new WorkorderApiService(syncManager);
+}]);
