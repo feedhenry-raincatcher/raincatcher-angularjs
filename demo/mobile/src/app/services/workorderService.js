@@ -1,7 +1,7 @@
 var Promise = require("bluebird");
 
 function WorkorderApiService() {
-};
+}
 
 /**
  * Listing all workorders
@@ -82,17 +82,17 @@ WorkorderApiService.prototype.listResults = function listResults() {
  *
  * @returns {*}
  */
-WorkorderApiService.prototype.resultMap = function () {
+WorkorderApiService.prototype.resultMap = function() {
   return this.listResults()
-    .then(function (results) {
+    .then(function(results) {
       WorkorderApiService.prototype.map = {};
-      results.forEach(function (result) {
+      results.forEach(function(result) {
         map[result.workorderId] = result;
       });
       return map;
     });
 };
 
-angular.module('wfm.common.apiservices').service("workorderService", function () {
+angular.module('wfm.common.apiservices').service("workorderService", function() {
   return new WorkorderApiService();
 });
