@@ -23,6 +23,6 @@ ResultService.prototype.resultMap = function () {
     });
 };
 
-angular.module('wfm.common.apiservices', []).service("resultService", function () {
+angular.module('wfm.common.apiservices').service("resultService", function () {
   return new ResultService();
 });

@@ -1,6 +1,7 @@
 var Promise = require("bluebird");
 
-function WorkflowService() {
+function WorkflowService(syncManager) {
+
 }
 
 /**
@@ -55,6 +56,6 @@ WorkflowService.prototype.removeWorkflow = function (workflowToRemove) {
   return Promise.resolve();
 };
 
-angular.module('wfm.common.apiservices', []).service("workflowService", function () {
+angular.module('wfm.common.apiservices').service("workflowService", function () {
   return new WorkflowService();
 });

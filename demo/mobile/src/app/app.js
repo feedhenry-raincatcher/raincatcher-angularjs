@@ -9,11 +9,7 @@ angular.module('wfm-mobile', [
   require('angular-material'),
   // Set of the data services
   require('./services'),
-  require('@raincatcher/workflow-angular')({
-    mode: "user",
-    mainColumnViewId: "content@app"
-  }),
-  require('@raincatcher/workorder-angular')({
+  require('@raincatcher/wfm-angular')({
     mode: "user",
     mainColumnViewId: "content@app",
     toolbarViewId: "toolbar@app"

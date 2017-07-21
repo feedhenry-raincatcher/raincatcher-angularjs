@@ -1,0 +1,16 @@
+require('./workflow-detail.tpl.html.js');
+require('./workflow-empty.tpl.html.js');
+require('./workflow-form.tpl.html.js');
+require('./workflow-list.tpl.html.js');
+require('./workflow-process-begin.tpl.html.js');
+require('./workflow-process-complete.tpl.html.js');
+require('./workflow-process-steps.tpl.html.js');
+require('./workflow-process-toolbar.tpl.html.js');
+require('./workflow-progress.tpl.html.js');
+require('./workflow-step-detail.tpl.html.js');
+require('./workflow-step-form.tpl.html.js');
+require('./workorder-empty.tpl.html.js');
+require('./workorder-form.tpl.html.js');
+require('./workorder-list.tpl.html.js');
+require('./workorder-summary.tpl.html.js');
+require('./workorder.tpl.html.js');

@@ -19,9 +19,8 @@ $danger: #F44336; //red 500
 .success{ color: $success;}
 .danger{ color: $danger;}
 
-// Uncomment when integrating modules
-// @import 'node_modules/@raincatcher/workflow-angular/lib/workflow.scss';
-// @import 'node_modules/@raincatcher/workorder-angular/lib/workorder.scss';
+@import 'node_modules/@raincatcher/wfm-angular/lib/workflow.scss';
+@import 'node_modules/@raincatcher/wfm-angular/lib/workorder.scss';
 
 .wfm-night{
   &:after{

@@ -93,6 +93,6 @@ WorkorderApiService.prototype.resultMap = function () {
     });
 };
 
-angular.module('wfm.common.apiservices', []).service("workorderService", function () {
+angular.module('wfm.common.apiservices').service("workorderService", function () {
   return new WorkorderApiService();
 });
