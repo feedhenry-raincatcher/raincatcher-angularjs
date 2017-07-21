@@ -1,8 +1,8 @@
 {
-  "name": "@raincatcher/workflow-angular",
+  "name": "@raincatcher/wfm-angular",
   "version": "1.0.0",
-  "description": "An Angularjs implementation for workflows",
-  "main": "lib/workflow-ng.js",
+  "description": "An Angularjs implementation for BPMN process",
+  "main": "lib/wfm-ng.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/feedhenry-raincatcher/raincatcher-workflow-angular.git"
@@ -22,7 +22,13 @@
     "lodash": "4.7.0",
     "ng-feedhenry": "0.3.0",
     "bluebird": "^3.5.0",
-    "string-template": "^1.0.0"
+    "string-template": "^1.0.0",
+    "angular": "^1.5.0",
+    "angular-animate": "1.6.2",
+    "angular-aria": "1.6.2",
+    "angular-material": "1.0.7",
+    "angular-messages": "1.5.3",
+    "angular-ui-router": "0.2.18"
   },
   "devDependencies": {
     "fh-wfm-template-build": "0.2.1",
@@ -34,6 +40,10 @@
     "sinon": "1.17.6",
     "sinon-as-promised": "4.0.2",
     "chai": "^3.5.0",
-    "proxyquire": "^1.7.10"
+    "proxyquire": "^1.7.10",
+    "body-parser": "1.15.0",
+    "eslint": "^3.17.1",
+    "request": "2.69.0",
+    "should": "8.3.0"
   }
 }

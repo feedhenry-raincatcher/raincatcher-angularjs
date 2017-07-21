@@ -18,7 +18,7 @@ module.exports = function(grunt) {
       }
     },
     wfmTemplate: {
-      module: "wfm.workflow.directives",
+      module: "wfm.template.directives",
       templateDir: "lib/template",
       outputDir: "dist"
     }

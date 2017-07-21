@@ -15,10 +15,10 @@ module.exports = function(config) {
   require('../dist');
 
   //Workflow api facade
-  require('./services/api-service');
+  require('./services-workflow/api-service');
 
   //Creating the service that interacts with angular router
-  require('./services/flow-service');
+  require('./services-workflow/flow-service');
 
   //This is the functionality required to progress through a workflow.
   require('./workflow-process');

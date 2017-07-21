@@ -15,8 +15,7 @@
   "author": "feedhenry-raincatcher@redhat.com",
   "license": "MIT",
   "dependencies": {
-    "@raincatcher/workflow-angular": "1.0.0",
-    "@raincatcher/workorder-angular": "1.0.0",
+    "@raincatcher/wfm-angular": "1.0.0",
     "@raincatcher/datasync-client": "1.0.0",
     "angular": "1.6.4",
     "angular-animate": "1.6.4",

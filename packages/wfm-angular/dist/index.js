@@ -9,3 +9,8 @@ require('./workflow-process-toolbar.tpl.html.js');
 require('./workflow-progress.tpl.html.js');
 require('./workflow-step-detail.tpl.html.js');
 require('./workflow-step-form.tpl.html.js');
+require('./workorder-empty.tpl.html.js');
+require('./workorder-form.tpl.html.js');
+require('./workorder-list.tpl.html.js');
+require('./workorder-summary.tpl.html.js');
+require('./workorder.tpl.html.js');
