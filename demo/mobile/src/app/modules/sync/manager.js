@@ -1,5 +1,5 @@
 'use strict';
-var $q = require("q");
+var Promise = require('bluebird');
 var $fh = require('fh-js-sdk');
 var syncClient = require("@raincatcher/datasync-client");
 var config = require("./config.json");
@@ -39,7 +39,7 @@ function createManager(datasetId, options, queryParams, metaData) {
  */
 function initializeManagers(profileData) {
   if (!profileData) {
-    return $q.when({});
+    return Promise.resolve({});
   }
   var filter = {
     'assignee': profileData.id
@@ -48,10 +48,10 @@ function initializeManagers(profileData) {
   createManager(config.datasetIds.workorders, config.syncOptions.workorders, filter, {});
   createManager(config.datasetIds.workflows, config.syncOptions.workflows, {}, {});
   createManager(config.datasetIds.results, config.syncOptions.results, filter, {});
-  return $q.when(syncDatasetManagers);
+  return Promise.resolve(syncDatasetManagers);
 }
 
-angular.module('wfm.sync').service('blah', ['userService', function(userService) {
+angular.module('wfm.sync').service('syncInitializer', ['userService', function(userService) {
   return userService.readLoggedInUser()
     .then(initializeManagers);
 }]);
