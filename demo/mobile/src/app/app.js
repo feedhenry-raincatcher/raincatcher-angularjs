@@ -17,7 +17,7 @@ angular.module('wfm-mobile', [
     mode: "user",
     mainColumnViewId: "content@app",
     toolbarViewId: "toolbar@app"
-  }),
+  })
 ]);
 
 require('./angularConfig');

@@ -5,7 +5,7 @@ var syncManager = require("./modules/sync/manager");
 function createMainAppRoute($stateProvider, $urlRouterProvider) {
   // if none of the states are matched, use this as the fallback
 
-  $urlRouterProvider.otherwise(function ($injector) {
+  $urlRouterProvider.otherwise(function($injector) {
     var $state = $injector.get("$state");
     $state.go("app.workorder");
   });
@@ -15,7 +15,7 @@ function createMainAppRoute($stateProvider, $urlRouterProvider) {
       abstract: true,
       templateUrl: 'app/main.tpl.html',
       resolve: {
-        profileData: function () {
+        profileData: function() {
           return q.when({
             "id": "rkX1fdSH",
             "username": "trever",
@@ -29,17 +29,17 @@ function createMainAppRoute($stateProvider, $urlRouterProvider) {
             "password": "sha1:10000:b959c88175571352c29e1e5701e587650117e20387711cd73b66366c321d361e001a51ad1c3f8b996aece681564185749f6a959e21ce7d95970dabde8b1ec82b2ace91ba368d463ebe92d1d7ec96b0d748207bbbed88b460c702131d2765de5b19c607892bd176e218c03095956d98881be5d4fe0630654c5289e7b022b6bb487c5fce0d548ac654b071301c88f2505375c110b516e25f7ccf10bc3df1624049e3008bc68ad15827eb841ae2be17855e53c2f9a6e7d575cc2b7534b10583dca3e11f020e979fd0552c76cd2cbead600abd7fb8a6619da2ecdbfbf81e518adef6c94b5521c5c4a41a14c02b9ed5619bd5fcf75c733c318356ccea74a10f9c6a4a:10c2bb710af17f75b73faf35d33874587b44bd3017e02a87a5bff57621d7a019558a660fc4a9ed476745db9812f27199fa0f8ffc3ea2dc3c5bca08913abd967c"
           });
         },
-        syncManager: function (profileData) {
+        syncManager: function(profileData) {
           return syncManager.init(profileData);
-        },
+        }
       },
-      controller: function ($rootScope, $scope, $state, $mdSidenav, profileData) {
+      controller: function($rootScope, $scope, $state, $mdSidenav, profileData) {
         $scope.profileData = profileData;
-        $scope.toggleSidenav = function (event, menuId) {
+        $scope.toggleSidenav = function(event, menuId) {
           $mdSidenav(menuId).toggle();
           event.stopPropagation();
         };
-        $scope.navigateTo = function (state, params) {
+        $scope.navigateTo = function(state, params) {
           if (state) {
             $state.go(state, params);
           }

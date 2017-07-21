@@ -1,15 +1,16 @@
 var CONSTANTS = require('../constants');
-var Promise = require("bluebird");
 
-function WorkflowApiService(config) {
+function WorkflowApiService(config, workflowService, workorderService) {
+  this.workflowService = workflowService;
+  this.workorderService = workorderService;
 }
 
 /**
  * Listing All Workflows
  * @returns {Promise}
  */
-WorkflowApiService.prototype.listWorkflows = function () {
-  return Promise.resolve([]);
+WorkflowApiService.prototype.listWorkflows = function() {
+  return this.workflowService.listWorkflows();
 };
 
 /**
@@ -17,8 +18,8 @@ WorkflowApiService.prototype.listWorkflows = function () {
  *
  * @returns {Promise}
  */
-WorkflowApiService.prototype.listWorkorders = function () {
-  return Promise.resolve([]);
+WorkflowApiService.prototype.listWorkorders = function() {
+  return this.workorderService.listWorkorders();
 };
 
 
@@ -28,8 +29,8 @@ WorkflowApiService.prototype.listWorkorders = function () {
  * @param {string} workflowId
  * @returns {Promise}
  */
-WorkflowApiService.prototype.readWorkflow = function (workflowId) {
-    return Promise.resolve({});
+WorkflowApiService.prototype.readWorkflow = function(workflowId) {
+  return this.workflowService.readWorkflow(workflowId);
 };
 
 /**
@@ -38,19 +39,20 @@ WorkflowApiService.prototype.readWorkflow = function (workflowId) {
  * @param {string} workorderId
  * @returns {Promise}
  */
-WorkflowApiService.prototype.readWorkorder = function (workorderId) {
-   return Promise.resolve({});
+WorkflowApiService.prototype.readWorkorder = function(workorderId) {
+  return this.workorderService.readWorkorder(workorderId);
 };
 
 /**
  *
  * Updating A Single Workflow
  *
- * @param {object} workflowToUpdate - The Workflow To Update
- * @param {string} workflowToUpdate.id - The ID of the Workorder To Update
+ * @param {object} workflow - The Workflow To Update
+ * @param {string} workflow.id - The ID of the Workorder To Update
  * @returns {Promise}
  */
-WorkflowApiService.prototype.updateWorkflow = function (workflowToUpdate) {
+WorkflowApiService.prototype.updateWorkflow = function(workflow) {
+  return this.workflowService.updateWorkflow(workflow);
 };
 
 
@@ -61,18 +63,20 @@ WorkflowApiService.prototype.updateWorkflow = function (workflowToUpdate) {
  * @param {object} workflowToCreate - The Workflow To Create
  * @returns {Promise}
  */
-WorkflowApiService.prototype.createWorkflow = function (workflowToCreate) {
+WorkflowApiService.prototype.createWorkflow = function(workflow) {
+  return this.workflowService.createWorkflow(workflow);
 };
 
 /**
  *
  * Removing A Single Workorder
  *
- * @param {object} workflowToRemove - The Workorder To Remove
- * @param {string} workflowToRemove.id - The ID of the workorder to remove.
+ * @param {object} workflow - The Workflow To Remove
+ * @param {string} workflow.id - The ID of the workorder to remove.
  * @returns {Promise}
  */
-WorkflowApiService.prototype.removeWorkflow = function (workflowToRemove) {
+WorkflowApiService.prototype.removeWorkflow = function(workflow) {
+  return this.workflowService.removeWorkflow(workflow);
 };
 
 /**
@@ -81,7 +85,7 @@ WorkflowApiService.prototype.removeWorkflow = function (workflowToRemove) {
  *
  * @param {string} workorderId - The ID of the workorder to begin the workflow for.
  */
-WorkflowApiService.prototype.beginWorkflow = function (workorderId) {
+WorkflowApiService.prototype.beginWorkflow = function(workorderId) {
 };
 
 /**
@@ -90,7 +94,7 @@ WorkflowApiService.prototype.beginWorkflow = function (workorderId) {
  *
  * @param {string} workorderId - The ID of the workorder to get the summary for.
  */
-WorkflowApiService.prototype.workflowSummary = function (workorderId) {
+WorkflowApiService.prototype.workflowSummary = function(workorderId) {
 };
 
 
@@ -100,7 +104,7 @@ WorkflowApiService.prototype.workflowSummary = function (workorderId) {
  *
  * @param {string} workorderId - The ID of the workorder to switch to the previous step for
  */
-WorkflowApiService.prototype.previousStep = function (workorderId) {
+WorkflowApiService.prototype.previousStep = function(workorderId) {
 
 };
 
@@ -112,7 +116,7 @@ WorkflowApiService.prototype.previousStep = function (workorderId) {
  * @param {string} workorderId - The ID of the workorder to switch to next step
  * @returns {Promise}
  */
-WorkflowApiService.prototype.nextStepSubscriber = function (subscriberFunction) {
+WorkflowApiService.prototype.nextStepSubscriber = function(subscriberFunction) {
 
 };
 
@@ -125,7 +129,7 @@ WorkflowApiService.prototype.nextStepSubscriber = function (subscriberFunction) 
  * @param {string} workorderId - The ID of the workorder to switch to next step
  * @returns {Promise}
  */
-WorkflowApiService.prototype.previousStepSubscriber = function (subscriberFunction) {
+WorkflowApiService.prototype.previousStepSubscriber = function(subscriberFunction) {
 
 };
 
@@ -138,9 +142,9 @@ WorkflowApiService.prototype.previousStepSubscriber = function (subscriberFuncti
  * @param {string} parameters.submission - The submission to save
  * @param {string} parameters.stepCode - The ID of the step to save the submission for
  */
-WorkflowApiService.prototype.completeStep = function (parameters) {
+WorkflowApiService.prototype.completeStep = function(parameters) {
 };
 
-angular.module(CONSTANTS.WORKFLOW_DIRECTIVE_MODULE).service(CONSTANTS.WORKFLOW_API_SERVICE, ['WORKFLOW_CONFIG', function (WORKFLOW_CONFIG) {
-  return new WorkflowApiService(WORKFLOW_CONFIG);
+angular.module(CONSTANTS.WORKFLOW_DIRECTIVE_MODULE).service(CONSTANTS.WORKFLOW_API_SERVICE, ['WORKFLOW_CONFIG', 'workflowService', 'workorderService', function(WORKFLOW_CONFIG, workflowService, workorderService) {
+  return new WorkflowApiService(WORKFLOW_CONFIG, workflowService, workorderService);
 }]);

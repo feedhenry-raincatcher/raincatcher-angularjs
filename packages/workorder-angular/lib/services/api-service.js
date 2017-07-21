@@ -1,9 +1,10 @@
 var CONSTANTS = require('../constants');
 var Promise = require("bluebird");
 
-function WorkorderApiService(config, workorderService) {
+function WorkorderApiService(config, workorderService, workflowService) {
   this.workorderService = workorderService;
-};
+  this.workflowService = workflowService;
+}
 
 WorkorderApiService.prototype.listWorkorders = function listWorkorders() {
   return this.workorderService.listWorkorders();
@@ -64,19 +65,19 @@ WorkorderApiService.prototype.subscribeToListUpdated = function subscribeToListU
  *
  * @returns {*}
  */
-WorkorderApiService.prototype.resultMap = function () {
+WorkorderApiService.prototype.resultMap = function() {
   return this.listResults()
-    .then(function (results) {
+    .then(function(results) {
       var map = {};
-      results.forEach(function (result) {
+      results.forEach(function(result) {
         map[result.workorderId] = result;
       });
       return map;
     });
 };
 
-angular.module(CONSTANTS.WORKORDER_DIRECTIVE).service(CONSTANTS.WORKORDER_API_SERVICE, ["WORKORDER_CONFIG", "workorderService",
-  function (WORKORDER_CONFIG, workorderService) {
+angular.module(CONSTANTS.WORKORDER_DIRECTIVE).service(CONSTANTS.WORKORDER_API_SERVICE, ["WORKORDER_CONFIG", "workorderService", "workflowService",
+  function(WORKORDER_CONFIG, workorderService, workflowService) {
 
-    return new WorkorderApiService(WORKORDER_CONFIG, workorderService);
+    return new WorkorderApiService(WORKORDER_CONFIG, workorderService, workflowService);
   }]);

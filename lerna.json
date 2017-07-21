@@ -3,7 +3,9 @@
   "packages": [
     "packages/*",
     "demo/*",
-    "core/client/*"
+    "core/client/*",
+    "core/cloud/*",
+    "core/demo/*"
   ],
   "version": "independent"
 }
