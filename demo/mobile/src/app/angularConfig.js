@@ -17,15 +17,15 @@ function createMainAppRoute($stateProvider, $urlRouterProvider) {
 angular.module('wfm-mobile')
   .config(['$stateProvider', '$urlRouterProvider', createMainAppRoute])
   .controller('mainController', [
-    '$rootScope', '$scope', '$state', 'userService',
-    function($rootScope, $scope, $state, userService) {
+    '$rootScope', '$scope', '$state', '$mdSidenav', 'userService',
+    function($rootScope, $scope, $state, $mdSidenav, userService) {
       userService.readLoggedInUser().then(function(profileData) {
         $scope.profileData = profileData;
       });
-      // $scope.toggleSidenav = function(event, menuId) {
-      //   $mdSidenav(menuId).toggle();
-      //   event.stopPropagation();
-      // };
+      $scope.toggleSidenav = function(event, menuId) {
+        $mdSidenav(menuId).toggle();
+        event.stopPropagation();
+      };
       $scope.navigateTo = function(state, params) {
         if (state) {
           $state.go(state, params);

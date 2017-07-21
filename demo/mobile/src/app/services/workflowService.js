@@ -1,7 +1,12 @@
 var Promise = require("bluebird");
 
-function WorkflowService(syncManager) {
-  console.log(syncManager);
+function WorkflowService(syncInitializer) {
+  this.workflowModulePromise = syncInitializer.then(function(managers) {
+    return managers['workflow'];
+  });
+  this.workorderModulePromise = syncInitializer.then(function(managers) {
+    return managers['workflow'];
+  });
 }
 
 /**
@@ -56,6 +61,6 @@ WorkflowService.prototype.removeWorkflow = function(workflowToRemove) {
   return Promise.resolve();
 };
 
-angular.module('wfm.common.apiservices').service("workflowService", ['syncManager', function(syncManager) {
-  return new WorkflowService(syncManager);
+angular.module('wfm.common.apiservices').service("workflowService", ['syncInitializer', function(syncInitializer) {
+  return new WorkflowService(syncInitializer);
 }]);
