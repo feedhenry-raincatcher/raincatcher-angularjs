@@ -1,10 +1,10 @@
 var Promise = require("bluebird");
 
 function UserService() {
-};
+}
 
-UserService.prototype.readUser = function readUser(userId) {
-  return Promise.resolve({
+UserService.prototype.readLoggedInUser = function() {
+  return Promise.delay(500, {
     "id": "rkX1fdSH",
     "username": "trever",
     "name": "Trever Smith",
@@ -23,6 +23,6 @@ UserService.prototype.listUsers = function listUsers() {
 };
 
 
-angular.module('wfm.common.apiservices', []).service("userService", function () {
+angular.module('wfm.user').service("userService", function() {
   return new UserService();
 });

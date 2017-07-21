@@ -1,9 +1,14 @@
 var CONSTANTS = require('../constants');
 var Promise = require("bluebird");
 
-function WorkorderApiService(config, workorderService) {
-  this.workorderService = workorderService;
-};
+function WorkorderApiService(config) {
+  this.workorderService = {
+    listWorkorders: function() {
+      return Promise.resolve([]);
+    }
+  };
+  this.workflowService = {};
+}
 
 WorkorderApiService.prototype.listWorkorders = function listWorkorders() {
   return this.workorderService.listWorkorders();
@@ -11,32 +16,32 @@ WorkorderApiService.prototype.listWorkorders = function listWorkorders() {
 
 
 WorkorderApiService.prototype.readWorkorder = function readWorkorder(workorderId) {
-  return Promise.resolve({});
+  return this.workorderService.readWorkorder(workorderId);
 };
 
-WorkorderApiService.prototype.createWorkorder = function createWorkorder(workorderToCreate) {
-  return Promise.resolve({});
+WorkorderApiService.prototype.createWorkorder = function createWorkorder(workorder) {
+  return this.workorderService.createWorkorder(workorder);
 };
 
 WorkorderApiService.prototype.begin = function begin(workorder) {
   return Promise.resolve({});
 };
 
-WorkorderApiService.prototype.updateWorkorder = function updateWorkorder(workorderToUpdate) {
-  return Promise.resolve({});
+WorkorderApiService.prototype.updateWorkorder = function updateWorkorder(workorder) {
+  return this.workorderService.updateWorkorder(workorder);
 };
 
 
-WorkorderApiService.prototype.removeWorkorder = function removeWorkorder(workorderToRemove) {
-  return Promise.resolve({});
+WorkorderApiService.prototype.removeWorkorder = function removeWorkorder(workorder) {
+  return this.workorderService.removeWorkorder(workorder);
 };
 
 WorkorderApiService.prototype.listWorkflows = function listWorkflows() {
-  return Promise.resolve([]);
+  return this.workflowService.listWorkflows();
 };
 
 WorkorderApiService.prototype.readWorkflow = function readWorkflow(workflowId) {
-  return Promise.resolve({});
+  return this.workflowService.readWorkflow(workflowId);
 };
 
 
@@ -64,19 +69,17 @@ WorkorderApiService.prototype.subscribeToListUpdated = function subscribeToListU
  *
  * @returns {*}
  */
-WorkorderApiService.prototype.resultMap = function () {
+WorkorderApiService.prototype.resultMap = function() {
   return this.listResults()
-    .then(function (results) {
+    .then(function(results) {
       var map = {};
-      results.forEach(function (result) {
+      results.forEach(function(result) {
         map[result.workorderId] = result;
       });
       return map;
     });
 };
 
-angular.module(CONSTANTS.WORKORDER_DIRECTIVE).service(CONSTANTS.WORKORDER_API_SERVICE, ["WORKORDER_CONFIG", "workorderService",
-  function (WORKORDER_CONFIG, workorderService) {
-
-    return new WorkorderApiService(WORKORDER_CONFIG, workorderService);
-  }]);
+angular.module(CONSTANTS.WORKORDER_DIRECTIVE).service(CONSTANTS.WORKORDER_API_SERVICE, ["WORKORDER_CONFIG", function(WORKORDER_CONFIG) {
+  return new WorkorderApiService(WORKORDER_CONFIG);
+}]);

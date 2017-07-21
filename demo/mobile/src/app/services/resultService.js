@@ -1,7 +1,7 @@
 var Promise = require("bluebird");
 
 function ResultService() {
-};
+}
 
 ResultService.prototype.listResults = function listResults() {
   return Promise.resolve([]);
@@ -12,17 +12,17 @@ ResultService.prototype.listResults = function listResults() {
  *
  * @returns {*}
  */
-ResultService.prototype.resultMap = function () {
+ResultService.prototype.resultMap = function() {
   return this.listResults()
-    .then(function (results) {
-      WorkorderApiService.prototype.map = {};
-      results.forEach(function (result) {
+    .then(function(results) {
+      var map = {};
+      results.forEach(function(result) {
         map[result.workorderId] = result;
       });
       return map;
     });
 };
 
-angular.module('wfm.common.apiservices', []).service("resultService", function () {
+angular.module('wfm.common.apiservices').service("resultService", function() {
   return new ResultService();
 });

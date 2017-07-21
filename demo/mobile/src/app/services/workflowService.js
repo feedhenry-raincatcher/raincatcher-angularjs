@@ -1,13 +1,19 @@
 var Promise = require("bluebird");
 
-function WorkflowService() {
+function WorkflowService(syncInitializer) {
+  this.workflowModulePromise = syncInitializer.then(function(managers) {
+    return managers['workflow'];
+  });
+  this.workorderModulePromise = syncInitializer.then(function(managers) {
+    return managers['workflow'];
+  });
 }
 
 /**
  * Listing All Workflows
  * @returns {Promise}
  */
-WorkflowService.prototype.listWorkflows = function () {
+WorkflowService.prototype.listWorkflows = function() {
   return Promise.resolve([]);
 };
 
@@ -17,7 +23,7 @@ WorkflowService.prototype.listWorkflows = function () {
  * @param {string} workflowId
  * @returns {Promise}
  */
-WorkflowService.prototype.readWorkflow = function (workflowId) {
+WorkflowService.prototype.readWorkflow = function(workflowId) {
   return Promise.resolve();
 };
 
@@ -29,7 +35,7 @@ WorkflowService.prototype.readWorkflow = function (workflowId) {
  * @param {string} workflowToUpdate.id - The ID of the Workorder To Update
  * @returns {Promise}
  */
-WorkflowService.prototype.updateWorkflow = function (workflowToUpdate) {
+WorkflowService.prototype.updateWorkflow = function(workflowToUpdate) {
   return Promise.resolve();
 };
 
@@ -40,7 +46,7 @@ WorkflowService.prototype.updateWorkflow = function (workflowToUpdate) {
  * @param {object} workflowToCreate - The Workflow To Create
  * @returns {Promise}
  */
-WorkflowService.prototype.createWorkflow = function (workflowToCreate) {
+WorkflowService.prototype.createWorkflow = function(workflowToCreate) {
   return Promise.resolve();
 };
 
@@ -51,10 +57,10 @@ WorkflowService.prototype.createWorkflow = function (workflowToCreate) {
  * @param {string} workflowToRemove.id - The ID of the workorder to remove.
  * @returns {Promise}
  */
-WorkflowService.prototype.removeWorkflow = function (workflowToRemove) {
+WorkflowService.prototype.removeWorkflow = function(workflowToRemove) {
   return Promise.resolve();
 };
 
-angular.module('wfm.common.apiservices', []).service("workflowService", function () {
-  return new WorkflowService();
-});
+angular.module('wfm.common.apiservices').service("workflowService", ['syncInitializer', function(syncInitializer) {
+  return new WorkflowService(syncInitializer);
+}]);
