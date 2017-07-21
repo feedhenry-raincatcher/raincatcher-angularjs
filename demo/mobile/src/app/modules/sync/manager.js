@@ -33,7 +33,11 @@ function createManager(datasetId, options, queryParams, metaData) {
   });
 }
 
-function init(profileData) {
+/**
+ * Initialize sync dataset managers with user data
+ * @param {User} profileData User data used for filtering
+ */
+function initializeManagers(profileData) {
   if (!profileData) {
     return $q.when({});
   }
@@ -47,7 +51,7 @@ function init(profileData) {
   return $q.when(syncDatasetManagers);
 }
 
-module.exports = {
-  init: init
-};
-
+angular.module('wfm.sync').service('blah', ['userService', function(userService) {
+  return userService.readLoggedInUser()
+    .then(initializeManagers);
+}]);

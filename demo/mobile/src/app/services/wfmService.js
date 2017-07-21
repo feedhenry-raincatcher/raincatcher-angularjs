@@ -9,7 +9,7 @@ function WFMApiService(config) {
  *
  * @param {string} workorderId - The ID of the workorder to begin the workflow for.
  */
-WFMApiService.prototype.beginWorkflow = function (workorderId) {
+WFMApiService.prototype.beginWorkflow = function(workorderId) {
   return Promise.resolve();
 };
 
@@ -19,7 +19,7 @@ WFMApiService.prototype.beginWorkflow = function (workorderId) {
  *
  * @param {string} workorderId - The ID of the workorder to get the summary for.
  */
-WFMApiService.prototype.workflowSummary = function (workorderId) {
+WFMApiService.prototype.workflowSummary = function(workorderId) {
   return Promise.resolve();
 };
 
@@ -30,7 +30,7 @@ WFMApiService.prototype.workflowSummary = function (workorderId) {
  *
  * @param {string} workorderId - The ID of the workorder to switch to the previous step for
  */
-WFMApiService.prototype.previousStep = function (workorderId) {
+WFMApiService.prototype.previousStep = function(workorderId) {
   return Promise.resolve();
 };
 
@@ -42,7 +42,7 @@ WFMApiService.prototype.previousStep = function (workorderId) {
  * @param {string} parameters.submission - The submission to save
  * @param {string} parameters.stepCode - The ID of the step to save the submission for
  */
-WFMApiService.prototype.completeStep = function (parameters) {
+WFMApiService.prototype.completeStep = function(parameters) {
   return Promise.resolve();
 };
 
@@ -55,7 +55,7 @@ WFMApiService.prototype.completeStep = function (parameters) {
  * @param {string} workorderId - The ID of the workorder to switch to next step
  * @returns {Promise}
  */
-WFMApiService.prototype.nextStepSubscriber = function (subscriberFunction) {
+WFMApiService.prototype.nextStepSubscriber = function(subscriberFunction) {
 
 };
 
@@ -67,9 +67,9 @@ WFMApiService.prototype.nextStepSubscriber = function (subscriberFunction) {
  * @param {string} workorderId - The ID of the workorder to switch to next step
  * @returns {Promise}
  */
-WFMApiService.prototype.previousStepSubscriber = function (subscriberFunction) {
+WFMApiService.prototype.previousStepSubscriber = function(subscriberFunction) {
 };
 
-angular.module('wfm.common.apiservices').service("wfmService", function () {
+angular.module('wfm.common.apiservices').service("wfmService", function() {
   return new WFMApiService();
 });

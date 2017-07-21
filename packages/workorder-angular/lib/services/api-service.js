@@ -12,32 +12,32 @@ WorkorderApiService.prototype.listWorkorders = function listWorkorders() {
 
 
 WorkorderApiService.prototype.readWorkorder = function readWorkorder(workorderId) {
-  return Promise.resolve({});
+  return this.workorderService.readWorkorder(workorderId);
 };
 
-WorkorderApiService.prototype.createWorkorder = function createWorkorder(workorderToCreate) {
-  return Promise.resolve({});
+WorkorderApiService.prototype.createWorkorder = function createWorkorder(workorder) {
+  return this.workorderService.createWorkorder(workorder);
 };
 
 WorkorderApiService.prototype.begin = function begin(workorder) {
   return Promise.resolve({});
 };
 
-WorkorderApiService.prototype.updateWorkorder = function updateWorkorder(workorderToUpdate) {
-  return Promise.resolve({});
+WorkorderApiService.prototype.updateWorkorder = function updateWorkorder(workorder) {
+  return this.workorderService.updateWorkorder(workorder);
 };
 
 
-WorkorderApiService.prototype.removeWorkorder = function removeWorkorder(workorderToRemove) {
-  return Promise.resolve({});
+WorkorderApiService.prototype.removeWorkorder = function removeWorkorder(workorder) {
+  return this.workorderService.removeWorkorder(workorder);
 };
 
 WorkorderApiService.prototype.listWorkflows = function listWorkflows() {
-  return Promise.resolve([]);
+  return this.workflowService.listWorkflows();
 };
 
 WorkorderApiService.prototype.readWorkflow = function readWorkflow(workflowId) {
-  return Promise.resolve({});
+  return this.workflowService.readWorkflow(workflowId);
 };
 
 
@@ -76,8 +76,7 @@ WorkorderApiService.prototype.resultMap = function() {
     });
 };
 
-angular.module(CONSTANTS.WORKORDER_DIRECTIVE).service(CONSTANTS.WORKORDER_API_SERVICE, ["WORKORDER_CONFIG", "workorderService", "workflowService",
-  function(WORKORDER_CONFIG, workorderService, workflowService) {
-
-    return new WorkorderApiService(WORKORDER_CONFIG, workorderService, workflowService);
+angular.module(CONSTANTS.WORKORDER_DIRECTIVE).service(CONSTANTS.WORKORDER_API_SERVICE, ["WORKORDER_CONFIG", "workorderService", "workflowService", "resultService",
+  function(WORKORDER_CONFIG, workorderService, workflowService, resultService) {
+    return new WorkorderApiService(WORKORDER_CONFIG, workorderService, workflowService, resultService);
   }]);
