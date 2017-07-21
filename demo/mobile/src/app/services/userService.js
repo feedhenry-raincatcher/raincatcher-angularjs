@@ -23,6 +23,6 @@ UserService.prototype.listUsers = function listUsers() {
 };
 
 
-angular.module('wfm.common.apiservices', []).service("userService", function () {
+angular.module('wfm.common.apiservices').service("userService", function () {
   return new UserService();
 });

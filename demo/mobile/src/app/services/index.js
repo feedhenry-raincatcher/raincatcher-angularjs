@@ -1,3 +1,6 @@
+
+angular.module('wfm.common.apiservices',[]);
+
 require("./resultService");
 require("./userService");
 require('./wfmService');
