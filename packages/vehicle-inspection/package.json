@@ -15,7 +15,6 @@
   "author": "feedhenry-raincatcher@redhat.com",
   "license": "MIT",
   "dependencies": {
-    "express": "4.15.2",
     "lodash": "4.7.0"
   },
   "devDependencies": {

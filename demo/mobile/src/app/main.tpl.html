@@ -9,16 +9,13 @@
 
 <div layout="row" flex>
 
-  <md-sidenav ng-show="profileData" layout="column" flex="60" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')"
+  <md-sidenav ng-if="profileData" layout="column" flex="40" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')"
     md-swipe-left="toggleSidenav($event, 'left')">
 
-    <div class="sidenav-header">
+     <div class="sidenav-header">
       <img ng-src="{{profileData.avatar}}" class="md-avatar" alt="Photo of {{profileData.name}}"/>
       <h3 class="md-body-2">{{profileData.name}}</h3>
       <p class="md-body-1">{{profileData.email}}</p>
-      <md-button class="md-icon-button" ng-click="navigateTo('app.profile'); toggleSidenav($event, 'left')" aria-label="Edit">
-        <md-icon md-font-set="material-icons">edit</md-icon>
-      </md-button>
     </div>
 
     <md-list>

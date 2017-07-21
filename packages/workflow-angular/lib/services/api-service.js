@@ -1,4 +1,5 @@
 var CONSTANTS = require('../constants');
+var Promise = require("bluebird");
 
 function WorkflowApiService(config) {
 }
@@ -8,6 +9,7 @@ function WorkflowApiService(config) {
  * @returns {Promise}
  */
 WorkflowApiService.prototype.listWorkflows = function () {
+  return Promise.resolve([]);
 };
 
 /**
@@ -16,6 +18,7 @@ WorkflowApiService.prototype.listWorkflows = function () {
  * @returns {Promise}
  */
 WorkflowApiService.prototype.listWorkorders = function () {
+  return Promise.resolve([]);
 };
 
 
@@ -26,6 +29,7 @@ WorkflowApiService.prototype.listWorkorders = function () {
  * @returns {Promise}
  */
 WorkflowApiService.prototype.readWorkflow = function (workflowId) {
+    return Promise.resolve({});
 };
 
 /**
@@ -35,6 +39,7 @@ WorkflowApiService.prototype.readWorkflow = function (workflowId) {
  * @returns {Promise}
  */
 WorkflowApiService.prototype.readWorkorder = function (workorderId) {
+   return Promise.resolve({});
 };
 
 /**

@@ -7,7 +7,8 @@ window._ = require('underscore');
 angular.module('wfm-mobile', [
   require('angular-ui-router'),
   require('angular-material'),
-  // Commented until this modules will be migrated
+  // Set of the data services
+  require('./services'),
   require('@raincatcher/workflow-angular')({
     mode: "user",
     mainColumnViewId: "content@app"
@@ -16,7 +17,7 @@ angular.module('wfm-mobile', [
     mode: "user",
     mainColumnViewId: "content@app",
     toolbarViewId: "toolbar@app"
-  })
+  }),
 ]);
 
-require('./config');
+require('./angularConfig');

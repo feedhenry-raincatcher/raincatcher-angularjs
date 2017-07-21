@@ -9,7 +9,7 @@ var CONSTANTS = require('./constants');
  * @returns {string}
  */
 module.exports = function(config) {
-  angular.module(CONSTANTS.WORKFLOW_DIRECTIVE_MODULE, []).constant("WORKFLOW_CONFIG", config);
+  angular.module(CONSTANTS.WORKFLOW_DIRECTIVE_MODULE, ["wfm.common.apiservices"]).constant("WORKFLOW_CONFIG", config);
 
   //Adding any html templates to the $template cache for this module.
   require('../dist');
