@@ -1,13 +1,9 @@
 var CONSTANTS = require('../constants');
 var Promise = require("bluebird");
 
-function WorkorderApiService(config) {
-  this.workorderService = {
-    listWorkorders: function() {
-      return Promise.resolve([]);
-    }
-  };
-  this.workflowService = {};
+function WorkorderApiService(config, workorderService, workflowService) {
+  this.workorderService = workorderService;
+  this.workflowService = workflowService;
 }
 
 WorkorderApiService.prototype.listWorkorders = function listWorkorders() {
@@ -65,21 +61,21 @@ WorkorderApiService.prototype.subscribeToListUpdated = function subscribeToListU
 
 
 /**
- * Utility Function To Read all results and create a map for UI rendering.
- *
- * @returns {*}
- */
+* Utility Function To Read all results and create a map for UI rendering.
+*
+* @returns {*}
+*/
 WorkorderApiService.prototype.resultMap = function() {
   return this.listResults()
-    .then(function(results) {
-      var map = {};
-      results.forEach(function(result) {
-        map[result.workorderId] = result;
-      });
-      return map;
+  .then(function(results) {
+    var map = {};
+    results.forEach(function(result) {
+      map[result.workorderId] = result;
     });
+    return map;
+  });
 };
 
-angular.module(CONSTANTS.WORKORDER_DIRECTIVE).service(CONSTANTS.WORKORDER_API_SERVICE, ["WORKORDER_CONFIG", function(WORKORDER_CONFIG) {
-  return new WorkorderApiService(WORKORDER_CONFIG);
+angular.module(CONSTANTS.WORKORDER_DIRECTIVE).service(CONSTANTS.WORKORDER_API_SERVICE, ["WORKORDER_CONFIG", "workorderService", "workflowService", function(WORKORDER_CONFIG, workorderService, workflowService) {
+  return new WorkorderApiService(WORKORDER_CONFIG, workorderService, workflowService);
 }]);
