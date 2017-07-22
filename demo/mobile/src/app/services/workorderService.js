@@ -1,7 +1,23 @@
 var Promise = require("bluebird");
+var sync = require('fh-js-sdk').sync;
 
-function WorkorderApiService() {
-};
+var workflowDataSetId = 'workflow';
+var workorderDatasetId = 'workorder';
+
+var doList = Promise.promisify(sync.doList).bind(sync);
+var doRead = Promise.promisify(sync.doRead).bind(sync);
+var doCreate = Promise.promisify(sync.doCreate).bind(sync);
+var doUpdate = Promise.promisify(sync.doUpdate).bind(sync);
+var doDelete = Promise.promisify(sync.doDelete).bind(sync);
+
+function WorkorderApiService(syncInitializer) {
+  this.workflowModulePromise = syncInitializer.then(function(managers) {
+    return managers[workflowDataSetId];
+  });
+  this.workorderModulePromise = syncInitializer.then(function(managers) {
+    return managers[workorderDatasetId];
+  });
+}
 
 /**
  * Listing all workorders
@@ -9,19 +25,9 @@ function WorkorderApiService() {
  * @returns {Promise}
  */
 WorkorderApiService.prototype.listWorkorders = function listWorkorders() {
-  return Promise.resolve([{
-    id: 'rkX1fdSH',
-    workflowId: 'SyVXyMuSr',
-    assignee: 'rkX1fdSH',
-    type: 'Job Order',
-    title: 'Footpath in disrepair',
-    status: 'New',
-    startTimestamp: '',
-    finishTimestamp: '',
-    address: '1795 Davie St, Vancouver, BC V6G 2M9',
-    location: [49.287227, -123.141489],
-    summary: 'Please remove damaged element and return to the base'
-  }]);
+  return this.workflowModulePromise.then(function() {
+    return doList(workflowDataSetId);
+  });
 };
 
 /**
@@ -32,7 +38,9 @@ WorkorderApiService.prototype.listWorkorders = function listWorkorders() {
  * @returns {Promise}
  */
 WorkorderApiService.prototype.readWorkorder = function readWorkorder(workorderId) {
-  return Promise.resolve({});
+  return this.workflowModulePromise.then(function() {
+    return doRead(workflowDataSetId, workorderId);
+  });
 };
 
 /**
@@ -42,8 +50,10 @@ WorkorderApiService.prototype.readWorkorder = function readWorkorder(workorderId
  * @param {object} workorderToCreate - The Workorder To Create
  * @returns {Promise}
  */
-WorkorderApiService.prototype.createWorkorder = function createWorkorder(workorderToCreate) {
-  return Promise.resolve();
+WorkorderApiService.prototype.createWorkorder = function createWorkorder(workorder) {
+  return this.workorderModulePromise.then(function() {
+    return doCreate(workorderDatasetId, workorder);
+  });
 };
 
 /**
@@ -54,8 +64,10 @@ WorkorderApiService.prototype.createWorkorder = function createWorkorder(workord
  * @param {string} workorderToUpdate.id - The ID of the Workorder To Update
  * @returns {Promise}
  */
-WorkorderApiService.prototype.updateWorkorder = function updateWorkorder(workorderToUpdate) {
-  return Promise.resolve();
+WorkorderApiService.prototype.updateWorkorder = function updateWorkorder(workorder) {
+  return this.workorderModulePromise.then(function() {
+    return doUpdate(workorderDatasetId, workorder.id, workorder);
+  });
 };
 
 /**
@@ -67,8 +79,10 @@ WorkorderApiService.prototype.updateWorkorder = function updateWorkorder(workord
  * @returns {Promise}
  */
 
-WorkorderApiService.prototype.removeWorkorder = function removeWorkorder(workorderToRemove) {
-  return Promise.resolve();
+WorkorderApiService.prototype.removeWorkorder = function removeWorkorder(workorder) {
+  return this.workorderModulePromise.then(function() {
+    return doDelete(workorderDatasetId, workorder.id, workorder);
+  });
 };
 
 WorkorderApiService.prototype.listResults = function listResults() {
@@ -82,17 +96,17 @@ WorkorderApiService.prototype.listResults = function listResults() {
  *
  * @returns {*}
  */
-WorkorderApiService.prototype.resultMap = function () {
+WorkorderApiService.prototype.resultMap = function() {
   return this.listResults()
-    .then(function (results) {
-      WorkorderApiService.prototype.map = {};
-      results.forEach(function (result) {
+    .then(function(results) {
+      var map = {};
+      results.forEach(function(result) {
         map[result.workorderId] = result;
       });
       return map;
     });
 };
 
-angular.module('wfm.common.apiservices', []).service("workorderService", function () {
-  return new WorkorderApiService();
-});
+angular.module('wfm.common.apiservices').service("workorderService", ["syncInitializer", function(syncInitializer) {
+  return new WorkorderApiService(syncInitializer);
+}]);
