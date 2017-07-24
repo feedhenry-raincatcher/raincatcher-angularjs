@@ -1,6 +1,9 @@
 var Promise = require("bluebird");
 
-function WorkorderApiService() {
+function WorkorderApiService(syncService) {
+  this.workorderSync = syncService.then(function (managers) {
+    return Promise.promisifyAll(managers.workorders);
+  });
 }
 
 /**
@@ -9,19 +12,9 @@ function WorkorderApiService() {
  * @returns {Promise}
  */
 WorkorderApiService.prototype.listWorkorders = function listWorkorders() {
-  return Promise.resolve([{
-    id: 'rkX1fdSH',
-    workflowId: 'SyVXyMuSr',
-    assignee: 'rkX1fdSH',
-    type: 'Job Order',
-    title: 'Footpath in disrepair',
-    status: 'New',
-    startTimestamp: '',
-    finishTimestamp: '',
-    address: '1795 Davie St, Vancouver, BC V6G 2M9',
-    location: [49.287227, -123.141489],
-    summary: 'Please remove damaged element and return to the base'
-  }]);
+  return this.workorderSync.then(function (workorderManager) {
+    return workorderManager.listAsync()
+  });
 };
 
 /**
@@ -67,7 +60,7 @@ WorkorderApiService.prototype.updateWorkorder = function updateWorkorder(workord
  * @returns {Promise}
  */
 
-WorkorderApiService.prototype.removeWorkorder = function removeWorkorder(workorderToRemove) {
+WorkorderApiService.prototype.removeWorkorder = function removeWorkorder(workorderManager) {
   return Promise.resolve();
 };
 
@@ -82,17 +75,17 @@ WorkorderApiService.prototype.listResults = function listResults() {
  *
  * @returns {*}
  */
-WorkorderApiService.prototype.resultMap = function() {
+WorkorderApiService.prototype.resultMap = function () {
   return this.listResults()
-    .then(function(results) {
+    .then(function (results) {
       WorkorderApiService.prototype.map = {};
-      results.forEach(function(result) {
+      results.forEach(function (result) {
         map[result.workorderId] = result;
       });
       return map;
     });
 };
 
-angular.module('wfm.common.apiservices').service("workorderService", function() {
-  return new WorkorderApiService();
-});
+angular.module('wfm.common.apiservices').service("workorderService", ['syncService', function (syncService) {
+  return new WorkorderApiService(syncService);
+}]);

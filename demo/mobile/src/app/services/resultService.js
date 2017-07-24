@@ -1,10 +1,11 @@
 var Promise = require("bluebird");
 
-function ResultService() {
+function ResultService(resultManager) {
+  this.resultManager = resultManager;
 };
 
 ResultService.prototype.listResults = function listResults() {
-  return Promise.resolve([]);
+  return resultManager.listAsync();
 };
 
 /**

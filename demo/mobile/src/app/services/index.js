@@ -1,5 +1,5 @@
 
-angular.module('wfm.common.apiservices',[]);
+angular.module('wfm.common.apiservices', []);
 
 require("./resultService");
 require("./userService");
