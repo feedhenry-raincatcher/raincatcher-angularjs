@@ -1,63 +1,61 @@
 var CONSTANTS = require('../constants');
 var Promise = require("bluebird");
 
-function WorkorderApiService(config, workorderService) {
+function WorkorderApiService(config, workorderService, workflowService, resultService, userService) {
   this.workorderService = workorderService;
+  this.workflowService = workflowService;
+  this.resultService = resultService;
+}
+
+WorkorderApiService.prototype.listWorkorders = function() {
+  return this.workorderService.list();
 };
 
-WorkorderApiService.prototype.listWorkorders = function listWorkorders() {
-  return this.workorderService.listWorkorders();
+WorkorderApiService.prototype.readWorkorder = function(workorderId) {
+  return this.workorderService.read(workorderId);
+};
+
+WorkorderApiService.prototype.createWorkorder = function(workorderToCreate) {
+  return this.workorderService.create(workorderToCreate);
+};
+
+WorkorderApiService.prototype.updateWorkorder = function(workorderToUpdate) {
+  return this.workorderService.update(workorderToUpdate);
 };
 
 
-WorkorderApiService.prototype.readWorkorder = function readWorkorder(workorderId) {
+WorkorderApiService.prototype.removeWorkorder = function(workorderToRemove) {
+  return this.workorderService.remove(workorderToRemove);
+};
+
+WorkorderApiService.prototype.listWorkflows = function() {
+  return this.workflowService.list();
+};
+
+WorkorderApiService.prototype.readWorkflow = function(workflowId) {
+  return this.workflowService.read(workflowId);
+};
+
+
+WorkorderApiService.prototype.listResults = function() {
+  return this.resultService.list();
+};
+
+WorkorderApiService.prototype.readUser = function(userId) {
+  return this.userService.readUser();
+};
+
+WorkorderApiService.prototype.listUsers = function() {
+  return this.userService.listUsers();
+};
+
+WorkorderApiService.prototype.begin = function(workorder) {
   return Promise.resolve({});
 };
 
-WorkorderApiService.prototype.createWorkorder = function createWorkorder(workorderToCreate) {
-  return Promise.resolve({});
-};
-
-WorkorderApiService.prototype.begin = function begin(workorder) {
-  return Promise.resolve({});
-};
-
-WorkorderApiService.prototype.updateWorkorder = function updateWorkorder(workorderToUpdate) {
-  return Promise.resolve({});
-};
-
-
-WorkorderApiService.prototype.removeWorkorder = function removeWorkorder(workorderToRemove) {
-  return Promise.resolve({});
-};
-
-WorkorderApiService.prototype.listWorkflows = function listWorkflows() {
+WorkorderApiService.prototype.subscribeToListUpdated = function(){
   return Promise.resolve([]);
 };
-
-WorkorderApiService.prototype.readWorkflow = function readWorkflow(workflowId) {
-  return Promise.resolve({});
-};
-
-
-WorkorderApiService.prototype.listResults = function listResults() {
-  return Promise.resolve([]);
-};
-
-
-WorkorderApiService.prototype.readUser = function readUser(userId) {
-  return Promise.resolve({});
-};
-
-WorkorderApiService.prototype.listUsers = function listUsers() {
-  return Promise.resolve([]);
-};
-
-WorkorderApiService.prototype.subscribeToListUpdated = function subscribeToListUpdated() {
-  return Promise.resolve([]);
-};
-
-
 
 /**
  * Utility Function To Read all results and create a map for UI rendering.
@@ -75,8 +73,7 @@ WorkorderApiService.prototype.resultMap = function () {
     });
 };
 
-angular.module(CONSTANTS.WORKORDER_DIRECTIVE).service(CONSTANTS.WORKORDER_API_SERVICE, ["WORKORDER_CONFIG", "workorderService",
-  function (WORKORDER_CONFIG, workorderService) {
+angular.module(CONSTANTS.WORKORDER_DIRECTIVE).service(CONSTANTS.WORKORDER_API_SERVICE, ["WORKORDER_CONFIG", "workorderService", "workflowService", "resultService", "userService", function (WORKORDER_CONFIG, workorderService, workflowService, resultService, userService) {
 
-    return new WorkorderApiService(WORKORDER_CONFIG, workorderService);
-  }]);
+  return new WorkorderApiService(WORKORDER_CONFIG, workorderService, workflowService, resultService, userService);
+}]);

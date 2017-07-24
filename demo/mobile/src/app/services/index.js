@@ -1,7 +1,7 @@
-require("./resultService");
+
+angular.module('wfm.common.apiservices', []);
+
 require("./userService");
 require('./wfmService');
-require('./workflowService');
-require('./workorderService');
 
 module.exports = 'wfm.common.apiservices';

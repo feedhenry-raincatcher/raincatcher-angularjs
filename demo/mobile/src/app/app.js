@@ -7,8 +7,9 @@ window._ = require('underscore');
 angular.module('wfm-mobile', [
   require('angular-ui-router'),
   require('angular-material'),
-  // Set of the data services
   require('./services'),
+  require('./modules/sync/syncServices'),
+  // Set of the data services
   require('@raincatcher/workflow-angular')({
     mode: "user",
     mainColumnViewId: "content@app"
@@ -17,7 +18,8 @@ angular.module('wfm-mobile', [
     mode: "user",
     mainColumnViewId: "content@app",
     toolbarViewId: "toolbar@app"
-  }),
+  })
 ]);
+require('./initialisation');
 
-require('./angularConfig');
+

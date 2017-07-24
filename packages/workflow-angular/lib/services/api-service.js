@@ -1,7 +1,9 @@
 var CONSTANTS = require('../constants');
-var Promise = require("bluebird");
 
-function WorkflowApiService(config) {
+function WorkflowApiService(config, workorderService, workflowService, resultService, userService) {
+  this.workorderService = workorderService;
+  this.workflowService = workflowService;
+  this.resultService = resultService;
 }
 
 /**
@@ -9,7 +11,7 @@ function WorkflowApiService(config) {
  * @returns {Promise}
  */
 WorkflowApiService.prototype.listWorkflows = function () {
-  return Promise.resolve([]);
+  return this.workflowService.list();
 };
 
 /**
@@ -18,7 +20,7 @@ WorkflowApiService.prototype.listWorkflows = function () {
  * @returns {Promise}
  */
 WorkflowApiService.prototype.listWorkorders = function () {
-  return Promise.resolve([]);
+  return this.workorderService.list();
 };
 
 
@@ -29,7 +31,7 @@ WorkflowApiService.prototype.listWorkorders = function () {
  * @returns {Promise}
  */
 WorkflowApiService.prototype.readWorkflow = function (workflowId) {
-    return Promise.resolve({});
+  return this.workflowService.read(workflowId);
 };
 
 /**
@@ -39,18 +41,18 @@ WorkflowApiService.prototype.readWorkflow = function (workflowId) {
  * @returns {Promise}
  */
 WorkflowApiService.prototype.readWorkorder = function (workorderId) {
-   return Promise.resolve({});
+  return this.workorderService.read(workorderId);
 };
-
 /**
  *
  * Updating A Single Workflow
  *
- * @param {object} workflowToUpdate - The Workflow To Update
- * @param {string} workflowToUpdate.id - The ID of the Workorder To Update
+ * @param {object} workflow - The Workflow To Update
+ * @param {string} workflow.id - The ID of the Workorder To Update
  * @returns {Promise}
  */
-WorkflowApiService.prototype.updateWorkflow = function (workflowToUpdate) {
+WorkflowApiService.prototype.updateWorkflow = function (workflow) {
+  return this.workflowService.updateWorkflow(workflow);
 };
 
 
@@ -61,18 +63,20 @@ WorkflowApiService.prototype.updateWorkflow = function (workflowToUpdate) {
  * @param {object} workflowToCreate - The Workflow To Create
  * @returns {Promise}
  */
-WorkflowApiService.prototype.createWorkflow = function (workflowToCreate) {
+WorkflowApiService.prototype.createWorkflow = function (workflow) {
+  return this.workflowService.createWorkflow(workflow);
 };
 
 /**
  *
  * Removing A Single Workorder
  *
- * @param {object} workflowToRemove - The Workorder To Remove
- * @param {string} workflowToRemove.id - The ID of the workorder to remove.
+ * @param {object} workflow - The Workflow To Remove
+ * @param {string} workflow.id - The ID of the workorder to remove.
  * @returns {Promise}
  */
-WorkflowApiService.prototype.removeWorkflow = function (workflowToRemove) {
+WorkflowApiService.prototype.removeWorkflow = function (workflow) {
+  return this.workflowService.removeWorkflow(workflow);
 };
 
 /**
@@ -141,6 +145,6 @@ WorkflowApiService.prototype.previousStepSubscriber = function (subscriberFuncti
 WorkflowApiService.prototype.completeStep = function (parameters) {
 };
 
-angular.module(CONSTANTS.WORKFLOW_DIRECTIVE_MODULE).service(CONSTANTS.WORKFLOW_API_SERVICE, ['WORKFLOW_CONFIG', function (WORKFLOW_CONFIG) {
-  return new WorkflowApiService(WORKFLOW_CONFIG);
+angular.module(CONSTANTS.WORKFLOW_DIRECTIVE_MODULE).service(CONSTANTS.WORKFLOW_API_SERVICE, ['WORKFLOW_CONFIG', "workorderService", "workflowService", "resultService", "userService", function (WORKFLOW_CONFIG, workflowService, workorderService) {
+  return new WorkflowApiService(WORKFLOW_CONFIG, workorderService, workflowService, resultService, userService);
 }]);

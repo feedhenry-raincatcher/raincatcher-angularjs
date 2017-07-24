@@ -70,6 +70,6 @@ WFMApiService.prototype.nextStepSubscriber = function (subscriberFunction) {
 WFMApiService.prototype.previousStepSubscriber = function (subscriberFunction) {
 };
 
-angular.module('wfm.common.apiservices', []).service("wfmService", function () {
+angular.module('wfm.common.apiservices').service("wfmService", function () {
   return new WFMApiService();
 });

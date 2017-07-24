@@ -18,11 +18,16 @@ UserService.prototype.readUser = function readUser(userId) {
   });
 };
 
+
+UserService.prototype.getProfile = function(userId) {
+  return this.readUser(userId);
+};
+
 UserService.prototype.listUsers = function listUsers() {
-  return Promise.resolve([]);
+  return Promise.all(this.readUser(userId));
 };
 
 
-angular.module('wfm.common.apiservices', []).service("userService", function () {
+angular.module('wfm.common.apiservices').service("userService", function () {
   return new UserService();
 });
