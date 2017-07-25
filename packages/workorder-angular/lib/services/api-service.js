@@ -4,6 +4,7 @@ function WorkorderApiService(config, workorderService, workflowService, resultSe
   this.workorderService = workorderService;
   this.workflowService = workflowService;
   this.resultService = resultService;
+  this.userService = userService;
 }
 
 WorkorderApiService.prototype.listWorkorders = function() {

@@ -24,7 +24,7 @@ UserService.prototype.getProfile = function(userId) {
 };
 
 UserService.prototype.listUsers = function listUsers() {
-  return Promise.all(this.readUser());
+  return Promise.all(this.readUser(userId));
 };
 
 
