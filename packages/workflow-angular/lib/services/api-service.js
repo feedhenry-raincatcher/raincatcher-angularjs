@@ -1,9 +1,10 @@
 var CONSTANTS = require('../constants');
 
-function WorkflowApiService(config, workorderService, workflowService, resultService, userService) {
+function WorkflowApiService(config, workorderService, workflowService, resultService, userService, wfmService) {
   this.workorderService = workorderService;
   this.workflowService = workflowService;
   this.resultService = resultService;
+  this.userService = userService;
   this.wfmService = wfmService;
 }
 
@@ -11,7 +12,7 @@ function WorkflowApiService(config, workorderService, workflowService, resultSer
  * Listing All Workflows
  * @returns {Promise}
  */
-WorkflowApiService.prototype.listWorkflows = function () {
+WorkflowApiService.prototype.listWorkflows = function() {
   return this.workflowService.list();
 };
 
@@ -20,7 +21,7 @@ WorkflowApiService.prototype.listWorkflows = function () {
  *
  * @returns {Promise}
  */
-WorkflowApiService.prototype.listWorkorders = function () {
+WorkflowApiService.prototype.listWorkorders = function() {
   return this.workorderService.list();
 };
 
@@ -31,7 +32,7 @@ WorkflowApiService.prototype.listWorkorders = function () {
  * @param {string} workflowId
  * @returns {Promise}
  */
-WorkflowApiService.prototype.readWorkflow = function (workflowId) {
+WorkflowApiService.prototype.readWorkflow = function(workflowId) {
   return this.workflowService.read(workflowId);
 };
 
@@ -41,7 +42,7 @@ WorkflowApiService.prototype.readWorkflow = function (workflowId) {
  * @param {string} workorderId
  * @returns {Promise}
  */
-WorkflowApiService.prototype.readWorkorder = function (workorderId) {
+WorkflowApiService.prototype.readWorkorder = function(workorderId) {
   return this.workorderService.read(workorderId);
 };
 /**
@@ -52,7 +53,7 @@ WorkflowApiService.prototype.readWorkorder = function (workorderId) {
  * @param {string} workflow.id - The ID of the Workorder To Update
  * @returns {Promise}
  */
-WorkflowApiService.prototype.updateWorkflow = function (workflow) {
+WorkflowApiService.prototype.updateWorkflow = function(workflow) {
   return this.workflowService.updateWorkflow(workflow);
 };
 
@@ -64,7 +65,7 @@ WorkflowApiService.prototype.updateWorkflow = function (workflow) {
  * @param {object} workflowToCreate - The Workflow To Create
  * @returns {Promise}
  */
-WorkflowApiService.prototype.createWorkflow = function (workflow) {
+WorkflowApiService.prototype.createWorkflow = function(workflow) {
   return this.workflowService.createWorkflow(workflow);
 };
 
@@ -76,7 +77,7 @@ WorkflowApiService.prototype.createWorkflow = function (workflow) {
  * @param {string} workflow.id - The ID of the workorder to remove.
  * @returns {Promise}
  */
-WorkflowApiService.prototype.removeWorkflow = function (workflow) {
+WorkflowApiService.prototype.removeWorkflow = function(workflow) {
   return this.workflowService.removeWorkflow(workflow);
 };
 
@@ -86,7 +87,7 @@ WorkflowApiService.prototype.removeWorkflow = function (workflow) {
  *
  * @param {string} workorderId - The ID of the workorder to begin the workflow for.
  */
-WorkflowApiService.prototype.beginWorkflow = function (workorderId) {
+WorkflowApiService.prototype.beginWorkflow = function(workorderId) {
   return this.wfmService.beginWorkflow(workorderId);
 };
 
@@ -96,7 +97,7 @@ WorkflowApiService.prototype.beginWorkflow = function (workorderId) {
  *
  * @param {string} workorderId - The ID of the workorder to get the summary for.
  */
-WorkflowApiService.prototype.workflowSummary = function (workorderId) {
+WorkflowApiService.prototype.workflowSummary = function(workorderId) {
   return this.wfmService.beginWorkflow(workorderId);
 };
 
@@ -107,7 +108,7 @@ WorkflowApiService.prototype.workflowSummary = function (workorderId) {
  *
  * @param {string} workorderId - The ID of the workorder to switch to the previous step for
  */
-WorkflowApiService.prototype.previousStep = function (workorderId) {
+WorkflowApiService.prototype.previousStep = function(workorderId) {
   return this.wfmService.previousStep(workorderId);
 };
 
@@ -119,8 +120,8 @@ WorkflowApiService.prototype.previousStep = function (workorderId) {
  * @param {string} workorderId - The ID of the workorder to switch to next step
  * @returns {Promise}
  */
-WorkflowApiService.prototype.nextStepSubscriber = function (subscriberFunction) {
-  return this.wfmService.nextStepSubscriber(workorderId);
+WorkflowApiService.prototype.nextStepSubscriber = function(subscriberFunction) {
+  return this.wfmService.nextStepSubscriber(subscriberFunction);
 };
 
 /**
@@ -132,8 +133,8 @@ WorkflowApiService.prototype.nextStepSubscriber = function (subscriberFunction) 
  * @param {string} workorderId - The ID of the workorder to switch to next step
  * @returns {Promise}
  */
-WorkflowApiService.prototype.previousStepSubscriber = function (subscriberFunction) {
-  return this.wfmService.previousStepSubscriber(workorderId);
+WorkflowApiService.prototype.previousStepSubscriber = function(subscriberFunction) {
+  return this.wfmService.previousStepSubscriber(subscriberFunction);
 };
 
 /**
@@ -144,10 +145,10 @@ WorkflowApiService.prototype.previousStepSubscriber = function (subscriberFuncti
  * @param {string} parameters.submission - The submission to save
  * @param {string} parameters.stepCode - The ID of the step to save the submission for
  */
-WorkflowApiService.prototype.completeStep = function (parameters) {
-  return this.wfmService.completeStep(workorderId);
+WorkflowApiService.prototype.completeStep = function(parameters) {
+  return this.wfmService.completeStep(parameters);
 };
 
-angular.module(CONSTANTS.WORKFLOW_DIRECTIVE_MODULE).service(CONSTANTS.WORKFLOW_API_SERVICE, ['WORKFLOW_CONFIG', "workorderService", "workflowService", "resultService", "userService", "wfmService", function (WORKFLOW_CONFIG, workflowService, workorderService, workflowService, resultService, userService, wfmService) {
+angular.module(CONSTANTS.WORKFLOW_DIRECTIVE_MODULE).service(CONSTANTS.WORKFLOW_API_SERVICE, ['WORKFLOW_CONFIG', "workorderService", "workflowService", "resultService", "userService", "wfmService", function(WORKFLOW_CONFIG, workorderService, workflowService, resultService, userService, wfmService) {
   return new WorkflowApiService(WORKFLOW_CONFIG, workorderService, workflowService, resultService, userService, wfmService);
 }]);

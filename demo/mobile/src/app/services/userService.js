@@ -1,7 +1,7 @@
 var Promise = require("bluebird");
 
 function UserService() {
-};
+}
 
 UserService.prototype.readUser = function readUser(userId) {
   return Promise.resolve({
@@ -28,6 +28,6 @@ UserService.prototype.listUsers = function listUsers() {
 };
 
 
-angular.module('wfm.common.apiservices').service("userService", function () {
+angular.module('wfm.common.apiservices').service("userService", function() {
   return new UserService();
 });

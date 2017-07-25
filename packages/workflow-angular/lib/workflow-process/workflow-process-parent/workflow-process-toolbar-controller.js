@@ -9,7 +9,7 @@ var CONSTANTS = require('../../constants');
  * @param workflowApiService
  * @constructor
  */
-function WorkflowProcessToolbarController($scope, $stateParams, workflowApiService) {
+function WorkflowProcessToolbarController($scope, $stateParams, workflowApiService, workflowFlowService) {
   var workorderId = $stateParams.workorderId;
 
   workflowApiService.readWorkorder(workorderId).then(function(workorder) {
