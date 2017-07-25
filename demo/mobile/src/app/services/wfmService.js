@@ -141,7 +141,29 @@ WFMApiService.prototype.workorderSummary = function(workorderId) {
  * @param {string} workorderId - The ID of the workorder to switch to the previous step for
  */
 WFMApiService.prototype.previousStep = function(workorderId) {
-  return Promise.resolve();
+  return this.workorderSummary(workorderId).then(function(summary) {
+    var workorder = summary.workorder;
+    var workflow = summary.workflow;
+    var result = summary.result;
+
+    if (!result) {
+      //No result exists, The workflow should have been started
+      return Promise.reject(new Error("No result exists for workflow " + workorderId + ". The workflow back topic can only be used for a workflow that has begun"));
+    }
+
+    // -1 is a special value for 'no next step'
+    result.nextStepIndex = _.min([result.nextStepIndex - 1, -1]);
+
+    return this.resultService.update(result).then(function() {
+      return {
+        workorder: workorder,
+        workflow: workflow,
+        result: result,
+        nextStepIndex: result.nextStepIndex,
+        step: result.nextStepIndex > -1 ? workflow.steps[result.nextStepIndex] : null
+      };
+    });
+  });
 };
 
 /**
