@@ -177,14 +177,14 @@ WFMApiService.prototype.previousStep = function(workorderId) {
  */
 WFMApiService.prototype.completeStep = function(parameters) {
   var self = this;
-  var workorderId = parameters.workflowId;
+  var workorderId = parameters.workorderId;
   var stepCode = parameters.stepCode;
   var submission = parameters.submission;
   return this.userService.readUser().then(function(profileData) {
-    return self.workorderSummary(parameters.workorderId).then(function(workorderSummary) {
-      var workorder = workorderSummary[0];
-      var workflow = workorderSummary[1];
-      var result = workorderSummary[2];
+    return self.workorderSummary(workorderId).then(function(summary) {
+      var workorder = summary.workorder;
+      var workflow = summary.workflow;
+      var result = summary.result;
 
       if (!result) {
         //No result exists, The workflow should have been started
