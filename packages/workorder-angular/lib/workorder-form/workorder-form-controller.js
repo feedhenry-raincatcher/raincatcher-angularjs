@@ -23,7 +23,7 @@ function WorkorderFormController($scope, $state, workorderApiService, workorderF
   var workflowsPromise = workorderApiService.listWorkflows();
   var workersPromise = workorderApiService.listUsers();
 
-  self.selectWorkorder = function (event, workorder) {
+  self.selectWorkorder = function(event, workorder) {
     if (workorder.id) {
       workorderFlowService.workorderSelected(workorder);
     } else {
@@ -33,7 +33,7 @@ function WorkorderFormController($scope, $state, workorderApiService, workorderF
     event.stopPropagation();
   };
 
-  self.done = function (isValid) {
+  self.done = function(isValid) {
     self.submitted = true;
     if (isValid) {
       self.model.startTimestamp = new Date(self.model.startDate);
@@ -57,7 +57,7 @@ function WorkorderFormController($scope, $state, workorderApiService, workorderF
         createUpdatePromise = workorderApiService.updateWorkorder(workorderToCreate);
       }
 
-      createUpdatePromise.then(function () {
+      createUpdatePromise.then(function() {
         //Finished with the update/create, go back to the list.
         workorderFlowService.workorderSelected(workorderToCreate);
       });
@@ -65,7 +65,7 @@ function WorkorderFormController($scope, $state, workorderApiService, workorderF
   };
 
   //TODO: Error handling
-  $q.all([workorderPromise, workflowsPromise, workersPromise]).then(function (results) {
+  $q.all([workorderPromise, workflowsPromise, workersPromise]).then(function(results) {
     self.model = results[0];
     self.workflows = results[1];
     self.workers = results[2];

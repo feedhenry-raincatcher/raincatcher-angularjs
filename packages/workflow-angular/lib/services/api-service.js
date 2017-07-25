@@ -121,7 +121,7 @@ WorkflowApiService.prototype.previousStep = function(workorderId) {
  * @returns {Promise}
  */
 WorkflowApiService.prototype.nextStepSubscriber = function(subscriberFunction) {
-  return this.wfmService.nextStepSubscriber(workorderId);
+  return this.wfmService.nextStepSubscriber(subscriberFunction);
 };
 
 /**
@@ -134,7 +134,7 @@ WorkflowApiService.prototype.nextStepSubscriber = function(subscriberFunction) {
  * @returns {Promise}
  */
 WorkflowApiService.prototype.previousStepSubscriber = function(subscriberFunction) {
-  return this.wfmService.previousStepSubscriber(workorderId);
+  return this.wfmService.previousStepSubscriber(subscriberFunction);
 };
 
 /**
@@ -146,9 +146,9 @@ WorkflowApiService.prototype.previousStepSubscriber = function(subscriberFunctio
  * @param {string} parameters.stepCode - The ID of the step to save the submission for
  */
 WorkflowApiService.prototype.completeStep = function(parameters) {
-  return this.wfmService.completeStep(workorderId);
+  return this.wfmService.completeStep(parameters);
 };
 
-angular.module(CONSTANTS.WORKFLOW_DIRECTIVE_MODULE).service(CONSTANTS.WORKFLOW_API_SERVICE, ['WORKFLOW_CONFIG', "workorderService", "workflowService", "resultService", "userService", "wfmService", function(WORKFLOW_CONFIG, workflowService, workorderService, workflowService, resultService, userService, wfmService) {
+angular.module(CONSTANTS.WORKFLOW_DIRECTIVE_MODULE).service(CONSTANTS.WORKFLOW_API_SERVICE, ['WORKFLOW_CONFIG', "workorderService", "workflowService", "resultService", "userService", "wfmService", function(WORKFLOW_CONFIG, workorderService, workflowService, resultService, userService, wfmService) {
   return new WorkflowApiService(WORKFLOW_CONFIG, workorderService, workflowService, resultService, userService, wfmService);
 }]);

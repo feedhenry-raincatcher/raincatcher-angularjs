@@ -51,7 +51,7 @@ function WorkorderSummaryController($scope, $mdDialog, $state, $stateParams, wor
 
     event.preventDefault();
     var confirm = $mdDialog.confirm()
-      .title('Would you like to delete workorder #'+workorder.title+'?')
+      .title('Would you like to delete workorder #' + workorder.title + '?')
       .textContent(workorder.title)
       .ariaLabel('Delete Workorder')
       .targetEvent(event)
@@ -61,7 +61,7 @@ function WorkorderSummaryController($scope, $mdDialog, $state, $stateParams, wor
       return workorderApiService.removeWorkorder(workorder)
         .then(function() {
           //Finished removing the workorder, go back to the list.
-             $state.go('app.workorder', null, { reload: true });
+          $state.go('app.workorder', null, { reload: true });
         }, function(err) {
           //TODO: Error Handling
           throw err;

@@ -27,7 +27,7 @@ function WorkorderListController($scope, workorderApiService, workorderFlowServi
   workorderApiService.subscribeToListUpdated($scope, refreshWorkorderData);
 
   self.selectWorkorder = function(event, workorder) {
-      workorderFlowService.workorderSelected(workorder);
+    workorderFlowService.workorderSelected(workorder);
 
     event.preventDefault();
     event.stopPropagation();

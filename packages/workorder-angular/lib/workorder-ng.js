@@ -7,7 +7,7 @@ module.exports = function(config) {
     "wfm.common.apiservices",
     require('angular-messages'),
     require('angular-ui-router'),
-    require('./directive')(config),
+    require('./directive')(config)
   ]);
   return CONSTANTS.WORKORDER_MODULE_ID;
 };

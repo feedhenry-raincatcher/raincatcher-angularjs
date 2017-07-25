@@ -10,7 +10,7 @@ var CONSTANTS = require('../constants');
  * @param $timeout
  * @constructor
  */
-function WorkflowListController($scope, $stateParams, workflowApiService, $timeout) {
+function WorkflowListController($scope, $stateParams, workflowApiService, workflowFlowService, $timeout) {
   var self = this;
   self.workflows = null;
   self.selectedWorkflowId = $stateParams.workflowId;
