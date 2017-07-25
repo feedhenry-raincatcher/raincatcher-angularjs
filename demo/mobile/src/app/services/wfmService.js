@@ -2,10 +2,11 @@ var Promise = require("bluebird");
 var CONSTANTS = require('./constants');
 var _ = require('lodash');
 
-function WFMApiService(workorderService, workflowService, resultService) {
+function WFMApiService(workorderService, workflowService, resultService, userService) {
   this.workorderService = workorderService;
   this.workflowService = workflowService;
   this.resultService = resultService;
+  this.userService = userService;
 }
 
 /**
@@ -179,8 +180,8 @@ WFMApiService.prototype.completeStep = function(parameters) {
   var workorderId = parameters.workflowId;
   var stepCode = parameters.stepCode;
   var submission = parameters.submission;
-  return this.userClient.readUser().then(function(profileData) {
-    return self.getWorkorderSummary(parameters.workorderId).then(function(workorderSummary) {
+  return this.userService.readUser().then(function(profileData) {
+    return self.workorderSummary(parameters.workorderId).then(function(workorderSummary) {
       var workorder = workorderSummary[0];
       var workflow = workorderSummary[1];
       var result = workorderSummary[2];
@@ -230,6 +231,6 @@ WFMApiService.prototype.completeStep = function(parameters) {
   });
 };
 
-angular.module('wfm.common.apiservices').service("wfmService", ["workorderService", "workflowService", "resultService", function(workorderService, workflowService, resultService) {
-  return new WFMApiService(workorderService, workflowService, resultService);
+angular.module('wfm.common.apiservices').service("wfmService", ["workorderService", "workflowService", "resultService", "userService", function(workorderService, workflowService, resultService, userService) {
+  return new WFMApiService(workorderService, workflowService, resultService, userService);
 }]);

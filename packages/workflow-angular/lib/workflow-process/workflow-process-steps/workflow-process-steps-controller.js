@@ -55,7 +55,7 @@ function WorkflowProcessStepsController($scope, $state, workflowApiService, $tim
     updateWorkflowState(workflowSummary);
   });
 
-  workflowApiService.nextStepSubscriber(function(submission) {
+  self.triggerCompleteStep = function(submission) {
     workflowApiService.completeStep({
       workorderId: workorderId,
       submission: submission,
@@ -63,11 +63,11 @@ function WorkflowProcessStepsController($scope, $state, workflowApiService, $tim
     }).then(function(workflowSummary) {
       updateWorkflowState(workflowSummary);
     });
-  });
+  };
 
-  workflowApiService.previousStepSubscriber(function() {
+  self.triggerBackStep = function() {
     self.back();
-  });
+  };
 }
 
 angular.module(CONSTANTS.WORKFLOW_DIRECTIVE_MODULE).controller('WorkflowProcessStepsController', ['$scope', '$state', 'workflowApiService', '$timeout', '$stateParams', WorkflowProcessStepsController]);
