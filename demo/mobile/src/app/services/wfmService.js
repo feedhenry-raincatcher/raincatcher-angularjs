@@ -231,30 +231,6 @@ WFMApiService.prototype.completeStep = function(parameters) {
   });
 };
 
-
-/**
- * TODO this will be actual step implementation
- *
- * Going to the next step of a workorder.
- *
- * @param {string} workorderId - The ID of the workorder to switch to next step
- * @returns {Promise}
- */
-WFMApiService.prototype.nextStepSubscriber = function(subscriberFunction) {
-
-};
-
-/**
- * TODO this will be actual step implementation
- *
- * Going to the next step of a workorder.
- *
- * @param {string} workorderId - The ID of the workorder to switch to next step
- * @returns {Promise}
- */
-WFMApiService.prototype.previousStepSubscriber = function(subscriberFunction) {
-};
-
 angular.module('wfm.common.apiservices').service("wfmService", ["workorderService", "workflowService", "resultService", function(workorderService, workflowService, resultService) {
   return new WFMApiService(workorderService, workflowService, resultService);
 }]);
