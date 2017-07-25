@@ -16,7 +16,9 @@ angular.module(CONSTANTS.WORKORDER_DIRECTIVE).service(CONSTANTS.WORKORDER_FLOW_S
         );
       } else {
         //In User mode, selecting the workorder means that we want to start the workflow.
-        workorderApiService.begin(workorder);
+        $state.go('app.workflowProcess.begin', {
+          workorderId: workorder.id
+        });
       }
     }
 

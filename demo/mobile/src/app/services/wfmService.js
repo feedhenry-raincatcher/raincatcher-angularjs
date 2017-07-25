@@ -13,8 +13,7 @@ function WFMApiService(workorderService, workflowService, resultService) {
  *
  * @param {string} workorderId - The ID of the workorder to begin the workflow for.
  */
-WFMApiService.prototype.beginWorkflow = function(workorder) {
-  var workorderId = workorder.id;
+WFMApiService.prototype.beginWorkflow = function(workorderId) {
   return this.workorderSummary(workorderId).then(function(summary) {
     var workorder = summary.workorder;
     var workflow = summary.workflow;

@@ -18,13 +18,6 @@ angular.module(CONSTANTS.WORKFLOW_DIRECTIVE_MODULE).service(CONSTANTS.WORKFLOW_F
   flowService.goToWorkflowList = function() {
     $state.go('app.workflow', null, { reload: false });
   };
-
-  //Subscribing to the begin topic for a workorder. This will begin a workflow for a workorder.
-  flowService.beginWorkflow = function(workorder) {
-    $state.go('app.workflowProcess.begin', {
-      workorderId: workorder.id
-    });
-  };
   return flowService;
 }).filter('isEmpty', function() {
   return function(object) {
