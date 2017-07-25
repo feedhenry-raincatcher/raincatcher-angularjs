@@ -4,6 +4,7 @@ function WorkflowApiService(config, workorderService, workflowService, resultSer
   this.workorderService = workorderService;
   this.workflowService = workflowService;
   this.resultService = resultService;
+  this.wfmService = wfmService;
 }
 
 /**
@@ -86,6 +87,7 @@ WorkflowApiService.prototype.removeWorkflow = function (workflow) {
  * @param {string} workorderId - The ID of the workorder to begin the workflow for.
  */
 WorkflowApiService.prototype.beginWorkflow = function (workorderId) {
+  return this.wfmService.beginWorkflow(workorderId);
 };
 
 /**
@@ -95,6 +97,7 @@ WorkflowApiService.prototype.beginWorkflow = function (workorderId) {
  * @param {string} workorderId - The ID of the workorder to get the summary for.
  */
 WorkflowApiService.prototype.workflowSummary = function (workorderId) {
+  return this.wfmService.beginWorkflow(workorderId);
 };
 
 
@@ -105,7 +108,7 @@ WorkflowApiService.prototype.workflowSummary = function (workorderId) {
  * @param {string} workorderId - The ID of the workorder to switch to the previous step for
  */
 WorkflowApiService.prototype.previousStep = function (workorderId) {
-
+  return this.wfmService.previousStep(workorderId);
 };
 
 /**
@@ -117,7 +120,7 @@ WorkflowApiService.prototype.previousStep = function (workorderId) {
  * @returns {Promise}
  */
 WorkflowApiService.prototype.nextStepSubscriber = function (subscriberFunction) {
-
+  return this.wfmService.nextStepSubscriber(workorderId);
 };
 
 /**
@@ -130,11 +133,10 @@ WorkflowApiService.prototype.nextStepSubscriber = function (subscriberFunction) 
  * @returns {Promise}
  */
 WorkflowApiService.prototype.previousStepSubscriber = function (subscriberFunction) {
-
+  return this.wfmService.previousStepSubscriber(workorderId);
 };
 
 /**
- *
  * Completing a single step for a workorder.
  *
  * @param parameters
@@ -143,8 +145,9 @@ WorkflowApiService.prototype.previousStepSubscriber = function (subscriberFuncti
  * @param {string} parameters.stepCode - The ID of the step to save the submission for
  */
 WorkflowApiService.prototype.completeStep = function (parameters) {
+  return this.wfmService.completeStep(workorderId);
 };
 
-angular.module(CONSTANTS.WORKFLOW_DIRECTIVE_MODULE).service(CONSTANTS.WORKFLOW_API_SERVICE, ['WORKFLOW_CONFIG', "workorderService", "workflowService", "resultService", "userService", function (WORKFLOW_CONFIG, workflowService, workorderService) {
-  return new WorkflowApiService(WORKFLOW_CONFIG, workorderService, workflowService, resultService, userService);
+angular.module(CONSTANTS.WORKFLOW_DIRECTIVE_MODULE).service(CONSTANTS.WORKFLOW_API_SERVICE, ['WORKFLOW_CONFIG', "workorderService", "workflowService", "resultService", "userService", "wfmService", function (WORKFLOW_CONFIG, workflowService, workorderService, workflowService, resultService, userService, wfmService) {
+  return new WorkflowApiService(WORKFLOW_CONFIG, workorderService, workflowService, resultService, userService, wfmService);
 }]);
