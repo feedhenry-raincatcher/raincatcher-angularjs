@@ -23,7 +23,7 @@ WFMApiService.prototype.beginWorkflow = function(workorder) {
     //When the result has been read/created, then we can move on.
     return Promise.resolve(result).then(function(result) {
       //Now we check the current status of the workflow to see where the next step should be.
-      var stepReview = stepReview(workflow.steps, result);
+      var stepReview = executeStepReview(workflow.steps, result);
 
       result.nextStepIndex = stepReview.nextStepIndex;
       result.status = checkStatus(workorder, workflow, result);
@@ -58,7 +58,7 @@ function createNewResult(workorderId, assignee) {
  * @param {object} result
  * @returns {{nextStepIndex: number, complete: *}}
  */
-function stepReview(steps, result) {
+function executeStepReview(steps, result) {
   // See https://github.com/feedhenry-raincatcher/raincatcher-workflow/blob/b515e8acefad4bc50a7cc281863e2176c8babbed/lib/client/workflow-client/workflowClient.js
   var nextIncompleteStepIndex = 0;
   var complete = false;
@@ -91,7 +91,7 @@ function stepReview(steps, result) {
  */
 function checkStatus(workorder, workflow, result) {
   var status;
-  var stepReview = stepReview(workflow.steps, result);
+  var stepReview = executeStepReview(workflow.steps, result);
   if (stepReview.nextStepIndex >= workflow.steps.length - 1 && stepReview.complete) {
     status = CONSTANTS.STATUS.COMPLETE_DISPLAY;
   } else if (!workorder.assignee) {
