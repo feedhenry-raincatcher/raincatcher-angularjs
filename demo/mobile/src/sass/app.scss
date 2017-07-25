@@ -22,7 +22,7 @@ $danger: #F44336; //red 500
 // Uncomment when integrating modules
 @import 'node_modules/@raincatcher/workflow-angular/lib/workflow.scss';
 @import 'node_modules/@raincatcher/workorder-angular/lib/workorder.scss';
-
+@import 'node_modules/@raincatcher/vehicle-inspection/lib/vehicle-inspection.scss';
 .wfm-night{
   &:after{
     content: "";
