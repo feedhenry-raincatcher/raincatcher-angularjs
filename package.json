@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "lerna run test",
-    "bootstrap": "node ./scripts/checkoutCore.js && lerna bootstrap",
+    "build" : "lerna run build",
+    "bootstrap": "node ./scripts/checkoutCore.js && lerna bootstrap && lerna run build",
     "start": "lerna run start  --parallel --stream --scope=@raincatcher/demo-*"
   },
   "repository": {
