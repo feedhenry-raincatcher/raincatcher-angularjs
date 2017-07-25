@@ -1,25 +1,26 @@
 var Promise = require("bluebird");
-var $q = require("q");
 var CONSTANTS = require('./constants');
 var _ = require('lodash');
-var shortid = require('shortid');
 
-function WFMApiService(config) {
+function WFMApiService(workorderService, workflowService, resultService) {
+  this.workorderService = workorderService;
+  this.workflowService = workflowService;
+  this.resultService = resultService;
 }
 
 /**
- * Beginning a workflow for a single workorder.
+ * Beginning a workflow for a single Workorder.
  *
  * @param {string} workorderId - The ID of the workorder to begin the workflow for.
  */
-WFMApiService.prototype.beginWorkflow = function (workorderId) {
-  return this.workflowSummary().then(function (workorderSummary) {
-    var workorder = workorderSummary[0];
-    var workflow = workorderSummary[1];
-    var result = workorderSummary[2] || createNewResult(parameters.workorderId, workorder.assignee);
+WFMApiService.prototype.beginWorkflow = function(workorderId) {
+  return this.workorderSummary().then(function(summary) {
+    var workorder = summary.workorder;
+    var workflow = summary.workflow;
+    var result = summary.result || createNewResult(workorderId, workorder.assignee);
 
     //When the result has been read/created, then we can move on.
-    q.when(result).then(function (result) {
+    return Promise.resolve(result).then(function(result) {
       //Now we check the current status of the workflow to see where the next step should be.
       var stepReview = stepReview(workflow.steps, result);
 
@@ -36,11 +37,16 @@ WFMApiService.prototype.beginWorkflow = function (workorderId) {
       };
     });
   });
-  return Promise.resolve();
 };
 
 function createNewResult(workorderId, assignee) {
-  return { status: CONSTANTS.STATUS.NEW_DISPLAY, nextStepIndex: 0, workorderId: workorderId, assignee: assignee, stepResults: {} };
+  return Promise.resolve({
+    status: CONSTANTS.STATUS.NEW_DISPLAY,
+    nextStepIndex: 0,
+    workorderId: workorderId,
+    assignee: assignee,
+    stepResults: {}
+  });
 }
 
 /**
@@ -51,14 +57,14 @@ function createNewResult(workorderId, assignee) {
  * @param {object} result
  * @returns {{nextStepIndex: number, complete: *}}
  */
-// See https://github.com/feedhenry-raincatcher/raincatcher-workflow/blob/b515e8acefad4bc50a7cc281863e2176c8babbed/lib/client/workflow-client/workflowClient.js
 function stepReview(steps, result) {
+// See https://github.com/feedhenry-raincatcher/raincatcher-workflow/blob/b515e8acefad4bc50a7cc281863e2176c8babbed/lib/client/workflow-client/workflowClient.js
   var nextIncompleteStepIndex = 0;
   var complete = false;
 
   //If there is no result, then the first step is the next step.
   if (result && result.stepResults && result.stepResults.length !== 0) {
-    nextIncompleteStepIndex = _.findIndex(steps, function (step) {
+    nextIncompleteStepIndex = _.findIndex(steps, function(step) {
       //The next incomplete step is the step with no entry or it's not complete yet.
       return !result.stepResults[step.code] || result.stepResults[step.code].status !== CONSTANTS.STATUS.COMPLETE;
     });
@@ -72,7 +78,7 @@ function stepReview(steps, result) {
     nextStepIndex: nextIncompleteStepIndex,
     complete: complete // false is any steps are "pending"
   };
-};
+}
 
 /**
  * Checking the status of a workorder
@@ -95,7 +101,7 @@ function checkStatus(workorder, workflow, result) {
     status = CONSTANTS.STATUS.PENDING_DISPLAY;
   }
   return status;
-};
+}
 
 
 
@@ -104,9 +110,25 @@ function checkStatus(workorder, workflow, result) {
  * This wiil get all of the details related to the workorder, including workflow and result data.
  *
  * @param {string} workorderId - The ID of the workorder to get the summary for.
+ * @return {{workflow: Workflow, workorder: Workorder, result: Result}}
+ * An object containing all the major entities related to the workorder
  */
-WFMApiService.prototype.workflowSummary = function (workorderId) {
-  return Promise.resolve();
+WFMApiService.prototype.workorderSummary = function(workorderId) {
+  return this.workorderService.read(workorderId)
+  .then(function(workorder) {
+    return Promise.all([
+      this.workflowService.read(workorder.workflowId),
+      this.resultService.readByWorkorder(workorderId)
+    ]).then(function(response) {
+      var workflow = response[0];
+      var result = response[1];
+      return {
+        workflow: workflow,
+        workorder: workorder,
+        result: result
+      };
+    });
+  });
 };
 
 
@@ -116,7 +138,7 @@ WFMApiService.prototype.workflowSummary = function (workorderId) {
  *
  * @param {string} workorderId - The ID of the workorder to switch to the previous step for
  */
-WFMApiService.prototype.previousStep = function (workorderId) {
+WFMApiService.prototype.previousStep = function(workorderId) {
   return Promise.resolve();
 };
 
@@ -128,7 +150,7 @@ WFMApiService.prototype.previousStep = function (workorderId) {
  * @param {string} parameters.submission - The submission to save
  * @param {string} parameters.stepCode - The ID of the step to save the submission for
  */
-WFMApiService.prototype.completeStep = function (parameters) {
+WFMApiService.prototype.completeStep = function(parameters) {
   return Promise.resolve();
 };
 
@@ -141,7 +163,7 @@ WFMApiService.prototype.completeStep = function (parameters) {
  * @param {string} workorderId - The ID of the workorder to switch to next step
  * @returns {Promise}
  */
-WFMApiService.prototype.nextStepSubscriber = function (subscriberFunction) {
+WFMApiService.prototype.nextStepSubscriber = function(subscriberFunction) {
 
 };
 
@@ -153,9 +175,9 @@ WFMApiService.prototype.nextStepSubscriber = function (subscriberFunction) {
  * @param {string} workorderId - The ID of the workorder to switch to next step
  * @returns {Promise}
  */
-WFMApiService.prototype.previousStepSubscriber = function (subscriberFunction) {
+WFMApiService.prototype.previousStepSubscriber = function(subscriberFunction) {
 };
 
-angular.module('wfm.common.apiservices').service("wfmService", function () {
-  return new WFMApiService();
-});
+angular.module('wfm.common.apiservices').service("wfmService", ["workorderService","workflowService", "resultService", function(workorderService, workflowService, resultService) {
+  return new WFMApiService(workorderService, workflowService, resultService);
+}]);
