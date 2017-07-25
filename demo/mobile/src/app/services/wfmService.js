@@ -1,11 +1,13 @@
 var Promise = require("bluebird");
 var CONSTANTS = require('./constants');
 var _ = require('lodash');
+var shortid = require('shortid');
 
-function WFMApiService(workorderService, workflowService, resultService) {
+function WFMApiService(workorderService, workflowService, resultService, userService) {
   this.workorderService = workorderService;
   this.workflowService = workflowService;
   this.resultService = resultService;
+  this.userService = userService;
 }
 
 /**
@@ -13,12 +15,12 @@ function WFMApiService(workorderService, workflowService, resultService) {
  *
  * @param {string} workorderId - The ID of the workorder to begin the workflow for.
  */
-WFMApiService.prototype.beginWorkflow = function(workorder) {
-  var workorderId = workorder.id;
+WFMApiService.prototype.beginWorkflow = function(workorderId) {
+  var self = this;
   return this.workorderSummary(workorderId).then(function(summary) {
     var workorder = summary.workorder;
     var workflow = summary.workflow;
-    var result = summary.result || createNewResult(workorderId, workorder.assignee);
+    var result = summary.result || self.createNewResult(workorderId, workorder.assignee);
 
     //When the result has been read/created, then we can move on.
     return Promise.resolve(result).then(function(result) {
@@ -40,15 +42,16 @@ WFMApiService.prototype.beginWorkflow = function(workorder) {
   });
 };
 
-function createNewResult(workorderId, assignee) {
-  return Promise.resolve({
+WFMApiService.prototype.createNewResult = function(workorderId, assignee) {
+  return this.resultService.create({
+    id: shortid.generate(),
     status: CONSTANTS.STATUS.NEW_DISPLAY,
     nextStepIndex: 0,
     workorderId: workorderId,
     assignee: assignee,
     stepResults: {}
   });
-}
+};
 
 /**
  * This function checks each of the result steps to determine if the workflow is complete,
@@ -141,7 +144,30 @@ WFMApiService.prototype.workorderSummary = function(workorderId) {
  * @param {string} workorderId - The ID of the workorder to switch to the previous step for
  */
 WFMApiService.prototype.previousStep = function(workorderId) {
-  return Promise.resolve();
+  var self = this;
+  return this.workorderSummary(workorderId).then(function(summary) {
+    var workorder = summary.workorder;
+    var workflow = summary.workflow;
+    var result = summary.result;
+
+    if (!result) {
+      //No result exists, The workflow should have been started
+      return Promise.reject(new Error("No result exists for workflow " + workorderId + ". The workflow back topic can only be used for a workflow that has begun"));
+    }
+
+    // -1 is a special value for 'no next step'
+    result.nextStepIndex = _.min([result.nextStepIndex - 1, -1]);
+
+    return self.resultService.update(result).then(function() {
+      return {
+        workorder: workorder,
+        workflow: workflow,
+        result: result,
+        nextStepIndex: result.nextStepIndex,
+        step: result.nextStepIndex > -1 ? workflow.steps[result.nextStepIndex] : null
+      };
+    });
+  });
 };
 
 /**
@@ -153,33 +179,61 @@ WFMApiService.prototype.previousStep = function(workorderId) {
  * @param {string} parameters.stepCode - The ID of the step to save the submission for
  */
 WFMApiService.prototype.completeStep = function(parameters) {
-  return Promise.resolve();
+  var self = this;
+  var workorderId = parameters.workorderId;
+  var stepCode = parameters.stepCode;
+  var submission = parameters.submission;
+  return this.userService.readUser().then(function(profileData) {
+    return self.workorderSummary(workorderId).then(function(summary) {
+      var workorder = summary.workorder;
+      var workflow = summary.workflow;
+      var result = summary.result;
+
+      if (!result) {
+        //No result exists, The workflow should have been started
+        return Promise.reject(new Error("No result exists for workorder " + workorderId + ". The workflow done topic can only be used for a workflow that has begun"));
+      }
+
+      var step = _.find(workflow.steps, function(step) {
+        return step.code === stepCode;
+      });
+
+      //If there is no step, then this step submission is invalid.
+      if (!step) {
+        //No result exists, The workflow should have been started
+        return Promise.reject(new Error("Invalid step to assign completed data for workorder " + workorderId + " and step code " + stepCode));
+      }
+
+      //Got the workflow, now we can create the step result.
+      var stepResult = {
+        step: step,
+        submission: submission,
+        type: CONSTANTS.STEP_TYPES.STATIC,
+        status: CONSTANTS.STATUS.COMPLETE,
+        timestamp: new Date().getTime(),
+        submitter: profileData.id
+      };
+
+      //The result needs to be updated with the latest step results
+      result.stepResults = result.stepResults || {};
+      result.stepResults[step.code] = stepResult;
+      result.status = checkStatus(workorder, workflow, result);
+      result.nextStepIndex = executeStepReview(workflow.steps, result).nextStepIndex;
+
+      return self.resultService.update(result).then(function() {
+        //Result update complete, we can now publish the done topic for the step complete with the details of the next step for the user.
+        return {
+          workorder: workorder,
+          workflow: workflow,
+          result: result,
+          nextStepIndex: result.nextStepIndex,
+          step: result.nextStepIndex > -1 ? workflow.steps[result.nextStepIndex] : workflow.steps[0]
+        };
+      });
+    });
+  });
 };
 
-
-/**
- * TODO this will be actual step implementation
- *
- * Going to the next step of a workorder.
- *
- * @param {string} workorderId - The ID of the workorder to switch to next step
- * @returns {Promise}
- */
-WFMApiService.prototype.nextStepSubscriber = function(subscriberFunction) {
-
-};
-
-/**
- * TODO this will be actual step implementation
- *
- * Going to the next step of a workorder.
- *
- * @param {string} workorderId - The ID of the workorder to switch to next step
- * @returns {Promise}
- */
-WFMApiService.prototype.previousStepSubscriber = function(subscriberFunction) {
-};
-
-angular.module('wfm.common.apiservices').service("wfmService", ["workorderService", "workflowService", "resultService", function(workorderService, workflowService, resultService) {
-  return new WFMApiService(workorderService, workflowService, resultService);
+angular.module('wfm.common.apiservices').service("wfmService", ["workorderService", "workflowService", "resultService", "userService", function(workorderService, workflowService, resultService, userService) {
+  return new WFMApiService(workorderService, workflowService, resultService, userService);
 }]);

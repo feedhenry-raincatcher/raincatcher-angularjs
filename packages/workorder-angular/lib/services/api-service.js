@@ -1,10 +1,9 @@
 var CONSTANTS = require('../constants');
 
-function WorkorderApiService(config, workorderService, workflowService, resultService, userService, wfmService) {
+function WorkorderApiService(config, workorderService, workflowService, resultService, userService) {
   this.workorderService = workorderService;
   this.workflowService = workflowService;
   this.resultService = resultService;
-  this.wfmService = wfmService;
 }
 
 WorkorderApiService.prototype.listWorkorders = function() {
@@ -49,10 +48,6 @@ WorkorderApiService.prototype.listUsers = function() {
   return this.userService.listUsers();
 };
 
-WorkorderApiService.prototype.begin = function(workorder) {
-  return this.wfmService.beginWorkflow(workorder);
-};
-
 WorkorderApiService.prototype.subscribeToListUpdated = function() {
   // TODO sync streams
 };
@@ -73,7 +68,7 @@ WorkorderApiService.prototype.resultMap = function() {
     });
 };
 
-angular.module(CONSTANTS.WORKORDER_DIRECTIVE).service(CONSTANTS.WORKORDER_API_SERVICE, ["WORKORDER_CONFIG", "workorderService", "workflowService", "resultService", "userService", "wfmService", function(WORKORDER_CONFIG, workorderService, workflowService, resultService, userService, wfmService) {
+angular.module(CONSTANTS.WORKORDER_DIRECTIVE).service(CONSTANTS.WORKORDER_API_SERVICE, ["WORKORDER_CONFIG", "workorderService", "workflowService", "resultService", "userService", function(WORKORDER_CONFIG, workorderService, workflowService, resultService, userService) {
 
-  return new WorkorderApiService(WORKORDER_CONFIG, workorderService, workflowService, resultService, userService, wfmService);
+  return new WorkorderApiService(WORKORDER_CONFIG, workorderService, workflowService, resultService, userService);
 }]);
