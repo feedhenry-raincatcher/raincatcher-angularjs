@@ -7,9 +7,9 @@
  */
 function onLogout($state, syncPool) {
   isAuthenticated = false;
-  syncPool.removeManagers().then(function () {
+  syncPool.removeManagers().then(function() {
     $state.go('app.login', undefined, { reload: true });
-  }, function (err) {
+  }, function(err) {
     console.error(err);
   });
 }
@@ -17,7 +17,7 @@ function onLogout($state, syncPool) {
 function onLogin($rootScope, $state, syncPool) {
   syncPool.syncManagerMap(_profileData)  // created managers will be cached
     .then(syncPool.forceSync)
-    .then(function () {
+    .then(function() {
       if ($rootScope.toState) {
         $state.go($rootScope.toState, $rootScope.toParams, { reload: true });
         delete $rootScope.toState;

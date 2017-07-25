@@ -2,7 +2,7 @@
 function createMainAppRoute($stateProvider, $urlRouterProvider) {
   // if none of the states are matched, use this as the fallback
 
-  $urlRouterProvider.otherwise(function ($injector) {
+  $urlRouterProvider.otherwise(function($injector) {
     var $state = $injector.get("$state");
     $state.go("app.workorder");
   });
@@ -17,15 +17,15 @@ function createMainAppRoute($stateProvider, $urlRouterProvider) {
 
 angular.module('wfm-mobile').config(['$stateProvider', '$urlRouterProvider', createMainAppRoute]).controller('mainController', [
   '$rootScope', '$scope', '$state', '$mdSidenav', 'userService',
-  function ($rootScope, $scope, $state, $mdSidenav, userService) {
-    userService.getProfile().then(function (profileData) {
+  function($rootScope, $scope, $state, $mdSidenav, userService) {
+    userService.getProfile().then(function(profileData) {
       $scope.profileData = profileData;
     });
-    $scope.toggleSidenav = function (event, menuId) {
+    $scope.toggleSidenav = function(event, menuId) {
       $mdSidenav(menuId).toggle();
       event.stopPropagation();
     };
-    $scope.navigateTo = function (state, params) {
+    $scope.navigateTo = function(state, params) {
       if (state) {
         $state.go(state, params);
       }

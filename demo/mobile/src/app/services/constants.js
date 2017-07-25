@@ -10,4 +10,4 @@ module.exports = {
   STEP_TYPES: {
     STATIC: "static"
   }
-}
+};

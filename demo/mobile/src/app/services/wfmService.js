@@ -115,20 +115,20 @@ function checkStatus(workorder, workflow, result) {
  */
 WFMApiService.prototype.workorderSummary = function(workorderId) {
   return this.workorderService.read(workorderId)
-  .then(function(workorder) {
-    return Promise.all([
-      this.workflowService.read(workorder.workflowId),
-      this.resultService.readByWorkorder(workorderId)
-    ]).then(function(response) {
-      var workflow = response[0];
-      var result = response[1];
-      return {
-        workflow: workflow,
-        workorder: workorder,
-        result: result
-      };
+    .then(function(workorder) {
+      return Promise.all([
+        this.workflowService.read(workorder.workflowId),
+        this.resultService.readByWorkorder(workorderId)
+      ]).then(function(response) {
+        var workflow = response[0];
+        var result = response[1];
+        return {
+          workflow: workflow,
+          workorder: workorder,
+          result: result
+        };
+      });
     });
-  });
 };
 
 

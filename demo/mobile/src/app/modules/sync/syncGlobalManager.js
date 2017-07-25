@@ -14,7 +14,7 @@ var syncApi = syncClient.sync;
 function initSync() {
   var deferred = $q.defer();
   // Get server url
-  $fh.on('fhinit', function (error) {
+  $fh.on('fhinit', function(error) {
     if (error) {
       return deferred.reject(error);
     }
@@ -40,7 +40,7 @@ function initSync() {
  */
 function manageDataset(datasetId, options, queryParams, metaData) {
   var deferred = $q.defer();
-  $fh.sync.manage(datasetId, options, queryParams, metaData, function (err) {
+  $fh.sync.manage(datasetId, options, queryParams, metaData, function(err) {
     if (err) {
       console.log("Cannot initialize sync for", datasetId);
       deferred.reject(err);
