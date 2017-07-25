@@ -141,6 +141,7 @@ WFMApiService.prototype.workorderSummary = function(workorderId) {
  * @param {string} workorderId - The ID of the workorder to switch to the previous step for
  */
 WFMApiService.prototype.previousStep = function(workorderId) {
+  var self = this;
   return this.workorderSummary(workorderId).then(function(summary) {
     var workorder = summary.workorder;
     var workflow = summary.workflow;
@@ -154,7 +155,7 @@ WFMApiService.prototype.previousStep = function(workorderId) {
     // -1 is a special value for 'no next step'
     result.nextStepIndex = _.min([result.nextStepIndex - 1, -1]);
 
-    return this.resultService.update(result).then(function() {
+    return self.resultService.update(result).then(function() {
       return {
         workorder: workorder,
         workflow: workflow,
@@ -175,7 +176,59 @@ WFMApiService.prototype.previousStep = function(workorderId) {
  * @param {string} parameters.stepCode - The ID of the step to save the submission for
  */
 WFMApiService.prototype.completeStep = function(parameters) {
-  return Promise.resolve();
+  var self = this;
+  var workorderId = parameters.workflowId;
+  var stepCode = parameters.stepCode;
+  var submission = parameters.submission;
+  return this.userClient.readUser().then(function(profileData) {
+    return self.getWorkorderSummary(parameters.workorderId).then(function(workorderSummary) {
+      var workorder = workorderSummary[0];
+      var workflow = workorderSummary[1];
+      var result = workorderSummary[2];
+
+      if (!result) {
+        //No result exists, The workflow should have been started
+        return Promise.reject(new Error("No result exists for workorder " + workorderId + ". The workflow done topic can only be used for a workflow that has begun"));
+      }
+
+      var step = _.find(workflow.steps, function(step) {
+        return step.code === stepCode;
+      });
+
+      //If there is no step, then this step submission is invalid.
+      if (!step) {
+        //No result exists, The workflow should have been started
+        return Promise.reject(new Error("Invalid step to assign completed data for workorder " + workorderId + " and step code " + stepCode));
+      }
+
+      //Got the workflow, now we can create the step result.
+      var stepResult = {
+        step: step,
+        submission: submission,
+        type: CONSTANTS.STEP_TYPES.STATIC,
+        status: CONSTANTS.STATUS.COMPLETE,
+        timestamp: new Date().getTime(),
+        submitter: profileData.id
+      };
+
+      //The result needs to be updated with the latest step results
+      result.stepResults = result.stepResults || {};
+      result.stepResults[step.code] = stepResult;
+      result.status = checkStatus(workorder, workflow, result);
+      result.nextStepIndex = executeStepReview(workflow.steps, result).nextStepIndex;
+
+      return self.resultService.update(result).then(function() {
+        //Result update complete, we can now publish the done topic for the step complete with the details of the next step for the user.
+        return {
+          workorder: workorder,
+          workflow: workflow,
+          result: result,
+          nextStepIndex: result.nextStepIndex,
+          step: result.nextStepIndex > -1 ? workflow.steps[result.nextStepIndex] : workflow.steps[0]
+        };
+      });
+    });
+  });
 };
 
 
