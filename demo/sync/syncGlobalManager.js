@@ -1,11 +1,13 @@
 'use strict';
 var $fh = require('fh-js-sdk');
 var syncClient = require("@raincatcher/datasync-client");
-var config = require("./config.json");
 var Promise = require('bluebird');
 
 var DataManager = Promise.promisifyAll(syncClient.DataManager);
 var syncApi = syncClient.sync;
+
+// TODO: receive via angular constant service?
+var config = require("./config.json");
 
 /**
 * Initialize sync service
