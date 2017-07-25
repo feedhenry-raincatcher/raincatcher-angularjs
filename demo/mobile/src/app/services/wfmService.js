@@ -1,6 +1,7 @@
 var Promise = require("bluebird");
 var CONSTANTS = require('./constants');
 var _ = require('lodash');
+var shortid = require('shortid');
 
 function WFMApiService(workorderService, workflowService, resultService, userService) {
   this.workorderService = workorderService;
@@ -15,10 +16,11 @@ function WFMApiService(workorderService, workflowService, resultService, userSer
  * @param {string} workorderId - The ID of the workorder to begin the workflow for.
  */
 WFMApiService.prototype.beginWorkflow = function(workorderId) {
+  var self = this;
   return this.workorderSummary(workorderId).then(function(summary) {
     var workorder = summary.workorder;
     var workflow = summary.workflow;
-    var result = summary.result || createNewResult(workorderId, workorder.assignee);
+    var result = summary.result || self.createNewResult(workorderId, workorder.assignee);
 
     //When the result has been read/created, then we can move on.
     return Promise.resolve(result).then(function(result) {
@@ -40,15 +42,16 @@ WFMApiService.prototype.beginWorkflow = function(workorderId) {
   });
 };
 
-function createNewResult(workorderId, assignee) {
-  return Promise.resolve({
+WFMApiService.prototype.createNewResult = function(workorderId, assignee) {
+  return this.resultService.create({
+    id: shortid.generate(),
     status: CONSTANTS.STATUS.NEW_DISPLAY,
     nextStepIndex: 0,
     workorderId: workorderId,
     assignee: assignee,
     stepResults: {}
   });
-}
+};
 
 /**
  * This function checks each of the result steps to determine if the workflow is complete,
