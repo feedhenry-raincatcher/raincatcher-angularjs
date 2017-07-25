@@ -1,6 +1,6 @@
 {
   "name": "@raincatcher/vehicle-inspection",
-  "version": "0.0.15",
+  "version": "1.0.0",
   "description": "An vehicle-inspection module",
   "main": "lib/angular/vehicle-inspection-ng.js",
   "scripts": {
