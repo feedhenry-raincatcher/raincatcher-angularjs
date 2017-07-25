@@ -1,7 +1,6 @@
 var fh = require('fh-js-sdk');
 
-function createMainAppRoute($stateProvider, $urlRouterProvider, $httpProvider) {
-  $httpProvider.defaults.withCredentials = true;
+function createMainAppRoute($stateProvider, $urlRouterProvider, $httpProvider, Auth) {
   // if none of the states are matched, use this as the fallback
 
   $urlRouterProvider.otherwise(function($injector) {
@@ -23,6 +22,7 @@ angular.module('wfm-mobile').config(['$stateProvider', '$urlRouterProvider', '$h
     userService.getProfile($http, $window).then(function(profileData) {
       $scope.profileData = profileData;
     });
+
     $scope.toggleSidenav = function(event, menuId) {
       $mdSidenav(menuId).toggle();
       event.stopPropagation();
@@ -31,6 +31,15 @@ angular.module('wfm-mobile').config(['$stateProvider', '$urlRouterProvider', '$h
       if (state) {
         $state.go(state, params);
       }
+    };
+    $scope.hasResourceRole = function(role) {
+      return Auth.keycloak.hasResourceRole(role);
+    };
+    $scope.hasRealmRole = function(role) {
+      return Auth.keycloak.hasRealmRole(role);
+    };
+    $scope.manageAccount = function() {
+      Auth.keycloak.accountManagement();
     };
     $scope.logout = function() {
       if ($scope.profileData) {
@@ -41,8 +50,8 @@ angular.module('wfm-mobile').config(['$stateProvider', '$urlRouterProvider', '$h
 
         return $http(req, {withCredentials: true}).then(function() {
           $window.location = fh.getCloudURL() + '/login';
-        }, function() {
-          console.log('error logging out');
+        }, function(err) {
+          console.log('error logging out', err);
         });
       }
     };

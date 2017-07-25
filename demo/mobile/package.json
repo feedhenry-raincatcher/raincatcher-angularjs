@@ -15,6 +15,7 @@
   "author": "feedhenry-raincatcher@redhat.com",
   "license": "MIT",
   "dependencies": {
+    "@raincatcher/datasync-client": "1.0.0",
     "@raincatcher/demo-sync": "1.0.0",
     "@raincatcher/demo-wfm": "1.0.0",
     "@raincatcher/logger": "1.0.0",
@@ -31,6 +32,7 @@
     "debug": "^2.6.3",
     "fh-js-sdk": "2.18.6",
     "grunt-cli": "^1.2.0",
+    "keycloak-js": "^3.2.1",
     "lodash": "4.17.4",
     "moment": "~2.18.1",
     "q": "1.5.0",
