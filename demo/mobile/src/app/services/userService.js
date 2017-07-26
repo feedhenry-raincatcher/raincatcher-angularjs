@@ -1,4 +1,5 @@
 var Promise = require("bluebird");
+var fh = require("fh-js-sdk");
 
 function UserService() {
 }
@@ -18,9 +19,22 @@ UserService.prototype.readUser = function readUser(userId) {
   });
 };
 
-
-UserService.prototype.getProfile = function(userId) {
-  return this.readUser(userId);
+UserService.prototype.getProfile = function($http, $window) {
+  var req = {
+    method: 'GET',
+    url: fh.getCloudURL() + '/profile'
+  };
+  return $http(req, {withCredentials: true}).then(function(res) {
+    return res.data;
+  }, function(err) {
+    if (err.status === 401) {
+      $window.location = fh.getCloudURL() + '/login';
+    }
+    if (err.status === 403) {
+      console.log('Forbidden')
+    }
+    return err;
+  });
 };
 
 UserService.prototype.listUsers = function listUsers() {
