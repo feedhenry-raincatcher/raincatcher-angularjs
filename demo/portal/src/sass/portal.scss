@@ -19,9 +19,8 @@ $danger: #F44336; //red 500
 .success{ color: $success;}
 .danger{ color: $danger;}
 
-// TODO uncomment once modules are rafactored
-// @import 'node_modules/@raincatcher/workflow-angular/lib/workflow.scss';
-// @import 'node_modules/@raincatcher/workorder-angular/lib/workorder.scss';
+@import 'node_modules/@raincatcher/workflow-angular/lib/workflow.scss';
+@import 'node_modules/@raincatcher/workorder-angular/lib/workorder.scss';
 
 // tabs
 md-tabs md-tab-item{
