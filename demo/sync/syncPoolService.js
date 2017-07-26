@@ -1,6 +1,6 @@
 var config = require('./config.json');
 var _ = require('lodash');
-var $q = require("q");
+var Promise = require('bluebird');
 
 var syncGlobalManager = require("./syncGlobalManager");
 
@@ -11,11 +11,9 @@ var syncManagers;
  * Remove synchronization managers
  */
 syncPool.removeManagers = function() {
-  var promises = _.map(syncManagers, function(syncManager) {
+  return Promise.map(syncManagers, function(syncManager) {
     return syncManager.stop();
-  });
-
-  return $q.all(promises).then(function() {
+  }).then(function() {
     syncManagers = null;
   });
 };
@@ -25,10 +23,10 @@ syncPool.removeManagers = function() {
  */
 syncPool.syncManagerMap = function(profileData) {
   if (!profileData) {
-    return $q.when({});
+    return Promise.resolve({});
   }
   if (syncManagers) {
-    return $q.when(syncManagers);
+    return Promise.resolve(syncManagers);
   }
 
   var filter = {
@@ -36,7 +34,7 @@ syncPool.syncManagerMap = function(profileData) {
   };
   syncManagers = {};
   //Initialisation of sync data sets to manage.
-  return $q.all([
+  return Promise.all([
     syncGlobalManager.manageDataset(config.datasetIds.workorders, config.syncOptions.workorders, filter, {}),
     syncGlobalManager.manageDataset(config.datasetIds.workflows, config.syncOptions.workflows, {}, {}),
     syncGlobalManager.manageDataset(config.datasetIds.results, config.syncOptions.results, filter, {})
@@ -63,7 +61,7 @@ syncPool.forceSync = function(managers) {
         })
     );
   });
-  return $q.all(promises);
+  return Promise.all(promises);
 };
 
 /**
@@ -73,12 +71,12 @@ syncPool.forceSync = function(managers) {
  * @returns {{}}
  * @constructor
  */
-function SyncPoolService($q) {
+function SyncPoolService() {
   //Init the sync service
-  syncGlobalManager.initSync().catch(function(err) {
+  syncGlobalManager.initSync().catch(function() {
     console.error("Failed to initialize sync");
   });
   return syncPool;
 }
 
-angular.module('wfm-mobile').service('syncPool', ['$q', SyncPoolService]);
+angular.module('wfm.sync').service('syncPool', [SyncPoolService]);

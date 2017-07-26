@@ -54,7 +54,7 @@ WorkflowApiService.prototype.readWorkorder = function(workorderId) {
  * @returns {Promise}
  */
 WorkflowApiService.prototype.updateWorkflow = function(workflow) {
-  return this.workflowService.updateWorkflow(workflow);
+  return this.workflowService.update(workflow);
 };
 
 
@@ -66,7 +66,7 @@ WorkflowApiService.prototype.updateWorkflow = function(workflow) {
  * @returns {Promise}
  */
 WorkflowApiService.prototype.createWorkflow = function(workflow) {
-  return this.workflowService.createWorkflow(workflow);
+  return this.workflowService.create(workflow);
 };
 
 /**
@@ -78,7 +78,7 @@ WorkflowApiService.prototype.createWorkflow = function(workflow) {
  * @returns {Promise}
  */
 WorkflowApiService.prototype.removeWorkflow = function(workflow) {
-  return this.workflowService.removeWorkflow(workflow);
+  return this.workflowService.remove(workflow);
 };
 
 /**
@@ -135,6 +135,10 @@ WorkflowApiService.prototype.nextStepSubscriber = function(subscriberFunction) {
  */
 WorkflowApiService.prototype.previousStepSubscriber = function(subscriberFunction) {
   return this.wfmService.previousStepSubscriber(subscriberFunction);
+};
+
+WorkflowApiService.prototype.subscribeToWorkflowCRUDDoneTopics = function() {
+
 };
 
 /**

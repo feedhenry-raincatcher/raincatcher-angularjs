@@ -1,11 +1,11 @@
 var config = require('./config.json');
 var _ = require('lodash');
-angular.module('wfm.sync',[]).service('syncService', ['syncPool' , 'userService', function(syncPool, userService) {
+angular.module('wfm.sync').service('syncService', ['syncPool' , 'userService', function(syncPool, userService) {
   return userService.getProfile()
     .then(syncPool.syncManagerMap);
 }]);
 
-// Generating commom data repositories
+// Generating common data repositories
 var SyncApiDataService = require("./syncDataRepository");
 
 var datasets = config.datasetIds;
@@ -37,4 +37,3 @@ angular.module('wfm.common.apiservices').service("resultService", ['syncService'
   return new ResultSyncService(datasets.results, syncService);
 }]);
 
-module.exports = 'wfm.sync';

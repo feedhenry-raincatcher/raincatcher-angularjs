@@ -31,7 +31,7 @@ SyncApiDataService.prototype.update = function(objToUpdate) {
   });
 };
 
-SyncApiDataService.prototype.removeWorkorder = function(objToRemove) {
+SyncApiDataService.prototype.remove = function(objToRemove) {
   return this.syncManagerPromise.then(function(syncManager) {
     return syncManager.deleteAsync(objToRemove);
   });
