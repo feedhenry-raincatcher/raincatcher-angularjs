@@ -1,4 +1,4 @@
-# FeedHenry RainCatcher Portal [![Build Status](https://travis-ci.org/feedhenry-raincatcher/raincatcher-demo-portal.png)](https://travis-ci.org/feedhenry-raincatcher/raincatcher-demo-portal)
+# FeedHenry RainCatcher Portal
 
 This is a reference/demo implementation of the Portal Client application of a RainCatcher project.
 
