@@ -30,7 +30,7 @@ See the [Apache Cordova project documentation](https://cordova.apache.org/docs/)
 ## Repository structure
 
 ### `src/app`
-Main folder containing the logic for the application. The app is mainly concerned in providing the setup and configuration values for the RainCatcher and angularjs modules that are used by it as well as for the [FeedHenry JavaScript SDK](https://github.com/feedhenry/fh-js-sdk).
+Main folder containing the logic for the application. The app is mainly concerned in providing the setup and configuration values for the RainCatcher and angularjs modules that are used by it.
 
 #### `src/app/initialization`
 Contains configuration values and initial bootstrapping code for the angularjs application.
