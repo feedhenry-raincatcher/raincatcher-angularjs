@@ -22,6 +22,7 @@
     "@raincatcher/workflow-angular": "1.0.0",
     "@raincatcher/workorder-angular": "1.0.0",
     "@raincatcher/demo-sync": "1.0.0",
+    "@raincatcher/demo-wfm": "1.0.0",
     "fh-js-sdk": "2.18.6",
     "lodash": "4.7.0",
     "moment": "^2.16.0",

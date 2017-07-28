@@ -6,6 +6,7 @@ angular.module('app', [
   require('angular-ui-router'),
   require('angular-material'),
   require('./services'),
+  require('@raincatcher/demo-wfm'),
   require('@raincatcher/demo-sync'),
   require('ng-sortable'),
   require('./feedhenry'),
