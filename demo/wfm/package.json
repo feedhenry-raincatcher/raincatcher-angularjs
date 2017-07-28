@@ -1,0 +1,18 @@
+{
+  "name": "@raincatcher/demo-wfm",
+  "version": "1.0.0",
+  "description": "Angular-based wfm module",
+  "keywords": [
+    "wfm"
+  ],
+  "author": "feedhenry-raincatcher@redhat.com",
+  "license": "Apache2",
+  "peerDependencies": {
+    "angular": "1.6.1"
+  },
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "lodash": "^4.17.4",
+    "shortid": "^2.2.8"
+  }
+}
