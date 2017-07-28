@@ -47,10 +47,10 @@ angular.element(document).ready(function() {
   // initialise the Keycloak JS Adapter
   keycloakJS.init(initConfig).success(function() {
     auth.provider = keycloakJS;
+    auth.provider.name = "keycloak";
     console.log("Keycloak Ininitalisation Success");
     // make auth/keycloak JS adapter available to controllers & services in the app
     module.factory('Auth', function() {
-      console.log("EXPORTING");
       return auth;
     });
     // angular should be started after Keycloak has initialized otherwise Angular will cause issues with URL Rewrites
