@@ -1,7 +1,7 @@
 var config = require('./config.json');
 var _ = require('lodash');
-angular.module('wfm.sync',[]).service('syncService', ['$http', '$window', 'syncPool', 'userService', function($http, $window, syncPool, userService) {
-  return userService.getProfile($http, $window)
+angular.module('wfm.sync',[]).service('syncService', ['$http', '$window', 'syncPool', 'passport', function($http, $window, syncPool, passport) {
+  return passport.getProfile($http, $window)
     .then(syncPool.syncManagerMap);
 }]);
 

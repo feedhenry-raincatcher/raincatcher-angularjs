@@ -18,9 +18,9 @@ function createMainAppRoute($stateProvider, $urlRouterProvider, $httpProvider) {
 }
 
 angular.module('wfm-mobile').config(['$stateProvider', '$urlRouterProvider', '$httpProvider', createMainAppRoute]).controller('mainController', [
-  '$rootScope', '$scope', '$state', '$mdSidenav', '$window', '$http', 'authService',
-  function ($rootScope, $scope, $state, $mdSidenav, $window, $http, authService) {
-    authService.getProfile($http, $window).then(function(profileData) {
+  '$rootScope', '$scope', '$state', '$mdSidenav', '$window', '$http', 'passport',
+  function ($rootScope, $scope, $state, $mdSidenav, $window, $http, passport) {
+    passport.getProfile($http, $window).then(function(profileData) {
       $scope.profileData = profileData;
     });
     $scope.toggleSidenav = function(event, menuId) {
@@ -34,7 +34,7 @@ angular.module('wfm-mobile').config(['$stateProvider', '$urlRouterProvider', '$h
     };
     $scope.logout = function() {
       if($scope.profileData) {
-        authService.logout($http, $window);
+        passport.logout($http, $window);
       }
     }
   }]);

@@ -1,5 +1,5 @@
 angular.module('wfm.auth', []);
 
-require('./authService');
+require('./passport');
 
 module.exports = 'wfm.auth';
