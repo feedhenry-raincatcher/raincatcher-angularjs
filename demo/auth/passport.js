@@ -6,7 +6,7 @@ var setLogger = require('@raincatcher/logger').setLogger;
 $fh.init({}, function() {
   setLogger(new ConsoleLogger());
   var passport = {
-    getProfile: function($http, $window) {
+    loadUserProfile: function($http, $window) {
       var req = {
         method: 'GET',
         url: $fh.getCloudURL() + '/profile'
@@ -22,6 +22,9 @@ $fh.init({}, function() {
         }
         return err;
       });
+    },
+    hasResourceRole: function(role) {
+      // TODO
     },
     logout: function($http, $window) {
       var req = {

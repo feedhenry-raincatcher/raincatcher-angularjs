@@ -17,8 +17,8 @@ function createMainAppRoute($stateProvider, $urlRouterProvider) {
 }
 
 angular.module('wfm-mobile').config(['$stateProvider', '$urlRouterProvider', createMainAppRoute]).controller('mainController', [
-  '$rootScope', '$scope', '$state', '$mdSidenav', 'passport', '$http', '$window', 'Auth'
-  function($rootScope, $scope, $state, $mdSidenav, passport, $http, $window, Auth) {
+  '$rootScope', '$scope', '$state', '$mdSidenav', '$http', '$window', 'Auth'
+  function($rootScope, $scope, $state, $mdSidenav, $http, $window, Auth) {
 
     // return user profile from keycloak
     if (Auth.keycloak) {
@@ -37,7 +37,7 @@ angular.module('wfm-mobile').config(['$stateProvider', '$urlRouterProvider', cre
       });
     } else {
       // return user profile from passport
-      passport.getProfile($http, $window).then(function(profileData) {
+      Auth.passport.loadUserProfile($http, $window).then(function(profileData) {
         $scope.profileData = profileData;
       });
     }
@@ -64,7 +64,7 @@ angular.module('wfm-mobile').config(['$stateProvider', '$urlRouterProvider', cre
       if (Auth.keycloak) {
         Auth.keycloak.logout();
       } else {
-        passport.logout($http, $window);
+        Auth.passport.logout($http, $window);
       }
     };
   }]);
