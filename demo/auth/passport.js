@@ -1,41 +1,45 @@
-var fh = require('fh-js-sdk');
+var $fh = require('fh-js-sdk');
 var logger = require('@raincatcher/logger').logger;
 var ConsoleLogger = require('@raincatcher/logger').ConsoleLogger;
 var setLogger = require('@raincatcher/logger').setLogger;
 
-setLogger(new ConsoleLogger());
-var passport = {
-  getProfile: function($http, $window) {
-    var req = {
-      method: 'GET',
-      url: fh.getCloudURL() + '/profile'
-    };
-    return $http(req, {withCredentials: true}).then(function (res) {
-      return res.data;
-    }, function (err) {
-      if (err.status === 401) {
-        $window.location = fh.getCloudURL() + '/login';
-      }
-      if (err.status === 403) {
-        logger.error('Forbidden');
-      }
-      return err;
-    });
-  },
-  logout: function($http, $window) {
-    var req = {
-      method: 'GET',
-      url: fh.getCloudURL() + '/logout'
-    };
+$fh.init({}, function() {
+  setLogger(new ConsoleLogger());
+  var passport = {
+    getProfile: function($http, $window) {
+      var req = {
+        method: 'GET',
+        url: $fh.getCloudURL() + '/profile'
+      };
+      return $http(req, {withCredentials: true}).then(function (res) {
+        return res.data;
+      }, function (err) {
+        if (err.status === 401) {
+          $window.location = $fh.getCloudURL() + '/login';
+        }
+        if (err.status === 403) {
+          logger.error('Forbidden');
+        }
+        return err;
+      });
+    },
+    logout: function($http, $window) {
+      var req = {
+        method: 'GET',
+        url: $fh.getCloudURL() + '/logout'
+      };
 
-    return $http(req, {withCredentials: true}).then(function(res) {
-      $window.location = fh.getCloudURL() + '/login';
-    }, function(err) {
-      logger.error('An error occurred when logging out', err);
-    });
-  }
-};
+      return $http(req, {withCredentials: true}).then(function(res) {
+        $window.location = $fh.getCloudURL() + '/login';
+      }, function(err) {
+        logger.error('An error occurred when logging out', err);
+      });
+    }
+  };
 
-angular.module('wfm.auth').factory('passport', function() {
-  return passport;
+  angular.module('wfm.auth').factory('passport', function() {
+    return passport;
+  });
+}, function(err) {
+
 });
