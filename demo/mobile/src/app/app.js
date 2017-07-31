@@ -9,6 +9,7 @@ var module = angular.module('wfm-mobile', [
   require('angular-ui-router'),
   require('angular-material'),
   require('./services'),
+  require('@raincatcher/demo-auth-passport'),
   require('@raincatcher/demo-wfm'),
   require('@raincatcher/demo-sync'),
   // Set of the data services

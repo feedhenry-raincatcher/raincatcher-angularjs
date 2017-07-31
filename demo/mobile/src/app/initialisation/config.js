@@ -17,8 +17,8 @@ function createMainAppRoute($stateProvider, $urlRouterProvider) {
 }
 
 angular.module('wfm-mobile').config(['$stateProvider', '$urlRouterProvider', createMainAppRoute]).controller('mainController', [
-  '$rootScope', '$scope', '$state', '$mdSidenav', 'userService', '$http', '$window', 'Auth',
-  function($rootScope, $scope, $state, $mdSidenav, userService, $http, $window, Auth) {
+  '$rootScope', '$scope', '$state', '$mdSidenav', 'passport', '$http', '$window', 'Auth'
+  function($rootScope, $scope, $state, $mdSidenav, passport, $http, $window, Auth) {
 
     // return user profile from keycloak
     if (Auth.keycloak) {
@@ -37,7 +37,7 @@ angular.module('wfm-mobile').config(['$stateProvider', '$urlRouterProvider', cre
       });
     } else {
       // return user profile from passport
-      userService.getProfile($http, $window).then(function(profileData) {
+      passport.getProfile($http, $window).then(function(profileData) {
         $scope.profileData = profileData;
       });
     }
@@ -64,16 +64,7 @@ angular.module('wfm-mobile').config(['$stateProvider', '$urlRouterProvider', cre
       if (Auth.keycloak) {
         Auth.keycloak.logout();
       } else {
-        var req = {
-          method: 'GET',
-          url: fh.getCloudURL() + '/logout'
-        };
-
-        return $http(req, {withCredentials: true}).then(function(res) {
-          $window.location = fh.getCloudURL() + '/login';
-        }, function(err) {
-          console.log('error logging out', err);
-        });
+        passport.logout($http, $window);
       }
     };
   }]);
