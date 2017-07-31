@@ -3,7 +3,7 @@
 var angular = require('angular');
 window.async = require('async');
 window._ = require('underscore');
-var Keycloak = require('keycloak-js');
+var keycloakConfig = require('./config/config.json').keycloakConfig;
 
 var module = angular.module('wfm-mobile', [
   require('angular-ui-router'),
@@ -24,85 +24,89 @@ var module = angular.module('wfm-mobile', [
   require('@raincatcher/vehicle-inspection')
 ]);
 
-// keycloak init config
-var initConfig = {onLoad: 'login-required'};
-
-// the keycloak json config
-var keycloakJS = Keycloak({
-  "realm": "raincatcher",
-  "url": "http://localhost:8080/auth",
-  "ssl-required": "external",
-  "clientId": "raincatcher-mobile",
-  "public-client": true,
-  "use-resource-role-mappings": true
-});
-
 var auth = {};
 
-angular.element(document).ready(function() {
-  // initialise the Keycloak JS Adapter
-  keycloakJS.init(initConfig).success(function() {
-    auth.provider = keycloakJS;
-    auth.provider.name = "keycloak";
-    console.log("Keycloak Ininitalisation Success");
-    // make auth/keycloak JS adapter available to controllers & services in the app
-    module.factory('Auth', function() {
-      return auth;
+// initialise the keycloak js adapter if keycloak configuration has been specified
+if (keycloakConfig) {
+  // require keycloak js client adapter
+  var Keycloak = require('keycloak-js');
+
+  // keycloak init config
+  var initConfig = {onLoad: 'login-required'};
+
+  // the keycloak json config
+  var keycloakJS = Keycloak(keycloakConfig);
+
+  angular.element(document).ready(function() {
+    // initialise the Keycloak JS Adapter
+    keycloakJS.init(initConfig).success(function() {
+      auth.keycloak = keycloakJS;
+      console.log("Keycloak Ininitalisation Success");
+      // make the keycloak JS adapter available to controllers & services in the app
+      module.factory('Auth', function() {
+        return auth;
+      });
+      // angular should be started after Keycloak has initialized otherwise Angular will cause issues with URL Rewrites
+      angular.bootstrap(document, ["wfm-mobile"]);
+    }).error(function(err) {
+      console.error("Error Initialising Keycloak JS", err);
     });
-    // angular should be started after Keycloak has initialized otherwise Angular will cause issues with URL Rewrites
-    angular.bootstrap(document, ["wfm-mobile"]);
-  }).error(function(err) {
-    console.error("Error Initialising Keycloak JS", err);
   });
-});
 
-module.factory('authInterceptor', function($q, Auth) {
-  return {
-    request: function(config) {
-      var deferred = $q.defer();
-      if (Auth.provider.token) {
-        Auth.provider.updateToken(5).success(function() {
-          config.headers = config.headers || {};
-          config.headers.Authorization = 'Bearer ' + Auth.provider.token;
+  module.factory('authInterceptor', function($q, Auth) {
+    return {
+      request: function(config) {
+        var deferred = $q.defer();
+        if (Auth.keycloak.token) {
+          Auth.keycloak.updateToken(5).success(function() {
+            config.headers = config.headers || {};
+            config.headers.Authorization = 'Bearer ' + Auth.keycloak.token;
 
-          deferred.resolve(config);
-        }).error(function() {
-          deferred.reject('Failed to refresh token');
-        });
-      }
-      return deferred.promise;
-    }
-  };
-});
-
-module.factory('errorInterceptor', function($q, Auth) {
-  return function(promise) {
-    return promise.then(function(response) {
-      return response;
-    }, function(response) {
-      if (response.status === 401) {
-        console.log('Session timeout?');
-        Auth.provider.logout();
-      } else if (response.status === 403) {
-        console.log("Forbidden");
-      } else if (response.status === 404) {
-        console.log("Not found");
-      } else if (response.status) {
-        if (response.data && response.data.errorMessage) {
-          console.log(response.data.errorMessage);
-        } else {
-          console.log("An unexpected server error has occurred");
+            deferred.resolve(config);
+          }).error(function() {
+            deferred.reject('Failed to refresh token');
+          });
         }
+        return deferred.promise;
       }
-      return $q.reject(response);
-    });
-  };
-});
+    };
+  });
 
-module.config(function($httpProvider) {
-  $httpProvider.interceptors.push('errorInterceptor');
-  $httpProvider.interceptors.push('authInterceptor');
-});
+  module.factory('errorInterceptor', function($q, Auth) {
+    return function(promise) {
+      return promise.then(function(response) {
+        return response;
+      }, function(response) {
+        if (response.status === 401) {
+          console.log('Session timeout?');
+          Auth.provider.logout();
+        } else if (response.status === 403) {
+          console.log("Forbidden");
+        } else if (response.status === 404) {
+          console.log("Not found");
+        } else if (response.status) {
+          if (response.data && response.data.errorMessage) {
+            console.log(response.data.errorMessage);
+          } else {
+            console.log("An unexpected server error has occurred");
+          }
+        }
+        return $q.reject(response);
+      });
+    };
+  });
+
+  module.config(function($httpProvider) {
+    $httpProvider.interceptors.push('errorInterceptor');
+    $httpProvider.interceptors.push('authInterceptor');
+  });
+} else {
+  // use passport authentication
+  module.config(function($httpProvider) {
+    $httpProvider.defaults.withCredentials = true;
+  });
+  angular.bootstrap(document, ["wfm-mobile"]);
+}
 
 require('./initialisation');
 
