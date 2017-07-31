@@ -25,7 +25,7 @@
       </md-list-item>
       <md-divider></md-divider>
 
-      <md-list-item ng-click="manageAccount()">
+      <md-list-item ng-if="useKeycloak" ng-click="manageAccount()">
         <md-icon md-font-set="material-icons">settings</md-icon>
         <p>Manage Account</p>
       </md-list-item>
