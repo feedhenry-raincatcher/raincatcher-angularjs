@@ -18,9 +18,9 @@ function createMainAppRoute($stateProvider, $urlRouterProvider, $httpProvider) {
 }
 
 angular.module('wfm-mobile').config(['$stateProvider', '$urlRouterProvider', '$httpProvider', createMainAppRoute]).controller('mainController', [
-  '$rootScope', '$scope', '$state', '$mdSidenav', 'userService', '$window', '$http',
-  function ($rootScope, $scope, $state, $mdSidenav, userService, $window, $http) {
-    userService.getProfile($http, $window).then(function (profileData) {
+  '$rootScope', '$scope', '$state', '$mdSidenav', '$window', '$http', 'passport',
+  function ($rootScope, $scope, $state, $mdSidenav, $window, $http, passport) {
+    passport.getProfile($http, $window).then(function(profileData) {
       $scope.profileData = profileData;
     });
     $scope.toggleSidenav = function(event, menuId) {
@@ -34,16 +34,7 @@ angular.module('wfm-mobile').config(['$stateProvider', '$urlRouterProvider', '$h
     };
     $scope.logout = function() {
       if($scope.profileData) {
-        var req = {
-          method: 'GET',
-          url: fh.getCloudURL() + '/logout'
-        };
-
-        return $http(req, {withCredentials: true}).then(function(res) {
-          $window.location = fh.getCloudURL() + '/login';
-        }, function(err) {
-          console.log('error logging out');
-        });
+        passport.logout($http, $window);
       }
     }
   }]);

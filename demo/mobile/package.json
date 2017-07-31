@@ -18,6 +18,7 @@
     "@raincatcher/workflow-angular": "1.0.0",
     "@raincatcher/workorder-angular": "1.0.0",
     "@raincatcher/vehicle-inspection": "1.0.0",
+    "@raincatcher/demo-auth-passport": "1.0.0",
     "@raincatcher/demo-sync": "1.0.0",
     "@raincatcher/demo-wfm": "1.0.0",
     "angular": "1.6.4",
