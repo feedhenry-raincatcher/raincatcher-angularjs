@@ -32,8 +32,8 @@ angular.module('wfm-mobile').config(['$stateProvider', '$urlRouterProvider', cre
           "email": profile.email,
           "avatar": profile.attributes.avatar[0]
         };
-      }, function(err) {
-        console.log(err);
+      }).error(function(err) {
+        console.log("Failed to Load User Profile", err);
       });
     } else {
       // return user profile from passport
