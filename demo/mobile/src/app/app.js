@@ -105,7 +105,9 @@ if (keycloakConfig) {
   module.config(function($httpProvider) {
     $httpProvider.defaults.withCredentials = true;
   });
-  angular.bootstrap(document, ["wfm-mobile"]);
+  angular.element(document).ready(function() {
+    angular.bootstrap(document, ["wfm-mobile"]);
+  });
 }
 
 require('./initialisation');

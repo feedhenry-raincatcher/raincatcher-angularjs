@@ -1,6 +1,6 @@
 var fh = require('fh-js-sdk');
 
-function createMainAppRoute($stateProvider, $urlRouterProvider, $httpProvider, Auth) {
+function createMainAppRoute($stateProvider, $urlRouterProvider) {
   // if none of the states are matched, use this as the fallback
 
   $urlRouterProvider.otherwise(function($injector) {
@@ -19,6 +19,7 @@ function createMainAppRoute($stateProvider, $urlRouterProvider, $httpProvider, A
 angular.module('wfm-mobile').config(['$stateProvider', '$urlRouterProvider', createMainAppRoute]).controller('mainController', [
   '$rootScope', '$scope', '$state', '$mdSidenav', 'userService', '$http', '$window', 'Auth',
   function($rootScope, $scope, $state, $mdSidenav, userService, $http, $window, Auth) {
+
     // return user profile from keycloak
     if (Auth.keycloak) {
       // display manage account menu item in UI
