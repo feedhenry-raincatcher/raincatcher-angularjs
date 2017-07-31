@@ -106,6 +106,11 @@ if (keycloakConfig) {
     $httpProvider.defaults.withCredentials = true;
   });
   angular.element(document).ready(function() {
+    module.factory('Auth', function(passport) {
+      auth.passport = passport;
+      return auth;
+    });
+
     angular.bootstrap(document, ["wfm-mobile"]);
   });
 }
