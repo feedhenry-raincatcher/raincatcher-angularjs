@@ -20,6 +20,10 @@ function initSync() {
         return reject(error);
       }
       var cloudUrl = $fh.getCloudURL();
+
+      // decode the cloud app url if its encoded - required for keycloak
+      cloudUrl = decodeURIComponent(cloudUrl);
+
       initializeGlobalSync(cloudUrl);
     });
 
