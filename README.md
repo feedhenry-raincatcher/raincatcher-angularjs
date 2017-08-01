@@ -6,6 +6,14 @@ Reference mobile and website implementation for RainCatcher
 
 RainCatcher Angularjs is reference mobile and website implementation for [Raincatcher Core Framework](https://github.com/feedhenry-raincatcher/raincatcher-core).
 
+## Dependencies
+
+Node v4 - https://nodejs.org
+Grunt - https://gruntjs.com/getting-started
+MongoDB - https://www.mongodb.com/download-center#community
+Redis - https://redis.io/download
+Lerna - https://lernajs.io/
+
 ## Quick start
 
 Install all dependencies
