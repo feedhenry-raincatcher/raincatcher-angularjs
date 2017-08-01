@@ -26,15 +26,12 @@ angular.module('wfm-mobile').config(['$stateProvider', '$urlRouterProvider', cre
       $scope.useKeycloak = true;
 
       // retrieve the users profile from keycloak
-      Auth.keycloak.loadUserProfile().success(function(profile) {
-        $scope.profileData = {
-          "name": profile.attributes.name[0],
-          "email": profile.email,
-          "avatar": profile.attributes.avatar[0]
-        };
-      }).error(function(err) {
-        console.log("Failed to Load User Profile", err);
-      });
+      var profile = Auth.keycloak.userProfile;
+      $scope.profileData = {
+        "name": profile.attributes.name[0],
+        "email": profile.email,
+        "avatar": profile.attributes.avatar[0]
+      };
     } else {
       // return user profile from passport
       Auth.passport.loadUserProfile($http, $window).then(function(profileData) {

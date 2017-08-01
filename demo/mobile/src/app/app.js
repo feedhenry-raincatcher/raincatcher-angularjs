@@ -4,6 +4,7 @@ var angular = require('angular');
 window.async = require('async');
 window._ = require('underscore');
 var keycloakConfig = require('./config/config.json').keycloakConfig;
+var Promise = require('bluebird');
 
 var module = angular.module('wfm-mobile', [
   require('angular-ui-router'),
@@ -42,7 +43,21 @@ if (keycloakConfig) {
     // initialise the Keycloak JS Adapter
     keycloakJS.init(initConfig).success(function() {
       auth.keycloak = keycloakJS;
+
       console.log("Keycloak Ininitalisation Success");
+
+      // load keycloak user profile
+      auth.keycloak.loadUserProfile().success(function(profile) {
+        auth.keycloak.userProfile = profile;
+      }).error(function(err) {
+        console.log("Failed to Load User Profile", err);
+      });
+
+      auth.keycloak.getUserId = function() {
+        var userId = auth.keycloak.userProfile.attributes.id[0];
+        return Promise.resolve({"id": userId});
+      };
+
       // make the keycloak JS adapter available to controllers & services in the app
       module.factory('Auth', function() {
         return auth;

@@ -1,14 +1,11 @@
 var config = require('./config.json');
 var _ = require('lodash');
+
 angular.module('wfm.sync',[]).service('syncService', ['$http', '$window', 'syncPool', 'Auth', function($http, $window, syncPool, Auth) {
   if (Auth.keycloak) {
     // retrieve the users profile from keycloak
-    return Auth.keycloak.loadUserProfile()
-      .success(syncPool.syncManagerMap)
-      .error(function(err) {
-        console.log("Failed to Load User Profile", err);
-      });
-    } else {
+    return Auth.keycloak.getUserId().then(syncPool.syncManagerMap);
+  } else {
     // return user profile from passport
     return Auth.passport.loadUserProfile($http, $window).then(syncPool.syncManagerMap);
   }
