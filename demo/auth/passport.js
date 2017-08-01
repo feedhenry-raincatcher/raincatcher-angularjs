@@ -2,9 +2,9 @@ var $fh = require('fh-js-sdk');
 var logger = require('@raincatcher/logger').logger;
 var ConsoleLogger = require('@raincatcher/logger').ConsoleLogger;
 var setLogger = require('@raincatcher/logger').setLogger;
+setLogger(new ConsoleLogger());
 
 $fh.init({}, function() {
-  setLogger(new ConsoleLogger());
   var passport = {
     loadUserProfile: function($http, $window) {
       var req = {
@@ -44,5 +44,5 @@ $fh.init({}, function() {
     return passport;
   });
 }, function(err) {
-
+  logger.error('An error occurred when initializing $fh', err);
 });

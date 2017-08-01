@@ -17,7 +17,7 @@ function createMainAppRoute($stateProvider, $urlRouterProvider) {
 }
 
 angular.module('wfm-mobile').config(['$stateProvider', '$urlRouterProvider', createMainAppRoute]).controller('mainController', [
-  '$rootScope', '$scope', '$state', '$mdSidenav', '$http', '$window', 'Auth'
+  '$rootScope', '$scope', '$state', '$mdSidenav', '$http', '$window', 'Auth',
   function($rootScope, $scope, $state, $mdSidenav, $http, $window, Auth) {
 
     // return user profile from keycloak
