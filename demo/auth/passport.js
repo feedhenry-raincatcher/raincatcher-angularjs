@@ -2,8 +2,6 @@ var $fh = require('fh-js-sdk');
 var logger = require('@raincatcher/logger').logger;
 var ConsoleLogger = require('@raincatcher/logger').ConsoleLogger;
 var setLogger = require('@raincatcher/logger').setLogger;
-// NOTE: setLogger is throwing an error stating that logger is undefined
-// setLogger(new ConsoleLogger());
 
 $fh.init({}, function() {
   var passport = {
