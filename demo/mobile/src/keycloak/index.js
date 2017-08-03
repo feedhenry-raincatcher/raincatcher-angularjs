@@ -1,0 +1,2 @@
+require('./keycloakInit');
+require('./authInterceptor');

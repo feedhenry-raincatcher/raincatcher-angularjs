@@ -28,7 +28,7 @@ angular.module('wfm-mobile', [
   require('@raincatcher/vehicle-inspection')
 ]);
 
-require('./keycloak');
+require('../keycloak');
 require('./initialisation');
 
 

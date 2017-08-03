@@ -20,7 +20,7 @@ angular.module('wfm-mobile').config(['$stateProvider', '$urlRouterProvider', cre
   '$rootScope', '$scope', '$state', '$mdSidenav', 'userService', '$http', '$window', 'Auth', 'dialogService',
   function($rootScope, $scope, $state, $mdSidenav, userService, $http, $window, Auth, dialogService) {
     if (Auth) {
-      // retrieve the users profile from keycloak
+      // retrieve user profile from keycloak
       Auth.loadUserProfile().success(function(profile) {
         $scope.profileData = {
           "name": profile.attributes.name[0],
@@ -37,7 +37,7 @@ angular.module('wfm-mobile').config(['$stateProvider', '$urlRouterProvider', cre
         });
       });
     } else {
-      // return user profile from passport
+      // Retrieve user profile from passport
       userService.getProfile($http, $window).then(function(profileData) {
         $scope.profileData = profileData;
       });
