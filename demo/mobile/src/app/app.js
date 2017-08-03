@@ -79,30 +79,6 @@ module.factory('authInterceptor', function($q, Auth) {
   };
 });
 
-module.factory('errorInterceptor', function($q, Auth) {
-  return function(promise) {
-    return promise.then(function(response) {
-      return response;
-    }, function(response) {
-      if (response.status === 401) {
-        console.log('Session timeout?');
-        Auth.logout();
-      } else if (response.status === 403) {
-        console.log("Forbidden");
-      } else if (response.status === 404) {
-        console.log("Not found");
-      } else if (response.status) {
-        if (response.data && response.data.errorMessage) {
-          console.log(response.data.errorMessage);
-        } else {
-          console.log("An unexpected server error has occurred");
-        }
-      }
-      return $q.reject(response);
-    });
-  };
-});
-
 module.config(function($httpProvider) {
   $httpProvider.interceptors.push('errorInterceptor');
   $httpProvider.interceptors.push('authInterceptor');
