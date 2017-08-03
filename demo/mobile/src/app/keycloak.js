@@ -1,4 +1,7 @@
 var Keycloak = require('keycloak-js');
+var Logger = require('@raincatcher/logger').Logger;
+var logger = require('@raincatcher/logger').logger;
+var ConsoleLogger = require('@raincatcher/logger').ConsoleLogger;
 
 // keycloak init config
 var initConfig = {onLoad: 'login-required'};
@@ -18,16 +21,16 @@ var auth = {};
 angular.element(document).ready(function() {
   // Initialise the Keycloak JS Adapter
   keycloakJS.init(initConfig).success(function() {
-    console.log("Keycloak Ininitalisation Success");
+    logger.info("Keycloak Ininitalisation Success");
     auth = keycloakJS;
     // make auth/keycloak JS adapter available to controllers & services in the app
     angular.module('wfm-mobile').factory('Auth', function() {
       return auth;
     });
-    // angular should be started after Keycloak has initialized otherwise Angular will cause issues with URL Rewrites
+    // NOTE: Angular should be started after Keycloak has initialized otherwise Angular will cause issues with URL Rewrites
     angular.bootstrap(document, ["wfm-mobile"]);
   }).error(function(err) {
-    console.error("Error Initialising Keycloak JS", err);
+    logger.error("Error Initialising Keycloak JS", err);
   });
 });
 
