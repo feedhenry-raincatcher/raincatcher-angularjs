@@ -11,6 +11,7 @@ logger.setLogger(new logger.ClientLogger(2));
 angular.module('wfm-mobile', [
   require('angular-ui-router'),
   require('angular-material'),
+  require('./util'),
   require('./services'),
   require('@raincatcher/demo-wfm'),
   require('@raincatcher/demo-sync'),

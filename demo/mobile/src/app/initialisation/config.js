@@ -16,12 +16,32 @@ function createMainAppRoute($stateProvider, $urlRouterProvider, $httpProvider, A
     });
 }
 
-angular.module('wfm-mobile').config(['$stateProvider', '$urlRouterProvider', '$httpProvider', createMainAppRoute]).controller('mainController', [
-  '$rootScope', '$scope', '$state', '$mdSidenav', 'userService', '$window', '$http',
-  function($rootScope, $scope, $state, $mdSidenav, userService, $window, $http) {
-    userService.getProfile($http, $window).then(function(profileData) {
-      $scope.profileData = profileData;
-    });
+angular.module('wfm-mobile').config(['$stateProvider', '$urlRouterProvider', createMainAppRoute]).controller('mainController', [
+  '$rootScope', '$scope', '$state', '$mdSidenav', 'userService', '$http', '$window', 'Auth', 'dialogService',
+  function($rootScope, $scope, $state, $mdSidenav, userService, $http, $window, Auth, dialogService) {
+    if (Auth) {
+      // retrieve the users profile from keycloak
+      Auth.loadUserProfile().success(function(profile) {
+        $scope.profileData = {
+          "name": profile.attributes.name[0],
+          "email": profile.email,
+          "avatar": profile.attributes.avatar[0]
+        };
+      }).error(function(err) {
+        dialogService.showAlert({
+          title: 'Error Loading Profile Data',
+          textContent: 'Failed to load profile data, please login',
+          ok: 'Login'
+        }).then(function() {
+          Auth.login();
+        });
+      });
+    } else {
+      // return user profile from passport
+      userService.getProfile($http, $window).then(function(profileData) {
+        $scope.profileData = profileData;
+      });
+    }
 
     $scope.toggleSidenav = function(event, menuId) {
       $mdSidenav(menuId).toggle();
