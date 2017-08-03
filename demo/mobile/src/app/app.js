@@ -46,8 +46,8 @@ var auth = {};
 angular.element(document).ready(function() {
   // initialise the Keycloak JS Adapter
   keycloakJS.init(initConfig).success(function() {
-    auth.provider = keycloakJS;
-    auth.provider.name = "keycloak";
+    auth = keycloakJS;
+    auth.name = "keycloak";
     console.log("Keycloak Ininitalisation Success");
     // make auth/keycloak JS adapter available to controllers & services in the app
     module.factory('Auth', function() {
@@ -64,10 +64,10 @@ module.factory('authInterceptor', function($q, Auth) {
   return {
     request: function(config) {
       var deferred = $q.defer();
-      if (Auth.provider.token) {
-        Auth.provider.updateToken(5).success(function() {
+      if (Auth.token) {
+        Auth.updateToken(5).success(function() {
           config.headers = config.headers || {};
-          config.headers.Authorization = 'Bearer ' + Auth.provider.token;
+          config.headers.Authorization = 'Bearer ' + Auth.token;
 
           deferred.resolve(config);
         }).error(function() {
@@ -86,7 +86,7 @@ module.factory('errorInterceptor', function($q, Auth) {
     }, function(response) {
       if (response.status === 401) {
         console.log('Session timeout?');
-        Auth.provider.logout();
+        Auth.logout();
       } else if (response.status === 403) {
         console.log("Forbidden");
       } else if (response.status === 404) {

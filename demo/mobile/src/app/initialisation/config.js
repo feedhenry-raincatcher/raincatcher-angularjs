@@ -33,16 +33,18 @@ angular.module('wfm-mobile').config(['$stateProvider', '$urlRouterProvider', '$h
       }
     };
     $scope.hasResourceRole = function(role) {
-      return Auth.keycloak.hasResourceRole(role);
+      return Auth.hasResourceRole(role);
     };
     $scope.hasRealmRole = function(role) {
-      return Auth.keycloak.hasRealmRole(role);
+      return Auth.hasRealmRole(role);
     };
     $scope.manageAccount = function() {
-      Auth.keycloak.accountManagement();
+      Auth.accountManagement();
     };
     $scope.logout = function() {
-      if ($scope.profileData) {
+      if (Auth) {
+        Auth.logout();
+      } else {
         var req = {
           method: 'GET',
           url: fh.getCloudURL() + '/logout'
