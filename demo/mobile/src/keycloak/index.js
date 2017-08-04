@@ -1,2 +1,6 @@
+var config = require('../app/config/config');
+
 require('./keycloakInit');
-require('./authInterceptor');
+if (config.keycloakConfig) {
+  require('./authInterceptor');
+}
