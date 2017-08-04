@@ -7,7 +7,7 @@ services:
 - docker
 - mongodb
 script:
-- npm run bootstrap
+- npm run bootstrapCI
 - npm test
 cache:
   directories:
