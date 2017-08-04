@@ -20,6 +20,7 @@
     "cors": "2.8.3",
     "express": "4.15.3",
     "@raincatcher/workflow-angular": "1.0.0",
+    "@raincatcher/logger": "1.0.0",
     "@raincatcher/workorder-angular": "1.0.0",
     "@raincatcher/demo-sync": "1.0.0",
     "@raincatcher/demo-wfm": "1.0.0",

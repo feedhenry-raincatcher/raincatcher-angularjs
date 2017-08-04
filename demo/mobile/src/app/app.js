@@ -3,6 +3,10 @@
 var angular = require('angular');
 window.async = require('async');
 window._ = require('underscore');
+var logger = require('@raincatcher/logger');
+
+// Create INFO logger
+logger.setLogger(new logger.ClientLogger(2));
 
 angular.module('wfm-mobile', [
   require('angular-ui-router'),

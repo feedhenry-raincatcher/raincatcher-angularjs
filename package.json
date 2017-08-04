@@ -7,7 +7,7 @@
     "test": "lerna run test",
     "build" : "lerna run build",
     "bootstrap": "node ./scripts/checkoutCore.js && lerna bootstrap && lerna run build",
-    "start": "lerna run start  --parallel --stream --scope=@raincatcher/demo-*"
+    "start": "lerna run build && lerna run start  --parallel --stream --scope=@raincatcher/demo-*"
   },
   "repository": {
     "type": "git",
