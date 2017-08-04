@@ -1,51 +1,52 @@
-# Feedhenry RainCatcher Angularjs
+# FeedHenry RainCatcher AngularJS
 
 Reference mobile and portal implementation for RainCatcher.
 
-## About RainCatcher Angularjs
+## About RainCatcher AngularJS
 
-RainCatcher Angularjs is reference mobile and website implementation for [Raincatcher Core Framework](https://github.com/feedhenry-raincatcher/raincatcher-core).
+RainCatcher AngularJS is reference mobile and website implementation for [RainCatcher Core](https://github.com/feedhenry-raincatcher/raincatcher-core). For more information about RainCatcher please refer to core repository.
 
-Angular.js repository contains set of the modules that implements angular.js based services and directives.
-Modules are used in two different demo applications:
+This repository extends core framework with AngularJS based user interface. Repository contains set of the modules that implements AngularJS based services and directives. Modules are used in two  demo applications:
 
-`Demo mobile` application which is used by field engineers to operate and execute items in workflows
-`Demo portal` application which is used by administrators to create workorders and workflows that can be consumed by field engineers.
+- `Demo mobile` application which is used by field engineers to operate and execute items in workflows
+- `Demo portal` application which is used by administrators to create workorders and workflows that can be consumed by field engineers.
 
-Both applications require server side demo application, which is located in the core repository.
+Both demo applications require server demo application, which is located in the [RainCatcher Core](https://github.com/feedhenry-raincatcher/raincatcher-core) repository.
 
 ## Requirements
 
-- node/npm
+- node/npm (tested on Node v6.x (LTS))
 - git
 
 ## Quick start
 
 1. Install all dependencies for angular repository
 
-    npm install
-    npm run bootstrap
+        git clone git@github.com:feedhenry-raincatcher/raincatcher-angularjs.git
+        cd raincatcher-angularjs
+        npm install
+        npm run bootstrap
 
 > Note: Core repository will be automatically cloned using git command.
 If you wish to work with different branch of the core repository please switch manually.
 
 2. Install all dependencies for core repository
 
-    cd core
-    npm install
-    npm run bootstrap
+        cd ./core
+        npm install
+        npm run bootstrap
 
 3. Start core node.js server
 
-    npm run start
+        npm run start
 
 > Note: Core server requires mongodb and redis to be running on machine.
 Please refer to Core documentation for more details about how to configure non standard connection urls
 to this services.
 
-Start demo mobile and portal applications
-
-    // change directory to angular repository
+4. Start demo mobile and portal applications
+Change directory to angular repository
+    //
     cd ..
     npm run start
 
