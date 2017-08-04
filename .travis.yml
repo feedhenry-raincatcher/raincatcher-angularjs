@@ -16,3 +16,9 @@ cache:
     - demo/mobile/node_modules
     - packages/workflow-angular/node_modules
     - packages/workorder-angular/node_modules
+    - packages/sync/node_modules
+    - packages/vehicle-inspection/node_modules
+    - packages/wfm/node_modules
+    - core/client/logger/node_modules
+    - core/client/wfm/node_modules
+    - core/client/datasync-client/node_modules
