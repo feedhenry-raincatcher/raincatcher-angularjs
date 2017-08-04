@@ -46,9 +46,9 @@ to this services.
 
 4. Start demo mobile and portal applications
 Change directory to angular repository
-    //
-    cd ..
-    npm run start
+
+        cd ..
+        npm run start
 
 Both demo mobile and demo portal should start automatically in your browser.
 

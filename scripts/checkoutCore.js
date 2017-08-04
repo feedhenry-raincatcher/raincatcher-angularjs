@@ -52,6 +52,12 @@ function clone(repo, targetPath, opts, cb) {
   args.push(targetPath);
 
   var process = spawn(git, args);
+  process.on('error', function(error) {
+    console.error(error);
+  });
+  process.on('message', function(message) {
+    console.info(message);
+  });
   process.on('close', function(status) {
     if (status == 0) {
       if (opts.checkout) {
