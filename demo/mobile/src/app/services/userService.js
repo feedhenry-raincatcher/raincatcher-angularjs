@@ -1,7 +1,7 @@
 var Promise = require("bluebird");
 var fh = require("fh-js-sdk");
-var getLogger = require('@raincatcher/logger').getLogger;
-var logger = getLogger();
+var logger = require('@raincatcher/logger').getLogger();
+
 function UserService(Auth) {
   this.auth = Auth;
 }
