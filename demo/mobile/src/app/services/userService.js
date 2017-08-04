@@ -1,6 +1,7 @@
 var Promise = require("bluebird");
 var fh = require("fh-js-sdk");
-
+var getLogger = require('@raincatcher/logger').getLogger;
+var logger = getLogger();
 function UserService(Auth) {
   this.auth = Auth;
 }
@@ -35,7 +36,7 @@ UserService.prototype.getProfile = function($http, $window) {
       $window.location = fh.getCloudURL() + '/login';
     }
     if (err.status === 403) {
-      console.log('Forbidden');
+      logger.error('Forbidden')
     }
     return err;
   });
@@ -78,7 +79,7 @@ UserService.prototype.logout = function logout($http, $window) {
     return $http(req, {withCredentials: true}).then(function(res) {
       $window.location = fh.getCloudURL() + '/login';
     }, function(err) {
-      console.log('error logging out', err);
+      logger.error('error logging out', err);
     });
   }
 }

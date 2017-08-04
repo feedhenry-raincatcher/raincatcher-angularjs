@@ -1,9 +1,8 @@
 var Keycloak = require('keycloak-js');
 var config = require('../app/config/config');
 var Promise = require('bluebird');
-var Logger = require('@raincatcher/logger').Logger;
-var logger = require('@raincatcher/logger').logger;
-var ConsoleLogger = require('@raincatcher/logger').ConsoleLogger;
+var getLogger = require('@raincatcher/logger').getLogger;
+var logger = getLogger();
 
 function formatProfileData(profileData) {
   var profile;
