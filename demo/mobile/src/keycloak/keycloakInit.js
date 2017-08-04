@@ -1,12 +1,30 @@
 var Keycloak = require('keycloak-js');
+var Promise = require('bluebird');
 var Logger = require('@raincatcher/logger').Logger;
 var logger = require('@raincatcher/logger').logger;
 var ConsoleLogger = require('@raincatcher/logger').ConsoleLogger;
 
+function formatProfileData(profileData) {
+  var profile;
+  if (profileData) {
+    profile = {
+      id: profileData.attributes.id ? profileData.attributes.id[0] : '',
+      username: profileData.username ? profileData.username : '',
+      name: profileData.attributes.name ? profileData.attributes.name[0] : '',
+      position: profileData.attributes.position ? profileData.attributes.position[0] : '',
+      phone: profileData.attributes.phone ? profileData.attributes.phone[0] : '',
+      email: profileData.email ? profileData.email : '',
+      notes: profileData.attributes.notes ? profileData.attributes.notes[0] : '',
+      avatar: profileData.attributes.avatar ? profileData.attributes.avatar[0] : '',
+      banner: profileData.attributes.banner ? profileData.attributes.banner[0] : ''
+    }
+  }
+  return profile;
+}
 // keycloak init config
 var initConfig = {onLoad: 'login-required'};
 
-// the keycloak json config
+// Setup Keycloak JS Adapter with Keycloak config
 var keycloakJS = Keycloak({
   "realm": "raincatcher",
   "url": "http://localhost:8080/auth",
@@ -27,6 +45,14 @@ angular.element(document).ready(function() {
   keycloakJS.init(initConfig).success(function() {
     logger.info("Keycloak Ininitalisation Success");
     auth = keycloakJS;
+    auth.getProfile = function() {
+      return new Promise(function(success, error) {
+        auth.loadUserProfile().success(function(profileData) {
+          return success(formatProfileData(profileData));
+        }).error(error);
+      });
+    };
+
     angular.module('wfm-mobile').factory('Auth', function() {
       return auth;
     });

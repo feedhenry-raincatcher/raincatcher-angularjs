@@ -21,21 +21,17 @@ angular.module('wfm-mobile').config(['$stateProvider', '$urlRouterProvider', cre
   function($rootScope, $scope, $state, $mdSidenav, userService, $http, $window, Auth, dialogService) {
     if (Auth) {
       // retrieve user profile from keycloak
-      Auth.loadUserProfile().success(function(profile) {
-        $scope.profileData = {
-          "name": profile.attributes.name[0],
-          "email": profile.email,
-          "avatar": profile.attributes.avatar[0]
-        };
-      }).error(function(err) {
+      Auth.getProfile().then(function(profile) {
+        $scope.profileData = profile;
+      }).catch(function(err) {
         dialogService.showAlert({
           title: 'Error Loading Profile Data',
-          textContent: 'Failed to load profile data, please login',
+          textContent: 'Failed to load profile data. ' + err + 'Please login',
           ok: 'Login'
         }).then(function() {
           Auth.login();
         });
-      });
+      })
     } else {
       // Retrieve user profile from passport
       userService.getProfile($http, $window).then(function(profileData) {
