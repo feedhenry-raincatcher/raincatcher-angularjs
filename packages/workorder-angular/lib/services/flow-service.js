@@ -4,7 +4,7 @@ var CONSTANTS = require('../constants');
  * Service for controlling flow (transitions) for workorders
  */
 angular.module(CONSTANTS.WORKORDER_DIRECTIVE).service(CONSTANTS.WORKORDER_FLOW_SERVICE,
-  ["$state", "WORKORDER_CONFIG", "workorderApiService", function($state, WORKORDER_CONFIG, workorderApiService) {
+  ["$state", "WORKORDER_CONFIG", function($state, WORKORDER_CONFIG) {
 
     function workorderSelected(workorder) {
       //If we are in administration mode, then the workorder should be displayed to the user.
