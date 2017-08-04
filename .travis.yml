@@ -8,7 +8,7 @@ services:
 - mongodb
 script:
 - npm run bootstrapCI
-- npm test
+- npm run testCI
 cache:
   directories:
     - node_modules
