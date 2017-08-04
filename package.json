@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "lerna run test",
-    "build" : "lerna run build",
-    "bootstrap": "node ./scripts/checkoutCore.js && lerna bootstrap && lerna run build",
+    "build": "lerna run build",
+    "bootstrap": "node ./scripts/checkoutCore.js clone && lerna bootstrap && lerna run build",
+    "bootstrapCI": "node ./scripts/checkoutCore.js clone -d && lerna bootstrap && lerna run build",
     "start": "lerna run build && lerna run start  --parallel --stream --scope=@raincatcher/demo-*"
   },
   "repository": {
@@ -20,8 +21,10 @@
   },
   "homepage": "https://github.com/feedhenry-raincatcher/raincatcher#readme",
   "devDependencies": {
+    "@types/yargs": "^8.0.2",
     "lerna": "^2.0.0-rc.5",
     "tslint": "^5.4.3",
-    "typescript": "^2.3.4"
+    "typescript": "^2.3.4",
+    "yargs": "^8.0.2"
   }
 }

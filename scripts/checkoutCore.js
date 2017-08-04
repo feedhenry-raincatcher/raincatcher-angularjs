@@ -1,43 +1,52 @@
+#!/usr/bin/env node
 var spawn = require('child_process').spawn;
+var yargs = require('yargs');
 var fs = require('fs');
 
-var REPOSITORY_NAME = "git@github.com:feedhenry-raincatcher/raincatcher-core.git";
+var REPO_URL = "https://github.com/feedhenry-raincatcher/raincatcher-core.git";
 var LOCATION = "./core";
 
-// PARAMETERS
-var PULL_RECENT_CHANGES = !!process.env.SHOULD_PULL_CHANGES
-var USE_SHALLOW_CLONE = !!process.env.USE_SHALLOW_CLONE
-var BRANCH_TO_USE = process.env.BRANCH_TO_USE || 'master';
-
-console.log("Linking core repository using branch:", BRANCH_TO_USE);
-
-if (fs.existsSync(LOCATION)) {
-  console.log("Core repository already exist.");
-  if (PULL_RECENT_CHANGES) {
-    return pull(LOCATION, { remote: "origin", branch: BRANCH_TO_USE }, function(err) {
-      if (err) {
-        return console.log("Failed to pull from repository", err);
-      }
-      console.log("Successfully updated core repository");
-    });
+function cloneHandler(argv) {
+  if (fs.existsSync(LOCATION)) {
+    console.log("Core repository already exist.");
+    return;
   }
-  return;
-};
+  console.log("Linking core repository using branch:", argv.branch);
+  return clone(REPO_URL, "./core", { shallow: argv.shallow, checkout: argv.branch },
+    function(err) {
+      if (err) {
+        console.log("Failed to clone repository", err);
+        return process.exit(1);
+      }
+      console.log("Successfully cloned core repository");
+    });
+}
 
-clone(REPOSITORY_NAME, "./core", { shallow: USE_SHALLOW_CLONE, checkout: BRANCH_TO_USE },
-  function(err) {
+function pullHandler(argv) {
+  return pull(LOCATION, { remote: "origin", branch: argv.branch }, function(err) {
     if (err) {
-      return console.log("Failed to clone repository", err);
+      console.log("Failed to pull from repository", err);
+      return process.exit(1);
     }
-    console.log("Successfully cloned core repository");
+    console.log("Successfully updated core repository");
   });
+}
+
+yargs
+  .usage('Usage: $0 <command>')
+  .alias('b', 'branch')
+  .default('branch', 'master')
+  .command('clone', 'clone the core repository', function(yargs) {
+    yargs.alias('s', 'shallow');
+  }, cloneHandler)
+  .command('pull', 'pull latest changes', function() {
+  }, pullHandler)
+  .demandCommand()
+  .help()
+  .argv;
 
 // Clone repository
 function clone(repo, targetPath, opts, cb) {
-  if (typeof opts === 'function') {
-    cb = opts;
-    opts = null;
-  }
   opts = opts || {};
   var git = opts.git || 'git';
   var args = ['clone'];
@@ -53,7 +62,7 @@ function clone(repo, targetPath, opts, cb) {
 
   var process = spawn(git, args);
   process.on('close', function(status) {
-    if (status == 0) {
+    if (status === 0) {
       if (opts.checkout) {
         _checkout();
       } else {
@@ -68,7 +77,7 @@ function clone(repo, targetPath, opts, cb) {
     var args = ['checkout', opts.checkout];
     var process = spawn(git, args, { cwd: targetPath });
     process.on('close', function(status) {
-      if (status == 0) {
+      if (status === 0) {
         cb && cb();
       } else {
         cb && cb(new Error("'git checkout' failed with status " + status));
@@ -77,13 +86,12 @@ function clone(repo, targetPath, opts, cb) {
   }
 }
 
-// Pull recent changes
 function pull(targetPath, opts, cb) {
   var git = opts.git || 'git';
   var args = ['pull', opts.remote, opts.branch];
   var process = spawn(git, args, { cwd: targetPath });
   process.on('close', function(status) {
-    if (status == 0) {
+    if (status === 0) {
       cb && cb();
     } else {
       cb && cb(new Error("'git pull' failed with status " + status));
