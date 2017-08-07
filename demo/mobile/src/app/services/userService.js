@@ -4,7 +4,7 @@ var fh = require("fh-js-sdk");
 function UserService() {
 }
 
-UserService.prototype.readUser = function readUser(userId) {
+UserService.prototype.readUser = function readUser() {
   return Promise.resolve({
     "id": "rkX1fdSH",
     "username": "trever",
@@ -31,7 +31,7 @@ UserService.prototype.getProfile = function($http, $window) {
       $window.location = fh.getCloudURL() + '/login';
     }
     if (err.status === 403) {
-      console.log('Forbidden')
+      console.log('Forbidden');
     }
     return err;
   });

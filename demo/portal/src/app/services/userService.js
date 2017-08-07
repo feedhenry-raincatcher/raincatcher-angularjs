@@ -3,7 +3,7 @@ var Promise = require("bluebird");
 function UserService() {
 }
 
-UserService.prototype.readUser = function readUser(userId) {
+UserService.prototype.readUser = function readUser() {
   return Promise.resolve({
     "id": "rkX1fdSH",
     "username": "trever",

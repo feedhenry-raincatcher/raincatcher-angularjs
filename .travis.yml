@@ -7,8 +7,8 @@ services:
 - docker
 - mongodb
 script:
-- npm run bootstrap
-- npm test
+- npm run bootstrapCI
+- npm run testCI
 cache:
   directories:
     - node_modules
@@ -16,3 +16,6 @@ cache:
     - demo/mobile/node_modules
     - packages/workflow-angular/node_modules
     - packages/workorder-angular/node_modules
+    - packages/sync/node_modules
+    - packages/vehicle-inspection/node_modules
+    - packages/wfm/node_modules
