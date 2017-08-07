@@ -39,7 +39,7 @@ function WorkflowProcessStepsController($scope, $state, workflowApiService, $tim
       self.workorder = workflowSummary.workorder;
       self.workflow = workflowSummary.workflow;
       self.result = workflowSummary.result;
-      self.stepIndex = workflowSummary.result.nextStepIndex;
+      self.stepIndex = workflowSummary.nextStepIndex;
       self.stepCurrent = workflowSummary.step;
     });
   }
