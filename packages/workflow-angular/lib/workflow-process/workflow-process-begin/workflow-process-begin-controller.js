@@ -13,25 +13,23 @@ var CONSTANTS = require('../../constants');
 function WorkflowProcessBeginController($state, workflowApiService, $stateParams, $timeout) {
   var self = this;
 
-  //Here we want to begin the workorder workflow..
-  //First we display it to the user.
-
   var workorderId = $stateParams.workorderId;
-  workflowApiService.workflowSummary(workorderId).then(function(workflowSummaryDetails) {
+  workflowApiService.workflowSummary(workorderId).then(function(summary) {
     $timeout(function() {
-      self.workorder = workflowSummaryDetails.workorder;
-      self.workflow = workflowSummaryDetails.workflow;
-      self.status = workflowSummaryDetails.status;
-      self.stepIndex = workflowSummaryDetails.nextStepIndex;
-      self.result = workflowSummaryDetails.result;
-      self.notCompleted = self.stepIndex < self.workflow.steps.length;
+      self.workorder = summary.workorder;
+      self.workflow = summary.workflow;
+      self.status = summary.status;
+      self.stepIndex = summary.nextStepIndex;
+      self.result = summary.result;
+      self.notCompleted = summary.nextStepIndex < self.workflow.steps.length;
     });
   });
 
-  //Want to go to the next step.
   self.begin = function() {
-    $state.go('app.workflowProcess.steps', {
-      workorderId: self.workorder.id
+    workflowApiService.beginWorkflow(workorderId).then(function() {
+      $state.go('app.workflowProcess.steps', {
+        workorderId: workorderId
+      });
     });
   };
 }

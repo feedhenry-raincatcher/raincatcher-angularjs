@@ -18,29 +18,29 @@ function WorkflowProcessStepsController($scope, $state, workflowApiService, $tim
   var self = this;
   var workorderId = $stateParams.workorderId;
 
-  function updateWorkflowState(workflowSummary) {
+  function updateWorkflowState(summary) {
 
     //If the workflow is complete, then we can switch to the summary view.
-    if (workflowSummary.result && workflowSummary.result.status === CONSTANTS.STATUS.COMPLETE_DISPLAY) {
+    if (summary.result && summary.result.status === CONSTANTS.STATUS.COMPLETE_DISPLAY) {
       return $state.go('app.workflowProcess.complete', {
-        workorderId: workflowSummary.workorder.id
+        workorderId: summary.workorder.id
       });
     }
 
     //If the next step is < 0 then we are going back to the beginning
-    if (workflowSummary.nextStepIndex < 0) {
+    if (summary.nextStepIndex < 0) {
       return $state.go('app.workflowProcess.begin', {
-        workorderId: workflowSummary.workorder.id
+        workorderId: summary.workorder.id
       });
     }
 
     //Otherwise, render the next step in the workflow.
     $timeout(function() {
-      self.workorder = workflowSummary.workorder;
-      self.workflow = workflowSummary.workflow;
-      self.result = workflowSummary.result;
-      self.stepIndex = workflowSummary.nextStepIndex;
-      self.stepCurrent = workflowSummary.step;
+      self.workorder = summary.workorder;
+      self.workflow = summary.workflow;
+      self.result = summary.result;
+      self.stepIndex = summary.nextStepIndex;
+      self.stepCurrent = summary.step;
     });
   }
 
