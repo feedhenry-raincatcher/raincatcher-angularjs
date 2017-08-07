@@ -7,8 +7,7 @@
   },
   "main": "application.js",
   "scripts": {
-    "start": "grunt",
-    "test": "grunt test"
+    "start": "grunt"
   },
   "keywords": [
     "wfm"
