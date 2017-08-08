@@ -3,20 +3,33 @@ var config = require('../app/config/config');
 var Promise = require('bluebird');
 var logger = require('@raincatcher/logger').getLogger();
 
+/**
+ * Extract attribute fields from the profile data returned by Keycloak
+ * @param attributeFields - Object which contains all the attributes of a user
+ */
+function extractAttributeFields(attributeFields) {
+  var attributes = {};
+  if (attributeFields) {
+    for (var field in attributeFields) {
+      if (attributeFields[field].length > 0) {
+        attributes[field] = attributeFields[field][0];
+      }
+    }
+  }
+
+  return attributes;
+}
+
+/**
+ * Formats profile data as expected by the application
+ * @param profileData - Object which contains the profile data of a user
+ */
 function formatProfileData(profileData) {
   var profile;
   if (profileData) {
-    profile = {
-      id: profileData.attributes.id ? profileData.attributes.id[0] : '',
-      username: profileData.username ? profileData.username : '',
-      name: profileData.attributes.name ? profileData.attributes.name[0] : '',
-      position: profileData.attributes.position ? profileData.attributes.position[0] : '',
-      phone: profileData.attributes.phone ? profileData.attributes.phone[0] : '',
-      email: profileData.email ? profileData.email : '',
-      notes: profileData.attributes.notes ? profileData.attributes.notes[0] : '',
-      avatar: profileData.attributes.avatar ? profileData.attributes.avatar[0] : '',
-      banner: profileData.attributes.banner ? profileData.attributes.banner[0] : ''
-    }
+    profile = extractAttributeFields(profileData.attributes);
+    profile.username = profileData.username;
+    profile.email = profileData.email;
   }
   return profile;
 }
@@ -27,7 +40,6 @@ var auth = {};
 * Initializes the Keycloak JS adapter and make it available to controllers
 * and services in the application.
 */
-
 angular.element(document).ready(function() {
   if (config.keycloakConfig) {
     // keycloak init config
@@ -37,7 +49,7 @@ angular.element(document).ready(function() {
     var keycloakJS = Keycloak(config.keycloakConfig);
 
     keycloakJS.init(initConfig).success(function() {
-      logger.info("Keycloak Ininitalisation Success");
+      logger.info("Keycloak Initialisation Success");
       auth = keycloakJS;
       auth.getProfile = function() {
         return new Promise(function(success, error) {
