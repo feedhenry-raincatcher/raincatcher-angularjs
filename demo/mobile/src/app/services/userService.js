@@ -36,7 +36,7 @@ UserService.prototype.getProfile = function($http, $window) {
       $window.location = fh.getCloudURL() + '/login';
     }
     if (err.status === 403) {
-      logger.error('Forbidden')
+      logger.error('Forbidden');
     }
     return err;
   });
@@ -48,13 +48,13 @@ UserService.prototype.hasResourceRole = function hasResourceRole(role) {
   }
   // TODO: (Passport has Resource Role function)
   return true;
-}
+};
 
 UserService.prototype.manageAccount = function() {
   if (this.auth) {
     return this.auth.accountManagement();
   }
-}
+};
 
 UserService.prototype.listUsers = function listUsers() {
   return Promise.all(this.readUser());
@@ -66,7 +66,8 @@ UserService.prototype.login = function login() {
   }
 
   // TODO: Passport Login
-}
+};
+
 UserService.prototype.logout = function logout($http, $window) {
   if (this.auth) {
     return this.auth.logout();
@@ -76,13 +77,13 @@ UserService.prototype.logout = function logout($http, $window) {
       url: fh.getCloudURL() + '/logout'
     };
 
-    return $http(req, {withCredentials: true}).then(function(res) {
+    return $http(req, {withCredentials: true}).then(function() {
       $window.location = fh.getCloudURL() + '/login';
     }, function(err) {
       logger.error('error logging out', err);
     });
   }
-}
+};
 
 
 angular.module('wfm.common.apiservices').service('userService', ['Auth', function(Auth) {

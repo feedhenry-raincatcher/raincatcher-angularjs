@@ -1,10 +1,8 @@
-var fh = require('fh-js-sdk');
-
-function createMainAppRoute($stateProvider, $urlRouterProvider, $httpProvider, Auth) {
+function createMainAppRoute($stateProvider, $urlRouterProvider, $httpProvider) {
   // This property needs to be set to true in order for Passport to work
   $httpProvider.defaults.withCredentials = true;
-  // if none of the states are matched, use this as the fallback
 
+  // if none of the states are matched, use this as the fallback
   $urlRouterProvider.otherwise(function($injector) {
     var $state = $injector.get("$state");
     $state.go("app.workorder");
