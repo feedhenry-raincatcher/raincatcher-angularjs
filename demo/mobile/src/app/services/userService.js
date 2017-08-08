@@ -1,7 +1,9 @@
 var Promise = require("bluebird");
 var fh = require("fh-js-sdk");
+var logger = require('@raincatcher/logger').getLogger();
 
-function UserService() {
+function UserService(Auth) {
+  this.auth = Auth;
 }
 
 UserService.prototype.readUser = function readUser() {
@@ -20,6 +22,9 @@ UserService.prototype.readUser = function readUser() {
 };
 
 UserService.prototype.getProfile = function($http, $window) {
+  if (this.auth) {
+    return this.auth.getProfile();
+  }
   var req = {
     method: 'GET',
     url: fh.getCloudURL() + '/profile'
@@ -31,17 +36,56 @@ UserService.prototype.getProfile = function($http, $window) {
       $window.location = fh.getCloudURL() + '/login';
     }
     if (err.status === 403) {
-      console.log('Forbidden');
+      logger.error('Forbidden');
     }
     return err;
   });
+};
+
+UserService.prototype.hasResourceRole = function hasResourceRole(role) {
+  if (this.auth) {
+    return this.auth.hasResourceRole(role);
+  }
+  // TODO: (Passport has Resource Role function)
+  return true;
+};
+
+UserService.prototype.manageAccount = function() {
+  if (this.auth) {
+    return this.auth.accountManagement();
+  }
 };
 
 UserService.prototype.listUsers = function listUsers() {
   return Promise.all(this.readUser());
 };
 
+UserService.prototype.login = function login() {
+  if (this.auth) {
+    return this.auth.login();
+  }
 
-angular.module('wfm.common.apiservices').service("userService", function() {
-  return new UserService();
-});
+  // TODO: Passport Login
+};
+
+UserService.prototype.logout = function logout($http, $window) {
+  if (this.auth) {
+    return this.auth.logout();
+  } else {
+    var req = {
+      method: 'GET',
+      url: fh.getCloudURL() + '/logout'
+    };
+
+    return $http(req, {withCredentials: true}).then(function() {
+      $window.location = fh.getCloudURL() + '/login';
+    }, function(err) {
+      logger.error('error logging out', err);
+    });
+  }
+};
+
+
+angular.module('wfm.common.apiservices').service('userService', ['Auth', function(Auth) {
+  return new UserService(Auth);
+}]);

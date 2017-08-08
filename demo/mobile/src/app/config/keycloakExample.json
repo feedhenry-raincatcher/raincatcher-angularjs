@@ -1,0 +1,10 @@
+{
+  "keycloakConfig": {
+    "realm": "raincatcher",
+    "url": "http://localhost:8080/auth",
+    "ssl-required": "external",
+    "clientId": "raincatcher-mobile",
+    "public-client": true,
+    "use-resource-role-mappings": true
+  }
+}

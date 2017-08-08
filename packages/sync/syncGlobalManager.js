@@ -19,7 +19,7 @@ function initSync() {
       if (error) {
         return reject(error);
       }
-      var cloudUrl = $fh.getCloudURL();
+      var cloudUrl = decodeURIComponent($fh.getCloudURL());
       initializeGlobalSync(cloudUrl);
     });
 
