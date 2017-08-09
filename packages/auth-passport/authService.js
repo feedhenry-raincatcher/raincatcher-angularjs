@@ -22,7 +22,7 @@ AuthService.prototype.initAuth = function() {
 
 AuthService.prototype.accountManagement = function() {
   dialog.showAlert({
-    title: 'Unable to do this operation',
+    title: 'Operation Unavailable',
     textContent: 'This operation is available on Keycloak only',
     ok: 'OK'
   });
@@ -47,7 +47,7 @@ AuthService.prototype.getProfile = function() {
     } else {
       dialog.showAlert({
         title: 'Error Retrieving Profile Data',
-        textContent: 'Unable to retrieve profile data, please login',
+        textContent: 'Unable to retrieve profile data due to the following error: ' + err + 'Please login',
         ok: 'Login'
       }).then(function() {
         this.window.location = cloudUrl + CONSTANTS.LOGIN_URL;
@@ -77,13 +77,13 @@ AuthService.prototype.logout = function() {
     if (err.status === -1) {
       dialog.showAlert({
         title: 'You Are Offline',
-        textContent: 'Log out operation is not available offline, please try again',
+        textContent: 'Log out operation is not available offline, please try again.',
         ok: 'OK'
       });
     } else {
       dialog.showAlert({
         title: 'Logout Error',
-        textContent: 'The log out operation failed, please try again',
+        textContent: 'The log out operation failed due to the following error: ' + err + 'Please try again.',
         ok: 'OK'
       });
     }
