@@ -2,11 +2,12 @@ var logger = require('@raincatcher/logger').getLogger();
 var CONSTANTS = require('./constants');
 var $fh = require('fh-js-sdk');
 var cloudUrl;
+var dialog;
 
 function AuthService($http, $window, dialogService) {
   this.http = $http;
   this.window = $window;
-  this.dialogService = dialogService;
+  dialog = dialogService;
   this.initAuth();
 }
 
@@ -19,6 +20,13 @@ AuthService.prototype.initAuth = function() {
   });
 }
 
+AuthService.prototype.accountManagement = function() {
+  dialog.showAlert({
+    title: 'Unable to do this operation',
+    textContent: 'This operation is available on Keycloak only',
+    ok: 'OK'
+  });
+}
 AuthService.prototype.getProfile = function() {
   var req = {
     method: 'GET',
@@ -29,26 +37,27 @@ AuthService.prototype.getProfile = function() {
     return res.data;
   }).catch(function(err) {
     if (err.status === 401) {
-      this.login();
+      this.window.location = cloudUrl + CONSTANTS.LOGIN_URL;
     } else if (err.status === 403) {
-      this.dialogService.showAlert({
+      dialog.showAlert({
         title: 'Forbidden',
         textContent: 'You are not authorized to access this resource.',
         ok: 'OK'
       });
     } else {
-      this.dialogService.showAlert({
+      dialog.showAlert({
         title: 'Error Retrieving Profile Data',
         textContent: 'Unable to retrieve profile data, please login',
         ok: 'Login'
       }).then(function() {
-        this.login();
+        this.window.location = cloudUrl + CONSTANTS.LOGIN_URL;
       });
     }
   });
 }
 
-AuthService.prototype.hasResourceRole = function() {
+AuthService.prototype.hasResourceRole = function(role) {
+  console.log('has Resource Role called');
   // TODO: implement has resource role functionality
 }
 
@@ -63,13 +72,21 @@ AuthService.prototype.logout = function() {
   };
 
   return this.http(req, {withCredentials: true}).then(function() {
-    this.login();
-  }).catch(function(err){
-    this.dialogService.showAlert({
-      title: 'Logout Error',
-      textContent: 'The log out operation failed, please try again',
-      ok: 'OK'
-    });
+    this.window.location = cloudUrl + CONSTANTS.LOGIN_URL;
+  }).catch(function(err) {
+    if (err.status === -1) {
+      dialog.showAlert({
+        title: 'You Are Offline',
+        textContent: 'Log out operation is not available offline, please try again',
+        ok: 'OK'
+      });
+    } else {
+      dialog.showAlert({
+        title: 'Logout Error',
+        textContent: 'The log out operation failed, please try again',
+        ok: 'OK'
+      });
+    }
   });
 }
 
