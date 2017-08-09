@@ -35,7 +35,7 @@ angular.module('wfm-mobile').config(['$stateProvider', '$urlRouterProvider', '$h
       $mdSidenav(menuId).toggle();
       event.stopPropagation();
     };
-    
+
     $scope.navigateTo = function(state, params) {
       if (state) {
         $state.go(state, params);
@@ -44,18 +44,6 @@ angular.module('wfm-mobile').config(['$stateProvider', '$urlRouterProvider', '$h
 
     $scope.hasResourceRole = function(role) {
       return userService.hasResourceRole(role);
-    };
-
-    $scope.manageAccount = function() {
-      var manageAccount = userService.manageAccount();
-      manageAccount();
-    };
-
-    $scope.enableManageAccount = function() {
-      if (userService.manageAccount()) {
-        return true;
-      }
-      return false;
     };
 
     $scope.logout = function() {

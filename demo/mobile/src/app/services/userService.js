@@ -29,10 +29,6 @@ UserService.prototype.hasResourceRole = function hasResourceRole(role) {
   return this.auth.hasResourceRole(role);
 };
 
-UserService.prototype.manageAccount = function manageAccount() {
-  return this.auth.accountManagement;
-};
-
 UserService.prototype.listUsers = function listUsers() {
   return Promise.all(this.readUser());
 };
