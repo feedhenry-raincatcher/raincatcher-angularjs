@@ -4,30 +4,39 @@ var $fh = require('fh-js-sdk');
 var cloudUrl;
 var dialog;
 
-function AuthService($http, $window, dialogService) {
+function PassportAuthService($http, $window, dialogService) {
   this.http = $http;
   this.window = $window;
   dialog = dialogService;
-  this.initAuth();
+  this.init();
 }
 
-AuthService.prototype.initAuth = function() {
+/**
+ * Initializes $fh and retrieves the server's URL.
+ */
+PassportAuthService.prototype.init = function() {
   $fh.on('fhinit', function(error) {
     if (error) {
       logger.error('Unable to initialize auth service due to unsuccessful $fh.init', error);
+    } else {
+      cloudUrl = decodeURIComponent($fh.getCloudURL());
     }
-    cloudUrl = $fh.getCloudURL();
   });
 }
 
-AuthService.prototype.accountManagement = function() {
+PassportAuthService.prototype.accountManagement = function() {
   dialog.showAlert({
     title: 'Operation Unavailable',
     textContent: 'This operation is available on Keycloak only',
     ok: 'OK'
   });
 }
-AuthService.prototype.getProfile = function() {
+
+/**
+ * Sends a request to the profile endpoint to retrieve the user's profile data.
+ * @returns Returns the profile data retrieved from the server.
+ */
+PassportAuthService.prototype.getProfile = function() {
   var req = {
     method: 'GET',
     url: cloudUrl + CONSTANTS.PROFILE_URL
@@ -56,16 +65,26 @@ AuthService.prototype.getProfile = function() {
   });
 }
 
-AuthService.prototype.hasResourceRole = function(role) {
-  console.log('has Resource Role called');
-  // TODO: implement has resource role functionality
+/**
+ * Checks if the user has the specified role
+ * @param role - The required role needed by the user in order to access the resource
+ */
+PassportAuthService.prototype.hasResourceRole = function(role) {
+  console.log('TODO: has Resource Role called');
 }
 
-AuthService.prototype.login = function() {
+/**
+ * Redirects to the login page
+ */
+PassportAuthService.prototype.login = function() {
   return this.window.location = cloudUrl + CONSTANTS.LOGIN_URL;
 }
 
-AuthService.prototype.logout = function() {
+/**
+ * Logs out the user.
+ * Redirects the user to the login page on successful logout.
+ */
+PassportAuthService.prototype.logout = function() {
   var req = {
     method: 'GET',
     url: cloudUrl + CONSTANTS.LOGOUT_URL
@@ -92,5 +111,5 @@ AuthService.prototype.logout = function() {
 
 angular.module('wfm.auth.passport').factory('authService', ['$http', '$window', 'dialogService', 
   function($http, $window, dialogService) {
-  return new AuthService($http, $window, dialogService);
+  return new PassportAuthService($http, $window, dialogService);
 }]);
