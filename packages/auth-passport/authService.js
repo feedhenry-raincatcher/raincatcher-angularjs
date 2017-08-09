@@ -113,3 +113,8 @@ angular.module('wfm.auth.passport').factory('authService', ['$http', '$window', 
   function($http, $window, dialogService) {
   return new PassportAuthService($http, $window, dialogService);
 }]);
+
+angular.module('wfm.auth.passport').config(['$httpProvider', function($httpProvider) {
+  // This property needs to be set to true in order for Passport to work
+  $httpProvider.defaults.withCredentials = true;
+}]);
