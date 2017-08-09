@@ -1,5 +1,5 @@
 function createMainAppRoute($stateProvider, $urlRouterProvider, $httpProvider) {
-  // This property needs to be set to true in order for Passport to work
+  // This property needs to be set to true in order for Passport to work, this can be disabled for Keycloak
   $httpProvider.defaults.withCredentials = true;
 
   // if none of the states are matched, use this as the fallback
@@ -35,17 +35,27 @@ angular.module('wfm-mobile').config(['$stateProvider', '$urlRouterProvider', '$h
       $mdSidenav(menuId).toggle();
       event.stopPropagation();
     };
+    
     $scope.navigateTo = function(state, params) {
       if (state) {
         $state.go(state, params);
       }
     };
+
     $scope.hasResourceRole = function(role) {
       return userService.hasResourceRole(role);
     };
 
     $scope.manageAccount = function() {
-      userService.manageAccount();
+      var manageAccount = userService.manageAccount();
+      manageAccount();
+    };
+
+    $scope.enableManageAccount = function() {
+      if (userService.manageAccount()) {
+        return true;
+      }
+      return false;
     };
 
     $scope.logout = function() {

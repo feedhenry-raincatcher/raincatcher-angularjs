@@ -24,14 +24,6 @@ PassportAuthService.prototype.init = function() {
   });
 }
 
-PassportAuthService.prototype.accountManagement = function() {
-  dialog.showAlert({
-    title: 'Operation Unavailable',
-    textContent: 'This operation is available on Keycloak only',
-    ok: 'OK'
-  });
-}
-
 /**
  * Sends a request to the profile endpoint to retrieve the user's profile data.
  * @returns Returns the profile data retrieved from the server.
@@ -101,8 +93,8 @@ PassportAuthService.prototype.logout = function() {
       });
     } else {
       dialog.showAlert({
-        title: 'Logout Error',
-        textContent: 'The log out operation failed due to the following error: ' + err + 'Please try again.',
+        title: 'Logout Operation Failed',
+        textContent: 'The log out operation failed due to the following error: ' + err + ' Please try again.',
         ok: 'OK'
       });
     }

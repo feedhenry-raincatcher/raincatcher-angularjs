@@ -21,7 +21,7 @@ UserService.prototype.readUser = function readUser() {
   });
 };
 
-UserService.prototype.getProfile = function() {
+UserService.prototype.getProfile = function getProfile() {
   return this.auth.getProfile();
 };
 
@@ -29,8 +29,8 @@ UserService.prototype.hasResourceRole = function hasResourceRole(role) {
   return this.auth.hasResourceRole(role);
 };
 
-UserService.prototype.manageAccount = function() {
-  return this.auth.accountManagement();
+UserService.prototype.manageAccount = function manageAccount() {
+  return this.auth.accountManagement;
 };
 
 UserService.prototype.listUsers = function listUsers() {
