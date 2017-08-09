@@ -3,6 +3,7 @@ var CONSTANTS = require('./constants');
 var $fh = require('fh-js-sdk');
 var cloudUrl;
 var dialog;
+var userProfile;
 
 function PassportAuthService($http, $window, dialogService) {
   this.http = $http;
@@ -35,7 +36,8 @@ PassportAuthService.prototype.getProfile = function() {
   };
 
   return this.http(req, {withCredentials: true}).then(function(res) {
-    return res.data;
+    userProfile = res.data;
+    return userProfile;
   }).catch(function(err) {
     if (err.status === 401) {
       this.window.location = cloudUrl + CONSTANTS.LOGIN_URL;
@@ -45,6 +47,9 @@ PassportAuthService.prototype.getProfile = function() {
         textContent: 'You are not authorized to access this resource.',
         ok: 'OK'
       });
+    } else if (err.status === -1) {
+      logger.warn('You are offline, returning last profile data retrieved from the server')
+      return userProfile;
     } else {
       dialog.showAlert({
         title: 'Error Retrieving Profile Data',
@@ -62,7 +67,10 @@ PassportAuthService.prototype.getProfile = function() {
  * @param role - The required role needed by the user in order to access the resource
  */
 PassportAuthService.prototype.hasResourceRole = function(role) {
-  console.log('TODO: has Resource Role called');
+  if (userProfile.roles && userProfile.roles.length > 0) {
+    return userProfile.roles.indexOf(role) > -1;
+  }
+  return false;
 }
 
 /**
