@@ -67,10 +67,5 @@ angular.element(document).ready(function() {
     }).error(function(err) {
       logger.error("Error Initialising Keycloak JS", err);
     });
-  } else {
-    angular.module('wfm-mobile').factory('authService', function() {
-      return null;
-    });
-    angular.bootstrap(document, ['wfm-mobile']);
   }
 });
