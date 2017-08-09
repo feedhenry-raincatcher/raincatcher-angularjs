@@ -19,7 +19,6 @@ function WorkflowProcessStepsController($scope, $state, workflowApiService, $tim
   var workorderId = $stateParams.workorderId;
 
   function updateWorkflowState(summary) {
-
     //If the workflow is complete, then we can switch to the summary view.
     if (summary.result && summary.result.status === CONSTANTS.STATUS.COMPLETE_DISPLAY) {
       return $state.go('app.workflowProcess.complete', {
@@ -51,7 +50,7 @@ function WorkflowProcessStepsController($scope, $state, workflowApiService, $tim
   };
 
   //Beginning the workflow
-  workflowApiService.beginWorkflow(workorderId).then(function(workflowSummary) {
+  workflowApiService.workflowSummary(workorderId).then(function(workflowSummary) {
     updateWorkflowState(workflowSummary);
   });
 
