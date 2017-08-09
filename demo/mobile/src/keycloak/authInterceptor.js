@@ -1,9 +1,9 @@
 var q;
 var auth;
 
-function AuthInterceptor($q, Auth) {
+function AuthInterceptor($q, authService) {
     q = $q;
-    auth = Auth;
+    auth = authService;
 }
 
 AuthInterceptor.prototype.request = function request(config) {
@@ -21,8 +21,8 @@ AuthInterceptor.prototype.request = function request(config) {
   return deferred.promise;
 }
 
-angular.module('wfm-mobile').service('authInterceptor', function($q, Auth) {
-  return new AuthInterceptor($q, Auth);
+angular.module('wfm-mobile').service('authInterceptor', function($q, authService) {
+  return new AuthInterceptor($q, authService);
 });
 
 angular.module('wfm-mobile').config(['$httpProvider', function($httpProvider) {

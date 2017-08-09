@@ -59,7 +59,7 @@ angular.element(document).ready(function() {
         });
       };
 
-      angular.module('wfm-mobile').factory('Auth', function() {
+      angular.module('wfm-mobile').factory('authService', function() {
         return auth;
       });
       // NOTE: Angular should be started after Keycloak has initialized otherwise Angular will cause issues with URL Rewrites
@@ -68,7 +68,7 @@ angular.element(document).ready(function() {
       logger.error("Error Initialising Keycloak JS", err);
     });
   } else {
-    angular.module('wfm-mobile').factory('Auth', function() {
+    angular.module('wfm-mobile').factory('authService', function() {
       return null;
     });
     angular.bootstrap(document, ['wfm-mobile']);

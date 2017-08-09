@@ -2,8 +2,8 @@ var Promise = require("bluebird");
 var fh = require("fh-js-sdk");
 var logger = require('@raincatcher/logger').getLogger();
 
-function UserService(Auth) {
-  this.auth = Auth;
+function UserService(authService) {
+  this.auth = authService;
 }
 
 UserService.prototype.readUser = function readUser() {
@@ -86,6 +86,6 @@ UserService.prototype.logout = function logout($http, $window) {
 };
 
 
-angular.module('wfm.common.apiservices').service('userService', ['Auth', function(Auth) {
-  return new UserService(Auth);
+angular.module('wfm.common.apiservices').service('userService', ['authService', function(authService) {
+  return new UserService(authService);
 }]);
