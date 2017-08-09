@@ -22,7 +22,8 @@ angular.module('app', [
   require('@raincatcher/angularjs-workflow')({
     mode: "admin",
     listColumnViewId: "column2",
-    mainColumnViewId: "content@app"
+    mainColumnViewId: "content@app",
+    stepDefinitions: require("./wfm.json").stepDefinitions
   })
 ]);
 

@@ -12,29 +12,29 @@
 
 <div>
   <md-input-container class="md-block">
-    <label>Code</label>
-    <input type="text" id="code" name="code" ng-model="wfsfController.model.step.code" required>
-    <div ng-messages="workflow.model.step.$error" ng-if="wfsfController.submitted || workflowForm.title.$dirty">
-      <div ng-message="required">A code is required.</div>
-    </div>
-  </md-input-container>
-  <md-input-container class="md-block">
     <label>Name</label>
     <input type="text" id="name" name="name" ng-model="wfsfController.model.step.name" required>
     <div ng-messages="workflow.namselectWorkflowe.$error" ng-if="wfsfController.submitted || workflowForm.name.$dirty">
       <div ng-message="required">A name is required.</div>
     </div>
   </md-input-container>
-  <md-input-container class="md-block">
-    <label>form template</label>
-    <input type="text" id="form" name="form" ng-model="wfsfController.model.step.templates.form">
-  </md-input-container>
-  <md-input-container class="md-block">
-    <label>view template</label>
-    <input type="text" id="view" name="view" ng-model="wfsfController.model.step.templates.view">
-  </md-input-container>
 
-</div>
+  <md-list ng-if="wfsfController.stepDefinitions">
+    <h3>
+      Select step type
+    </h3>
+    <md-list-item ng-repeat="step in wfsfController.stepDefinitions" ng-click="wfsfController.selectStep($event, step)"
+          ng-class="{active: selected.code === step.code}">
+      <div class="md-list-item-text">
+        <h5>
+          {{step.name}}
+        </h5>
+        {{step.description}}
+      </div>
+      <md-divider></md-divider>
+      </md-list-item>
+    </md-list>
+  </div>
 
   <md-button type="submit" class="md-raised md-primary">{{wfsfController.model.isNew ? 'Add' : 'Update'}} step</md-button>
 </form>
