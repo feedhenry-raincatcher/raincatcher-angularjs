@@ -17,14 +17,14 @@ function createMainAppRoute($stateProvider, $urlRouterProvider, $httpProvider) {
 }
 
 angular.module('wfm-mobile').config(['$stateProvider', '$urlRouterProvider', '$httpProvider', createMainAppRoute]).controller('mainController', [
-  '$rootScope', '$scope', '$state', '$mdSidenav', 'userService', '$http', '$window', 'dialogService',
-  function($rootScope, $scope, $state, $mdSidenav, userService, $http, $window, dialogService) {
-    userService.getProfile($http, $window).then(function(profileData) {
+  '$rootScope', '$scope', '$state', '$mdSidenav', 'userService', 'dialogService',
+  function($rootScope, $scope, $state, $mdSidenav, userService, dialogService) {
+    userService.getProfile().then(function(profileData) {
       $scope.profileData = profileData;
     }).catch(function(err) {
       dialogService.showAlert({
-        title: 'Error Loading Profile Data',
-        textContent: 'Failed to load profile data. ' + err + 'Please login',
+        title: 'Failed to Load Profile Data',
+        textContent: 'Unable to load profile data due to the following error: ' + err + 'Please login',
         ok: 'Login'
       }).then(function() {
         userService.login();
@@ -43,10 +43,12 @@ angular.module('wfm-mobile').config(['$stateProvider', '$urlRouterProvider', '$h
     $scope.hasResourceRole = function(role) {
       return userService.hasResourceRole(role);
     };
+
     $scope.manageAccount = function() {
       userService.manageAccount();
     };
+
     $scope.logout = function() {
-      userService.logout($http, $window);
+      userService.logout();
     };
   }]);

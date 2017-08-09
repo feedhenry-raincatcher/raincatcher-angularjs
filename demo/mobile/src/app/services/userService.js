@@ -41,7 +41,7 @@ UserService.prototype.login = function login() {
   return this.auth.login();
 };
 
-UserService.prototype.logout = function logout($http, $window) {
+UserService.prototype.logout = function logout() {
   return this.auth.logout();
 };
 
