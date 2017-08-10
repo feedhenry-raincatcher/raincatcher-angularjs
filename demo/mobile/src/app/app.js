@@ -12,6 +12,8 @@ angular.module('wfm-mobile', [
   require('angular-ui-router'),
   require('angular-material'),
   require('./util'),
+  // Enables passport auth service to be used
+  require('@raincatcher/demo-auth-passport'),
   require('./services'),
   require('@raincatcher/demo-wfm'),
   require('@raincatcher/demo-sync'),
@@ -28,7 +30,8 @@ angular.module('wfm-mobile', [
   require('@raincatcher/vehicle-inspection')
 ]);
 
-require('../keycloak');
+// NOTE: Enable the next line in order to use Keycloak auth service
+// require('../keycloak');
 require('./initialisation');
 
 

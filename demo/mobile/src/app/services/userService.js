@@ -1,9 +1,7 @@
 var Promise = require("bluebird");
-var fh = require("fh-js-sdk");
-var logger = require('@raincatcher/logger').getLogger();
 
-function UserService(Auth) {
-  this.auth = Auth;
+function UserService(authService) {
+  this.auth = authService;
 }
 
 UserService.prototype.readUser = function readUser() {
@@ -21,39 +19,12 @@ UserService.prototype.readUser = function readUser() {
   });
 };
 
-UserService.prototype.getProfile = function($http, $window) {
-  if (this.auth) {
-    return this.auth.getProfile();
-  }
-  var req = {
-    method: 'GET',
-    url: fh.getCloudURL() + '/profile'
-  };
-  return $http(req, {withCredentials: true}).then(function(res) {
-    return res.data;
-  }, function(err) {
-    if (err.status === 401) {
-      $window.location = fh.getCloudURL() + '/login';
-    }
-    if (err.status === 403) {
-      logger.error('Forbidden');
-    }
-    return err;
-  });
+UserService.prototype.getProfile = function getProfile() {
+  return this.auth.getProfile();
 };
 
 UserService.prototype.hasResourceRole = function hasResourceRole(role) {
-  if (this.auth) {
-    return this.auth.hasResourceRole(role);
-  }
-  // TODO: (Passport has Resource Role function)
-  return true;
-};
-
-UserService.prototype.manageAccount = function() {
-  if (this.auth) {
-    return this.auth.accountManagement();
-  }
+  return this.auth.hasResourceRole(role);
 };
 
 UserService.prototype.listUsers = function listUsers() {
@@ -61,31 +32,14 @@ UserService.prototype.listUsers = function listUsers() {
 };
 
 UserService.prototype.login = function login() {
-  if (this.auth) {
-    return this.auth.login();
-  }
-
-  // TODO: Passport Login
+  return this.auth.login();
 };
 
-UserService.prototype.logout = function logout($http, $window) {
-  if (this.auth) {
-    return this.auth.logout();
-  } else {
-    var req = {
-      method: 'GET',
-      url: fh.getCloudURL() + '/logout'
-    };
-
-    return $http(req, {withCredentials: true}).then(function() {
-      $window.location = fh.getCloudURL() + '/login';
-    }, function(err) {
-      logger.error('error logging out', err);
-    });
-  }
+UserService.prototype.logout = function logout() {
+  return this.auth.logout();
 };
 
 
-angular.module('wfm.common.apiservices').service('userService', ['Auth', function(Auth) {
-  return new UserService(Auth);
+angular.module('wfm.common.apiservices').service('userService', ['authService', function(authService) {
+  return new UserService(authService);
 }]);
