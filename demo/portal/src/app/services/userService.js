@@ -24,8 +24,8 @@ UserService.prototype.getProfile = function getProfile() {
   return this.auth.getProfile();
 };
 
-UserService.prototype.hasResourceRole = function hasResourceRole() {
-  return this.auth.hasResourceRole();
+UserService.prototype.hasResourceRole = function hasResourceRole(role) {
+  return this.auth.hasResourceRole(role);
 };
 
 UserService.prototype.listUsers = function listUsers() {
