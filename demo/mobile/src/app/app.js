@@ -13,7 +13,7 @@ angular.module('wfm-mobile', [
   require('angular-material'),
   require('@raincatcher/dialog'),
   // Enables passport auth service to be used
-  require('@raincatcher/demo-auth-passport'),
+  require('@raincatcher/demo-auth-passport')('wfm-mobile'),
   require('./services'),
   require('@raincatcher/demo-wfm'),
   require('@raincatcher/demo-sync'),
