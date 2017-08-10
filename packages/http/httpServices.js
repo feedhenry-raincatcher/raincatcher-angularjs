@@ -1,17 +1,20 @@
-var config = require('./config.json');
 var _ = require('lodash');
 
 // Generating common data repositories
-var HttpApiDataService = require("./httpDataRepository");
+var HttpApiDataService = require("./httpDataService");
 
-var datasets = config.datasetIds;
-angular.module('wfm.http').service("workorderService", ['baseUrlService', '$http', function(baseUrlService, $http) {
-  return new HttpApiDataService(datasets.workorders, baseUrlService, $http);
+var datasets = {
+  workorders: "workorders",
+  workflows: "workflows",
+  results: "result"
+};
+angular.module('wfm.common.apiservices').service("workorderService", ['baseUrl', '$http', function(baseUrlPromise, $http) {
+  return new HttpApiDataService(datasets.workorders, baseUrlPromise, $http);
 }]);
-angular.module('wfm.http').service("workflowService", ['baseUrlService', '$http', function(baseUrlService, $http) {
+angular.module('wfm.common.apiservices').service("workflowService", ['baseUrl', '$http', function(baseUrlService, $http) {
   return new HttpApiDataService(datasets.workflows, baseUrlService, $http);
 }]);
-angular.module('wfm.http').service("resultService", ['baseUrlService', '$http', function(baseUrlService, $http) {
+angular.module('wfm.common.apiservices').service("resultService", ['baseUrl', '$http', function(baseUrlService, $http) {
   var ResultHttpService = function() {
     HttpApiDataService.apply(this, arguments);
   };
@@ -29,6 +32,6 @@ angular.module('wfm.http').service("resultService", ['baseUrlService', '$http', 
         });
     }
   });
-  return new ResultHttpService(datasets.results, $http);
+  return new ResultHttpService(datasets.results, baseUrlService, $http);
 }]);
 

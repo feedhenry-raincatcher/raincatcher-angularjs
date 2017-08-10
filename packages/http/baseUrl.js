@@ -10,10 +10,11 @@ function determineCloudUrl() {
     // Get server url
     $fh.on('fhinit', function(error) {
       if (error) {
+        console.error('Unable to determine cloudUrl', error);
         return reject(error);
       }
       var cloudUrl = decodeURIComponent($fh.getCloudURL());
-      return cloudUrl;
+      return resolve(cloudUrl);
     });
   });
 }

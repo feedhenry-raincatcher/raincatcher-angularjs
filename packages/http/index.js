@@ -1,6 +1,6 @@
 angular.module('wfm.http', []);
 
 require('./httpServices');
-require('./urlConfigService');
+require('./baseUrl');
 
 module.exports = 'wfm.http';
