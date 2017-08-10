@@ -1,4 +1,3 @@
-// Service that is being injected to modules to provide all operations around sync
 function HttpDataService(entityName, baseUrlPromise, $http) {
   this.entityName = entityName;
   this.baseUrlPromise = baseUrlPromise;

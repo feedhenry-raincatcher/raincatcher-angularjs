@@ -2,9 +2,6 @@
 var $fh = require('fh-js-sdk');
 var Promise = require('bluebird');
 
-/**
-* Initialize sync service
-*/
 function determineCloudUrl() {
   return new Promise(function(resolve, reject) {
     // Get server url
