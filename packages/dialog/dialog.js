@@ -10,6 +10,6 @@ DialogService.prototype.showConfirm = function showConfirm(confirmContent) {
   return this.mdDialog.show(this.mdDialog.confirm(confirmContent));
 };
 
-angular.module('wfm.common.util').service('dialogService', ['$mdDialog', function($mdDialog) {
+angular.module('wfm.util.dialog').service('dialogService', ['$mdDialog', function($mdDialog) {
   return new DialogService($mdDialog);
 }]);

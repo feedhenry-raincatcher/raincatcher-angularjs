@@ -15,6 +15,8 @@
   "author": "feedhenry-raincatcher@redhat.com",
   "license": "MIT",
   "dependencies": {
+    "@raincatcher/demo-auth-passport": "1.0.0",
+    "@raincatcher/dialog": "1.0.0",
     "@raincatcher/demo-sync": "1.0.0",
     "@raincatcher/demo-wfm": "1.0.0",
     "@raincatcher/logger": "1.0.0",

@@ -24,12 +24,25 @@ function AppConfig($stateProvider, $urlRouterProvider) {
       data: {
         columns: 3
       },
-      controller: function($scope, $state, $mdSidenav) {
+      controller: function($scope, $state, $mdSidenav, userService, dialogService) {
+        userService.getProfile().then(function(profileData) {
+          $scope.profileData = profileData;
+        }).catch(function(err) {
+          dialogService.showAlert({
+            title: 'Failed to Load Profile Data',
+            textContent: 'Unable to load profile data due to the following error: ' + err + 'Please login',
+            ok: 'Login'
+          }).then(function() {
+            userService.login();
+          });
+        });
+
         $scope.$state = $state;
         $scope.toggleSidenav = function(event, menuId) {
           $mdSidenav(menuId).toggle();
           event.stopPropagation();
         };
+
         $scope.navigateTo = function(state, params) {
           if (state) {
             if ($mdSidenav('left').isOpen()) {
@@ -37,6 +50,14 @@ function AppConfig($stateProvider, $urlRouterProvider) {
             }
             $state.go(state, params);
           }
+        };
+
+        $scope.hasResourceRole = function(role) {
+          return userService.hasResourceRole(role);
+        };
+
+        $scope.logout = function() {
+          userService.logout();
         };
       }
     });
