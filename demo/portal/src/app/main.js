@@ -9,6 +9,8 @@ logger.setLogger(new logger.ClientLogger(2));
 angular.module('app', [
   require('angular-ui-router'),
   require('angular-material'),
+  require('@raincatcher/dialog'),
+  require('@raincatcher/demo-auth-passport'),
   require('./services'),
   require('@raincatcher/demo-wfm'),
   require('@raincatcher/demo-sync'),

@@ -1,6 +1,7 @@
 var Promise = require("bluebird");
 
-function UserService() {
+function UserService(authService) {
+  this.auth = authService;
 }
 
 UserService.prototype.readUser = function readUser() {
@@ -19,15 +20,27 @@ UserService.prototype.readUser = function readUser() {
 };
 
 
-UserService.prototype.getProfile = function(userId) {
-  return this.readUser(userId);
+UserService.prototype.getProfile = function getProfile() {
+  return this.auth.getProfile();
+};
+
+UserService.prototype.hasResourceRole = function hasResourceRole() {
+  return this.auth.hasResourceRole();
 };
 
 UserService.prototype.listUsers = function listUsers() {
   return Promise.all(this.readUser());
 };
 
+UserService.prototype.login = function login() {
+  return this.auth.login();
+};
 
-angular.module('wfm.common.apiservices').service("userService", function() {
-  return new UserService();
-});
+UserService.prototype.logout = function logout() {
+  return this.auth.logout();
+}
+
+
+angular.module('wfm.common.apiservices').service("userService", ['authService', function(authService) {
+  return new UserService(authService);
+}]);
