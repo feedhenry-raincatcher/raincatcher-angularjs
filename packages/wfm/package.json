@@ -11,8 +11,6 @@
     "angular": "1.6.1"
   },
   "dependencies": {
-    "bluebird": "^3.5.0",
-    "lodash": "^4.17.4",
-    "shortid": "^2.2.8"
+    "@raincatcher/wfm": "1.0.0"
   }
 }

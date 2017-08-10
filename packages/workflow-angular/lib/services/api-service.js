@@ -98,7 +98,7 @@ WorkflowApiService.prototype.beginWorkflow = function(workorderId) {
  * @param {string} workorderId - The ID of the workorder to get the summary for.
  */
 WorkflowApiService.prototype.workflowSummary = function(workorderId) {
-  return this.wfmService.beginWorkflow(workorderId);
+  return this.wfmService.workorderSummary(workorderId);
 };
 
 
