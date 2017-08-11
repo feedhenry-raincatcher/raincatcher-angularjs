@@ -6,5 +6,8 @@
     "clientId": "raincatcher-mobile",
     "public-client": true,
     "use-resource-role-mappings": true
+  }, 
+  "keycloakInitConfig": {
+    "onLoad": "login-required"
   }
 }
