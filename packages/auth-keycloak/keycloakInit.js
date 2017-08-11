@@ -1,5 +1,4 @@
 var Keycloak = require('keycloak-js');
-var config = require('../app/config/config');
 var Promise = require('bluebird');
 var logger = require('@raincatcher/logger').getLogger();
 
@@ -16,7 +15,6 @@ function extractAttributeFields(attributeFields) {
       }
     }
   }
-
   return attributes;
 }
 
@@ -34,38 +32,34 @@ function formatProfileData(profileData) {
   return profile;
 }
 
-var auth = {};
 
-/**
-* Initializes the Keycloak JS adapter and make it available to controllers
-* and services in the application.
-*/
-angular.element(document).ready(function() {
-  if (config.keycloakConfig) {
-    // keycloak init config
-    var initConfig = {onLoad: 'login-required'};
-
-    // Setup Keycloak JS Adapter with Keycloak config
-    var keycloakJS = Keycloak(config.keycloakConfig);
+module.exports = function(appName, keycloakConfig, initConfig) {
+  /**
+  * Initializes the Keycloak JS adapter and make it available to controllers
+  * and services in the application.
+  */
+  angular.element(document).ready(function() {
+    // Setup KeycloakJS Adapter with the given keycloakConfig
+    var keycloakJS = Keycloak(keycloakConfig);
 
     keycloakJS.init(initConfig).success(function() {
-      logger.info("Keycloak Initialisation Success");
-      auth = keycloakJS;
-      auth.getProfile = function() {
-        return new Promise(function(success, error) {
-          auth.loadUserProfile().success(function(profileData) {
-            return success(formatProfileData(profileData));
-          }).error(error);
-        });
-      };
-
-      angular.module('wfm-mobile').factory('authService', function() {
-        return auth;
+      logger.info('Successfully initialised Keycloak instance');
+      angular.module(appName).factory('authService', function() {
+        var keycloakAuthService = keycloakJS;
+        keycloakAuthService.getProfile = function() {
+          return new Promise(function(success, error) {
+            keycloakAuthService.loadUserProfile().success(function(profileData) {
+              return success(formatProfileData(profileData));
+            }).error(error);
+          });
+        }
+        return keycloakAuthService;
       });
+
       // NOTE: Angular should be started after Keycloak has initialized otherwise Angular will cause issues with URL Rewrites
-      angular.bootstrap(document, ["wfm-mobile"]);
+      angular.bootstrap(document, [appName]);
     }).error(function(err) {
-      logger.error("Error Initialising Keycloak JS", err);
+      logger.error('Failed to initialise Keycloak due to the following error', err);
     });
-  }
-});
+  });
+}
