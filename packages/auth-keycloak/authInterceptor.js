@@ -6,6 +6,9 @@ function AuthInterceptor($q, authService) {
     auth = authService;
 }
 
+/**
+ * Refreshes the Keycloak tokens upon every request
+ */
 AuthInterceptor.prototype.request = function request(config) {
   var deferred = q.defer();
   if (auth.token) {
@@ -21,10 +24,12 @@ AuthInterceptor.prototype.request = function request(config) {
   return deferred.promise;
 }
 
-angular.module('wfm-mobile').service('authInterceptor', function($q, authService) {
-  return new AuthInterceptor($q, authService);
-});
+module.exports = function(appName) {
+  angular.module(appName).service('authInterceptor', function($q, authService) {
+    return new AuthInterceptor($q, authService);
+  });
 
-angular.module('wfm-mobile').config(['$httpProvider', function($httpProvider) {
-  $httpProvider.interceptors.push('authInterceptor');
-}]);
+  angular.module(appName).config(['$httpProvider', function($httpProvider) {
+    $httpProvider.interceptors.push('authInterceptor');
+  }]);
+};
