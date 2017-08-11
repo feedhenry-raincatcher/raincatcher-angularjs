@@ -29,4 +29,5 @@ angular.module('app', [
   })
 ]);
 
+// require('./keycloak');
 require('./config');

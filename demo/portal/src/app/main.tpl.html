@@ -29,7 +29,7 @@
       </md-list>
     </md-sidenav>
 
-    <md-content ng-if="profileData" id="content" layout="row" flex>
+    <md-content id="content" layout="row" flex>
       <div flex="33" ui-view name="column2" class="inner-column" ng-class="{hide: $state.current.data.columns < 3}"></div>
       <!--template loaded here -->
       <div flex ui-view name="content"></div>

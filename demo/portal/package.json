@@ -16,6 +16,7 @@
   "license": "MIT",
   "dependencies": {
     "@raincatcher/demo-auth-passport": "1.0.0",
+    "@raincatcher/demo-auth-keycloak": "1.0.0",
     "@raincatcher/dialog": "1.0.0",
     "@raincatcher/demo-sync": "1.0.0",
     "@raincatcher/demo-wfm": "1.0.0",
