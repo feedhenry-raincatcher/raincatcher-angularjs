@@ -1,3 +1,4 @@
-var config = require('../../config/config');
+var keycloakConfig = require('./keycloakConfig');
+var initConfig = require('./keycloakInitConfig');
 
-require('@raincatcher/demo-auth-keycloak')('app', config.keycloakConfig, config.keycloakInitConfig);
+require('@raincatcher/demo-auth-keycloak')('app', keycloakConfig, initConfig);

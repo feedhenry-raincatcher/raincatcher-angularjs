@@ -1,3 +1,4 @@
-var config = require('../app/config/config');
+var keycloakConfig = require('./keycloakConfig');
+var initConfig = require('./keycloakInitconfig');
 
-require('@raincatcher/demo-auth-keycloak')('wfm-mobile', config.keycloakConfig, config.keycloakInitConfig);
+require('@raincatcher/demo-auth-keycloak')('wfm-mobile', keycloakConfig, initConfig);
