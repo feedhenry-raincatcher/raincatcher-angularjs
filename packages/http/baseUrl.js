@@ -11,7 +11,7 @@ function determineCloudUrl() {
         return reject(error);
       }
       var cloudUrl = decodeURIComponent($fh.getCloudURL());
-      return resolve(cloudUrl);
+      return resolve(cloudUrl + '/api');
     });
   });
 }

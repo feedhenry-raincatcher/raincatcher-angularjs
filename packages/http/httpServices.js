@@ -6,7 +6,7 @@ var HttpApiDataService = require("./httpDataService");
 var datasets = {
   workorders: "workorders",
   workflows: "workflows",
-  results: "result"
+  results: "results"
 };
 angular.module('wfm.common.apiservices').service("workorderService", ['baseUrl', '$http', function(baseUrlPromise, $http) {
   return new HttpApiDataService(datasets.workorders, baseUrlPromise, $http);
