@@ -4,6 +4,7 @@
     "workflows": "workflows",
     "results": "result"
   },
+  "cloudPath": "/sync/",
   "syncOptions": {
     "global": {
       "sync_frequency": 20,

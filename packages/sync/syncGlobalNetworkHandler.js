@@ -1,6 +1,3 @@
-var cloudURL;
-var cloudPath;
-
 module.exports = function createHandler(cloudURL, cloudPath, $http) {
   var handler = function(params, success, failure) {
     var url = cloudURL + cloudPath + params.dataset_id;
