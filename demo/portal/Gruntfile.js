@@ -15,7 +15,7 @@ module.exports = function(grunt) {
     alias: {
     },
     external: [
-      'lodash', 'q', 'rx', 'async', 'c3', 'd3', 'angular', 'angular-ui-router', 'angular-material', 'ng-sortable'
+      'lodash', 'angular', 'angular-ui-router', 'angular-material', 'ng-sortable'
     ]
   };
 
@@ -56,7 +56,7 @@ module.exports = function(grunt) {
       },
       css: {
         files: [
-        {cwd: 'node_modules/', src: ['angular-material/angular-material.css', 'c3/c3.css'], dest: '<%= app.dist %>/css/', expand: true, flatten: true }
+        {cwd: 'node_modules/', src: ['angular-material/angular-material.css'], dest: '<%= app.dist %>/css/', expand: true, flatten: true }
         ]
       }
     },
