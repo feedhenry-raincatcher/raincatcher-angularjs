@@ -29,6 +29,9 @@ ngModule.run(['$templateCache', function ($templateCache) {
     '  </md-input-container>\n' +
     '\n' +
     '  <md-list ng-if="wfsfController.stepDefinitions">\n' +
+    '    <h3>\n' +
+    '      Select step type\n' +
+    '    </h3>\n' +
     '    <md-list-item ng-repeat="step in wfsfController.stepDefinitions" ng-click="wfsfController.selectStep($event, step)"\n' +
     '          ng-class="{active: selected.code === step.code}">\n' +
     '      <div class="md-list-item-text">\n' +
