@@ -63,4 +63,6 @@ function AppConfig($stateProvider, $urlRouterProvider) {
     });
 }
 
-angular.module('app').config(["$stateProvider", "$urlRouterProvider", AppConfig])
+angular.module('app').config(["$stateProvider", "$urlRouterProvider", AppConfig]);
+
+angular.bootstrap(document.body, ['app'], { strictDi: true });
