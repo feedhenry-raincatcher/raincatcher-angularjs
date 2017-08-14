@@ -40,17 +40,28 @@ If you wish to work with different branch of the core repository please switch m
 
         npm run start
 
-> Note: Core server requires mongodb and redis to be running on machine.
+> **Note**: Core server requires mongodb and redis to be running on machine.
 Please refer to Core documentation for more details about how to configure non standard connection urls
 to this services.
 
 4. Start demo mobile and portal applications
 Change directory to angular repository
-    //
+    
     cd ..
     npm run start
 
 Both demo mobile and demo portal should start automatically in your browser.
+
+## Credentials used to login
+  
+  **Administrator**
+  _Username_: `max`
+  _Password_: `123`
+  
+  **User**
+  _Username_: `trever`
+  _Password_: `123`
+  
 
 ## Repository folder structure
 
