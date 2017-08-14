@@ -54,13 +54,17 @@ Both demo mobile and demo portal should start automatically in your browser.
 
 ## Credentials used to login
   
-    **Administrator**
-    _Username_: `max`
-    _Password_: `123`
+**Administrator**
+
+_Username_: `max`
+
+_Password_: `123`
   
-    **User**
-    _Username_: `trever`
-    _Password_: `123`
+**User**
+
+_Username_: `trever`
+
+_Password_: `123`
   
 
 ## Repository folder structure
