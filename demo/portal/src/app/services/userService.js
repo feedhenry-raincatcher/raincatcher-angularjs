@@ -29,7 +29,7 @@ UserService.prototype.hasResourceRole = function hasResourceRole(role) {
 };
 
 UserService.prototype.listUsers = function listUsers() {
-  return Promise.all(this.readUser());
+  return Promise.all([this.readUser()]);
 };
 
 UserService.prototype.login = function login() {
