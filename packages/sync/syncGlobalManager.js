@@ -8,11 +8,15 @@ var syncApi = syncClient.sync;
 
 // TODO: receive via angular constant service?
 var config = require("./config.json");
+var syncGlobalNetworkHandler = require('./syncGlobalNetworkHandler');
 
 /**
 * Initialize sync service
+*
+* @param $http - angular httpd implementation
 */
-function initSync() {
+function initSync($http) {
+
   return new Promise(function(resolve, reject) {
     // Get server url
     $fh.on('fhinit', function(error) {
@@ -20,6 +24,8 @@ function initSync() {
         return reject(error);
       }
       var cloudUrl = decodeURIComponent($fh.getCloudURL());
+      var handler = syncGlobalNetworkHandler(cloudUrl, config.cloudPath, $http);
+      syncApi.setCloudHandler(handler);
       initializeGlobalSync(cloudUrl);
     });
 
