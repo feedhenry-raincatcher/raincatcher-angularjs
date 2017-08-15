@@ -27,7 +27,7 @@ Both demo applications require server demo application, which is located in the 
         npm install
         npm run bootstrap
 
-> Note: Core repository will be automatically cloned using git command.
+> **Note**: Core repository will be automatically cloned using git command.
 If you wish to work with different branch of the core repository please switch manually.
 
 2. Install all dependencies for core repository
@@ -40,17 +40,32 @@ If you wish to work with different branch of the core repository please switch m
 
         npm run start
 
-> Note: Core server requires mongodb and redis to be running on machine.
+> **Note**: Core server requires mongodb and redis to be running on machine.
 Please refer to Core documentation for more details about how to configure non standard connection urls
 to this services.
 
 4. Start demo mobile and portal applications
 Change directory to angular repository
-    //
-    cd ..
-    npm run start
+    
+        cd ..
+        npm run start
 
 Both demo mobile and demo portal should start automatically in your browser.
+
+## Credentials used to login
+  
+**Portal User**
+
+_Username_: `max`
+
+_Password_: `123`
+  
+**Mobile User**
+
+_Username_: `trever`
+
+_Password_: `123`
+  
 
 ## Repository folder structure
 
