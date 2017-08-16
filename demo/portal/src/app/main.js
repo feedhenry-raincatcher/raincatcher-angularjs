@@ -13,7 +13,7 @@ angular.module('app', [
   require('@raincatcher/demo-auth-passport')('app'),
   require('./services'),
   require('@raincatcher/demo-wfm'),
-  require('@raincatcher/demo-sync'),
+  require('@raincatcher/demo-http'),
   require('ng-sortable'),
   require('./feedhenry'),
   // Commented until this modules will be migrated

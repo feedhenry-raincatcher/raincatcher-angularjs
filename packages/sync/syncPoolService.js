@@ -71,12 +71,12 @@ syncPool.forceSync = function(managers) {
  * @returns {{}}
  * @constructor
  */
-function SyncPoolService() {
+function SyncPoolService($http) {
   //Init the sync service
-  syncGlobalManager.initSync().catch(function() {
+  syncGlobalManager.initSync($http).catch(function() {
     console.error("Failed to initialize sync");
   });
   return syncPool;
 }
 
-angular.module('wfm.sync').service('syncPool', [SyncPoolService]);
+angular.module('wfm.sync').service('syncPool', ['$http', SyncPoolService]);
