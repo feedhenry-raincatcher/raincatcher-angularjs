@@ -12,7 +12,6 @@ angular.module('app', [
   require('@raincatcher/dialog'),
   require('@raincatcher/demo-auth-passport')('app'),
   require('./services'),
-  require('@raincatcher/demo-wfm'),
   require('@raincatcher/demo-http'),
   require('ng-sortable'),
   require('./feedhenry'),
