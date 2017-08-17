@@ -6,21 +6,10 @@ var CONSTANTS = require('../constants');
  * @constructor
  */
 
-function WorkorderDetailController($state, WORKORDER_CONFIG, workorderStatusService, workorderFlowService) {
+function WorkorderDetailController($state, WORKORDER_CONFIG, workorderStatusService) {
   var self = this;
 
   self.adminMode = WORKORDER_CONFIG.adminMode;
-
-  self.selectWorkorder = function(event, workorder) {
-    if (workorder.id) {
-      workorderFlowService.workorderSelected(workorder);
-    } else {
-      workorderFlowService.listWorkorders();
-    }
-
-    event.preventDefault();
-    event.stopPropagation();
-  };
 
   self.getColorIcon = function(status) {
     return workorderStatusService.getStatusIconColor(status).statusColor;

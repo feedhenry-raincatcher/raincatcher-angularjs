@@ -11,13 +11,12 @@ function WorkorderListController($scope, workorderApiService, workorderFlowServi
   var _workorders = [];
 
   self.workorders = [];
-  self.resultMap = {};
 
   function refreshWorkorderData() {
-    $q.all([workorderApiService.listWorkorders(), workorderApiService.resultMap()]).then(function(results) {
-      self.workorders = results[0];
-      _workorders = results[0];
-      self.resultMap = results[1];
+    // Needs $q.when to trigger angular's change detection
+    $q.when(workorderApiService.listWorkorders()).then(function(workorders) {
+      self.workorders = workorders;
+      _workorders = workorders;
     });
   }
 
@@ -45,11 +44,10 @@ function WorkorderListController($scope, workorderApiService, workorderFlowServi
   };
 
   self.getColorIcon = function(workorder) {
-    var result = this.resultMap[workorder.id];
-    if (!result) {
+    if (!workorder || !workorder.status) {
       return workorderStatusService.getStatusIconColor('').statusColor;
     } else {
-      return workorderStatusService.getStatusIconColor(this.resultMap[workorder.id].status).statusColor;
+      return workorderStatusService.getStatusIconColor(workorder.status).statusColor;
     }
   };
 }

@@ -11,8 +11,7 @@ angular.module(CONSTANTS.WORKORDER_DIRECTIVE).service(CONSTANTS.WORKORDER_FLOW_S
       if (WORKORDER_CONFIG.adminMode) {
         $state.go(
           'app.workorder.summary',
-          { workorderId: workorder.id },
-          { reload: true }
+          { workorderId: workorder.id }
         );
       } else {
         //In User mode, selecting the workorder means that we want to start the workflow.
@@ -23,7 +22,7 @@ angular.module(CONSTANTS.WORKORDER_DIRECTIVE).service(CONSTANTS.WORKORDER_FLOW_S
     }
 
     function listWorkorders() {
-      $state.go('app.workorder', null, { reload: true });
+      $state.go('app.workorder');
     }
 
     return {

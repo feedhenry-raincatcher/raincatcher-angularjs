@@ -10,13 +10,11 @@ angular.module(CONSTANTS.WORKFLOW_DIRECTIVE_MODULE).service(CONSTANTS.WORKFLOW_F
   flowService.goToWorkflowDetails = function(workflow) {
     $state.go('app.workflow.detail', {
       workflowId: workflow.id
-    },
-      { reload: true }
-    );
+    });
   };
   //Want to display the list of workflows.
   flowService.goToWorkflowList = function() {
-    $state.go('app.workflow', null, { reload: false });
+    $state.go('app.workflow');
   };
   return flowService;
 }).filter('isEmpty', function() {
