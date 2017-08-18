@@ -72,7 +72,16 @@ function WorkorderFormController($scope, $http, $state, workorderApiService, wor
 
 
     if (self.model) {
-      $scope.selectedUser = { id: self.model.assignee, name: "test" };
+      if(self.model.assignee){
+        $http
+        .get("http://localhost:8001/api/users/" + self.model.assignee )
+        .then(function(response) {
+          // Map the response object to the data object.
+          if (response.data) {
+            $scope.selectedUser = response.data;
+          }
+        });
+      }
       if (self.model.startTimestamp) {
         self.model.startDate = new Date(self.model.startTimestamp);
         self.model.startTime = new Date(self.model.startTimestamp);
