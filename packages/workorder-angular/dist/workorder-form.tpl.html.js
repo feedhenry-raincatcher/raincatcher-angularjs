@@ -48,9 +48,16 @@ ngModule.run(['$templateCache', function ($templateCache) {
     '<div>\n' +
     '  <md-input-container class="md-block">\n' +
     '    <label for="assignee">Assignee</label>\n' +
-    '    <md-select ng-model="ctrl.model.assignee" name="assignee" id="assignee">\n' +
-    '       <md-option ng-repeat="worker in ctrl.workers" value="{{worker.id}}">{{worker.name}} ({{worker.position}})</md-option>\n' +
-    '     </md-select>\n' +
+    '    <md-autocomplete md-selected-item-change="ctrl.userSelected(selectedUser)"\n' +
+    '        md-selected-item="selectedUser" md-item-text="selectedUser.name" md-min-length="3" md-delay="700"\n' +
+    '        md-search-text="searchText" md-items="item in ctrl.userQuery(searchText)">\n' +
+    '      <md-item-template>\n' +
+    '        <span md-highlight-text="searchText">{{item.name}}</span>\n' +
+    '      </md-item-template>\n' +
+    '      <md-not-found>\n' +
+    '        No matches found.\n' +
+    '      </md-not-found>\n' +
+    '    </md-autocomplete>\n' +
     '  </md-input-container>\n' +
     '</div>\n' +
     '\n' +
@@ -91,41 +98,25 @@ ngModule.run(['$templateCache', function ($templateCache) {
     '  </md-input-container>\n' +
     '</div>\n' +
     '\n' +
-    '<div layout-gt-sm="row">\n' +
+    '<div layout-gt-sm="row" ng-if="ctrl.model.startDate">\n' +
     '  <md-input-container class="md-block" flex-gt-sm>\n' +
     '    <label for="inputStartDate">Start Date</label>\n' +
-    '    <input type="date"  id="inputStartDate" name="startDate" min="{{today}}" max="{{maxDate}}" ng-model="ctrl.model.startDate" required>\n' +
-    '    <div ng-messages="workorderForm.startDate.$error" ng-show="ctrl.submitted || workorderForm.startDate.$dirty">\n' +
-    '      <div ng-message="required">A start date is required.</div>\n' +
-    '      <div ng-message="min">Start Date should not be less than current date.</div>\n' +
-    '      <div ng-message="max">Start Date is too far in the future.</div>\n' +
-    '    </div>\n' +
+    '    <input type="date"  id="inputStartDate" name="startDate" min="{{today}}" max="{{maxDate}}" ng-model="ctrl.model.startDate" ng-disabled="true">\n' +
     '  </md-input-container>\n' +
     '  <md-input-container class="md-block" flex-gt-sm>\n' +
     '    <label for="inputStartTime" >Start Time</label>\n' +
-    '    <input type="time"  id="inputStartTime" name="startTime"  ng-model="ctrl.model.startTime" required>\n' +
-    '    <div ng-messages="workorderForm.startTime.$error" ng-show="ctrl.submitted || workorderForm.startTime.$dirty">\n' +
-    '      <div ng-message="required">A start time is required.</div>\n' +
-    '    </div>\n' +
+    '    <input type="time"  id="inputStartTime" name="startTime"  ng-model="ctrl.model.startTime">\n' +
     '  </md-input-container>\n' +
     '</div>\n' +
     '\n' +
     '<div layout-gt-sm="row">\n' +
     '    <md-input-container class="md-block" flex-gt-sm>\n' +
     '        <label for="inputFinishDate">Finish Date</label>\n' +
-    '        <input type="date"  id="inputFinishDate" name="finishDate" min="{{today}}" max="{{maxDate}}" ng-model="ctrl.model.finishDate" required>\n' +
-    '        <div ng-messages="workorderForm.finishDate.$error" ng-show="ctrl.submitted || workorderForm.finishDate.$dirty">\n' +
-    '            <div ng-message="required">A finish date is required.</div>\n' +
-    '            <div ng-message="min">Finish Date should not be less than current date.</div>\n' +
-    '            <div ng-message="max">Finish Date is too far in the future.</div>\n' +
-    '        </div>\n' +
+    '        <input type="date"  id="inputFinishDate" name="finishDate" min="{{today}}" max="{{maxDate}}" ng-model="ctrl.model.finishDate" ng-disabled="true">\n' +
     '    </md-input-container>\n' +
     '    <md-input-container class="md-block" flex-gt-sm>\n' +
     '        <label for="inputFinishTime" >Finish Time</label>\n' +
-    '        <input type="time"  id="inputFinishTime" name="finishTime"  ng-model="ctrl.model.finishTime" required>\n' +
-    '        <div ng-messages="workorderForm.finishTime.$error" ng-show="ctrl.submitted || workorderForm.finishTime.$dirty">\n' +
-    '            <div ng-message="required">A finish time is required.</div>\n' +
-    '        </div>\n' +
+    '        <input type="time"  id="inputFinishTime" name="finishTime"  ng-model="ctrl.model.finishTime">\n' +
     '    </md-input-container>\n' +
     '</div>\n' +
     '\n' +
