@@ -105,7 +105,7 @@ ngModule.run(['$templateCache', function ($templateCache) {
     '  </md-input-container>\n' +
     '  <md-input-container class="md-block" flex-gt-sm>\n' +
     '    <label for="inputStartTime" >Start Time</label>\n' +
-    '    <input type="time"  id="inputStartTime" name="startTime"  ng-model="ctrl.model.startTime">\n' +
+    '    <input type="time"  id="inputStartTime" name="startTime"  ng-model="ctrl.model.startTime"  ng-disabled="true">\n' +
     '  </md-input-container>\n' +
     '</div>\n' +
     '\n' +
@@ -116,7 +116,7 @@ ngModule.run(['$templateCache', function ($templateCache) {
     '    </md-input-container>\n' +
     '    <md-input-container class="md-block" flex-gt-sm>\n' +
     '        <label for="inputFinishTime" >Finish Time</label>\n' +
-    '        <input type="time"  id="inputFinishTime" name="finishTime"  ng-model="ctrl.model.finishTime">\n' +
+    '        <input type="time"  id="inputFinishTime" name="finishTime"  ng-model="ctrl.model.finishTime"  ng-disabled="true">\n' +
     '    </md-input-container>\n' +
     '</div>\n' +
     '\n' +
