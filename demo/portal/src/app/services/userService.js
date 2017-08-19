@@ -20,7 +20,7 @@ UserService.prototype.readUserById = function readUser(id) {
 
 UserService.prototype.listUsers = function listUsers(filter) {
   return this.$http
-    .get("http://localhost:8001/api/users?filter=" + searchText + "&limit=20")
+    .get("http://localhost:8001/api/users?filter=" + filter + "&limit=20")
     .then(function(response) {
       if (response.data) {
         return response.data.users;

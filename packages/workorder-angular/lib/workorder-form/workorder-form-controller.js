@@ -5,7 +5,7 @@ var CONSTANTS = require('../constants');
  * Controller for editing and creating workorders.
  * @constructor
  */
-function WorkorderFormController($scope, $http, $state, workorderApiService, workorderFlowService,
+function WorkorderFormController($scope, $state, workorderApiService, workorderFlowService,
   userService, $stateParams, $q) {
   var self = this;
   var today = new Date();
