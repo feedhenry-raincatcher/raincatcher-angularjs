@@ -5,7 +5,8 @@ var CONSTANTS = require('../constants');
  * Controller for editing and creating workorders.
  * @constructor
  */
-function WorkorderFormController($scope, $http, $state, workorderApiService, workorderFlowService, $stateParams, $q) {
+function WorkorderFormController($scope, $http, $state, workorderApiService, workorderFlowService,
+  userService, $stateParams, $q) {
   var self = this;
   var today = new Date();
   today.setHours(today.getHours() - 24);
@@ -23,15 +24,7 @@ function WorkorderFormController($scope, $http, $state, workorderApiService, wor
   var workersPromise = workorderApiService.listUsers();
 
   self.userQuery = function(searchText) {
-    return $http
-      .get("http://localhost:8001/api/users?filter=" + searchText + "&limit=20")
-      .then(function(response) {
-        // Map the response object to the data object.
-        if (response.data) {
-          return response.data.users;
-        }
-        return [];
-      });
+    return userService.listUsers(searchText);
   };
   self.userSelected = function(user) {
     self.model.assignee = user.id;
@@ -72,15 +65,14 @@ function WorkorderFormController($scope, $http, $state, workorderApiService, wor
 
 
     if (self.model) {
-      if(self.model.assignee){
-        $http
-        .get("http://localhost:8001/api/users/" + self.model.assignee )
-        .then(function(response) {
-          // Map the response object to the data object.
-          if (response.data) {
-            $scope.selectedUser = response.data;
-          }
-        });
+      if (self.model.assignee) {
+          userService.readUserById(self.model.assignee)
+          .then(function(response) {
+            // Map the response object to the data object.
+            if (response.data) {
+              $scope.selectedUser = response.data;
+            }
+          });
       }
       if (self.model.startTimestamp) {
         self.model.startDate = new Date(self.model.startTimestamp);
@@ -96,4 +88,5 @@ function WorkorderFormController($scope, $http, $state, workorderApiService, wor
   });
 }
 
-angular.module(CONSTANTS.WORKORDER_DIRECTIVE).controller('WorkorderFormController', ['$scope', '$http', '$state', 'workorderApiService', 'workorderFlowService', '$stateParams', '$q', WorkorderFormController]);
+angular.module(CONSTANTS.WORKORDER_DIRECTIVE).controller('WorkorderFormController',
+  ['$scope', '$state', 'workorderApiService', 'workorderFlowService', 'userService', '$stateParams', '$q', WorkorderFormController]);
