@@ -1,8 +1,10 @@
 var Promise = require("bluebird");
+var $fh = require('fh-js-sdk');
 
-function UserService(authService, $http) {
+function UserService(authService, $http, urlPromise) {
   this.auth = authService;
   this.$http = $http;
+  this.urlPromise = urlPromise;
 }
 
 UserService.prototype.readUser = function readUser() {
@@ -15,18 +17,24 @@ UserService.prototype.getProfile = function getProfile() {
 };
 
 UserService.prototype.readUserById = function readUser(id) {
-  return this.$http.get("http://localhost:8001/api/users/" + id)
+  var self = this;
+  return this.urlPromise.then(function(baseUrl) {
+    return self.$http.get(baseUrl + "/api/users/" + id)
+  });
 };
 
 UserService.prototype.listUsers = function listUsers(filter) {
-  return this.$http
-    .get("http://localhost:8001/api/users?filter=" + filter + "&limit=20")
-    .then(function(response) {
-      if (response.data) {
-        return response.data.users;
-      }
-      return [];
-    });
+  var self = this;
+  return this.urlPromise.then(function(baseUrl) {
+    return self.$http
+      .get(baseUrl + "/api/users?filter=" + filter + "&limit=20")
+      .then(function(response) {
+        if (response.data) {
+          return response.data.users;
+        }
+        return [];
+      });
+  });
 };
 
 
@@ -45,5 +53,11 @@ UserService.prototype.logout = function logout() {
 
 
 angular.module('wfm.common.apiservices').service("userService", ['authService', '$http', function(authService, $http) {
-  return new UserService(authService, $http);
+  var urlPromise = new Promise(function(resolve, reject) {
+    $fh.on('fhinit', function() {
+      var baseUrl = decodeURIComponent($fh.getCloudURL());
+      return resolve(baseUrl);
+    });
+  });
+  return new UserService(authService, $http, urlPromise);
 }]);
