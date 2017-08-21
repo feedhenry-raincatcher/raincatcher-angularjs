@@ -66,7 +66,7 @@ function WorkorderFormController($scope, $state, workorderApiService, workorderF
 
     if (self.model) {
       if (self.model.assignee) {
-          userService.readUserById(self.model.assignee)
+        userService.readUserById(self.model.assignee)
           .then(function(response) {
             // Map the response object to the data object.
             if (response.data) {
