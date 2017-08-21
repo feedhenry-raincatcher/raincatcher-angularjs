@@ -16,7 +16,7 @@ function createMainAppRoute($stateProvider, $urlRouterProvider) {
 angular.module('wfm-mobile').config(['$stateProvider', '$urlRouterProvider', createMainAppRoute]).controller('mainController', [
   '$rootScope', '$scope', '$state', '$mdSidenav', 'userService', 'dialogService',
   function($rootScope, $scope, $state, $mdSidenav, userService, dialogService) {
-    userService.getProfile().then(function(profileData) {
+    userService.readUser().then(function(profileData) {
       $scope.profileData = profileData;
     }).catch(function(err) {
       dialogService.showAlert({

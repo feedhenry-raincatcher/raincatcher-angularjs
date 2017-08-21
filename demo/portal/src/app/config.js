@@ -25,7 +25,7 @@ function AppConfig($stateProvider, $urlRouterProvider) {
         columns: 3
       },
       controller: function($scope, $state, $mdSidenav, userService, dialogService) {
-        userService.getProfile().then(function(profileData) {
+        userService.readUser().then(function(profileData) {
           $scope.profileData = profileData;
         }).catch(function(err) {
           dialogService.showAlert({

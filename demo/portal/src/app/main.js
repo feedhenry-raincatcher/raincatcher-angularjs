@@ -14,7 +14,6 @@ angular.module('app', [
   require('./services'),
   require('@raincatcher/demo-http'),
   require('ng-sortable'),
-  require('./feedhenry'),
   // Commented until this modules will be migrated
   require('@raincatcher/workorder-angular')({
     mode: "admin",
