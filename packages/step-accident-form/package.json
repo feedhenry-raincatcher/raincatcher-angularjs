@@ -1,15 +1,15 @@
 {
-  "name": "@raincatcher/vehicle-inspection",
+  "name": "@raincatcher-demo/step-accident",
   "version": "1.0.0",
-  "description": "An vehicle-inspection module",
-  "main": "lib/angular/vehicle-inspection-ng.js",
+  "description": "Sample accident form",
+  "main": "lib/angular/accident-ng.js",
   "scripts": {
-    "build": "wfm-template-build -m 'wfm.vehicle-inspection'",
-    "watch": "wfm-template-build -w -m 'wfm.vehicle-inspection'",
+    "build": "wfm-template-build -m 'wfm.accident'",
+    "watch": "wfm-template-build -w -m 'wfm.accident'",
     "test": "grunt"
   },
   "keywords": [
-    "wfm",
+    "raincatcher-step",
     "workorder"
   ],
   "author": "feedhenry-raincatcher@redhat.com",
