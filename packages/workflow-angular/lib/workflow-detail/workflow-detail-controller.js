@@ -33,7 +33,7 @@ function WorkflowDetailController($scope, $mdDialog, $stateParams, workflowApiSe
   });
 
   function showDeleteDialog(workorders, event) {
-    var workflowId  = self.workflow.id || self.workflow._localuid;
+    var workflowId  = self.workflow.id;
 
     var workorder = workorders.filter(function(workorder) {
       return String(workorder.workflowId) === String(workflowId);

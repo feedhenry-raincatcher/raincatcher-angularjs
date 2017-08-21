@@ -22,7 +22,7 @@ ngModule.run(['$templateCache', function ($templateCache) {
     '\n' +
     '<md-list ng-if="ctrl.workflows">\n' +
     '  <md-list-item ng-repeat="workflow in ctrl.workflows" ng-click="ctrl.selectWorkflow($event, workflow)"\n' +
-    '                ng-class="{active: selected.id === (workflow.id || workflow._localuid)}" >\n' +
+    '                ng-class="{active: selected.id === workflow.id }" >\n' +
     '    <div class="md-list-item-text">\n' +
     '      <p>\n' +
     '        {{workflow.title}} <br/>\n' +

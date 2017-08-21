@@ -13,7 +13,7 @@ ngModule.run(['$templateCache', function ($templateCache) {
     '      {{wfdCtrl.workflow.title}}\n' +
     '    </h3>\n' +
     '    <span flex></span>\n' +
-    '    <md-button class="md-icon-button" aria-label="Edit" ui-sref="app.workflow.edit({workflowId: wfdCtrl.workflow.id || wfdCtrl.workflow._localuid})">\n' +
+    '    <md-button class="md-icon-button" aria-label="Edit" ui-sref="app.workflow.edit({workflowId: wfdCtrl.workflow.id})">\n' +
     '      <md-icon md-font-set="material-icons">edit</md-icon>\n' +
     '    </md-button>\n' +
     '    <md-button class="md-icon-button" aria-label="Delete" ng-click="wfdCtrl.delete($event, wfdCtrl.workflow)">\n' +

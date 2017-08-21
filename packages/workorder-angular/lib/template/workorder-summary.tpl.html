@@ -1,11 +1,11 @@
 <md-toolbar class="content-toolbar">
-  <div class="md-toolbar-tools" ng-if="ctrl.workorder.id || ctrl.workorder._localuid">
+  <div class="md-toolbar-tools" ng-if="ctrl.workorder.id">
     <h3>
       Work order : {{ctrl.workorder.title}}
     </h3>
 
     <span flex></span>
-    <md-button ng-if="ctrl.adminMode" class="md-icon-button" aria-label="Edit" ui-sref="app.workorder.edit({workorderId: ctrl.workorder.id || ctrl.workorder._localuid})">
+    <md-button ng-if="ctrl.adminMode" class="md-icon-button" aria-label="Edit" ui-sref="app.workorder.edit({workorderId: ctrl.workorder.id})">
       <md-icon md-font-set="material-icons">edit</md-icon>
     </md-button>
     <md-button ng-if="ctrl.adminMode" class="md-icon-button" aria-label="Delete" ng-click="ctrl.delete($event, ctrl.workorder)">
@@ -14,7 +14,7 @@
   </div>
 </md-toolbar>
 
-<div class="wfm-maincol-scroll" ng-if="ctrl.workorder.id || ctrl.workorder._localuid">
+<div class="wfm-maincol-scroll" ng-if="ctrl.workorder.id">
 
   <workorder workorder="ctrl.workorder" status="ctrl.result.status" assignee="ctrl.assignee"></workorder>
 

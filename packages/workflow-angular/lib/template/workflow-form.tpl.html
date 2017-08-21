@@ -2,7 +2,7 @@
 
   <md-toolbar class="content-toolbar md-primary">
     <div class="md-toolbar-tools">
-      <h3>{{(ctrl.model.id || ctrl.model._localuid) ? 'Update' : 'Create'}} workflow</h3>
+      <h3>{{ctrl.model.id ? 'Update' : 'Create'}} workflow</h3>
       <span flex></span>
       <md-button class="md-icon-button" aria-label="Close" ng-click="ctrl.selectWorkflow($event, ctrl.model)">
         <md-icon md-font-set="material-icons">close</md-icon>
