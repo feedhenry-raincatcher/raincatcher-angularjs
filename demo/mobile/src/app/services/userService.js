@@ -1,15 +1,11 @@
-var Promise = require("bluebird");
-
 function UserService(authService) {
   this.auth = authService;
 }
 
-// FIXME - remove duplicate function
+/**
+ * Fetch profile data of currently logged in user
+ */
 UserService.prototype.readUser = function readUser() {
-  return this.auth.getProfile();
-};
-
-UserService.prototype.getProfile = function getProfile() {
   return this.auth.getProfile();
 };
 

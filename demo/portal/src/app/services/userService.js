@@ -7,12 +7,10 @@ function UserService(authService, $http, urlPromise) {
   this.urlPromise = urlPromise;
 }
 
+/**
+ * Fetch profile data of currently logged in user
+ */
 UserService.prototype.readUser = function readUser() {
-  return this.auth.getProfile();
-};
-
-// FIXME - Remove and replace with readUser method
-UserService.prototype.getProfile = function getProfile() {
   return this.auth.getProfile();
 };
 
