@@ -9,18 +9,19 @@ HttpDataService.prototype.request = function(relativeUrl, httpConfig) {
   var self = this;
   return this.baseUrlPromise.then(function(baseUrl) {
     httpConfig.url = baseUrl + relativeUrl;
-    return Promise.resolve(self.$http(httpConfig)).then(function(response) {
-      if (response.status !== 200) {
-        console.error('Non-OK response with status ' + response.status);
-        console.error(response);
-        throw new Error(response);
-      }
-      return response.data;
+    return new Promise(function(resolve, reject) {
+      self.$http(httpConfig).then(function successCallback(response) {
+        if (response.status !== 200) {
+          console.error(response);
+          return reject(new Error("Network request failed with invalid status", response.status));
+        }
+        return resolve(response.data);
+      }, function errorCallback(error) {
+        console.error(error);
+        error = new Error(error);
+        return reject(error);
+      });
     });
-  }).catch(function(error) {
-    error = new Error(error);
-    console.error(error);
-    throw error;
   });
 };
 
