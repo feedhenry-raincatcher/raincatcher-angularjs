@@ -30,7 +30,7 @@ function WorkflowFormController($scope, workflowApiService, workflowFlowService,
   self.done = function(isValid) {
     self.submitted = true;
     if (isValid) {
-      var hasId = self.model.id || self.model._localuid;
+      var hasId = self.model.id;
       var createUpdatePromise = hasId ? workflowApiService.updateWorkflow(self.model) : workflowApiService.createWorkflow(self.model);
 
       createUpdatePromise.then(function(updatedCreatedWorkflow) {

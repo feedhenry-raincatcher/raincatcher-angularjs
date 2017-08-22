@@ -4,7 +4,7 @@
       {{wfdCtrl.workflow.title}}
     </h3>
     <span flex></span>
-    <md-button class="md-icon-button" aria-label="Edit" ui-sref="app.workflow.edit({workflowId: wfdCtrl.workflow.id || wfdCtrl.workflow._localuid})">
+    <md-button class="md-icon-button" aria-label="Edit" ui-sref="app.workflow.edit({workflowId: wfdCtrl.workflow.id})">
       <md-icon md-font-set="material-icons">edit</md-icon>
     </md-button>
     <md-button class="md-icon-button" aria-label="Delete" ng-click="wfdCtrl.delete($event, wfdCtrl.workflow)">
