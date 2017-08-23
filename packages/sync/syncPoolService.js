@@ -11,11 +11,15 @@ var syncManagers;
  * Remove synchronization managers
  */
 syncPool.removeManagers = function() {
-  return Promise.map(syncManagers, function(syncManager) {
-    return syncManager.stop();
-  }).then(function() {
-    syncManagers = null;
-  });
+  if (syncManagers) {
+    return Promise.map(syncManagers, function(syncManager) {
+      return syncManager.stop();
+    }).then(function() {
+      syncManagers = null;
+    });
+  } else {
+    return Promise.resolve();
+  }
 };
 
 /**
@@ -41,7 +45,7 @@ syncPool.syncManagerMap = function(profileData) {
   ]).then(function(managers) {
     managers.forEach(function(syncDatasetManager) {
       syncManagers[syncDatasetManager.datasetId] = syncDatasetManager;
-      syncDatasetManager.start(function() {}); //start sync for this dataset
+      syncDatasetManager.start(function() { }); //start sync for this dataset
     });
     return syncManagers;
   });
