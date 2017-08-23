@@ -22,8 +22,18 @@ The `url` parameter should be the root of the API server application running the
 
 To run this application on a device emulator, setup the appropriate native SDKs and run the app through the following commands:
 
+1) Change config.xml content field to point to local folder
+
+`<content src="index.html?url=http://localhost:8001" />`
+
+2) Build
+
 `cordova prepare`
-`cordova emulate android`
+`cordova build android --verbose`
+
+3) Push apk to your device
+
+`cordova run android`
 
 See the [Apache Cordova project documentation](https://cordova.apache.org/docs/) for details on how to configure your environment for running applications on a device emulator.
 
