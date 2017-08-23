@@ -16,14 +16,10 @@ function WorkorderSummaryController($scope, $mdDialog, $state, $stateParams, wor
       return workorderApiService.readWorkflow(workorder.workflowId);
     });
 
-    var resultPromise = workorderPromise.then(function(workorder) {
-      return $q.when(workorderApiService.resultMap().then(function(resultMap) {
-        return resultMap[workorder.id];
-      }));
-    });
+    var resultPromise = workorderApiService.getResultByWorkorder(workorderId);
 
     var workerPromise = workorderPromise.then(function(workorder) {
-      return workorder && workorder.assignee ? workorderApiService.readUser(workorder.assignee) : $q.when(null);
+      return workorder && workorder.assignee ? workorderApiService.readUser(workorder.assignee) : null;
     });
     //TODO: Error handling
     $q.all([workorderPromise, workflowPromise, resultPromise, workerPromise])

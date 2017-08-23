@@ -49,6 +49,11 @@ WorkorderApiService.prototype.listUsers = function() {
   return this.userService.listUsers();
 };
 
+
+WorkorderApiService.prototype.getResultByWorkorder = function(workorderId) {
+  return this.resultService.readByWorkorder(workorderId);
+};
+
 WorkorderApiService.prototype.subscribeToListUpdated = function() {
   // TODO sync streams
 };
