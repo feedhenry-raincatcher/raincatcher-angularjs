@@ -18,9 +18,6 @@
     <preference name="DisallowOverscroll" value="true" />
     <preference name="android-minSdkVersion" value="16" />
     <preference name="BackupWebStorage" value="none" />
-    <feature name="StatusBar">
-        <param name="ios-package" onload="true" value="CDVStatusBar" />
-    </feature>
     <platform name="android">
         <icon density="ldpi" src="www/res/icons/android/icon.png" />
         <icon density="mdpi" src="www/res/icons/android/icon-mdpi.png" />
@@ -55,8 +52,6 @@
         <icon height="50" src="www/res/icons/ios/Icon-50.png" width="50" />
         <icon height="100" src="www/res/icons/ios/Icon-50@2x.png" width="100" />
     </platform>
-    <engine name="android" spec="^6.2.3" />
-    <engine name="ios" spec="~4.2.0" />
     <plugin name="cordova-plugin-camera" spec="~2.3.0" />
     <plugin name="cordova-plugin-console" spec="~1.0.3" />
     <plugin name="cordova-plugin-device" spec="~1.1.2" />
