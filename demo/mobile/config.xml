@@ -52,6 +52,8 @@
         <icon height="50" src="www/res/icons/ios/Icon-50.png" width="50" />
         <icon height="100" src="www/res/icons/ios/Icon-50@2x.png" width="100" />
     </platform>
+    <engine name="android"/>
+    <engine name="ios"/>
     <plugin name="cordova-plugin-camera" spec="~2.3.0" />
     <plugin name="cordova-plugin-console" spec="~1.0.3" />
     <plugin name="cordova-plugin-device" spec="~1.1.2" />
