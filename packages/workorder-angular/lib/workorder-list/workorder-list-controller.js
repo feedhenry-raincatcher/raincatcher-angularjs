@@ -6,7 +6,7 @@ var CONSTANTS = require('../constants');
  * @constructor
  */
 
-function WorkorderListController($scope, workorderApiService, workorderFlowService, $q, workorderStatusService) {
+function WorkorderListController($scope, workorderApiService, workorderFlowService, $q, workorderStatusService,) {
   var self = this;
   var _workorders = [];
 
@@ -36,10 +36,11 @@ function WorkorderListController($scope, workorderApiService, workorderFlowServi
   };
 
   self.applyFilter = function(term) {
-    term = term.toLowerCase();
-    self.workorders = _workorders.filter(function(workorder) {
-      return String(workorder.id).indexOf(term) !== -1
-        || String(workorder.title).toLowerCase().indexOf(term) !== -1;
+    var filter = {
+      title: term
+    };
+    $q.all([workorderApiService.searchWorkorders(filter)]).then(function(workorders) {
+      self.workorders = workorders[0];
     });
   };
 

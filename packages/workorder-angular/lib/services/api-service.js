@@ -28,6 +28,10 @@ WorkorderApiService.prototype.removeWorkorder = function(workorderToRemove) {
   return this.workorderService.remove(workorderToRemove);
 };
 
+WorkorderApiService.prototype.searchWorkorders = function(filter) {
+  return this.workorderService.search(filter);
+};
+
 WorkorderApiService.prototype.listWorkflows = function() {
   return this.workflowService.list();
 };
