@@ -34,9 +34,13 @@ function WorkorderListController($scope, workorderApiService, workorderFlowServi
   };
 
   self.applyFilter = function(term) {
-    if (term.length === 0 || term.length > 3) {
+    if (term.length === 0) {
+      refreshWorkorderData();
+    }
+
+    if (term.length > 3) {
       var filter = {
-        title: term
+        id: term
       };
 
       $q.resolve(workorderApiService.searchWorkorders(filter)).then(function(workorders) {
