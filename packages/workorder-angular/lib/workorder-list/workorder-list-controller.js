@@ -8,7 +8,6 @@ var CONSTANTS = require('../constants');
 
 function WorkorderListController($scope, workorderApiService, workorderFlowService, $q, workorderStatusService) {
   var self = this;
-  var _workorders = [];
 
   self.workorders = [];
 
@@ -16,7 +15,6 @@ function WorkorderListController($scope, workorderApiService, workorderFlowServi
     // Needs $q.when to trigger angular's change detection
     $q.when(workorderApiService.listWorkorders()).then(function(workorders) {
       self.workorders = workorders;
-      _workorders = workorders;
     });
   }
 
