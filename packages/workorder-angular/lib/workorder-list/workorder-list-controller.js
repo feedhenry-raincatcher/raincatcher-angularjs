@@ -34,13 +34,15 @@ function WorkorderListController($scope, workorderApiService, workorderFlowServi
   };
 
   self.applyFilter = function(term) {
-    var filter = {
-      id: term
-    };
+    if (term.length === 0 || term.length > 3) {
+      var filter = {
+        title: term
+      };
 
-    $q.resolve(workorderApiService.searchWorkorders(filter)).then(function(workorders) {
-      self.workorders = workorders;
-    });
+      $q.resolve(workorderApiService.searchWorkorders(filter)).then(function(workorders) {
+        self.workorders = workorders;
+      });
+    }
   };
 
   self.getColorIcon = function(workorder) {
