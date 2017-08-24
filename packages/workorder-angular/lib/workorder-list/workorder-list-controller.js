@@ -37,10 +37,11 @@ function WorkorderListController($scope, workorderApiService, workorderFlowServi
 
   self.applyFilter = function(term) {
     var filter = {
-      title: term
+      id: term
     };
-    $q.all([workorderApiService.searchWorkorders(filter)]).then(function(workorders) {
-      self.workorders = workorders[0];
+
+    $q.resolve(workorderApiService.searchWorkorders(filter)).then(function(workorders) {
+      self.workorders = workorders;
     });
   };
 
