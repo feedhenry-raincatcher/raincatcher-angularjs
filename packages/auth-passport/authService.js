@@ -2,7 +2,6 @@ var logger = require('@raincatcher/logger').getLogger();
 var CONSTANTS = require('./constants');
 var $fh = require('fh-js-sdk');
 var cloudUrl;
-var dialog;
 var userProfile;
 
 function PassportAuthService($http, $window, $mdDialog) {
