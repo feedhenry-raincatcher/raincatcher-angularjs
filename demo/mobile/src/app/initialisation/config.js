@@ -14,16 +14,17 @@ function createMainAppRoute($stateProvider, $urlRouterProvider) {
 }
 
 angular.module('wfm-mobile').config(['$stateProvider', '$urlRouterProvider', createMainAppRoute]).controller('mainController', [
-  '$rootScope', '$scope', '$state', '$mdSidenav', 'userService', 'dialogService',
-  function($rootScope, $scope, $state, $mdSidenav, userService, dialogService) {
+  '$rootScope', '$scope', '$state', '$mdSidenav', 'userService', '$mdDialog',
+  function($rootScope, $scope, $state, $mdSidenav, userService, $mdDialog) {
     userService.readUser().then(function(profileData) {
       $scope.profileData = profileData;
     }).catch(function(err) {
-      dialogService.showAlert({
+      console.error(err);
+      $mdDialog.show($mdDialog.alert({
         title: 'Failed to Load Profile Data',
-        textContent: 'Unable to load profile data due to the following error: ' + err + 'Please login',
+        textContent: 'Unable to load profile data',
         ok: 'Login'
-      }).then(function() {
+      })).then(function() {
         userService.login();
       });
     });
