@@ -8,6 +8,7 @@ function WorkorderApiService(config, workorderService, workflowService, resultSe
 }
 
 WorkorderApiService.prototype.listWorkorders = function() {
+  // FIXME Paginate results
   return this.workorderService.list();
 };
 
@@ -22,7 +23,6 @@ WorkorderApiService.prototype.createWorkorder = function(workorderToCreate) {
 WorkorderApiService.prototype.updateWorkorder = function(workorderToUpdate) {
   return this.workorderService.update(workorderToUpdate);
 };
-
 
 WorkorderApiService.prototype.removeWorkorder = function(workorderToRemove) {
   return this.workorderService.remove(workorderToRemove);
@@ -40,42 +40,16 @@ WorkorderApiService.prototype.readWorkflow = function(workflowId) {
   return this.workflowService.read(workflowId);
 };
 
-
-WorkorderApiService.prototype.listResults = function() {
-  return this.resultService.list();
-};
-
 WorkorderApiService.prototype.readUser = function(userId) {
-  return this.userService.readUser(userId);
+  return this.userService.readUserById(userId);
 };
-
-WorkorderApiService.prototype.listUsers = function() {
-  return this.userService.listUsers();
-};
-
 
 WorkorderApiService.prototype.getResultByWorkorder = function(workorderId) {
   return this.resultService.readByWorkorder(workorderId);
 };
 
 WorkorderApiService.prototype.subscribeToListUpdated = function() {
-  // TODO sync streams
-};
-
-/**
- * Utility Function To Read all results and create a map for UI rendering.
- *
- * @returns {*}
- */
-WorkorderApiService.prototype.resultMap = function() {
-  return this.listResults()
-    .then(function(results) {
-      var map = {};
-      results.forEach(function(result) {
-        map[result.workorderId] = result;
-      });
-      return map;
-    });
+  //  TODO sync streams
 };
 
 angular.module(CONSTANTS.WORKORDER_DIRECTIVE).service(CONSTANTS.WORKORDER_API_SERVICE, ["WORKORDER_CONFIG", "workorderService", "workflowService", "resultService", "userService", function(WORKORDER_CONFIG, workorderService, workflowService, resultService, userService) {

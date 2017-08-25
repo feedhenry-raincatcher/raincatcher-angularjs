@@ -1,4 +1,5 @@
 var CONSTANTS = require('../constants');
+var shortid = require("shortid");
 
 /**
  *
@@ -19,13 +20,13 @@ function WorkorderFormController($scope, $state, workorderApiService, workorderF
   var workorderId = $stateParams.workorderId;
   //Need workorder, workflows, workers
   //If there is a workorder ID in the state URL, then we are editing a worokorder, otherwise we are creating a new one.
-  var workorderPromise = workorderId ? workorderApiService.readWorkorder(workorderId) : $q.when({ location: [] });
+  var workorderPromise = workorderId ? workorderApiService.readWorkorder(workorderId) : $q.when({});
   var workflowsPromise = workorderApiService.listWorkflows();
-  var workersPromise = workorderApiService.listUsers();
 
   self.userQuery = function(searchText) {
     return userService.listUsers(searchText);
   };
+
   self.userSelected = function(user) {
     self.model.assignee = user.id;
   };
@@ -47,6 +48,7 @@ function WorkorderFormController($scope, $state, workorderApiService, workorderF
 
       var createUpdatePromise;
       if (!self.model.id && self.model.id !== 0) {
+        self.model.id = shortid.generate();
         createUpdatePromise = workorderApiService.createWorkorder(workorderToCreate);
       } else {
         createUpdatePromise = workorderApiService.updateWorkorder(workorderToCreate);
@@ -58,20 +60,15 @@ function WorkorderFormController($scope, $state, workorderApiService, workorderF
     }
   };
 
-  $q.all([workorderPromise, workflowsPromise, workersPromise]).then(function(results) {
+  $q.all([workorderPromise, workflowsPromise]).then(function(results) {
     self.model = results[0];
     self.workflows = results[1];
-    self.workers = results[2];
-
 
     if (self.model) {
       if (self.model.assignee) {
         userService.readUserById(self.model.assignee)
-          .then(function(response) {
-            // Map the response object to the data object.
-            if (response.data) {
-              $scope.selectedUser = response.data;
-            }
+          .then(function(data) {
+            $scope.selectedUser = data;
           });
       }
       if (self.model.startTimestamp) {
