@@ -137,10 +137,6 @@ WorkflowApiService.prototype.previousStepSubscriber = function(subscriberFunctio
   return this.wfmService.previousStepSubscriber(subscriberFunction);
 };
 
-WorkflowApiService.prototype.subscribeToWorkflowCRUDDoneTopics = function() {
-
-};
-
 /**
  * Completing a single step for a workorder.
  *
