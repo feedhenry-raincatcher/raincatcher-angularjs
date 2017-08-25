@@ -2,13 +2,12 @@ var logger = require('@raincatcher/logger').getLogger();
 var CONSTANTS = require('./constants');
 var $fh = require('fh-js-sdk');
 var cloudUrl;
-var dialog;
 var userProfile;
 
-function PassportAuthService($http, $window, dialogService) {
+function PassportAuthService($http, $window, $mdDialog) {
   this.http = $http;
   this.window = $window;
-  dialog = dialogService;
+  this.dialog = $mdDialog;
   this.init();
 }
 
@@ -34,28 +33,28 @@ PassportAuthService.prototype.getProfile = function() {
     method: 'GET',
     url: cloudUrl + CONSTANTS.PROFILE_URL
   };
-
-  return this.http(req, {withCredentials: true}).then(function(res) {
+  var self = this;
+  return this.http(req, { withCredentials: true }).then(function(res) {
     userProfile = res.data;
     return userProfile;
   }).catch(function(err) {
     if (err.status === 401) {
       this.window.location = cloudUrl + CONSTANTS.LOGIN_URL;
     } else if (err.status === 403) {
-      dialog.showAlert({
+      self.dialog.show(self.dialog.alert({
         title: 'Forbidden',
         textContent: 'You are not authorized to access this resource.',
         ok: 'OK'
-      });
+      }));
     } else if (err.status === -1) {
       logger.warn('You are offline, returning last profile data retrieved from the server')
       return userProfile;
     } else {
-      dialog.showAlert({
+      self.dialog.show(self.dialog.alert({
         title: 'Error Retrieving Profile Data',
         textContent: 'Unable to retrieve profile data due to the following error: ' + err + 'Please login',
         ok: 'Login'
-      }).then(function() {
+      })).then(function() {
         this.window.location = cloudUrl + CONSTANTS.LOGIN_URL;
       });
     }
@@ -89,30 +88,30 @@ PassportAuthService.prototype.logout = function() {
     method: 'GET',
     url: cloudUrl + CONSTANTS.LOGOUT_URL
   };
-
-  return this.http(req, {withCredentials: true}).then(function() {
+  var self = this;
+  return this.http(req, { withCredentials: true }).then(function() {
     this.window.location = cloudUrl + CONSTANTS.LOGIN_URL;
   }).catch(function(err) {
     if (err.status === -1) {
-      dialog.showAlert({
+      self.dialog.show(self.dialog.alert({
         title: 'You Are Offline',
         textContent: 'Log out operation is not available offline, please try again.',
         ok: 'OK'
-      });
+      }));
     } else {
-      dialog.showAlert({
+      self.dialog.show(self.dialog.alert({
         title: 'Logout Operation Failed',
         textContent: 'The log out operation failed due to the following error: ' + err + ' Please try again.',
         ok: 'OK'
-      });
+      }));
     }
   });
 }
 
-angular.module('wfm.auth.passport').factory('authService', ['$http', '$window', 'dialogService', 
-  function($http, $window, dialogService) {
-  return new PassportAuthService($http, $window, dialogService);
-}]);
+angular.module('wfm.auth.passport').factory('authService', ['$http', '$window', '$mdDialog',
+  function($http, $window, $mdDialog) {
+    return new PassportAuthService($http, $window, $mdDialog);
+  }]);
 
 angular.module('wfm.auth.passport').config(['$httpProvider', function($httpProvider) {
   // This property needs to be set to true in order for Passport to work

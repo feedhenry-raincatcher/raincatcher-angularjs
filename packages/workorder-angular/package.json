@@ -1,5 +1,5 @@
 {
-  "name": "@raincatcher/workorder-angular",
+  "name": "@raincatcher/angularjs-workorder",
   "version": "1.0.0",
   "description": "Angular UI Implementation of Workorders",
   "main": "lib/workorder-ng.js",
@@ -7,6 +7,10 @@
     "build": "grunt wfmTemplate:build",
     "watch": "grunt wfmTemplate:watch",
     "test": "grunt test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/feedhenry-raincatcher/raincatcher-angularjs.git"
   },
   "author": "feedhenry-raincatcher@redhat.com",
   "license": "MIT",
@@ -18,7 +22,8 @@
     "angular-messages": "1.5.3",
     "angular-ui-router": "0.2.18",
     "bluebird": "^3.5.0",
-    "lodash": "4.7.0"
+    "lodash": "4.7.0",
+    "shortid": "^2.2.8"
   },
   "devDependencies": {
     "fh-wfm-template-build": "0.2.1",

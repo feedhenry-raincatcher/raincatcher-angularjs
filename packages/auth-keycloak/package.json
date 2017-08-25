@@ -1,12 +1,13 @@
 {
-  "name": "@raincatcher/demo-auth-keycloak",
+  "name": "@raincatcher/angularjs-auth-keycloak",
   "version": "1.0.0",
-  "description": "Angular-based Keycloak auth module",
+  "description": "Angularjs based Keycloak auth module",
   "engines": {
     "node": ">=4.4 <=6.10"
   },
   "keywords": [
-    "wfm"
+    "wfm",
+    "angularjs"
   ],
   "license": "MIT",
   "author": "feedhenry-raincatcher@redhat.com",

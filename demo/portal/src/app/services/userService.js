@@ -18,6 +18,12 @@ UserService.prototype.readUserById = function readUser(id) {
   var self = this;
   return this.urlPromise.then(function(baseUrl) {
     return self.$http.get(baseUrl + "/api/users/" + id)
+      .then(function(response) {
+        if (response.data) {
+          return response.data;
+        }
+        return {};
+      });
   });
 };
 

@@ -1,11 +1,11 @@
 {
-  "name": "@raincatcher/workflow-angular",
+  "name": "@raincatcher/angularjs-workflow",
   "version": "1.0.0",
   "description": "An Angularjs implementation for workflows",
   "main": "lib/workflow-ng.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/feedhenry-raincatcher/raincatcher-workflow-angular.git"
+    "url": "https://github.com/feedhenry-raincatcher/raincatcher-angularjs.git"
   },
   "scripts": {
     "build": "grunt wfmTemplate:build",

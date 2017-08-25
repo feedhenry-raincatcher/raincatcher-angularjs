@@ -14,113 +14,66 @@
 
 <form name="workorderForm" ng-submit="ctrl.done(workorderForm.$valid)" novalidate layout-padding layout-margin>
 
-<div layout-gt-sm="row">
-  <md-input-container class="md-block" flex-gt-sm>
-    <label for="workorderType">Type</label>
-    <md-select ng-model="ctrl.model.type" name="workorderType" id="workorderType">
-       <md-option value="Job Order">Job Order</md-option>
-       <md-option value="Type 02">Type 02</md-option>
-       <md-option value="Type 03">Type 03</md-option>
-       <md-option value="Type 04">Type 04</md-option>
-     </md-select>
-  </md-input-container>
-
-  <md-input-container class="md-block" flex-gt-sm>
-    <label for="workflow">Workflow</label>
-    <md-select ng-model="ctrl.model.workflowId" name="workflow" id="workflow" required>
-       <md-option ng-repeat="workflow in ctrl.workflows" value="{{workflow.id}}">{{workflow.id}} - {{workflow.title}}</md-option>
-     </md-select>
-     <div ng-messages="workorderForm.workflow.$error" ng-if="ctrl.submitted || workorderForm.workflow.$dirty">
-       <div ng-message="required">A workflow is required.</div>
-     </div>
-  </md-input-container>
-</div>
-
-<div>
-  <md-input-container class="md-block">
-    <label for="assignee">Assignee</label>
-    <md-autocomplete md-selected-item-change="ctrl.userSelected(selectedUser)"
-        md-selected-item="selectedUser" md-item-text="selectedUser.name" md-min-length="3" md-delay="700"
-        md-search-text="searchText" md-items="item in ctrl.userQuery(searchText)">
-      <md-item-template>
-        <span md-highlight-text="searchText">{{item.name}}</span>
-      </md-item-template>
-      <md-not-found>
-        No matches found.
-      </md-not-found>
-    </md-autocomplete>
-  </md-input-container>
-</div>
-
-<div>
-  <md-input-container class="md-block">
-    <label>Title</label>
-    <input type="text" id="inputTitle" name="title" ng-model="ctrl.model.title" required>
-    <div ng-messages="workorderForm.title.$error" ng-if="ctrl.submitted || workorderForm.title.$dirty">
-      <div ng-message="required">A title is required.</div>
-    </div>
-  </md-input-container>
-</div>
-
-<div>
-  <md-input-container class="md-block">
-    <label for="inputAddress">Address</label>
-    <input type="text"  id="inputAddress" name="address" ng-model="ctrl.model.address" required>
-    <div ng-messages="workorderForm.address.$error" ng-show="ctrl.submitted || workorderForm.address.$dirty">
-      <div ng-message="required">An address is required.</div>
-    </div>
-  </md-input-container>
-</div>
-
-<div layout-gt-sm="row">
-  <md-input-container class="md-block" flex-gt-sm>
-    <label for="inputAddress">Lattitude</label>
-    <input type="number"  id="inputLattitude" name="lattitude" ng-model="ctrl.model.location[0]" required>
-    <div ng-messages="workorderForm.lattitude.$error" ng-show="ctrl.submitted || workorderForm.lattitude.$dirty">
-      <div ng-message="required">An lattitude is required.</div>
-    </div>
-  </md-input-container>
-  <md-input-container class="md-block" flex-gt-sm>
-    <label for="inputAddress">Longitude</label>
-    <input type="number"  id="inputLattitude" name="longitude" ng-model="ctrl.model.location[1]" required>
-    <div ng-messages="workorderForm.longitude.$error" ng-show="ctrl.submitted || workorderForm.longitude.$dirty">
-      <div ng-message="required">An longitude is required.</div>
-    </div>
-  </md-input-container>
-</div>
-
-<div layout-gt-sm="row" ng-if="ctrl.model.startDate">
-  <md-input-container class="md-block" flex-gt-sm>
-    <label for="inputStartDate">Start Date</label>
-    <input type="date"  id="inputStartDate" name="startDate" min="{{today}}" max="{{maxDate}}" ng-model="ctrl.model.startDate" ng-disabled="true">
-  </md-input-container>
-  <md-input-container class="md-block" flex-gt-sm>
-    <label for="inputStartTime" >Start Time</label>
-    <input type="time"  id="inputStartTime" name="startTime"  ng-model="ctrl.model.startTime"  ng-disabled="true">
-  </md-input-container>
-</div>
-
-<div layout-gt-sm="row">
+  <div layout-gt-sm="row">
     <md-input-container class="md-block" flex-gt-sm>
-        <label for="inputFinishDate">Finish Date</label>
-        <input type="date"  id="inputFinishDate" name="finishDate" min="{{today}}" max="{{maxDate}}" ng-model="ctrl.model.finishDate" ng-disabled="true">
+      <label for="workflow">Workflow</label>
+      <md-select ng-model="ctrl.model.workflowId" name="workflow" id="workflow" required>
+        <md-option ng-repeat="workflow in ctrl.workflows" value="{{workflow.id}}">{{workflow.id}} - {{workflow.title}}</md-option>
+      </md-select>
+      <div ng-messages="workorderForm.workflow.$error" ng-if="ctrl.submitted || workorderForm.workflow.$dirty">
+        <div ng-message="required">A workflow is required.</div>
+      </div>
+    </md-input-container>
+  </div>
+
+  <div>
+    <md-input-container class="md-block">
+      <label for="assignee">Assignee</label>
+      <md-autocomplete md-selected-item-change="ctrl.userSelected(selectedUser)" md-selected-item="selectedUser" md-item-text="selectedUser.name"
+        md-min-length="3" md-delay="700" md-search-text="searchText" md-items="item in ctrl.userQuery(searchText)">
+        <md-item-template>
+          <span md-highlight-text="searchText">{{item.name}}</span>
+        </md-item-template>
+        <md-not-found>
+          No matches found.
+        </md-not-found>
+      </md-autocomplete>
+    </md-input-container>
+  </div>
+
+  <div>
+    <md-input-container class="md-block">
+      <label>Title</label>
+      <input type="text" id="inputTitle" name="title" ng-model="ctrl.model.title" required>
+      <div ng-messages="workorderForm.title.$error" ng-if="ctrl.submitted || workorderForm.title.$dirty">
+        <div ng-message="required">A title is required.</div>
+      </div>
+    </md-input-container>
+  </div>
+
+  <div layout-gt-sm="row" ng-if="ctrl.model.startDate">
+    <md-input-container class="md-block" flex-gt-sm>
+      <label for="inputStartDate">Start Date</label>
+      <input type="date" id="inputStartDate" name="startDate" min="{{today}}" max="{{maxDate}}" ng-model="ctrl.model.startDate"
+        ng-disabled="true">
     </md-input-container>
     <md-input-container class="md-block" flex-gt-sm>
-        <label for="inputFinishTime" >Finish Time</label>
-        <input type="time"  id="inputFinishTime" name="finishTime"  ng-model="ctrl.model.finishTime"  ng-disabled="true">
+      <label for="inputStartTime">Start Time</label>
+      <input type="time" id="inputStartTime" name="startTime" ng-model="ctrl.model.startTime" ng-disabled="true">
     </md-input-container>
-</div>
+  </div>
 
-<div>
-  <md-input-container class="md-block" ng-class="{ 'has-error' : workorderForm.summary.$invalid && !workorderForm.summary.$pristine }">
-    <label for="inputSummary">Summary</label>
-    <textarea id="inputSummary" name="summary" ng-model="ctrl.model.summary" required md-maxlength="150"></textarea>
-
-    <div ng-messages="workorderForm.summary.$error" ng-show="ctrl.submitted || workorderForm.summary.$dirty">
-      <div ng-message="required">A summary date is required.</div>
-    </div>
-  </md-input-container>
-</div>
+  <div layout-gt-sm="row" ng-if="ctrl.model.finishTime">
+    <md-input-container class="md-block" flex-gt-sm>
+      <label for="inputFinishDate">Finish Date</label>
+      <input type="date" id="inputFinishDate" name="finishDate" min="{{today}}" max="{{maxDate}}" ng-model="ctrl.model.finishDate"
+        ng-disabled="true">
+    </md-input-container>
+    <md-input-container class="md-block" flex-gt-sm>
+      <label for="inputFinishTime">Finish Time</label>
+      <input type="time" id="inputFinishTime" name="finishTime" ng-model="ctrl.model.finishTime" ng-disabled="true">
+    </md-input-container>
+  </div>
 
   <md-button type="submit" class="md-raised md-primary">{{ctrl.model.id ? 'Update' : 'Create'}} Workorder</md-button>
 </form>

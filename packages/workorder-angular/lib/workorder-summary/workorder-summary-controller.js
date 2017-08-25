@@ -5,10 +5,8 @@ function WorkorderSummaryController($scope, $mdDialog, $state, $stateParams, wor
 
   self.adminMode = WORKORDER_CONFIG.adminMode;
 
-  var workorderId = $stateParams.workorderId;
-
-
   function refreshWorkorderData() {
+    var workorderId = $stateParams.workorderId;
     //Need to read the workorder from the state parameter
     var workorderPromise = workorderApiService.readWorkorder(workorderId);
 

@@ -20,17 +20,6 @@
     </md-button>
     <md-divider></md-divider>
 
-    <md-list-item class="md-2-line md-long-text">
-      <md-icon md-font-set="material-icons">place</md-icon>
-      <div class="md-list-item-text">
-         <h3>{{workorder.location[0]}}, {{workorder.location[1]}}</h3>
-         <p>
-           {{workorder.address}}
-         </p>
-      </div>
-    </md-list-item>
-    <md-divider></md-divider>
-
     <md-list-item class="md-2-line" >
       <md-icon md-font-set="material-icons">assignment</md-icon>
       <div class="md-list-item-text">
@@ -40,7 +29,7 @@
     </md-list-item>
     <md-divider></md-divider>
 
-    <md-list-item class="md-2-line" >
+    <md-list-item class="md-2-line" ng-if="workorder.startTimestamp">
       <md-icon md-font-set="material-icons">event</md-icon>
       <div class="md-list-item-text">
         <h3>{{workorder.startTimestamp | date:'yyyy-MM-dd' }}</h3>
@@ -49,7 +38,7 @@
     </md-list-item>
     <md-divider></md-divider>
 
-    <md-list-item class="md-2-line" >
+    <md-list-item class="md-2-line" ng-if="workorder.startTimestamp">
       <md-icon md-font-set="material-icons">schedule</md-icon>
       <div class="md-list-item-text">
         <h3>{{workorder.startTimestamp | date:'HH:mm:ss Z' }}</h3>
@@ -84,10 +73,4 @@
       </div>
     </md-list-item>
     <md-divider></md-divider>
-
   </md-list>
-
-  <md-subheader class="md-no-sticky">Work Summary</md-subheader>
-  <p class="md-body-1" layout-padding layout-margin>
-    {{workorder.summary}}
-  </p>
