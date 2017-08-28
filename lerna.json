@@ -8,7 +8,11 @@
   ],
   "commands": {
     "publish": {
-      "exact": true
+      "exact": true,
+      "ignore": [
+        "@raincatcher/demo-mobile",
+        "@raincatcher/demo-portal"
+      ]
     }
   },
   "version": "0.0.1"
