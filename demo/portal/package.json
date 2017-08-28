@@ -1,6 +1,6 @@
 {
   "name": "@raincatcher/demo-portal",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Example demo portal application",
   "engines": {
     "node": ">=4.4 <=6.10"
@@ -15,15 +15,15 @@
   "author": "feedhenry-raincatcher@redhat.com",
   "license": "MIT",
   "dependencies": {
-    "@raincatcher/demo-auth-passport": "1.0.0",
-    "@raincatcher/demo-auth-keycloak": "1.0.0",
-    "@raincatcher/dialog": "1.0.0",
-    "@raincatcher/demo-sync": "1.0.0",
-    "@raincatcher/wfm": "1.0.0",
-    "@raincatcher/demo-http": "1.0.0",
+    "@raincatcher/demo-auth-keycloak": "0.0.1",
+    "@raincatcher/demo-auth-passport": "0.0.1",
+    "@raincatcher/demo-http": "0.0.1",
+    "@raincatcher/demo-sync": "0.0.1",
+    "@raincatcher/dialog": "0.0.1",
     "@raincatcher/logger": "1.0.0",
-    "@raincatcher/workflow-angular": "1.0.0",
-    "@raincatcher/workorder-angular": "1.0.0",
+    "@raincatcher/wfm": "1.0.0",
+    "@raincatcher/workflow-angular": "0.0.1",
+    "@raincatcher/workorder-angular": "0.0.1",
     "angular": "1.6.1",
     "angular-animate": "1.5.3",
     "angular-aria": "1.5.3",

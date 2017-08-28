@@ -3,7 +3,13 @@
   "packages": [
     "packages/*",
     "demo/*",
-    "core/client/*"
+    "core/client/*",
+    "core/common/*"
   ],
-  "version": "independent"
+  "commands": {
+    "publish": {
+      "exact": true
+    }
+  },
+  "version": "0.0.1"
 }

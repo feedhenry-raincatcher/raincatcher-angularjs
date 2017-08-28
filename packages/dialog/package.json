@@ -1,6 +1,6 @@
 {
   "name": "@raincatcher/dialog",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "A dialog utility service which utilizes angular-material's mdDialog",
   "engines": {
     "node": ">=4.4 <=6.10"

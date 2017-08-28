@@ -1,6 +1,6 @@
 {
   "name": "@raincatcher/demo-sync",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Angular-based sync module",
   "engines": {
     "node": ">=4.4 <=6.10"
