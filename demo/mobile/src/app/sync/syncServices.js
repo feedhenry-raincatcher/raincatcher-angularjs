@@ -1,7 +1,12 @@
 var config = require("../../config.json").sync;
 var _ = require('lodash');
 angular.module('wfm.sync',[]).service('syncService', ['$http', '$window', 'syncPool', 'userService', function($http, $window, syncPool, userService) {
-  return userService.readUser().then(syncPool.syncManagerMap);
+  return userService.readUser().then(function(user){
+    return syncPool.syncManagerMap(user);
+  }).catch(function(result){
+    if(result && result.offlineProfile)
+    return syncPool.syncManagerMap(user);
+  });
 }]);
 
 // Generating common data repositories

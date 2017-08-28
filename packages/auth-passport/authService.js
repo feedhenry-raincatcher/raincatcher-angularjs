@@ -3,6 +3,7 @@ var CONSTANTS = require('./constants');
 var $fh = require('fh-js-sdk');
 var cloudUrl;
 var userProfile;
+var USER_CACHE_KEY = 'rcuser_profile';
 
 function PassportAuthService($http, $window, $mdDialog) {
   this.http = $http;
@@ -36,25 +37,32 @@ PassportAuthService.prototype.getProfile = function() {
   var self = this;
   return this.http(req, { withCredentials: true }).then(function(res) {
     userProfile = res.data;
+    localStorage.setItem(USER_CACHE_KEY, JSON.stringify(userProfile));
     return userProfile;
   }).catch(function(err) {
     if (err.status === 401) {
       this.window.location = cloudUrl + CONSTANTS.LOGIN_URL;
-    } else if (err.status === 403) {
+      return;
+    }
+    if (err.status === 403) {
       self.dialog.show(self.dialog.alert({
         title: 'Forbidden',
         textContent: 'You are not authorized to access this resource.',
         ok: 'OK'
       }));
-    } else if (err.status === -1) {
+      return;
+    }
+    var cachedUser = localStorage.getItem(USER_CACHE_KEY);
+    if (err.status === -1 && cachedUser) {
       logger.warn('You are offline, returning last profile data retrieved from the server')
-      return userProfile;
+      return { offlineProfile: localStorage.getItem(USER_CACHE_KEY) };
     } else {
       self.dialog.show(self.dialog.alert({
         title: 'Error Retrieving Profile Data',
         textContent: 'Unable to retrieve profile data due to the following error: ' + err + 'Please login',
         ok: 'Login'
       })).then(function() {
+        // FIXME offline support.
         this.window.location = cloudUrl + CONSTANTS.LOGIN_URL;
       });
     }
@@ -89,6 +97,7 @@ PassportAuthService.prototype.logout = function() {
     url: cloudUrl + CONSTANTS.LOGOUT_URL
   };
   var self = this;
+  localStorage.clear(USER_CACHE_KEY);
   return this.http(req, { withCredentials: true }).then(function() {
     this.window.location = cloudUrl + CONSTANTS.LOGIN_URL;
   }).catch(function(err) {
