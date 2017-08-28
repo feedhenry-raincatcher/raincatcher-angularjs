@@ -22,7 +22,7 @@ function initSync($http) {
         return reject(error);
       }
       var cloudUrl = decodeURIComponent($fh.getCloudURL());
-      var handler = syncGlobalNetworkHandler(cloudUrl, config.cloudPath, $http);
+      syncGlobalNetworkHandler(cloudUrl, config.cloudPath, $http);
       //syncApi.setCloudHandler(handler);
       initializeGlobalSync(cloudUrl);
     });
@@ -47,7 +47,6 @@ function manageDataset(datasetId, options, queryParams, metaData) {
   return new Promise(function(resolve, reject) {
     $fh.sync.manage(datasetId, options, queryParams, metaData, function(err) {
       if (err) {
-        console.log("Cannot initialize sync for", datasetId);
         return reject(err);
       }
       resolve(new DataManager(datasetId));

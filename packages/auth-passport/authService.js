@@ -52,18 +52,22 @@ PassportAuthService.prototype.getProfile = function() {
       }));
       return;
     }
-    var cachedUser = localStorage.getItem(USER_CACHE_KEY);
+    var cachedUser;
+    try {
+      cachedUser = JSON.parse(localStorage.getItem(USER_CACHE_KEY));
+    } catch (err) {
+    }
     if (err.status === -1 && cachedUser) {
       logger.warn('You are offline, returning last profile data retrieved from the server')
-      return { offlineProfile: localStorage.getItem(USER_CACHE_KEY) };
+      return cachedUser;
     } else {
       self.dialog.show(self.dialog.alert({
         title: 'Error Retrieving Profile Data',
-        textContent: 'Unable to retrieve profile data due to the following error: ' + err + 'Please login',
+        textContent: 'Unable to retrieve profile data',
         ok: 'Login'
       })).then(function() {
-        // FIXME offline support.
-        this.window.location = cloudUrl + CONSTANTS.LOGIN_URL;
+        // FIXME offline support by using local login page
+        // this.window.location = cloudUrl + CONSTANTS.LOGIN_URL;
       });
     }
   });
@@ -110,7 +114,7 @@ PassportAuthService.prototype.logout = function() {
     } else {
       self.dialog.show(self.dialog.alert({
         title: 'Logout Operation Failed',
-        textContent: 'The log out operation failed due to the following error: ' + err + ' Please try again.',
+        textContent: 'The log out operation failed',
         ok: 'OK'
       }));
     }

@@ -49,7 +49,10 @@ WorkorderApiService.prototype.getResultByWorkorder = function(workorderId) {
 };
 
 WorkorderApiService.prototype.subscribeToWokorderUpdates = function(functionToCall) {
-  this.workorderService.subscribeToDatasetUpdates(functionToCall);
+  if (this.workorderService.subscribeToDatasetUpdates) {
+    // Subscribe only when dataset implementation support that method
+    this.workorderService.subscribeToDatasetUpdates(functionToCall);
+  }
 };
 
 angular.module(CONSTANTS.WORKORDER_DIRECTIVE).service(CONSTANTS.WORKORDER_API_SERVICE, ["WORKORDER_CONFIG", "workorderService", "workflowService", "resultService", "userService", function(WORKORDER_CONFIG, workorderService, workflowService, resultService, userService) {

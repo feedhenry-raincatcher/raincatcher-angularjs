@@ -1,7 +1,7 @@
 var config = require("../../config.json").sync;
 var _ = require('lodash');
 var Promise = require('bluebird');
-
+var logger = require('@raincatcher/logger');
 var syncGlobalManager = require("./syncGlobalManager");
 
 var syncPool = {};
@@ -77,8 +77,8 @@ syncPool.forceSync = function(managers) {
  */
 function SyncPoolService($http) {
   //Init the sync service
-  syncGlobalManager.initSync($http).catch(function() {
-    console.error("Failed to initialize sync");
+  syncGlobalManager.initSync($http).catch(function(error) {
+    logger.getLogger().error("Failed to initialize sync", error);
   });
   return syncPool;
 }

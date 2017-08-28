@@ -19,7 +19,6 @@ function WorkorderSummaryController($scope, $mdDialog, $state, $stateParams, wor
     var workerPromise = workorderPromise.then(function(workorder) {
       return workorder && workorder.assignee ? workorderApiService.readUser(workorder.assignee) : null;
     });
-    //TODO: Error handling
     $q.all([workorderPromise, workflowPromise, resultPromise, workerPromise])
       .then(function(results) {
         self.workorder = results[0];
@@ -27,7 +26,7 @@ function WorkorderSummaryController($scope, $mdDialog, $state, $stateParams, wor
         self.result = results[2];
         self.assignee = results[3];
       }).catch(function(err) {
-        console.log("ERROR", err);
+        console.info("Error when refreshing workorder", err);
       });
   }
 
