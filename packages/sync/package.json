@@ -11,7 +11,7 @@
   "license": "MIT",
   "author": "feedhenry-raincatcher@redhat.com",
   "dependencies": {
-    "@raincatcher/datasync-client": "1.0.0",
+    "@raincatcher/datasync-client": "0.0.1",
     "angular": "1.6.1",
     "bluebird": "^3.5.0",
     "fh-js-sdk": "2.18.6",
