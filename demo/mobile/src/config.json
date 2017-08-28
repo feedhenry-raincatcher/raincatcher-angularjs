@@ -1,0 +1,28 @@
+{
+  "sync": {
+    "datasetIds": {
+      "workorders": "workorders",
+      "workflows": "workflows",
+      "results": "result"
+    },
+    "cloudPath": "/sync/",
+    "syncOptions": {
+      "global": {
+        "sync_frequency": 20,
+        "storage_strategy": "dom"
+      },
+      "workorders": {
+        "sync_frequency": 5,
+        "storage_strategy": "dom"
+      },
+      "workflows": {
+        "sync_frequency": 5,
+        "storage_strategy": "dom"
+      },
+      "results": {
+        "sync_frequency": 5,
+        "storage_strategy": "dom"
+      }
+    }
+  }
+}

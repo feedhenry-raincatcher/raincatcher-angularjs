@@ -1,4 +1,4 @@
-var config = require('./config.json');
+var config = require("../../config.json").sync;
 var _ = require('lodash');
 var Promise = require('bluebird');
 

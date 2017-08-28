@@ -6,8 +6,7 @@ var Promise = require('bluebird');
 var DataManager = Promise.promisifyAll(syncClient.DataManager);
 var syncApi = syncClient.sync;
 
-// TODO: receive via angular constant service?
-var config = require("./config.json");
+var config = require("../../config.json").sync;
 var syncGlobalNetworkHandler = require('./syncGlobalNetworkHandler');
 
 /**
@@ -16,7 +15,6 @@ var syncGlobalNetworkHandler = require('./syncGlobalNetworkHandler');
 * @param $http - angular httpd implementation
 */
 function initSync($http) {
-
   return new Promise(function(resolve, reject) {
     // Get server url
     $fh.on('fhinit', function(error) {
