@@ -33,7 +33,7 @@ function WorkorderSummaryController($scope, $mdDialog, $state, $stateParams, wor
 
   refreshWorkorderData();
   // Whenever the list is updated from the server, refresh the workorder list.
-  workorderApiService.subscribeToListUpdated($scope, refreshWorkorderData);
+  workorderApiService.subscribeToWokorderUpdates(refreshWorkorderData.bind(self));
 
 
 
