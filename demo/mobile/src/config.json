@@ -8,20 +8,16 @@
     "cloudPath": "/sync/",
     "syncOptions": {
       "global": {
-        "sync_frequency": 20,
-        "storage_strategy": "dom"
+        "sync_frequency": 20
       },
       "workorders": {
-        "sync_frequency": 5,
-        "storage_strategy": "dom"
+        "sync_frequency": 10
       },
       "workflows": {
-        "sync_frequency": 5,
-        "storage_strategy": "dom"
+        "sync_frequency": 60
       },
       "results": {
-        "sync_frequency": 5,
-        "storage_strategy": "dom"
+        "sync_frequency": 30
       }
     }
   }
