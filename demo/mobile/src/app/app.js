@@ -25,8 +25,8 @@ angular.module('wfm-mobile', [
     mainColumnViewId: "content@app",
     toolbarViewId: "toolbar@app"
   }),
-  require('@raincatcher-demo/vehicle-inspection'),
-  require('@raincatcher-demo/step-accident')
+  require('@raincatcher-examples/step-vehicle-inspection'),
+  require('@raincatcher-examples/step-accident')
 ]);
 
 // NOTE: Enable the next line in order to use Keycloak auth service

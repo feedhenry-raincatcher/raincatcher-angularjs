@@ -1,5 +1,5 @@
 {
-  "name": "@raincatcher-demo/vehicle-inspection",
+  "name": "@raincatcher-examples/step-vehicle-inspection",
   "version": "1.0.0",
   "description": "An vehicle-inspection module",
   "main": "lib/angular/vehicle-inspection-ng.js",

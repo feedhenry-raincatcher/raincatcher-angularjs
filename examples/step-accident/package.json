@@ -1,8 +1,8 @@
 {
-  "name": "@raincatcher-demo/step-accident",
+  "name": "@raincatcher-examples/step-accident",
   "version": "1.0.0",
   "description": "Sample accident form",
-  "main": "lib/angular/accident-ng.js",
+  "main": "./lib/angular/accident-ng.js",
   "scripts": {
     "build": "wfm-template-build -m 'wfm.accident'",
     "watch": "wfm-template-build -w -m 'wfm.accident'",
