@@ -21,7 +21,7 @@ function WorkorderListController($scope, workorderApiService, workorderFlowServi
   refreshWorkorderData();
 
   //Whenever the list is updated from the server, refresh the workorder list.
-  workorderApiService.subscribeToListUpdated($scope, refreshWorkorderData);
+  workorderApiService.subscribeToWokorderUpdates(refreshWorkorderData.bind(self));
 
   self.selectWorkorder = function(event, workorder) {
     workorderFlowService.workorderSelected(workorder);

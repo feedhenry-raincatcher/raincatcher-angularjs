@@ -6,8 +6,7 @@ var Promise = require('bluebird');
 var DataManager = Promise.promisifyAll(syncClient.DataManager);
 var syncApi = syncClient.sync;
 
-// TODO: receive via angular constant service?
-var config = require("./config.json");
+var config = require("../../config.json").sync;
 var syncGlobalNetworkHandler = require('./syncGlobalNetworkHandler');
 
 /**
@@ -16,7 +15,6 @@ var syncGlobalNetworkHandler = require('./syncGlobalNetworkHandler');
 * @param $http - angular httpd implementation
 */
 function initSync($http) {
-
   return new Promise(function(resolve, reject) {
     // Get server url
     $fh.on('fhinit', function(error) {
@@ -24,7 +22,7 @@ function initSync($http) {
         return reject(error);
       }
       var cloudUrl = decodeURIComponent($fh.getCloudURL());
-      var handler = syncGlobalNetworkHandler(cloudUrl, config.cloudPath, $http);
+      syncGlobalNetworkHandler(cloudUrl, config.cloudPath, $http);
       //syncApi.setCloudHandler(handler);
       initializeGlobalSync(cloudUrl);
     });
@@ -49,7 +47,6 @@ function manageDataset(datasetId, options, queryParams, metaData) {
   return new Promise(function(resolve, reject) {
     $fh.sync.manage(datasetId, options, queryParams, metaData, function(err) {
       if (err) {
-        console.log("Cannot initialize sync for", datasetId);
         return reject(err);
       }
       resolve(new DataManager(datasetId));
