@@ -2,7 +2,7 @@
   "name": "@raincatcher/angularjs-auth",
   "version": "1.0.0",
   "description": "An AngularJS module with login and pin functionality",
-  "main": "lib/user-ng.js",
+  "main": "lib/auth-ng.js",
   "scripts": {
     "build": "grunt wfmTemplate:build",
     "watch": "grunt wfmTemplate:watch",
