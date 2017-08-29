@@ -4,7 +4,7 @@ var ngModule = angular.module('wfm.accident', []);
 
 require('../../dist');
 
-ngModule.directive('accident', function($templateCache) {
+ngModule.directive('accidentReport', function($templateCache) {
   return {
     restrict: 'E'
   , template: $templateCache.get('wfm-template/accident.tpl.html')
@@ -14,7 +14,7 @@ ngModule.directive('accident', function($templateCache) {
   };
 });
 
-ngModule.directive('accidentForm', function($templateCache) {
+ngModule.directive('accidentReportForm', function($templateCache) {
   return {
     restrict: 'E'
   , template: $templateCache.get('wfm-template/accident-form.tpl.html')
