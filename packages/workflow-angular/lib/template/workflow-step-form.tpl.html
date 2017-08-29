@@ -1,40 +1,32 @@
-<md-toolbar class="content-toolbar md-primary" ng-show="step">
+<md-toolbar class="content-toolbar md-primary" ng-if="!ctrl.model.isNew">
   <div class="md-toolbar-tools">
     <h3>Update step</h3>
     <span flex></span>
-    <md-button class="md-icon-button" aria-label="Close" ng-click="wfsfController.selectWorkflow($event, workflow)">
+    <md-button class="md-icon-button" aria-label="Close" ng-click="ctrl.selectWorkflow($event, workflow)">
       <md-icon md-font-set="material-icons">close</md-icon>
     </md-button>
   </div>
 </md-toolbar>
 
-<form name="workflowStepForm" ng-submit="wfsfController.done(workflowStepForm.$valid)" novalidate layout-padding layout-margin>
-
-<div>
-  <md-input-container class="md-block">
-    <label>Name</label>
-    <input type="text" id="name" name="name" ng-model="wfsfController.model.step.name" required>
-    <div ng-messages="workflow.namselectWorkflowe.$error" ng-if="wfsfController.submitted || workflowForm.name.$dirty">
-      <div ng-message="required">A name is required.</div>
-    </div>
-  </md-input-container>
-
-  <md-list ng-if="wfsfController.stepDefinitions">
-    <h3>
-      Select step type
-    </h3>
-    <md-list-item ng-repeat="step in wfsfController.stepDefinitions" ng-click="wfsfController.selectStep($event, step)"
-          ng-class="{active: selected.code === step.code}">
-      <div class="md-list-item-text">
-        <h5>
-          {{step.name}}
-        </h5>
-        {{step.description}}
+<form name="workflowStepForm" ng-submit="ctrl.done(workflowStepForm.$valid)" novalidate layout-padding layout-margin>
+  <div>
+    <md-input-container class="md-block">
+      <label>Name</label>
+      <input type="text" id="name" name="name" ng-model="ctrl.model.step.name" required>
+      <div ng-messages="ctrl.model.step.name.$error" ng-if="ctrl.submitted || workflowStepForm.name.$dirty">
+        <div ng-message="required">A name is required.</div>
       </div>
-      <md-divider></md-divider>
-      </md-list-item>
-    </md-list>
+    </md-input-container>
+
+    <md-input-container class="md-block">
+      <label>Select step type</label>
+      <md-select ng-if="ctrl.stepDefinitions" ng-model="ctrl.model.step.code">
+        <md-option ng-repeat="step in ctrl.stepDefinitions" ng-value="step.code">
+          <b>{{step.name}}</b> - {{step.description}}
+        </md-option>
+      </md-select>
+    <md-input-container class="md-block">
   </div>
 
-  <md-button type="submit" class="md-raised md-primary">{{wfsfController.model.isNew ? 'Add' : 'Update'}} step</md-button>
+  <md-button type="submit" class="md-raised md-primary">{{ctrl.model.isNew ? 'Add' : 'Update'}} step</md-button>
 </form>

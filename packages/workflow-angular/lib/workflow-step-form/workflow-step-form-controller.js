@@ -2,20 +2,20 @@ var CONSTANTS = require('../constants');
 var _ = require('lodash');
 
 
-function WorkflowStepFormController($scope, workflowApiService, WORKFLOW_CONFIG, $q, $timeout, $stateParams) {
+function WorkflowStepFormController(workflowApiService, workflowFlowService, WORKFLOW_CONFIG, $stateParams) {
   var self = this;
   self.submitted = false;
   self.stepDefinitions = WORKFLOW_CONFIG.stepDefinitions;
 
   var existingStep;
 
-  function setUpStepData() {
-
+  function setUpStepData(workflow) {
+    self.workflow = workflow;
     var step = $stateParams.code ? _.find(self.workflow.steps, function(step) {
       return step.code === $stateParams.code;
     }) : {
-        templates: {}
-      };
+      templates: {}
+    };
     //If there is no step "code", we are adding a step to the workflow...
     if (!$stateParams.code) {
       self.model = {
@@ -35,16 +35,7 @@ function WorkflowStepFormController($scope, workflowApiService, WORKFLOW_CONFIG,
       }).length > 0;
     }
   }
-  workflowApiService.readWorkflow($stateParams.workflowId).then(function(workflow) {
-    $timeout(function() {
-      self.workflow = workflow;
-      setUpStepData();
-    });
-  });
-
-  self.selectStep = function(event, step) {
-    self.model.step.code = step.code
-  }
+  workflowApiService.readWorkflow($stateParams.workflowId).then(setUpStepData);
 
   self.done = function(isValid) {
     self.submitted = true;
@@ -60,7 +51,7 @@ function WorkflowStepFormController($scope, workflowApiService, WORKFLOW_CONFIG,
       }
 
       workflowApiService.updateWorkflow(self.workflow).then(function(updatedWorkflow) {
-        self.workflowFlowService.goToWorkflowDetails(updatedWorkflow);
+        workflowFlowService.goToWorkflowDetails(updatedWorkflow);
       });
     }
   };
@@ -72,4 +63,4 @@ function WorkflowStepFormController($scope, workflowApiService, WORKFLOW_CONFIG,
   };
 }
 
-angular.module(CONSTANTS.WORKFLOW_DIRECTIVE_MODULE).controller("WorkflowStepFormController", ['$scope', 'workflowApiService', 'WORKFLOW_CONFIG', '$q', '$timeout', '$stateParams', WorkflowStepFormController]);
+angular.module(CONSTANTS.WORKFLOW_DIRECTIVE_MODULE).controller("WorkflowStepFormController", ['workflowApiService', 'workflowFlowService', 'WORKFLOW_CONFIG', '$stateParams', WorkflowStepFormController]);
