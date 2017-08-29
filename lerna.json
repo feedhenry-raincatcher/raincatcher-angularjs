@@ -9,9 +9,15 @@
   "commands": {
     "publish": {
       "exact": true,
-      "ignore": [
-        "@raincatcher/demo-mobile",
-        "@raincatcher/demo-portal"
+      "scope": [
+        "@raincatcher/angularjs-auth-keycloak",
+        "@raincatcher/angularjs-auth-passport",
+        "@raincatcher/dialog",
+        "@raincatcher/angularjs-http",
+        "@raincatcher/demo-sync",
+        "@raincatcher/vehicle-inspection",
+        "@raincatcher/angularjs-workflow",
+        "@raincatcher/angularjs-workorder"
       ]
     }
   },
