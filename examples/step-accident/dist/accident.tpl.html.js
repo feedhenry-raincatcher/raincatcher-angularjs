@@ -13,7 +13,7 @@ ngModule.run(['$templateCache', function ($templateCache) {
     '\n' +
     '  <md-list-item class="md-2-line">\n' +
     '    <div class="md-list-item-text">\n' +
-    '      <h3>{{accidentModel.regNr}} %</h3>\n' +
+    '      <h3>{{accidentModel.regNr}} </h3>\n' +
     '      <p>Car Registration Number</p>\n' +
     '    </div>\n' +
     '    <md-divider></md-divider>\n' +
@@ -21,7 +21,7 @@ ngModule.run(['$templateCache', function ($templateCache) {
     '\n' +
     '  <md-list-item class="md-2-line">\n' +
     '    <div class="md-list-item-text">\n' +
-    '      <h3>{{accidentModel.owner}} %</h3>\n' +
+    '      <h3>{{accidentModel.owner}} </h3>\n' +
     '      <p>Owner name</p>\n' +
     '    </div>\n' +
     '    <md-divider></md-divider>\n' +
@@ -29,7 +29,7 @@ ngModule.run(['$templateCache', function ($templateCache) {
     '\n' +
     '  <md-list-item class="md-2-line">\n' +
     '    <div class="md-list-item-text">\n' +
-    '      <h3>{{accidentModel.phone}} %</h3>\n' +
+    '      <h3>{{accidentModel.phone}} </h3>\n' +
     '      <p>Owner Phone Number</p>\n' +
     '    </div>\n' +
     '    <md-divider></md-divider>\n' +

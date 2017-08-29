@@ -20,7 +20,7 @@ ngModule.directive('accidentReportForm', function($templateCache) {
     , template: $templateCache.get('wfm-template/accident-form.tpl.html')
     , scope: {
     }
-    , controller: function($scope, $state, $stateParams) {
+    , controller: function($scope) {
       var self = this;
       self.model = {};
       self.parentController = $scope.$parent;
