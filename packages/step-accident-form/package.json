@@ -13,7 +13,7 @@
     "workorder"
   ],
   "author": "feedhenry-raincatcher@redhat.com",
-  "license": "MIT",
+  "license": "Apache2.0",
   "dependencies": {
     "lodash": "4.7.0"
   },

@@ -9,7 +9,7 @@
     "wfm",
     "angularjs"
   ],
-  "license": "MIT",
+  "license": "Apache 2.0",
   "author": "feedhenry-raincatcher@redhat.com",
   "dependencies": {
     "@raincatcher/logger": "1.0.0",
