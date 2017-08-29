@@ -13,7 +13,9 @@ function LoginCtrl($timeout, userMediatorService) {
   var self = this;
   self.loginErrorMessage = "";
   self.loginMessages = { success: false, error: false };
-
+  $timeout(function() {
+    self.hasSession = false;
+  });
   self.login = function(valid) {
     if (valid) {
       self.loginErrorMessage = "";
