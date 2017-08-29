@@ -2,8 +2,7 @@ function createMainAppRoute($stateProvider, $urlRouterProvider) {
   // if none of the states are matched, use this as the fallback
   $urlRouterProvider.otherwise(function($injector) {
     var $state = $injector.get("$state");
-    //$state.go("app.workorder");
-    $state.go('app.login', undefined, {reload: true});
+    $state.go("app.workorder");
   });
   $stateProvider
     .state('app', {
@@ -45,6 +44,7 @@ angular.module('wfm-mobile').config(['$stateProvider', '$urlRouterProvider', cre
     };
 
     $scope.logout = function() {
-      userService.logout();
+      $state.go('app.login', undefined, {reload: true});
+      //userService.logout();
     };
   }]);

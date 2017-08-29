@@ -1,8 +1,8 @@
 var ngModule;
 try {
-  ngModule = angular.module('wfm.angularjs.auth.directives');
+  ngModule = angular.module('wfm.auth.directives');
 } catch (e) {
-  ngModule = angular.module('wfm.angularjs.auth.directives', []);
+  ngModule = angular.module('wfm.auth.directives', []);
 }
 
 ngModule.run(['$templateCache', function ($templateCache) {

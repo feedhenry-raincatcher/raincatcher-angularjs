@@ -1,4 +1,4 @@
 module.exports = {
-  AUTH_DIRECTIVE_MODULE: 'wfm.angularjs.auth.directives',
-  AUTH_MODULE_ID: "wfm.angularjs.auth"
+  AUTH_DIRECTIVE_MODULE: 'wfm.auth.directives',
+  AUTH_MODULE_ID: "wfm.auth"
 };
