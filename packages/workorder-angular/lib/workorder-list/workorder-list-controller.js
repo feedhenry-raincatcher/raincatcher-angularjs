@@ -8,7 +8,6 @@ var CONSTANTS = require('../constants');
 
 function WorkorderListController($scope, workorderApiService, workorderFlowService, $q, workorderStatusService) {
   var self = this;
-  var _workorders = [];
 
   self.workorders = [];
 
@@ -16,7 +15,6 @@ function WorkorderListController($scope, workorderApiService, workorderFlowServi
     // Needs $q.when to trigger angular's change detection
     $q.when(workorderApiService.listWorkorders()).then(function(workorders) {
       self.workorders = workorders;
-      _workorders = workorders;
     });
   }
 
@@ -36,11 +34,19 @@ function WorkorderListController($scope, workorderApiService, workorderFlowServi
   };
 
   self.applyFilter = function(term) {
-    term = term.toLowerCase();
-    self.workorders = _workorders.filter(function(workorder) {
-      return String(workorder.id).indexOf(term) !== -1
-        || String(workorder.title).toLowerCase().indexOf(term) !== -1;
-    });
+    if (term.length === 0) {
+      refreshWorkorderData();
+    }
+
+    if (term.length > 3) {
+      var filter = {
+        id: term
+      };
+
+      $q.resolve(workorderApiService.searchWorkorders(filter)).then(function(workorders) {
+        self.workorders = workorders;
+      });
+    }
   };
 
   self.getColorIcon = function(workorder) {

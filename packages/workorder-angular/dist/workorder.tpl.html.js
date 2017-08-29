@@ -29,17 +29,6 @@ ngModule.run(['$templateCache', function ($templateCache) {
     '    </md-button>\n' +
     '    <md-divider></md-divider>\n' +
     '\n' +
-    '    <md-list-item class="md-2-line md-long-text">\n' +
-    '      <md-icon md-font-set="material-icons">place</md-icon>\n' +
-    '      <div class="md-list-item-text">\n' +
-    '         <h3>{{workorder.location[0]}}, {{workorder.location[1]}}</h3>\n' +
-    '         <p>\n' +
-    '           {{workorder.address}}\n' +
-    '         </p>\n' +
-    '      </div>\n' +
-    '    </md-list-item>\n' +
-    '    <md-divider></md-divider>\n' +
-    '\n' +
     '    <md-list-item class="md-2-line" >\n' +
     '      <md-icon md-font-set="material-icons">assignment</md-icon>\n' +
     '      <div class="md-list-item-text">\n' +
@@ -49,7 +38,7 @@ ngModule.run(['$templateCache', function ($templateCache) {
     '    </md-list-item>\n' +
     '    <md-divider></md-divider>\n' +
     '\n' +
-    '    <md-list-item class="md-2-line" >\n' +
+    '    <md-list-item class="md-2-line" ng-if="workorder.startTimestamp">\n' +
     '      <md-icon md-font-set="material-icons">event</md-icon>\n' +
     '      <div class="md-list-item-text">\n' +
     '        <h3>{{workorder.startTimestamp | date:\'yyyy-MM-dd\' }}</h3>\n' +
@@ -58,7 +47,7 @@ ngModule.run(['$templateCache', function ($templateCache) {
     '    </md-list-item>\n' +
     '    <md-divider></md-divider>\n' +
     '\n' +
-    '    <md-list-item class="md-2-line" >\n' +
+    '    <md-list-item class="md-2-line" ng-if="workorder.startTimestamp">\n' +
     '      <md-icon md-font-set="material-icons">schedule</md-icon>\n' +
     '      <div class="md-list-item-text">\n' +
     '        <h3>{{workorder.startTimestamp | date:\'HH:mm:ss Z\' }}</h3>\n' +
@@ -93,12 +82,6 @@ ngModule.run(['$templateCache', function ($templateCache) {
     '      </div>\n' +
     '    </md-list-item>\n' +
     '    <md-divider></md-divider>\n' +
-    '\n' +
     '  </md-list>\n' +
-    '\n' +
-    '  <md-subheader class="md-no-sticky">Work Summary</md-subheader>\n' +
-    '  <p class="md-body-1" layout-padding layout-margin>\n' +
-    '    {{workorder.summary}}\n' +
-    '  </p>\n' +
     '');
 }]);

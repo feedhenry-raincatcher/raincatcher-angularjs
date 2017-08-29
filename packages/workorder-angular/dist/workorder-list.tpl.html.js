@@ -15,7 +15,7 @@ ngModule.run(['$templateCache', function ($templateCache) {
     '  </div>\n' +
     '</md-toolbar>\n' +
     '\n' +
-    '<form action="#" class="persistent-search" hide-xs hide-sm>\n' +
+    '<form class="persistent-search" hide-xs hide-sm>\n' +
     '  <label for="search"><i class="material-icons">search</i></label>\n' +
     '  <input type="text" name="search" placeholder="Search" ng-model="searchValue" ng-change="ctrl.applyFilter(searchValue)">\n' +
     '</form>\n' +
@@ -31,12 +31,6 @@ ngModule.run(['$templateCache', function ($templateCache) {
     '\n' +
     '    <div class="md-list-item-text">\n' +
     '      <h3>{{workorder.title}}</h3>\n' +
-    '      <p>{{workorder.address}}</p>\n' +
-    '      <md-icon ng-if="workorder._syncStatus" md-font-set="material-icons" class="material-icons sync-error-icon">\n' +
-    '        sync_problem\n' +
-    '      </md-icon>\n' +
-    '      <i ng-if="workorder._syncStatus" class="sync-error-message"> Sync failed: {{workorder._syncStatus.message}} </i>\n' +
-    '\n' +
     '    </div>\n' +
     '    <md-divider></md-divider>\n' +
     '  </md-list-item>\n' +

@@ -11,17 +11,16 @@ logger.setLogger(new logger.ClientLogger(2));
 angular.module('wfm-mobile', [
   require('angular-ui-router'),
   require('angular-material'),
-  require('@raincatcher/dialog'),
   // Enables passport auth service to be used
-  require('@raincatcher/demo-auth-passport')('wfm-mobile'),
+  require('@raincatcher/angularjs-auth-passport')('wfm-mobile'),
   require('./services'),
   require('@raincatcher/demo-sync'),
   // Set of the data services
-  require('@raincatcher/workflow-angular')({
+  require('@raincatcher/angularjs-workflow')({
     mode: "user",
     mainColumnViewId: "content@app"
   }),
-  require('@raincatcher/workorder-angular')({
+  require('@raincatcher/angularjs-workorder')({
     mode: "user",
     mainColumnViewId: "content@app",
     toolbarViewId: "toolbar@app"

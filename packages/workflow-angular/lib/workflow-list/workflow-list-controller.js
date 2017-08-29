@@ -28,14 +28,11 @@ function WorkflowListController($scope, $stateParams, workflowApiService, workfl
 
   refreshWorkflows();
 
-  workflowApiService.subscribeToWorkflowCRUDDoneTopics($scope, refreshWorkflows);
-
   self.selectWorkflow = function(event, workflow) {
     self.selectedWorkflowId = workflow.id;
     workflowFlowService.goToWorkflowDetails(workflow);
   };
 
-  //TODO : Should be a service.
   self.applyFilter = function(term) {
     term = term.toLowerCase();
     self.workflows = _workflows.filter(function(workflow) {

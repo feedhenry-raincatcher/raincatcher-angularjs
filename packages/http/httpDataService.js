@@ -66,5 +66,17 @@ HttpDataService.prototype.remove = function(data) {
   });
 };
 
+HttpDataService.prototype.search = function(filter) {
+  return this.request('/' + this.entityName + '/search', {
+    method: 'GET',
+    params: {
+      size: '25',
+      filter: filter
+    }
+  }).then(function(response) {
+    return response.data;
+  });
+};
+
 module.exports = HttpDataService;
 
