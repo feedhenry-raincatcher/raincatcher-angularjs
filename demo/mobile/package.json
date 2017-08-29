@@ -15,6 +15,7 @@
   "author": "feedhenry-raincatcher@redhat.com",
   "license": "MIT",
   "dependencies": {
+    "@raincatcher/angularjs-auth": "1.0.0",
     "@raincatcher/datasync-client": "1.0.0",
     "@raincatcher/angularjs-auth-keycloak": "1.0.0",
     "@raincatcher/angularjs-auth-passport": "1.0.0",
