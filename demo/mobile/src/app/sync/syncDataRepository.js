@@ -37,5 +37,11 @@ SyncApiDataService.prototype.remove = function(objToRemove) {
   });
 };
 
+SyncApiDataService.prototype.subscribeToDatasetUpdates = function(methodToCall) {
+  return this.syncManagerPromise.then(function(syncManager) {
+    return syncManager.subscribeToDatasetUpdates(methodToCall);
+  });
+};
+
 module.exports = SyncApiDataService;
 

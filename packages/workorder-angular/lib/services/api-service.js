@@ -48,8 +48,11 @@ WorkorderApiService.prototype.getResultByWorkorder = function(workorderId) {
   return this.resultService.readByWorkorder(workorderId);
 };
 
-WorkorderApiService.prototype.subscribeToListUpdated = function() {
-  //  TODO sync streams
+WorkorderApiService.prototype.subscribeToWokorderUpdates = function(functionToCall) {
+  if (this.workorderService.subscribeToDatasetUpdates) {
+    // Subscribe only when dataset implementation support that method
+    this.workorderService.subscribeToDatasetUpdates(functionToCall);
+  }
 };
 
 angular.module(CONSTANTS.WORKORDER_DIRECTIVE).service(CONSTANTS.WORKORDER_API_SERVICE, ["WORKORDER_CONFIG", "workorderService", "workflowService", "resultService", "userService", function(WORKORDER_CONFIG, workorderService, workflowService, resultService, userService) {

@@ -20,17 +20,17 @@ ngModule.directive('vehicleInspectionForm', function($templateCache) {
     , template: $templateCache.get('wfm-template/vehicle-inspection-form.tpl.html')
     , scope: {
     }
-    , controller: function($scope, $state, $stateParams) {
+    , controller: function($scope) {
       var self = this;
       self.model = {};
       self.parentController = $scope.$parent;
       self.back = function(event) {
-        this.parentController.ctrl.triggerBackStep(this.model)
+        this.parentController.ctrl.triggerBackStep(this.model);
         event.preventDefault();
         event.stopPropagation();
       };
       self.done = function(event) {
-        this.parentController.ctrl.triggerCompleteStep(this.model)
+        this.parentController.ctrl.triggerCompleteStep(this.model);
         event.preventDefault();
         event.stopPropagation();
       };

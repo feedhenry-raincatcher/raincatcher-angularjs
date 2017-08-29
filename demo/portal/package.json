@@ -20,7 +20,6 @@
     "@raincatcher/angularjs-http": "1.0.0",
     "@raincatcher/angularjs-workflow": "1.0.0",
     "@raincatcher/angularjs-workorder": "1.0.0",
-    "@raincatcher/demo-sync": "1.0.0",
     "@raincatcher/wfm": "1.0.0",
     "@raincatcher/logger": "1.0.0",
     "angular": "1.6.1",

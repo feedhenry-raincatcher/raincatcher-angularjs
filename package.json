@@ -8,7 +8,7 @@
     "build": "lerna run build",
     "bootstrap": "node ./scripts/checkoutCore.js clone && lerna bootstrap && lerna run build",
     "bootstrapCI": "node ./scripts/checkoutCore.js clone -d && lerna bootstrap && lerna run build",
-    "testCI": "lerna run test --parallel --stream --scope=@raincatcher/demo-* --scope=@raincatcher/workflow-angular --scope=@raincatcher/workorder-angular --scope=@raincatcher/demo-sync --scope=@raincatcher/demo-wfm",
+    "testCI": "lerna run test --parallel --stream",
     "start": "lerna run build && lerna run start  --parallel --stream --scope=@raincatcher/demo-*"
   },
   "repository": {
