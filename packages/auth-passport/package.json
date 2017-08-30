@@ -1,6 +1,6 @@
 {
   "name": "@raincatcher/angularjs-auth-passport",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Angularjs based Passport auth module",
   "engines": {
     "node": ">=4.4 <=6.10"
@@ -12,7 +12,7 @@
   "license": "Apache-2.0",
   "author": "feedhenry-raincatcher@redhat.com",
   "dependencies": {
-    "@raincatcher/logger": "1.0.0",
+    "@raincatcher/logger": "0.0.1",
     "angular": "1.6.1",
     "fh-js-sdk": "2.18.6"
   },

@@ -1,6 +1,6 @@
 {
   "name": "@raincatcher/angularjs-workflow",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "An Angularjs implementation for workflows",
   "main": "lib/workflow-ng.js",
   "repository": {
@@ -19,21 +19,21 @@
   "author": "feedhenry-raincatcher@redhat.com",
   "license": "Apache-2.0",
   "dependencies": {
+    "bluebird": "^3.5.0",
     "lodash": "4.7.0",
     "ng-feedhenry": "0.3.0",
-    "bluebird": "^3.5.0",
     "string-template": "^1.0.0"
   },
   "devDependencies": {
+    "chai": "^3.5.0",
     "fh-wfm-template-build": "0.2.1",
     "grunt": "^1.0.1",
     "grunt-eslint": "^18.0.0",
     "grunt-mocha-test": "0.13.2",
     "load-grunt-tasks": "3.5.2",
     "mocha": "3.2.0",
+    "proxyquire": "^1.7.10",
     "sinon": "1.17.6",
-    "sinon-as-promised": "4.0.2",
-    "chai": "^3.5.0",
-    "proxyquire": "^1.7.10"
+    "sinon-as-promised": "4.0.2"
   }
 }
