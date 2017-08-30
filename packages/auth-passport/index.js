@@ -1,8 +1,7 @@
 angular.module('wfm.auth.passport', []);
 
-require('./authService');
-
-module.exports = function(appName) {
+module.exports = function(appName, isMobile) {
+  require('./authService')(isMobile);
   require('./initApp')(appName);
   return 'wfm.auth.passport';
 }

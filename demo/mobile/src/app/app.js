@@ -14,7 +14,7 @@ angular.module('wfm-mobile', [
   require('angular-ui-router'),
   require('angular-material'),
   // Enables passport auth service to be used
-  require('@raincatcher/angularjs-auth-passport')('wfm-mobile'),
+  require('@raincatcher/angularjs-auth-passport')('wfm-mobile', true),
   require('./services'),
   require('./sync'),
   require('@raincatcher/angularjs-auth')(),

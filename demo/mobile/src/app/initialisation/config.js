@@ -16,9 +16,13 @@ angular.module('wfm-mobile').config(['$stateProvider', '$urlRouterProvider', cre
   '$rootScope', '$scope', '$state', '$mdSidenav', 'userService', '$mdDialog',
   function($rootScope, $scope, $state, $mdSidenav, userService, $mdDialog) {
     userService.readUser().then(function(profileData) {
-      $scope.profileData = profileData;
+      if (profileData) {
+        $scope.profileData = profileData;
+      } else {
+        userService.login();
+      }
     }).catch(function(err) {
-      console.error(err);
+      console.info(err);
       $mdDialog.show($mdDialog.alert({
         title: 'Failed to Load Profile Data',
         textContent: 'Unable to load profile data',
@@ -44,7 +48,6 @@ angular.module('wfm-mobile').config(['$stateProvider', '$urlRouterProvider', cre
     };
 
     $scope.logout = function() {
-      $state.go('app.login', undefined, {reload: true});
-      //userService.logout();
+      userService.logout();
     };
   }]);

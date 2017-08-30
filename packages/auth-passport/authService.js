@@ -5,10 +5,12 @@ var cloudUrl;
 var userProfile;
 var USER_CACHE_KEY = 'rcuser_profile';
 
-function PassportAuthService($http, $window, $mdDialog) {
+function PassportAuthService($http, $window, $mdDialog, $state, isMobile) {
   this.http = $http;
   this.window = $window;
   this.dialog = $mdDialog;
+  this.state = $state;
+  this.isMobile = isMobile;
   this.init();
 }
 
@@ -30,46 +32,17 @@ PassportAuthService.prototype.init = function() {
  * @returns Returns the profile data retrieved from the server.
  */
 PassportAuthService.prototype.getProfile = function() {
-  var req = {
-    method: 'GET',
-    url: cloudUrl + CONSTANTS.PROFILE_URL
-  };
-  var self = this;
-  return this.http(req, { withCredentials: true }).then(function(res) {
-    userProfile = res.data;
-    localStorage.setItem(USER_CACHE_KEY, JSON.stringify(userProfile));
-    return userProfile;
-  }).catch(function(err) {
-    if (err.status === 401) {
-      this.window.location = cloudUrl + CONSTANTS.LOGIN_URL;
-      return;
+  console.log('--- Get Profile Called ---');
+  return new Promise(function(resolve, reject) {
+    var userProfile = localStorage.getItem(USER_CACHE_KEY);
+    if (userProfile) {
+      try {
+        userProfile = JSON.parse(userProfile);
+      } catch(err) {
+        return reject(new Error(err));
+      }
     }
-    if (err.status === 403) {
-      self.dialog.show(self.dialog.alert({
-        title: 'Forbidden',
-        textContent: 'You are not authorized to access this resource.',
-        ok: 'OK'
-      }));
-      return;
-    }
-    var cachedUser;
-    try {
-      cachedUser = JSON.parse(localStorage.getItem(USER_CACHE_KEY));
-    } catch (err) {
-    }
-    if (err.status === -1 && cachedUser) {
-      logger.warn('You are offline, returning last profile data retrieved from the server')
-      return cachedUser;
-    } else {
-      self.dialog.show(self.dialog.alert({
-        title: 'Error Retrieving Profile Data',
-        textContent: 'Unable to retrieve profile data',
-        ok: 'Login'
-      })).then(function() {
-        // FIXME offline support by using local login page
-        // this.window.location = cloudUrl + CONSTANTS.LOGIN_URL;
-      });
-    }
+    return resolve(userProfile);
   });
 }
 
@@ -88,6 +61,13 @@ PassportAuthService.prototype.hasResourceRole = function(role) {
  * Redirects to the login page
  */
 PassportAuthService.prototype.login = function() {
+  // This should add profile data to cache
+  // Login url should be configurable
+  // Should have a flag here to check if using mobile/portal
+  // Login for mobile app should be a $http call to authenticate
+  if (this.isMobile) {
+    return this.state.go('app.login');
+  }
   return this.window.location = cloudUrl + CONSTANTS.LOGIN_URL;
 }
 
@@ -96,12 +76,14 @@ PassportAuthService.prototype.login = function() {
  * Redirects the user to the login page on successful logout.
  */
 PassportAuthService.prototype.logout = function() {
+  // TODO: this should remove user profile from cache
+  // The redirection should redirect to the appropriate login pages for each apps.
   var req = {
     method: 'GET',
     url: cloudUrl + CONSTANTS.LOGOUT_URL
   };
   var self = this;
-  localStorage.clear(USER_CACHE_KEY);
+  localStorage.clear();
   return this.http(req, { withCredentials: true }).then(function() {
     this.window.location = cloudUrl + CONSTANTS.LOGIN_URL;
   }).catch(function(err) {
@@ -121,12 +103,17 @@ PassportAuthService.prototype.logout = function() {
   });
 }
 
-angular.module('wfm.auth.passport').factory('authService', ['$http', '$window', '$mdDialog',
-  function($http, $window, $mdDialog) {
-    return new PassportAuthService($http, $window, $mdDialog);
-  }]);
+module.exports = function(isMobile) {
+  angular.module('wfm.auth.passport').factory('authService', ['$http', '$window', '$mdDialog', '$state',
+    function($http, $window, $mdDialog, $state) {
+      console.log(isMobile);
+      return new PassportAuthService($http, $window, $mdDialog, $state, isMobile);
+    }]);
 
-angular.module('wfm.auth.passport').config(['$httpProvider', function($httpProvider) {
-  // This property needs to be set to true in order for Passport to work
-  $httpProvider.defaults.withCredentials = true;
-}]);
+  angular.module('wfm.auth.passport').config(['$httpProvider', function($httpProvider) {
+    // This property needs to be set to true in order for Passport to work
+    $httpProvider.defaults.withCredentials = true;
+    // Mobile need to have a separate httpProvider from portal to enable the use of Authorization headers
+  }]);
+};
+
