@@ -33,6 +33,7 @@ PassportAuthService.prototype.init = function() {
  * @returns Returns the profile data retrieved from the server.
  */
 PassportAuthService.prototype.getProfile = function() {
+  var self = this;
   console.log('--- Get Profile Called ---');
   return new Promise(function(resolve, reject) {
     var userProfile = localStorage.getItem(USER_CACHE_KEY);
@@ -42,6 +43,15 @@ PassportAuthService.prototype.getProfile = function() {
       } catch(err) {
         return reject(new Error(err));
       }
+    } else {
+      self.http.get('http://localhost:8001/profile').then(function(res) {
+        console.log(' >>>>>>>>>> received profile data');
+        if (res.data) {
+          localStorage.setItem('rcuser_profile', JSON.stringify(res.data));
+        }
+      }).catch(function(error) {
+        console.log('Unable to get profile data', error);
+      })
     }
     return resolve(userProfile);
   });
