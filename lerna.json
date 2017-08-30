@@ -2,8 +2,23 @@
   "lerna": "2.0.0-rc.5",
   "packages": [
     "packages/*",
+    "examples/*",
     "demo/*",
-    "core/client/*"
+    "core/client/*",
+    "core/common/*"
   ],
-  "version": "independent"
+  "commands": {
+    "publish": {
+      "exact": true,
+      "scope": [
+        "@raincatcher/angularjs-auth-keycloak",
+        "@raincatcher/angularjs-auth-passport",
+        "@raincatcher/angularjs-http",
+        "@raincatcher/vehicle-inspection",
+        "@raincatcher/angularjs-workflow",
+        "@raincatcher/angularjs-workorder"
+      ]
+    }
+  },
+  "version": "0.0.1"
 }

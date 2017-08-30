@@ -4,12 +4,17 @@
   "description": "Feedhenry Raincatcher Angular Repository",
   "main": "index.js",
   "scripts": {
-    "test": "lerna run test --parallel --stream",
+    "test": "lerna run test --parallel --stream --ignore='@raincatcher/datasync-client' --ignore='@raincatcher/wfm' --ignore='@raincatcher/logger'",
     "build": "lerna run build",
     "bootstrap": "node ./scripts/checkoutCore.js clone && lerna bootstrap && lerna run build",
     "bootstrapCI": "node ./scripts/checkoutCore.js clone -d && lerna bootstrap && lerna run build",
-    "testCI": "lerna run test --parallel --stream",
-    "start": "lerna run build && lerna run start  --parallel --stream --scope=@raincatcher/demo-*"
+    "testCI": "npm run test",
+    "start": "lerna run build && lerna run start  --parallel --stream --scope=@raincatcher/demo-*",
+    "publish:prepare": "lerna bootstrap && lerna run build",
+    "publish:dry": "npm run publish:prepare && lerna publish --skip-npm --skip-git --canary --yes",
+    "publish:test": "./core/scripts/test-publish.sh",
+    "publish:demo-mobile": "rm -rf core/node_modules && lerna bootstrap && lerna run build --scope='@raincatcher/demo-mobile' --include-filtered-dependencies && NODE_DEBUG=gh-pages NODE_PATH=./node_modules node ./core/scripts/publish-app mobile --push true",
+    "publish:demo-portal": "rm -rf core/node_modules && lerna bootstrap && lerna run build --scope='@raincatcher/demo-portal' --include-filtered-dependencies && NODE_DEBUG=gh-pages NODE_PATH=./node_modules node ./core/scripts/publish-app portal --push true"
   },
   "repository": {
     "type": "git",
@@ -23,7 +28,9 @@
   "homepage": "https://github.com/feedhenry-raincatcher/raincatcher#readme",
   "devDependencies": {
     "@types/yargs": "^8.0.2",
+    "gh-pages": "^1.0.0",
     "lerna": "^2.0.0-rc.5",
+    "opn-cli": "^3.1.0",
     "tslint": "^5.4.3",
     "typescript": "^2.3.4",
     "yargs": "^8.0.2"

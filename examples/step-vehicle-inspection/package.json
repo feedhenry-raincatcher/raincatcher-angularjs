@@ -1,11 +1,11 @@
 {
-  "name": "@raincatcher/vehicle-inspection",
-  "version": "1.0.0",
+  "name": "@raincatcher-examples/step-vehicle-inspection",
+  "version": "0.0.1",
   "description": "An vehicle-inspection module",
   "main": "lib/angular/vehicle-inspection-ng.js",
   "scripts": {
-    "build": "wfm-template-build -m 'wfm.vehicle-inspection'",
-    "watch": "wfm-template-build -w -m 'wfm.vehicle-inspection'",
+    "build": "grunt wfmTemplate:build",
+    "watch": "grunt wfmTemplate:watch",
     "test": "grunt"
   },
   "keywords": [
@@ -18,8 +18,9 @@
     "lodash": "4.7.0"
   },
   "devDependencies": {
-    "fh-wfm-template-build": "0.0.9",
+    "fh-wfm-template-build": "0.2.1",
     "grunt": "^1.0.1",
+    "grunt-cli": "^1.2.0",
     "grunt-eslint": "^18.0.0"
   }
 }
