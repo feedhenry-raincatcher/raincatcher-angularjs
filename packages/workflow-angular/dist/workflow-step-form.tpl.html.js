@@ -11,7 +11,7 @@ ngModule.run(['$templateCache', function ($templateCache) {
     '  <div class="md-toolbar-tools">\n' +
     '    <h3>Update step</h3>\n' +
     '    <span flex></span>\n' +
-    '    <md-button class="md-icon-button" aria-label="Close" ng-click="ctrl.selectWorkflow($event, workflow)">\n' +
+    '    <md-button class="md-icon-button" aria-label="Close" ng-click="ctrl.selectWorkflow($event, ctrl.workflow)">\n' +
     '      <md-icon md-font-set="material-icons">close</md-icon>\n' +
     '    </md-button>\n' +
     '  </div>\n' +
@@ -34,7 +34,7 @@ ngModule.run(['$templateCache', function ($templateCache) {
     '          <b>{{step.name}}</b> - {{step.description}}\n' +
     '        </md-option>\n' +
     '      </md-select>\n' +
-    '    <md-input-container class="md-block">\n' +
+    '    </md-input-container>\n' +
     '  </div>\n' +
     '\n' +
     '  <md-button type="submit" class="md-raised md-primary">{{ctrl.model.isNew ? \'Add\' : \'Update\'}} step</md-button>\n' +

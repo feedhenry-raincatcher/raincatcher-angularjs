@@ -1,34 +1,32 @@
 <md-toolbar class="content-toolbar">
   <div class="md-toolbar-tools">
     <h3>
-      {{wfdCtrl.workflow.title}}
+      {{ctrl.workflow.title}}
     </h3>
     <span flex></span>
-    <md-button class="md-icon-button" aria-label="Edit" ui-sref="app.workflow.edit({workflowId: wfdCtrl.workflow.id})">
+    <md-button class="md-icon-button" aria-label="Edit" ui-sref="app.workflow.edit({workflowId: ctrl.workflow.id})">
       <md-icon md-font-set="material-icons">edit</md-icon>
     </md-button>
-    <md-button class="md-icon-button" aria-label="Delete" ng-click="wfdCtrl.delete($event, wfdCtrl.workflow)">
+    <md-button class="md-icon-button" aria-label="Delete" ng-click="ctrl.delete($event, ctrl.workflow)">
       <md-icon md-font-set="material-icons">delete</md-icon>
     </md-button>
   </div>
 </md-toolbar>
 
-<div class="wfm-maincol-scroll" ng-if="wfdCtrl.workflow">
-  <div id="stepList" ng-model="wfdCtrl.workflow.steps" as-sortable="wfdCtrl.dragControlListeners">
-    <md-card ng-repeat="step in wfdCtrl.workflow.steps track by $index"  as-sortable-item>
+<div class="wfm-maincol-scroll" ng-if="ctrl.workflow">
+  <div id="stepList" ng-model="ctrl.workflow.steps" as-sortable="ctrl.dragControlListeners">
+    <md-card ng-repeat="step in ctrl.workflow.steps track by $index"  as-sortable-item>
       <md-card-content as-sortable-item-handle>
         <workflow-step-detail step="step"></workflow-step-detail>
       </md-card-content>
-
-
       <md-card-actions layout="row" layout-align="end center">
 
         <md-button class="md-icon-button" aria-label="Edit Step"
-                   ui-sref="app.workflow.step({workflowId: wfdCtrl.workflow.id, code:step.code})">
+                   ui-sref="app.workflow.step({workflowId: ctrl.workflow.id, code:step.code})">
           <md-icon md-font-set="material-icons">create</md-icon>
         </md-button>
         <md-button class="md-icon-button" aria-label="Delete Step"
-                   ng-click="wfdCtrl.deleteStep($event, step, $index, wfdCtrl.workflow)">
+                   ng-click="ctrl.deleteStep($event, step, $index, ctrl.workflow)">
           <md-icon md-font-set="material-icons">delete sweep</md-icon>
         </md-button>
 

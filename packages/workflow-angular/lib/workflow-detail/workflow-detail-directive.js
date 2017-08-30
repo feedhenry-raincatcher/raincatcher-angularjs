@@ -5,6 +5,6 @@ angular.module(CONSTANTS.WORKFLOW_DIRECTIVE_MODULE).directive('workflowDetail', 
     restrict: 'E'
     , template: $templateCache.get('wfm-template/workflow-detail.tpl.html')
     , controller: "WorkflowDetailController"
-    , controllerAs: 'wfdCtrl'
+    , controllerAs: 'ctrl'
   };
 });

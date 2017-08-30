@@ -2,7 +2,7 @@
   <div class="md-toolbar-tools">
     <h3>Update step</h3>
     <span flex></span>
-    <md-button class="md-icon-button" aria-label="Close" ng-click="ctrl.selectWorkflow($event, workflow)">
+    <md-button class="md-icon-button" aria-label="Close" ng-click="ctrl.selectWorkflow($event, ctrl.workflow)">
       <md-icon md-font-set="material-icons">close</md-icon>
     </md-button>
   </div>
@@ -25,7 +25,7 @@
           <b>{{step.name}}</b> - {{step.description}}
         </md-option>
       </md-select>
-    <md-input-container class="md-block">
+    </md-input-container>
   </div>
 
   <md-button type="submit" class="md-raised md-primary">{{ctrl.model.isNew ? 'Add' : 'Update'}} step</md-button>

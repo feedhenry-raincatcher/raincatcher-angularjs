@@ -1,4 +1,5 @@
 var CONSTANTS = require('../constants');
+var _ = require('lodash');
 
 function WorkflowApiService(config, workorderService, workflowService, resultService, userService, wfmService) {
   this.workorderService = workorderService;
@@ -6,6 +7,7 @@ function WorkflowApiService(config, workorderService, workflowService, resultSer
   this.resultService = resultService;
   this.userService = userService;
   this.wfmService = wfmService;
+  this.stepDefinitions = config.stepDefinitions;
 }
 
 /**
@@ -147,6 +149,17 @@ WorkflowApiService.prototype.previousStepSubscriber = function(subscriberFunctio
  */
 WorkflowApiService.prototype.completeStep = function(parameters) {
   return this.wfmService.completeStep(parameters);
+};
+
+/**
+ * Gets the definition for the step inside a workflow
+ * @param {Step} step The step to search for
+ * @return {object|undefined} The step definition
+ */
+WorkflowApiService.prototype.getDefinitionForStep = function(step) {
+  return _.find(this.stepDefinitions, function(definition) {
+    return definition.code === step.code;
+  });
 };
 
 angular.module(CONSTANTS.WORKFLOW_DIRECTIVE_MODULE).service(CONSTANTS.WORKFLOW_API_SERVICE, ['WORKFLOW_CONFIG', "workorderService", "workflowService", "resultService", "userService", "wfmService", function(WORKFLOW_CONFIG, workorderService, workflowService, resultService, userService, wfmService) {

@@ -16,6 +16,15 @@ ngModule.run(['$templateCache', function ($templateCache) {
     '      <p>Step name</p>\n' +
     '    </div>\n' +
     '  </md-list-item>\n' +
+    '  <md-list-item class="md-2-line" ng-if="definition">\n' +
+    '    <md-icon md-font-set="material-icons">label outline</md-icon>\n' +
+    '    <div class="md-list-item-text">\n' +
+    '      <h3>{{definition.name}}</h3>\n' +
+    '      <h4>{{definition.description}}</h4>\n' +
+    '      <p>Step definition</p>\n' +
+    '    </div>\n' +
+    '  </md-list-item>\n' +
+    '  <md-list-item class="md-2-line">\n' +
     '  <md-divider></md-divider>\n' +
     '</md-list>\n' +
     '');
