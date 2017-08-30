@@ -4,8 +4,8 @@
   "description": "Sample accident form",
   "main": "./lib/angular/accident-ng.js",
   "scripts": {
-    "build": "wfm-template-build -m 'wfm.accident'",
-    "watch": "wfm-template-build -w -m 'wfm.accident'",
+    "build": "grunt wfmTemplate:build",
+    "watch": "grunt wfmTemplate:watch",
     "test": "grunt"
   },
   "keywords": [

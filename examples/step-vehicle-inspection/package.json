@@ -4,8 +4,8 @@
   "description": "An vehicle-inspection module",
   "main": "lib/angular/vehicle-inspection-ng.js",
   "scripts": {
-    "build": "wfm-template-build -m 'wfm.vehicle-inspection'",
-    "watch": "wfm-template-build -w -m 'wfm.vehicle-inspection'",
+    "build": "grunt wfmTemplate:build",
+    "watch": "grunt wfmTemplate:watch",
     "test": "grunt"
   },
   "keywords": [
