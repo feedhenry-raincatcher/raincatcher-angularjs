@@ -1,0 +1,25 @@
+{
+  "name": "@raincatcher-examples/step-accident",
+  "version": "1.0.0",
+  "description": "Sample accident form",
+  "main": "./lib/angular/accident-ng.js",
+  "scripts": {
+    "build": "grunt wfmTemplate:build",
+    "watch": "grunt wfmTemplate:watch",
+    "test": "grunt"
+  },
+  "keywords": [
+    "raincatcher-step",
+    "workorder"
+  ],
+  "author": "feedhenry-raincatcher@redhat.com",
+  "license": "Apache2.0",
+  "dependencies": {
+    "lodash": "4.7.0"
+  },
+  "devDependencies": {
+    "fh-wfm-template-build": "0.2.1",
+    "grunt": "^1.0.1",
+    "grunt-eslint": "^18.0.0"
+  }
+}
