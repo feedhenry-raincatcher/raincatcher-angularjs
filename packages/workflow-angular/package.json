@@ -17,7 +17,7 @@
     "workflow"
   ],
   "author": "feedhenry-raincatcher@redhat.com",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "dependencies": {
     "lodash": "4.7.0",
     "ng-feedhenry": "0.3.0",
