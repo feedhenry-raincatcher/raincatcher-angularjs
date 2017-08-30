@@ -4,11 +4,11 @@
   "description": "Feedhenry Raincatcher Angular Repository",
   "main": "index.js",
   "scripts": {
-    "test": "lerna run test --parallel --stream",
+    "test": "lerna run test --parallel --stream --ignore='@raincatcher/datasync-client' --ignore='@raincatcher/wfm' --ignore='@raincatcher/logger'",
     "build": "lerna run build",
     "bootstrap": "node ./scripts/checkoutCore.js clone && lerna bootstrap && lerna run build",
     "bootstrapCI": "node ./scripts/checkoutCore.js clone -d && lerna bootstrap && lerna run build",
-    "testCI": "lerna run test --parallel --stream",
+    "testCI": "npm run test",
     "start": "lerna run build && lerna run start  --parallel --stream --scope=@raincatcher/demo-*",
     "publish:prepare": "lerna bootstrap && lerna run build",
     "publish:dry": "npm run publish:prepare && lerna publish --skip-npm --skip-git --canary --yes",
