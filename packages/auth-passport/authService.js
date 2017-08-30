@@ -28,6 +28,7 @@ PassportAuthService.prototype.init = function() {
 }
 
 /**
+ * TODO: update this description
  * Sends a request to the profile endpoint to retrieve the user's profile data.
  * @returns Returns the profile data retrieved from the server.
  */
@@ -46,6 +47,8 @@ PassportAuthService.prototype.getProfile = function() {
   });
 }
 
+// Add function to save the profile data to cache
+
 /**
  * Checks if the user has the specified role
  * @param role - The required role needed by the user in order to access the resource
@@ -63,8 +66,7 @@ PassportAuthService.prototype.hasResourceRole = function(role) {
 PassportAuthService.prototype.login = function() {
   // This should add profile data to cache
   // Login url should be configurable
-  // Should have a flag here to check if using mobile/portal
-  // Login for mobile app should be a $http call to authenticate
+  // Login for mobile app should be a $http call to authenticate <-- this is going to be in the login-controller
   if (this.isMobile) {
     return this.state.go('app.login');
   }
@@ -106,7 +108,6 @@ PassportAuthService.prototype.logout = function() {
 module.exports = function(isMobile) {
   angular.module('wfm.auth.passport').factory('authService', ['$http', '$window', '$mdDialog', '$state',
     function($http, $window, $mdDialog, $state) {
-      console.log(isMobile);
       return new PassportAuthService($http, $window, $mdDialog, $state, isMobile);
     }]);
 

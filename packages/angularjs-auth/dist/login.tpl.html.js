@@ -7,7 +7,7 @@ try {
 
 ngModule.run(['$templateCache', function ($templateCache) {
   $templateCache.put('wfm-template/login.tpl.html',
-    '<div class="login" flex ng-if="ctrl.hasSession !== undefined">\n' +
+    '<div class="login" flex>\n' +
     '\n' +
     '  <div layout-padding  class="area">\n' +
     '    <div ng-hide="ctrl.hasSession">\n' +
