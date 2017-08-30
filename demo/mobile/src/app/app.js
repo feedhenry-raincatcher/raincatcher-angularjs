@@ -15,6 +15,7 @@ angular.module('wfm-mobile', [
   require('@raincatcher/angularjs-auth-passport')('wfm-mobile'),
   require('./services'),
   require('./sync'),
+  require('@raincatcher/angularjs-auth')(),
   // Set of the data services
   require('@raincatcher/angularjs-workflow')({
     mode: "user",
