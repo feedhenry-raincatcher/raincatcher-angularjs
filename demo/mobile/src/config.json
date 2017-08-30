@@ -1,5 +1,6 @@
 {
   "sync": {
+    "forceSyncDelay": 6,
     "datasetIds": {
       "workorders": "workorders",
       "workflows": "workflows",
@@ -8,7 +9,8 @@
     "cloudPath": "/sync/",
     "syncOptions": {
       "global": {
-        "sync_frequency": 20
+        "sync_frequency": 20,
+        "storage_strategy": "dom"
       },
       "workorders": {
         "sync_frequency": 10
@@ -17,7 +19,7 @@
         "sync_frequency": 60
       },
       "results": {
-        "sync_frequency": 30
+        "sync_frequency": 60
       }
     }
   }
