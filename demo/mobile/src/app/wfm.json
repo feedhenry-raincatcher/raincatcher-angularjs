@@ -1,0 +1,14 @@
+{
+  "stepDefinitions": [
+    {
+      "code": "vehicle-inspection",
+      "name": "Vehicle Inspection Step",
+      "description": "Perform Vehicle Inspection and log results"
+    },
+    {
+      "code": "advanced-accident-form",
+      "name": "Accident Report Form",
+      "description": "Form used to report vehicle accidents"
+    }
+  ]
+}

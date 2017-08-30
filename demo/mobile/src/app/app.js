@@ -18,14 +18,15 @@ angular.module('wfm-mobile', [
   // Set of the data services
   require('@raincatcher/angularjs-workflow')({
     mode: "user",
-    mainColumnViewId: "content@app"
+    mainColumnViewId: "content@app",
+    stepDefinitions: require("./wfm.json").stepDefinitions
   }),
   require('@raincatcher/angularjs-workorder')({
     mode: "user",
     mainColumnViewId: "content@app",
     toolbarViewId: "toolbar@app"
   }),
-  require('@raincatcher-examples/step-vehicle-inspection'),
+  require('@raincatcher-examples/step-vehicle-inspection').angularId,
   require('@raincatcher-examples/step-accident')
 ]);
 
