@@ -7,7 +7,7 @@ try {
 
 ngModule.run(['$templateCache', function ($templateCache) {
   $templateCache.put('wfm-template/workflow-step-form.tpl.html',
-    '<md-toolbar class="content-toolbar md-primary" ng-if="!ctrl.model.isNew">\n' +
+    '<md-toolbar class="content-toolbar md-primary" ng-if="ctrl.model.isNew == false">\n' +
     '  <div class="md-toolbar-tools">\n' +
     '    <h3>Update step</h3>\n' +
     '    <span flex></span>\n' +
