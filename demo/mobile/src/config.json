@@ -8,7 +8,8 @@
     "cloudPath": "/sync/",
     "syncOptions": {
       "global": {
-        "sync_frequency": 20
+        "sync_frequency": 20,
+        "storage_strategy": "dom"
       },
       "workorders": {
         "sync_frequency": 10
