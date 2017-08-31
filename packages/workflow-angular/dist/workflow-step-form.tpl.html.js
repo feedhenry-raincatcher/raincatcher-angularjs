@@ -29,7 +29,7 @@ ngModule.run(['$templateCache', function ($templateCache) {
     '\n' +
     '    <md-input-container class="md-block">\n' +
     '      <label>Select step type</label>\n' +
-    '      <md-select ng-if="ctrl.stepDefinitions" ng-model="ctrl.model.step.code">\n' +
+    '      <md-select ng-if="ctrl.stepDefinitions" ng-model="ctrl.model.step.code" required>\n' +
     '        <md-option ng-repeat="step in ctrl.stepDefinitions" ng-value="step.code">\n' +
     '          <b>{{step.name}}</b> - {{step.description}}\n' +
     '        </md-option>\n' +

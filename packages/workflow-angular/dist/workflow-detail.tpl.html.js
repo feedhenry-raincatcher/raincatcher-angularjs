@@ -29,7 +29,6 @@ ngModule.run(['$templateCache', function ($templateCache) {
     '        <workflow-step-detail step="step"></workflow-step-detail>\n' +
     '      </md-card-content>\n' +
     '      <md-card-actions layout="row" layout-align="end center">\n' +
-    '\n' +
     '        <md-button class="md-icon-button" aria-label="Edit Step"\n' +
     '                   ui-sref="app.workflow.step({workflowId: ctrl.workflow.id, code:step.code})">\n' +
     '          <md-icon md-font-set="material-icons">create</md-icon>\n' +
@@ -38,11 +37,7 @@ ngModule.run(['$templateCache', function ($templateCache) {
     '                   ng-click="ctrl.deleteStep($event, step, $index, ctrl.workflow)">\n' +
     '          <md-icon md-font-set="material-icons">delete sweep</md-icon>\n' +
     '        </md-button>\n' +
-    '\n' +
     '      </md-card-actions>\n' +
-    '\n' +
-    '\n' +
-    '    </md-card>\n' +
     '    <md-card>\n' +
     '      <md-card-content>\n' +
     '        <h2 class="md-title">Add new step</h2>\n' +

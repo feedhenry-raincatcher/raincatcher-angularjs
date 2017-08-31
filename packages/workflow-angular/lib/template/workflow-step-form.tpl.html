@@ -20,7 +20,7 @@
 
     <md-input-container class="md-block">
       <label>Select step type</label>
-      <md-select ng-if="ctrl.stepDefinitions" ng-model="ctrl.model.step.code">
+      <md-select ng-if="ctrl.stepDefinitions" ng-model="ctrl.model.step.code" required>
         <md-option ng-repeat="step in ctrl.stepDefinitions" ng-value="step.code">
           <b>{{step.name}}</b> - {{step.description}}
         </md-option>

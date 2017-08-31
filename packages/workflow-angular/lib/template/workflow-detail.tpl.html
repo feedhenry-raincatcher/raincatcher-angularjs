@@ -20,7 +20,6 @@
         <workflow-step-detail step="step"></workflow-step-detail>
       </md-card-content>
       <md-card-actions layout="row" layout-align="end center">
-
         <md-button class="md-icon-button" aria-label="Edit Step"
                    ui-sref="app.workflow.step({workflowId: ctrl.workflow.id, code:step.code})">
           <md-icon md-font-set="material-icons">create</md-icon>
@@ -29,11 +28,7 @@
                    ng-click="ctrl.deleteStep($event, step, $index, ctrl.workflow)">
           <md-icon md-font-set="material-icons">delete sweep</md-icon>
         </md-button>
-
       </md-card-actions>
-
-
-    </md-card>
     <md-card>
       <md-card-content>
         <h2 class="md-title">Add new step</h2>

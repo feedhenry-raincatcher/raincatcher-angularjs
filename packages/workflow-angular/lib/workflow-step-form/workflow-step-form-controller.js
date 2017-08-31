@@ -7,33 +7,22 @@ function WorkflowStepFormController(workflowApiService, workflowFlowService, WOR
   self.submitted = false;
   self.stepDefinitions = WORKFLOW_CONFIG.stepDefinitions;
 
-  var stepExists;
-
   function setUpStepData(workflow) {
     self.workflow = workflow;
-    var step = $stateParams.code ? _.find(self.workflow.steps, function(step) {
-      return step.code === $stateParams.code;
-    }) : {
-      templates: {}
-    };
-    //If there is no step "code", we are adding a step to the workflow...
     if (!$stateParams.code) {
       self.model = {
-        step: step,
+        step: {},
         workflow: self.workflow,
         isNew: true
       };
     } else {
-      //If there is a step "code", we are editing an existing step.....
       self.model = {
-        //Whats the deal with copying?
+        step: _.find(self.workflow.steps, function(step) {
+          return step.code === $stateParams.code;
+        }),
         workflow: self.workflow,
-        step: step,
         isNew: false
       };
-      stepExists = self.workflow.steps.filter(function(item) {
-        return item.code === step.code;
-      }).length > 0;
     }
   }
 
@@ -43,14 +32,16 @@ function WorkflowStepFormController(workflowApiService, workflowFlowService, WOR
   self.done = function(isValid) {
     self.submitted = true;
     if (isValid) {
+      var stepData = _.cloneDeep(self.model.step);
+      self.model.step = {};
       //we check if the step already exist or not, if it exists we remove the old element
-      if (stepExists) {
-        var updatedStepIndex = _.findIndex(self.workflow.steps, function(step) {
+      if (self.model.isNew) {
+        self.workflow.steps.push(stepData);
+      } else {
+        var existingStepIndex = _.findIndex(self.workflow.steps, function(step) {
           return step.code === $stateParams.code;
         });
-        self.workflow.steps[updatedStepIndex] = self.model.step;
-      } else {
-        self.workflow.steps.push(self.model.step);
+        self.workflow.steps[existingStepIndex] = stepData;
       }
 
       $q.when(workflowApiService.updateWorkflow(self.workflow)).then(function(updatedWorkflow) {
