@@ -38,6 +38,7 @@ ngModule.run(['$templateCache', function ($templateCache) {
     '          <md-icon md-font-set="material-icons">delete sweep</md-icon>\n' +
     '        </md-button>\n' +
     '      </md-card-actions>\n' +
+    '    </md-card>\n' +
     '    <md-card>\n' +
     '      <md-card-content>\n' +
     '        <h2 class="md-title">Add new step</h2>\n' +
