@@ -2,7 +2,7 @@
   "name": "@raincatcher-examples/step-accident",
   "version": "0.0.1",
   "description": "Sample accident form",
-  "main": "./lib/angular/accident-ng.js",
+  "main": "./lib/index.js",
   "scripts": {
     "build": "grunt wfmTemplate:build",
     "watch": "grunt wfmTemplate:watch",
