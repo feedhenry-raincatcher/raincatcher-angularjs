@@ -22,8 +22,8 @@ function initSync($http) {
         return reject(error);
       }
       var cloudUrl = decodeURIComponent($fh.getCloudURL());
-      syncGlobalNetworkHandler(cloudUrl, config.cloudPath, $http);
-      //syncApi.setCloudHandler(handler);
+      var handler = syncGlobalNetworkHandler(cloudUrl, config.cloudPath, $http);
+      syncApi.setCloudHandler(handler);
       initializeGlobalSync(cloudUrl);
     });
 
