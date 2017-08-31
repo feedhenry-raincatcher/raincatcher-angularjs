@@ -2,7 +2,7 @@ var CONSTANTS = require('../constants');
 var _ = require('lodash');
 
 
-function WorkflowStepFormController(workflowApiService, workflowFlowService, WORKFLOW_CONFIG, $stateParams, $q) {
+function WorkflowStepFormController($scope, workflowApiService, workflowFlowService, WORKFLOW_CONFIG, $stateParams, $q) {
   var self = this;
   self.submitted = false;
   self.stepDefinitions = WORKFLOW_CONFIG.stepDefinitions;
@@ -25,9 +25,7 @@ function WorkflowStepFormController(workflowApiService, workflowFlowService, WOR
       };
     }
   }
-
-  $q.when(workflowApiService.readWorkflow($stateParams.workflowId))
-    .then(setUpStepData);
+  setUpStepData($scope.workflow);
 
   self.done = function(isValid) {
     self.submitted = true;
@@ -57,4 +55,11 @@ function WorkflowStepFormController(workflowApiService, workflowFlowService, WOR
   };
 }
 
-angular.module(CONSTANTS.WORKFLOW_DIRECTIVE_MODULE).controller("WorkflowStepFormController", ['workflowApiService', 'workflowFlowService', 'WORKFLOW_CONFIG', '$stateParams', '$q', WorkflowStepFormController]);
+angular.module(CONSTANTS.WORKFLOW_DIRECTIVE_MODULE).controller("WorkflowStepFormController", [
+  '$scope',
+  'workflowApiService',
+  'workflowFlowService',
+  'WORKFLOW_CONFIG',
+  '$stateParams',
+  '$q',
+  WorkflowStepFormController]);

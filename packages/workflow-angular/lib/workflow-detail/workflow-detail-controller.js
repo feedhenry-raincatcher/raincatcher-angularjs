@@ -26,10 +26,8 @@ function WorkflowDetailController($scope, $mdDialog, $stateParams, workflowApiSe
   };
 
   $q.all([workflowApiService.readWorkflow($stateParams.workflowId), workflowApiService.listWorkorders()]).then(function(results) {
-    $timeout(function() {
-      self.workflow = results[0];
-      self.workorders = results[1];
-    });
+    self.workflow = results[0];
+    self.workorders = results[1];
   });
 
   function showDeleteDialog(workorders, event) {

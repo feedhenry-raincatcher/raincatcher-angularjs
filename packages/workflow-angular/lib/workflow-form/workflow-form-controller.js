@@ -33,8 +33,8 @@ function WorkflowFormController($scope, workflowApiService, workflowFlowService,
       var hasId = self.model.id;
       var createUpdatePromise = hasId ? workflowApiService.updateWorkflow(self.model) : workflowApiService.createWorkflow(self.model);
 
-      createUpdatePromise.then(function(updatedCreatedWorkflow) {
-        workflowFlowService.goToWorkflowDetails(updatedCreatedWorkflow);
+      createUpdatePromise.then(function(workflow) {
+        workflowFlowService.goToWorkflowDetails(workflow);
       });
     }
   };

@@ -5,6 +5,9 @@ angular.module(CONSTANTS.WORKFLOW_DIRECTIVE_MODULE).directive('workflowStepForm'
     restrict: 'E',
     template: $templateCache.get('wfm-template/workflow-step-form.tpl.html'),
     controller: "WorkflowStepFormController",
-    controllerAs: 'ctrl'
+    controllerAs: 'ctrl',
+    scope: {
+      workflow: '='
+    }
   };
 });

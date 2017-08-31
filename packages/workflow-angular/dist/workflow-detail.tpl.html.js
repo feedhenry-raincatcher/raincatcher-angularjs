@@ -42,7 +42,7 @@ ngModule.run(['$templateCache', function ($templateCache) {
     '    <md-card>\n' +
     '      <md-card-content>\n' +
     '        <h2 class="md-title">Add new step</h2>\n' +
-    '        <workflow-step-form></worflow-step-form>\n' +
+    '        <workflow-step-form workflow="ctrl.workflow"></worflow-step-form>\n' +
     '      </md-card-content>\n' +
     '    </md-card>\n' +
     '    <md-button class="md-fab" aria-label="Add Workflow" ui-sref="app.workflow.add">\n' +
