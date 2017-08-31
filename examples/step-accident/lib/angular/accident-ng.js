@@ -39,4 +39,15 @@ ngModule.directive('accidentReportForm', function($templateCache) {
   };
 });
 
-module.exports = 'wfm.accident';
+module.exports = {
+  angularId: 'wfm.accident',
+  definition: {
+    code: 'accident-report-form',
+    name: "Accident Report Form",
+    description: "Form used to report vehicle accidents",
+    templates: {
+      form: "<accident-report-form></accident-report-form>",
+      view: "<accident-report value='result.submission'></accident-report>"
+    }
+  }
+};

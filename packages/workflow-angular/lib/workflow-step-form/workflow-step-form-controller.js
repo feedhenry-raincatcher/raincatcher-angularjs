@@ -25,12 +25,23 @@ function WorkflowStepFormController($scope, workflowApiService, workflowFlowServ
       };
     }
   }
-  setUpStepData($scope.workflow);
+  if ($scope.workflow) {
+    setUpStepData($scope.workflow);
+  } else {
+    // if workflow is not supplied, get from service
+    $q.when(workflowApiService.readWorkflow($stateParams.workflowId))
+      .then(setUpStepData);
+  }
 
   self.done = function(isValid) {
     self.submitted = true;
     if (isValid) {
-      var stepData = _.cloneDeep(self.model.step);
+      debugger;
+      // Copy remainder of definition to step data
+      var definition = _.find(self.stepDefinitions, function(definition) {
+        return definition.code === self.model.step.code;
+      });
+      var stepData = _.cloneDeep(definition);
       self.model.step = {};
       //we check if the step already exist or not, if it exists we remove the old element
       if (self.model.isNew) {
