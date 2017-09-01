@@ -40,8 +40,6 @@ syncPool.syncManagerMap = function(profileData) {
   //Initialisation of sync data sets to manage.
   return Promise.all([
     syncGlobalManager.manageDataset(config.datasetIds.workorders, config.syncOptions.workorders, filter, {}),
-    syncGlobalManager.manageDataset(config.datasetIds.workflows, config.syncOptions.workflows, {}, {}),
-    syncGlobalManager.manageDataset(config.datasetIds.results, config.syncOptions.results, filter, {})
   ]).then(function(managers) {
     managers.forEach(function(syncDatasetManager) {
       syncManagers[syncDatasetManager.datasetId] = syncDatasetManager;
