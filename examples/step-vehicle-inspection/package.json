@@ -2,7 +2,7 @@
   "name": "@raincatcher-examples/step-vehicle-inspection",
   "version": "0.0.1",
   "description": "An vehicle-inspection module",
-  "main": "lib/angular/vehicle-inspection-ng.js",
+  "main": "lib/index.js",
   "scripts": {
     "build": "grunt wfmTemplate:build",
     "watch": "grunt wfmTemplate:watch",

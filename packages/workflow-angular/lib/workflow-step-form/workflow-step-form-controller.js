@@ -36,12 +36,11 @@ function WorkflowStepFormController($scope, workflowApiService, workflowFlowServ
   self.done = function(isValid) {
     self.submitted = true;
     if (isValid) {
-      debugger;
-      // Copy remainder of definition to step data
       var definition = _.find(self.stepDefinitions, function(definition) {
         return definition.code === self.model.step.code;
       });
-      var stepData = _.cloneDeep(definition);
+      // Create a clone of model.step and merge with properties from the step definition
+      var stepData = _.assign({},  definition, self.model.step);
       self.model.step = {};
       //we check if the step already exist or not, if it exists we remove the old element
       if (self.model.isNew) {

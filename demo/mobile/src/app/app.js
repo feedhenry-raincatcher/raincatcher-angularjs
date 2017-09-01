@@ -5,7 +5,9 @@ window.async = require('async');
 window._ = require('underscore');
 var logger = require('@raincatcher/logger');
 
-// Create INFO logger
+var accidentStep = require('@raincatcher-examples/step-accident');
+var vehicleInspectionStep = require('@raincatcher-examples/step-vehicle-inspection');
+
 logger.setLogger(new logger.ClientLogger(2));
 
 angular.module('wfm-mobile', [
@@ -18,15 +20,19 @@ angular.module('wfm-mobile', [
   // Set of the data services
   require('@raincatcher/angularjs-workflow')({
     mode: "user",
-    mainColumnViewId: "content@app"
+    mainColumnViewId: "content@app",
+    stepDefinitions: [
+      vehicleInspectionStep.definition,
+      accidentStep.definition
+    ]
   }),
   require('@raincatcher/angularjs-workorder')({
     mode: "user",
     mainColumnViewId: "content@app",
     toolbarViewId: "toolbar@app"
   }),
-  require('@raincatcher-examples/step-vehicle-inspection').angularId,
-  require('@raincatcher-examples/step-accident')
+  vehicleInspectionStep.ngModule(),
+  accidentStep.ngModule()
 ]);
 
 // NOTE: Enable the next line in order to use Keycloak auth service

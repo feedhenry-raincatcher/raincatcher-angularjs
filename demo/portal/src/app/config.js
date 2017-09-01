@@ -1,6 +1,5 @@
 var angular = require('angular');
 
-
 /**
  * Configuration script for the main portal application.
  *
@@ -24,7 +23,7 @@ function AppConfig($stateProvider, $urlRouterProvider) {
       data: {
         columns: 3
       },
-      controller: function($scope, $state, $mdSidenav, $mdDialog, userService, ) {
+      controller: function($scope, $state, $mdSidenav, $mdDialog, userService) {
         userService.readUser().then(function(profileData) {
           $scope.profileData = profileData;
         }).catch(function(err) {
