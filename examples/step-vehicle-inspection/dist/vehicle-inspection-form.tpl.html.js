@@ -5,7 +5,7 @@ try {
   ngModule = angular.module('wfm.vehicle-inspection', []);
 }
 
-ngModule.run(['$templateCache', function($templateCache) {
+ngModule.run(['$templateCache', function ($templateCache) {
   $templateCache.put('wfm-template/vehicle-inspection-form.tpl.html',
     '  <div layout="row" class="wfm-inspection-row">\n' +
     '    <div flex="40" layout="row" layout-align="start center">\n' +

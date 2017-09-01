@@ -13,7 +13,7 @@ var CONSTANTS = require('../constants');
  * @param $q
  * @constructor
  */
-function WorkflowDetailController($scope, $mdDialog, $stateParams, workflowApiService, workflowFlowService, $q, $timeout) {
+function WorkflowDetailController($scope, $mdDialog, $stateParams, workflowApiService, workflowFlowService, $q) {
   var self = this;
   self.workflow = null;
 
@@ -91,4 +91,4 @@ function WorkflowDetailController($scope, $mdDialog, $stateParams, workflowApiSe
   };
 }
 
-angular.module(CONSTANTS.WORKFLOW_DIRECTIVE_MODULE).controller('WorkflowDetailController', ['$scope', '$mdDialog', '$stateParams', 'workflowApiService', 'workflowFlowService', '$q', '$timeout', WorkflowDetailController]);
+angular.module(CONSTANTS.WORKFLOW_DIRECTIVE_MODULE).controller('WorkflowDetailController', ['$scope', '$mdDialog', '$stateParams', 'workflowApiService', 'workflowFlowService', '$q', WorkflowDetailController]);

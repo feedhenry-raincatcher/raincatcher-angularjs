@@ -5,7 +5,7 @@ try {
   ngModule = angular.module('wfm.vehicle-inspection', []);
 }
 
-ngModule.run(['$templateCache', function($templateCache) {
+ngModule.run(['$templateCache', function ($templateCache) {
   $templateCache.put('wfm-template/vehicle-inspection.tpl.html',
     '\n' +
     '  <md-subheader>Vehicle Inspection</md-subheader>\n' +
