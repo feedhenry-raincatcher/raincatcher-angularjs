@@ -34,27 +34,32 @@ PassportAuthService.prototype.init = function() {
  */
 PassportAuthService.prototype.getProfile = function() {
   var self = this;
-  console.log('--- Get Profile Called ---');
-  return new Promise(function(resolve, reject) {
-    var userProfile = localStorage.getItem(USER_CACHE_KEY);
-    if (userProfile) {
-      try {
-        userProfile = JSON.parse(userProfile);
-      } catch(err) {
-        return reject(new Error(err));
-      }
-    } else {
-      self.http.get('http://localhost:8001/profile').then(function(res) {
-        console.log(' >>>>>>>>>> received profile data');
-        if (res.data) {
-          localStorage.setItem('rcuser_profile', JSON.stringify(res.data));
+  if (self.isMobile) {
+    return new Promise(function(resolve, reject) {
+    if (self.isMobile) {
+      var userProfile = localStorage.getItem(USER_CACHE_KEY);
+      if (userProfile) {
+        try {
+          userProfile = JSON.parse(userProfile);
+        } catch(err) {
+          return reject(new Error(err));
         }
-      }).catch(function(error) {
-        console.log('Unable to get profile data', error);
-      })
+      }
     }
+    console.log('resolving userProfile: ', userProfile);
     return resolve(userProfile);
+    });
+  }
+
+  return self.http.get('http://localhost:8001/profile').then(function(res) {
+    if (res.data) {
+      return res.data;
+    }
+  }).catch(function(error) {
+    console.log('redirecting to portal url');
+    this.window.location = cloudUrl + CONSTANTS.LOGIN_URL;
   });
+  
 }
 
 // Add function to save the profile data to cache
@@ -122,9 +127,8 @@ module.exports = function(isMobile) {
     }]);
 
   angular.module('wfm.auth.passport').config(['$httpProvider', function($httpProvider) {
-    // This property needs to be set to true in order for Passport to work
+    // This property needs to be set to true in order for Passport in portal to work
     $httpProvider.defaults.withCredentials = true;
-    // Mobile need to have a separate httpProvider from portal to enable the use of Authorization headers
   }]);
 };
 

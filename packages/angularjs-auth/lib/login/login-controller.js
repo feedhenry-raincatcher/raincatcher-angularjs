@@ -7,7 +7,7 @@ var CONSTANTS = require('../constants');
  * @param $timeout
  *
  */
-function LoginCtrl($timeout, $http, authService) {
+function LoginCtrl($timeout, $http, $state, authService) {
   var self = this;
   self.loginErrorMessage = "";
   self.loginMessages = { success: false, error: false };
@@ -18,17 +18,13 @@ function LoginCtrl($timeout, $http, authService) {
     if (valid) {
       self.loginErrorMessage = "";
       self.loginMessages.error = false;
-      // TODO: Do $http call here to login endpoint
-      // login should return back the token.
-      // Set token in local storage then authenticate
-      // Set profile data to local storage here upon successful login
 
       $http.post('http://localhost:8001/token', {
         username: self.username,
         password: self.password
       }).then(function(res) {
         localStorage.setItem(CONSTANTS.TOKEN_CACHE_KEY, res.data.token);
-        console.log('----- Authenticating ----');
+        localStorage.setItem('rcuser_profile', JSON.stringify(res.data.profile));
         $http({
           method: 'POST',
           url: 'http://localhost:8001/login-mobile',
@@ -36,14 +32,11 @@ function LoginCtrl($timeout, $http, authService) {
             'Authorization': 'JWT ' + localStorage.getItem(CONSTANTS.TOKEN_CACHE_KEY)
           },
           data: {}
-        }).then(function(success) {
-          $http.get('http://localhost:8001/profile').then(function(res) {
-            localStorage.setItem('rcuser_profile', JSON.stringify(res.data));
-          }).catch(function(error) {
-            console.log('Unable to get profile data', error);
-          })
+        }).then(function() {
+          console.log('success');
+          // TODO: redirect to home page here.
         }).catch(function(error) {
-          // Need to handle when server is offline (status: -1)
+          // TODO: Need to handle when server is offline (status: -1)
           console.log('ERROR: ', error);
         });
       }).catch(function(err) {
@@ -56,8 +49,8 @@ function LoginCtrl($timeout, $http, authService) {
   };
 
   self.logout = function() {
-    // securityService.logout();
+    localStorage.clear();
   };
 }
 
-angular.module(CONSTANTS.AUTH_DIRECTIVE_MODULE).controller('LoginCtrl', ['$timeout', '$http', 'authService', LoginCtrl]);
+angular.module(CONSTANTS.AUTH_DIRECTIVE_MODULE).controller('LoginCtrl', ['$timeout', '$http', '$state', 'authService', LoginCtrl]);
