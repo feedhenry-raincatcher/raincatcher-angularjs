@@ -3,7 +3,7 @@ var $fh = require('fh-js-sdk');
 var syncClient = require("@raincatcher/datasync-client");
 var Promise = require('bluebird');
 
-var DataManager = Promise.promisifyAll(syncClient.DataManager);
+var DataManager = syncClient.DataManager;
 var syncApi = syncClient.sync;
 
 var config = require("../../config.json").sync;
