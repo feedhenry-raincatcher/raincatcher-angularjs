@@ -48,8 +48,8 @@ syncPool.syncManagerMap = function(profileData) {
       syncDatasetManager.start(function() { }); //start sync for this dataset
     });
     // Make initial request to server and another one to retrieve results.
-    syncPool.forceSync(syncManagers).delay(config.forceSyncDelay*1000).then(function() {
-      syncPool.forceSync(syncManagers)
+    syncPool.forceSync(syncManagers).delay(config.forceSyncDelay * 1000).then(function() {
+      syncPool.forceSync(syncManagers);
     });
     return syncManagers;
   });

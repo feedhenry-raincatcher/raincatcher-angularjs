@@ -1,5 +1,3 @@
-var Promise = require("bluebird");
-
 // Service that is being injected to modules to provide all operations around sync
 function SyncApiDataService(datasetId, syncService) {
   this.syncManagerPromise = syncService.then(function(managers) {
