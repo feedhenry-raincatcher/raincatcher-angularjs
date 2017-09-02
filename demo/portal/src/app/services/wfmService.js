@@ -1,5 +1,5 @@
 var WfmService = require('@raincatcher/wfm').WfmService;
 
-angular.module('wfm.common.apiservices').service("wfmService", ["workorderService", "workflowService", "resultService", "userService", function(workorderService, workflowService, resultService, userService) {
-  return new WfmService(workorderService, workflowService, resultService, userService);
+angular.module('wfm.common.apiservices').service("wfmService", ["workorderService", "workflowService", "userService", function(workorderService, workflowService, userService) {
+  return new WfmService(workorderService, workflowService,  userService);
 }]);

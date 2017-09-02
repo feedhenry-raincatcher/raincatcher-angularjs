@@ -30,7 +30,7 @@ HttpDataService.prototype.list = function() {
   return this.request('/' + this.entityName, {
     method: 'GET',
     params: {
-      size: '100'
+      size: '25'
     }
   }).then(function(response) {
     // Extract data from paginated response

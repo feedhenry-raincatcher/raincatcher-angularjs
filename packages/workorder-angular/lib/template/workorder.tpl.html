@@ -8,6 +8,15 @@
       <md-divider></md-divider>
     </md-list-item>
 
+    <md-list-item class="md-2-line">
+      <md-icon md-font-set="material-icons">assignment</md-icon>
+      <div class="md-list-item-text">
+        <h3>{{workorder.title}}</h3>
+        <p>Workorder title</p>
+      </div>
+    </md-list-item>
+    <md-divider></md-divider>
+
     <md-list-item class="md-2-line" >
       <md-icon>
         <workorder-status ng-class="ctrl.getColorIcon(status)" status="status"></workorder-status>
@@ -18,15 +27,6 @@
         </div>
       </md-list-item>
     </md-button>
-    <md-divider></md-divider>
-
-    <md-list-item class="md-2-line" >
-      <md-icon md-font-set="material-icons">assignment</md-icon>
-      <div class="md-list-item-text">
-        <h3>{{workorder.title}}</h3>
-        <p>Workorder</p>
-      </div>
-    </md-list-item>
     <md-divider></md-divider>
 
     <md-list-item class="md-2-line" ng-if="workorder.startTimestamp">

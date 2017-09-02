@@ -28,7 +28,9 @@ function WorkorderFormController($scope, $state, workorderApiService, workorderF
   };
 
   self.userSelected = function(user) {
-    self.model.assignee = user.id;
+    if (user) {
+      self.model.assignee = user.id;
+    }
   };
 
   self.selectWorkorder = function(event, workorder) {

@@ -1,7 +1,7 @@
 <md-toolbar class="content-toolbar">
   <div class="md-toolbar-tools" ng-if="ctrl.workorder.id">
     <h3>
-      Work order : {{ctrl.workorder.title}}
+      Work Order : {{ctrl.workorder.title}}
     </h3>
 
     <span flex></span>
@@ -17,7 +17,6 @@
 <div class="wfm-maincol-scroll" ng-if="ctrl.workorder.id">
 
   <workorder workorder="ctrl.workorder" status="ctrl.result.status" assignee="ctrl.assignee"></workorder>
-
   <md-card ng-if="ctrl.adminMode">
     <md-progress-linear md-mode="determinate" ng-value="ctrl.progress"></md-progress-linear>
     <md-card-title>

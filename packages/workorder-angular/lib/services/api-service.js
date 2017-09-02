@@ -1,9 +1,8 @@
 var CONSTANTS = require('../constants');
 
-function WorkorderApiService(config, workorderService, workflowService, resultService, userService) {
+function WorkorderApiService(config, workorderService, workflowService, userService) {
   this.workorderService = workorderService;
   this.workflowService = workflowService;
-  this.resultService = resultService;
   this.userService = userService;
 }
 
@@ -44,10 +43,6 @@ WorkorderApiService.prototype.readUser = function(userId) {
   return this.userService.readUserById(userId);
 };
 
-WorkorderApiService.prototype.getResultByWorkorder = function(workorderId) {
-  return this.resultService.readByWorkorder(workorderId);
-};
-
 WorkorderApiService.prototype.subscribeToWokorderUpdates = function(functionToCall) {
   if (this.workorderService.subscribeToDatasetUpdates) {
     // Subscribe only when dataset implementation support that method
@@ -55,7 +50,6 @@ WorkorderApiService.prototype.subscribeToWokorderUpdates = function(functionToCa
   }
 };
 
-angular.module(CONSTANTS.WORKORDER_DIRECTIVE).service(CONSTANTS.WORKORDER_API_SERVICE, ["WORKORDER_CONFIG", "workorderService", "workflowService", "resultService", "userService", function(WORKORDER_CONFIG, workorderService, workflowService, resultService, userService) {
-
-  return new WorkorderApiService(WORKORDER_CONFIG, workorderService, workflowService, resultService, userService);
+angular.module(CONSTANTS.WORKORDER_DIRECTIVE).service(CONSTANTS.WORKORDER_API_SERVICE, ["WORKORDER_CONFIG", "workorderService", "workflowService", "userService", function(WORKORDER_CONFIG, workorderService, workflowService, userService) {
+  return new WorkorderApiService(WORKORDER_CONFIG, workorderService, workflowService, userService);
 }]);

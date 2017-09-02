@@ -14,4 +14,6 @@ angular.module('wfm.common.apiservices').service("workorderService", ['syncServi
   return new SyncApiDataService(datasets.workorders, syncService);
 }]);
 
-
+angular.module('wfm.common.apiservices').service("workflowService", ['syncService', function(syncService) {
+  return new SyncApiDataService('workflows', syncService);
+}]);

@@ -17,6 +17,15 @@ ngModule.run(['$templateCache', function ($templateCache) {
     '      <md-divider></md-divider>\n' +
     '    </md-list-item>\n' +
     '\n' +
+    '    <md-list-item class="md-2-line">\n' +
+    '      <md-icon md-font-set="material-icons">assignment</md-icon>\n' +
+    '      <div class="md-list-item-text">\n' +
+    '        <h3>{{workorder.title}}</h3>\n' +
+    '        <p>Workorder title</p>\n' +
+    '      </div>\n' +
+    '    </md-list-item>\n' +
+    '    <md-divider></md-divider>\n' +
+    '\n' +
     '    <md-list-item class="md-2-line" >\n' +
     '      <md-icon>\n' +
     '        <workorder-status ng-class="ctrl.getColorIcon(status)" status="status"></workorder-status>\n' +
@@ -27,15 +36,6 @@ ngModule.run(['$templateCache', function ($templateCache) {
     '        </div>\n' +
     '      </md-list-item>\n' +
     '    </md-button>\n' +
-    '    <md-divider></md-divider>\n' +
-    '\n' +
-    '    <md-list-item class="md-2-line" >\n' +
-    '      <md-icon md-font-set="material-icons">assignment</md-icon>\n' +
-    '      <div class="md-list-item-text">\n' +
-    '        <h3>{{workorder.title}}</h3>\n' +
-    '        <p>Workorder</p>\n' +
-    '      </div>\n' +
-    '    </md-list-item>\n' +
     '    <md-divider></md-divider>\n' +
     '\n' +
     '    <md-list-item class="md-2-line" ng-if="workorder.startTimestamp">\n' +

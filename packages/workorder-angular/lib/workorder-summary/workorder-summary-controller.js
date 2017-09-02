@@ -10,21 +10,15 @@ function WorkorderSummaryController($scope, $mdDialog, $state, $stateParams, wor
     //Need to read the workorder from the state parameter
     var workorderPromise = workorderApiService.readWorkorder(workorderId);
 
-    var workflowPromise = workorderPromise.then(function(workorder) {
-      return workorderApiService.readWorkflow(workorder.workflowId);
-    });
-
-    var resultPromise = workorderApiService.getResultByWorkorder(workorderId);
-
     var workerPromise = workorderPromise.then(function(workorder) {
       return workorder && workorder.assignee ? workorderApiService.readUser(workorder.assignee) : null;
     });
-    $q.all([workorderPromise, workflowPromise, resultPromise, workerPromise])
+    $q.all([workorderPromise, workerPromise])
       .then(function(results) {
         self.workorder = results[0];
-        self.workflow = results[1];
-        self.result = results[2];
-        self.assignee = results[3];
+        self.workflow = self.workorder.workflow;
+        self.result = self.workorder.results;
+        self.assignee = results[1];
       }).catch(function(err) {
         console.info("Error when refreshing workorder", err);
       });
@@ -33,8 +27,6 @@ function WorkorderSummaryController($scope, $mdDialog, $state, $stateParams, wor
   refreshWorkorderData();
   // Whenever the list is updated from the server, refresh the workorder list.
   workorderApiService.subscribeToWokorderUpdates(refreshWorkorderData.bind(self));
-
-
 
   self.delete = function(event, workorder) {
 

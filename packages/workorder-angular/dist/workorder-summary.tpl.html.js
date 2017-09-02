@@ -10,7 +10,7 @@ ngModule.run(['$templateCache', function ($templateCache) {
     '<md-toolbar class="content-toolbar">\n' +
     '  <div class="md-toolbar-tools" ng-if="ctrl.workorder.id">\n' +
     '    <h3>\n' +
-    '      Work order : {{ctrl.workorder.title}}\n' +
+    '      Work Order : {{ctrl.workorder.title}}\n' +
     '    </h3>\n' +
     '\n' +
     '    <span flex></span>\n' +
@@ -26,7 +26,6 @@ ngModule.run(['$templateCache', function ($templateCache) {
     '<div class="wfm-maincol-scroll" ng-if="ctrl.workorder.id">\n' +
     '\n' +
     '  <workorder workorder="ctrl.workorder" status="ctrl.result.status" assignee="ctrl.assignee"></workorder>\n' +
-    '\n' +
     '  <md-card ng-if="ctrl.adminMode">\n' +
     '    <md-progress-linear md-mode="determinate" ng-value="ctrl.progress"></md-progress-linear>\n' +
     '    <md-card-title>\n' +

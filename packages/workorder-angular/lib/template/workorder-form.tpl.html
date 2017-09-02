@@ -17,8 +17,8 @@
   <div layout-gt-sm="row">
     <md-input-container class="md-block" flex-gt-sm>
       <label for="workflow">Workflow</label>
-      <md-select ng-model="ctrl.model.workflowId" name="workflow" id="workflow" required>
-        <md-option ng-repeat="workflow in ctrl.workflows" value="{{workflow.id}}">{{workflow.id}} - {{workflow.title}}</md-option>
+      <md-select ng-model="ctrl.model.workflow" name="workflow" id="workflow" required>
+        <md-option ng-repeat="workflow in ctrl.workflows" value="{{workflow}}">{{workflow.title}}</md-option>
       </md-select>
       <div ng-messages="workorderForm.workflow.$error" ng-if="ctrl.submitted || workorderForm.workflow.$dirty">
         <div ng-message="required">A workflow is required.</div>
