@@ -18,7 +18,7 @@ angular.module('wfm-mobile').config(['$stateProvider', '$urlRouterProvider', cre
     userService.readUser().then(function(profileData) {
       $scope.profileData = profileData;
     }).catch(function(err) {
-      console.info(err);
+      console.error(err);
       $mdDialog.show($mdDialog.alert({
         title: 'Failed to Load Profile Data',
         textContent: 'Unable to load profile data',

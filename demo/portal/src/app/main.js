@@ -3,6 +3,9 @@
 var angular = require('angular');
 var logger = require('@raincatcher/logger');
 
+var accidentStep = require('@raincatcher-examples/step-accident');
+var vehicleInspectionStep = require('@raincatcher-examples/step-vehicle-inspection');
+
 // Create INFO logger
 logger.setLogger(new logger.ClientLogger(2));
 
@@ -22,7 +25,11 @@ angular.module('app', [
   require('@raincatcher/angularjs-workflow')({
     mode: "admin",
     listColumnViewId: "column2",
-    mainColumnViewId: "content@app"
+    mainColumnViewId: "content@app",
+    stepDefinitions: [
+      vehicleInspectionStep.definition,
+      accidentStep.definition
+    ]
   })
 ]);
 

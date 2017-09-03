@@ -9,7 +9,8 @@ angular.module(CONSTANTS.WORKFLOW_DIRECTIVE_MODULE).service(CONSTANTS.WORKFLOW_F
   //When a workflow is selected in the UI, we display the workflow details.
   flowService.goToWorkflowDetails = function(workflow) {
     $state.go('app.workflow.detail', {
-      workflowId: workflow.id
+      workflowId: workflow.id,
+      reload: true
     });
   };
   //Want to display the list of workflows.

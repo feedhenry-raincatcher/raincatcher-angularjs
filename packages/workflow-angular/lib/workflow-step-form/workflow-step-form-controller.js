@@ -1,59 +1,58 @@
 var CONSTANTS = require('../constants');
 var _ = require('lodash');
 
-function WorkflowStepFormController($scope, workflowApiService, workflowFlowService, $q, $timeout, $stateParams) {
+
+function WorkflowStepFormController($scope, workflowApiService, workflowFlowService, WORKFLOW_CONFIG, $stateParams, $q) {
   var self = this;
   self.submitted = false;
-  var existingStep;
+  self.stepDefinitions = WORKFLOW_CONFIG.stepDefinitions;
 
-  function setUpStepData() {
-
-    var step = $stateParams.code ? _.find(self.workflow.steps, function(step) {
-      return step.code === $stateParams.code;
-    }) : {
-      templates : {}
-    };
-    //If there is no step "code", we are adding a step to the workflow...
+  function setUpStepData(workflow) {
+    self.workflow = workflow;
     if (!$stateParams.code) {
       self.model = {
-        step : step,
-        workflow : self.workflow,
-        isNew : true
+        step: {},
+        workflow: self.workflow,
+        isNew: true
       };
     } else {
-      //If there is a step "code", we are editing an existing step.....
       self.model = {
-        //Whats the deal with copying?
-        workflow : self.workflow,
-        step : step
+        step: _.find(self.workflow.steps, function(step) {
+          return step.code === $stateParams.code;
+        }),
+        workflow: self.workflow,
+        isNew: false
       };
-      existingStep = self.workflow.steps.filter(function(item) {
-        return item.code === step.code;
-      }).length > 0;
     }
   }
-
-  workflowApiService.readWorkflow($stateParams.workflowId).then(function(workflow) {
-    $timeout(function() {
-      self.workflow = workflow;
-      setUpStepData();
-    });
-  });
+  if ($scope.workflow) {
+    setUpStepData($scope.workflow);
+  } else {
+    // if workflow is not supplied, get from service
+    $q.when(workflowApiService.readWorkflow($stateParams.workflowId))
+      .then(setUpStepData);
+  }
 
   self.done = function(isValid) {
     self.submitted = true;
     if (isValid) {
+      var definition = _.find(self.stepDefinitions, function(definition) {
+        return definition.code === self.model.step.code;
+      });
+      // Create a clone of model.step and merge with properties from the step definition
+      var stepData = _.assign({},  definition, self.model.step);
+      self.model.step = {};
       //we check if the step already exist or not, if it exists we remove the old element
-      if (existingStep) {
-        var updatedStepIndex = _.findIndex(self.workflow.steps, function(step) {
+      if (self.model.isNew) {
+        self.workflow.steps.push(stepData);
+      } else {
+        var existingStepIndex = _.findIndex(self.workflow.steps, function(step) {
           return step.code === $stateParams.code;
         });
-        self.workflow.steps[updatedStepIndex] = self.model.step;
-      } else {
-        self.workflow.steps.push(self.model.step);
+        self.workflow.steps[existingStepIndex] = stepData;
       }
 
-      workflowApiService.updateWorkflow(self.workflow).then(function(updatedWorkflow) {
+      $q.when(workflowApiService.updateWorkflow(self.workflow)).then(function(updatedWorkflow) {
         workflowFlowService.goToWorkflowDetails(updatedWorkflow);
       });
     }
@@ -66,4 +65,11 @@ function WorkflowStepFormController($scope, workflowApiService, workflowFlowServ
   };
 }
 
-angular.module(CONSTANTS.WORKFLOW_DIRECTIVE_MODULE).controller("WorkflowStepFormController", ['$scope', 'workflowApiService', 'workflowFlowService', '$q', '$timeout', '$stateParams', WorkflowStepFormController]);
+angular.module(CONSTANTS.WORKFLOW_DIRECTIVE_MODULE).controller("WorkflowStepFormController", [
+  '$scope',
+  'workflowApiService',
+  'workflowFlowService',
+  'WORKFLOW_CONFIG',
+  '$stateParams',
+  '$q',
+  WorkflowStepFormController]);

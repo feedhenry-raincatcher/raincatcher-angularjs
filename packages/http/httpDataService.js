@@ -11,7 +11,8 @@ HttpDataService.prototype.request = function(relativeUrl, httpConfig) {
     httpConfig.url = baseUrl + relativeUrl;
     return new Promise(function(resolve, reject) {
       self.$http(httpConfig).then(function successCallback(response) {
-        if (response.status !== 200) {
+        // Consider all 2xx responses correct
+        if ((response.status + '')[0] !== '2') {
           console.error(response);
           return reject(new Error("Network request failed with invalid status", response.status));
         }
