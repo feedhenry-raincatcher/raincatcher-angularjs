@@ -17,7 +17,7 @@ function WorkorderSummaryController($scope, $mdDialog, $state, $stateParams, wor
       .then(function(results) {
         self.workorder = results[0];
         self.workflow = self.workorder.workflow;
-        self.result = self.workorder.results;
+        self.result = self.workorder.result;
         self.assignee = results[1];
       }).catch(function(err) {
         console.info("Error when refreshing workorder", err);

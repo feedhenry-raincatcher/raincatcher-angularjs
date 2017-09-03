@@ -25,10 +25,10 @@
       </md-card-title-text>
     </md-card-title>
     <md-card-content>
-      <p class="md-body-1" ng-if="! ctrl.result.stepResults || ctrl.result.stepResults || isEmpty">
+      <p class="md-body-1" ng-if="!ctrl.result.stepResults">
         No workflow submissions.
       </p>
-      <workflow-result ng-if="ctrl.adminMode" result="ctrl.result" workflow="ctrl.workflow"></workflow-result>
+      <workflow-result result="ctrl.result" workflow="ctrl.workflow"></workflow-result>
     </md-card-content>
   </md-card>
 
