@@ -1,10 +1,9 @@
 var CONSTANTS = require('../constants');
 var _ = require('lodash');
 
-function WorkflowApiService(config, workorderService, workflowService, resultService, userService, wfmService) {
+function WorkflowApiService(config, workorderService, workflowService, userService, wfmService) {
   this.workorderService = workorderService;
   this.workflowService = workflowService;
-  this.resultService = resultService;
   this.userService = userService;
   this.wfmService = wfmService;
   this.stepDefinitions = config.stepDefinitions;
@@ -162,6 +161,6 @@ WorkflowApiService.prototype.getDefinitionForStep = function(step) {
   });
 };
 
-angular.module(CONSTANTS.WORKFLOW_DIRECTIVE_MODULE).service(CONSTANTS.WORKFLOW_API_SERVICE, ['WORKFLOW_CONFIG', "workorderService", "workflowService", "resultService", "userService", "wfmService", function(WORKFLOW_CONFIG, workorderService, workflowService, resultService, userService, wfmService) {
-  return new WorkflowApiService(WORKFLOW_CONFIG, workorderService, workflowService, resultService, userService, wfmService);
+angular.module(CONSTANTS.WORKFLOW_DIRECTIVE_MODULE).service(CONSTANTS.WORKFLOW_API_SERVICE, ['WORKFLOW_CONFIG', "workorderService", "workflowService",  "userService", "wfmService", function(WORKFLOW_CONFIG, workorderService, workflowService,  userService, wfmService) {
+  return new WorkflowApiService(WORKFLOW_CONFIG, workorderService, workflowService, userService, wfmService);
 }]);

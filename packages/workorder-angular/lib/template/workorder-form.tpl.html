@@ -15,7 +15,11 @@
 <form name="workorderForm" ng-submit="ctrl.done(workorderForm.$valid)" novalidate layout-padding layout-margin>
 
   <div layout-gt-sm="row">
-    <md-input-container class="md-block" flex-gt-sm>
+    <md-input-container class="md-block" flex-gt-sm ng-if="ctrl.model.id">
+      <label>Workflow</label>
+      <input type="text" ng-model="ctrl.model.workflow.title" ng-disabled="true">
+    </md-input-container>
+    <md-input-container class="md-block" flex-gt-sm ng-if="!ctrl.model.id">
       <label for="workflow">Workflow</label>
       <md-select ng-model="ctrl.model.workflow" name="workflow" id="workflow" required>
         <md-option ng-repeat="workflow in ctrl.workflows" value="{{workflow}}">{{workflow.title}}</md-option>
