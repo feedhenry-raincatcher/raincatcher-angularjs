@@ -30,8 +30,14 @@ function WorkflowFormController($scope, workflowService, workflowFlowService, $s
     self.submitted = true;
     if (isValid) {
       var hasId = self.model.id;
-      var createUpdatePromise = hasId ? workflowService.update(self.model) : workflowService.create(self.model);
-
+      var createUpdatePromise;
+      if (hasId) {
+        self.model.version = self.model.version + 1;
+        createUpdatePromise = workflowService.update(self.model)
+      } else {
+        self.model.version = 1;
+        createUpdatePromise = workflowService.create(self.model);
+      }
       createUpdatePromise.then(function(workflow) {
         workflowFlowService.goToWorkflowDetails(workflow);
       });
