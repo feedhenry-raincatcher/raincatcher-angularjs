@@ -150,17 +150,6 @@ WorkflowApiService.prototype.completeStep = function(parameters) {
   return this.wfmService.completeStep(parameters);
 };
 
-/**
- * Gets the definition for the step inside a workflow
- * @param {Step} step The step to search for
- * @return {object|undefined} The step definition
- */
-WorkflowApiService.prototype.getDefinitionForStep = function(step) {
-  return _.find(this.stepDefinitions, function(definition) {
-    return definition.code === step.code;
-  });
-};
-
 angular.module(CONSTANTS.WORKFLOW_DIRECTIVE_MODULE).service(CONSTANTS.WORKFLOW_API_SERVICE, ['WORKFLOW_CONFIG', "workorderService", "workflowService",  "userService", "wfmService", function(WORKFLOW_CONFIG, workorderService, workflowService,  userService, wfmService) {
   return new WorkflowApiService(WORKFLOW_CONFIG, workorderService, workflowService, userService, wfmService);
 }]);
