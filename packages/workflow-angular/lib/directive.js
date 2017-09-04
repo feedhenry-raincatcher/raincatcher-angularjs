@@ -14,9 +14,6 @@ module.exports = function(config) {
   //Adding any html templates to the $template cache for this module.
   require('../dist');
 
-  //Workflow api facade
-  require('./services/api-service');
-
   //Creating the service that interacts with angular router
   require('./services/flow-service');
 

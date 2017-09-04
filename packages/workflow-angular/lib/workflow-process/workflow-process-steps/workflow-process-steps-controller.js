@@ -9,12 +9,12 @@ var CONSTANTS = require('../../constants');
  *
  * @param $scope
  * @param $state
- * @param workflowApiService
+ * @param wfmService
  * @param $timeout
  * @param $stateParams
  * @constructor
  */
-function WorkflowProcessStepsController($scope, $state, workflowApiService, $timeout, $stateParams) {
+function WorkflowProcessStepsController($scope, $state, wfmService, $timeout, $stateParams) {
   var self = this;
   var workorderId = $stateParams.workorderId;
 
@@ -44,18 +44,18 @@ function WorkflowProcessStepsController($scope, $state, workflowApiService, $tim
   }
 
   self.back = function() {
-    workflowApiService.previousStep(workorderId).then(function(workflowSummary) {
+    wfmService.previousStep(workorderId).then(function(workflowSummary) {
       updateWorkflowState(workflowSummary);
     });
   };
 
   //Beginning the workflow
-  workflowApiService.workflowSummary(workorderId).then(function(workflowSummary) {
+  wfmService.beginWorkflow(workorderId).then(function(workflowSummary) {
     updateWorkflowState(workflowSummary);
   });
 
   self.triggerCompleteStep = function(submission) {
-    workflowApiService.completeStep({
+    wfmService.completeStep({
       workorderId: workorderId,
       submission: submission,
       stepCode: self.stepCurrent.code
@@ -69,4 +69,4 @@ function WorkflowProcessStepsController($scope, $state, workflowApiService, $tim
   };
 }
 
-angular.module(CONSTANTS.WORKFLOW_DIRECTIVE_MODULE).controller('WorkflowProcessStepsController', ['$scope', '$state', 'workflowApiService', '$timeout', '$stateParams', WorkflowProcessStepsController]);
+angular.module(CONSTANTS.WORKFLOW_DIRECTIVE_MODULE).controller('WorkflowProcessStepsController', ['$scope', '$state', 'wfmService', '$timeout', '$stateParams', WorkflowProcessStepsController]);

@@ -5,30 +5,30 @@ var CONSTANTS = require('../../constants');
  * Controller for starting a workflow process.
  *
  * @param $state
- * @param workflowApiService
+ * @param workflowService
  * @param $stateParams
  * @param $timeout
  * @constructor
  */
-function WorkflowProcessBeginController($state, workflowApiService, $stateParams) {
+function WorkflowProcessBeginController($state, workorderService, wfmService, $stateParams) {
   var self = this;
 
   var workorderId = $stateParams.workorderId;
-  workflowApiService.workflowSummary(workorderId).then(function(summary) {
-    self.workorder = summary.workorder;
-    self.workflow = summary.workflow;
-    self.status = summary.workflow.status;
-    self.stepIndex = summary.nextStepIndex;
-    self.result = summary.result;
-    self.notCompleted = summary.nextStepIndex < self.workflow.steps.length;
+  workorderService.read(workorderId).then(function(workorder) {
+    self.workorder = workorder;
+    self.workflow = workorder.workflow;
+    self.status = workorder.status;
+    self.stepIndex = workorder.nextStepIndex;
+    self.result = workorder.result;
+    self.notCompleted = workorder.nextStepIndex < self.workflow.steps.length;
   });
 
   self.begin = function() {
     var operationPromise;
     if (!self.result) {
-      operationPromise = workflowApiService.beginWorkflow(workorderId);
+      operationPromise = wfmService.beginWorkflow(workorderId);
     } else {
-      operationPromise = workflowApiService.workflowSummary(workorderId);
+      operationPromise = wfmService.workflowSummary(workorderId);
     }
     operationPromise.then(function() {
       $state.go('app.workflowProcess.steps', {
@@ -39,4 +39,4 @@ function WorkflowProcessBeginController($state, workflowApiService, $stateParams
 }
 
 
-angular.module(CONSTANTS.WORKFLOW_DIRECTIVE_MODULE).controller('WorkflowProcessBeginController', ['$state', 'workflowApiService', '$stateParams', '$timeout', WorkflowProcessBeginController]);
+angular.module(CONSTANTS.WORKFLOW_DIRECTIVE_MODULE).controller('WorkflowProcessBeginController', ['$state', 'workorderService', 'wfmService', '$stateParams', '$timeout', WorkflowProcessBeginController]);

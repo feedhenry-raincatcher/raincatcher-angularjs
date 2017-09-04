@@ -8,12 +8,12 @@ var CONSTANTS = require('../constants');
  * @param $scope
  * @param $mdDialog
  * @param $stateParams
- * @param workflowApiService
+ * @param workflowService
  * @param $timeout
  * @param $q
  * @constructor
  */
-function WorkflowDetailController($scope, $mdDialog, $stateParams, workflowApiService, workflowFlowService, $q) {
+function WorkflowDetailController($scope, $mdDialog, $stateParams, workflowService, workorderService, workflowFlowService, $q) {
   var self = this;
   self.workflow = null;
 
@@ -21,11 +21,14 @@ function WorkflowDetailController($scope, $mdDialog, $stateParams, workflowApiSe
   self.dragControlListeners = {
     containment: '#stepList',
     orderChanged :  function() {
-      workflowApiService.updateWorkflow(self.workflow);
+      workflowService.update(self.workflow);
     }
   };
 
-  $q.all([workflowApiService.readWorkflow($stateParams.workflowId), workflowApiService.listWorkorders()]).then(function(results) {
+  $q.all([
+    workflowService.read($stateParams.workflowId),
+    workorderService.list()
+  ]).then(function(results) {
     self.workflow = results[0];
     self.workorders = results[1];
   });
@@ -67,7 +70,7 @@ function WorkflowDetailController($scope, $mdDialog, $stateParams, workflowApiSe
 
     showDeleteDialog(self.workorders, event)
       .then(function() {
-        return workflowApiService.removeWorkflow(workflow);
+        return workflowService.remove(workflow);
       })
       .then(function() {
         workflowFlowService.goToWorkflowList();
@@ -83,7 +86,7 @@ function WorkflowDetailController($scope, $mdDialog, $stateParams, workflowApiSe
       if (workflow.steps[stepIndex].code === step.code) {
         workflow.steps.splice(stepIndex, 1);
       }
-      workflowApiService.updateWorkflow(workflow)
+      workflowService.update(workflow)
         .then(function(_workflow) {
           workflowFlowService.goToWorkflowDetails(_workflow);
         });
@@ -91,4 +94,4 @@ function WorkflowDetailController($scope, $mdDialog, $stateParams, workflowApiSe
   };
 }
 
-angular.module(CONSTANTS.WORKFLOW_DIRECTIVE_MODULE).controller('WorkflowDetailController', ['$scope', '$mdDialog', '$stateParams', 'workflowApiService', 'workflowFlowService', '$q', WorkflowDetailController]);
+angular.module(CONSTANTS.WORKFLOW_DIRECTIVE_MODULE).controller('WorkflowDetailController', ['$scope', '$mdDialog', '$stateParams', 'workflowService', 'workorderService', 'workflowFlowService', '$q', WorkflowDetailController]);

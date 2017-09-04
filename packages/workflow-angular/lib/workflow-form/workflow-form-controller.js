@@ -4,19 +4,19 @@ var CONSTANTS = require('../constants');
 /**
  * Controller for editing / creating Workflows
  * @param $scope
- * @param workflowApiService
+ * @param workflowService
  * @param $stateParams
  * @param $q
  * @param $timeout
  * @constructor
  */
-function WorkflowFormController($scope, workflowApiService, workflowFlowService, $stateParams, $q, $timeout) {
+function WorkflowFormController($scope, workflowService, workflowFlowService, $stateParams, $q, $timeout) {
   var self = this;
   self.model = false;
   self.submitted = false;
 
   //If there is no workflow ID, then we are creating a new workflow.
-  var workflowPromise = $stateParams.workflowId ? workflowApiService.readWorkflow($stateParams.workflowId) : $q.when({
+  var workflowPromise = $stateParams.workflowId ? workflowService.read($stateParams.workflowId) : $q.when({
     steps: []
   });
 
@@ -31,7 +31,7 @@ function WorkflowFormController($scope, workflowApiService, workflowFlowService,
     self.submitted = true;
     if (isValid) {
       var hasId = self.model.id;
-      var createUpdatePromise = hasId ? workflowApiService.updateWorkflow(self.model) : workflowApiService.createWorkflow(self.model);
+      var createUpdatePromise = hasId ? workflowService.update(self.model) : workflowService.create(self.model);
 
       createUpdatePromise.then(function(workflow) {
         workflowFlowService.goToWorkflowDetails(workflow);
@@ -50,4 +50,4 @@ function WorkflowFormController($scope, workflowApiService, workflowFlowService,
   };
 }
 
-angular.module(CONSTANTS.WORKFLOW_DIRECTIVE_MODULE).controller("WorkflowFormController", ['$scope', 'workflowApiService', 'workflowFlowService', '$stateParams', '$q', '$timeout', WorkflowFormController]);
+angular.module(CONSTANTS.WORKFLOW_DIRECTIVE_MODULE).controller("WorkflowFormController", ['$scope', 'workflowService', 'workflowFlowService', '$stateParams', '$q', '$timeout', WorkflowFormController]);

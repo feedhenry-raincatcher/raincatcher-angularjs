@@ -6,13 +6,13 @@ var CONSTANTS = require('../../constants');
  *
  * @param $scope
  * @param $stateParams
- * @param workflowApiService
+ * @param workorderService
  * @constructor
  */
-function WorkflowProcessToolbarController($scope, $stateParams, workflowApiService, workflowFlowService) {
+function WorkflowProcessToolbarController($scope, $stateParams, workorderService, workflowFlowService) {
   var workorderId = $stateParams.workorderId;
 
-  workflowApiService.readWorkorder(workorderId).then(function(workorder) {
+  workorderService.read(workorderId).then(function(workorder) {
     $scope.workorder = workorder;
   });
 
@@ -22,5 +22,5 @@ function WorkflowProcessToolbarController($scope, $stateParams, workflowApiServi
   };
 }
 
-angular.module(CONSTANTS.WORKFLOW_DIRECTIVE_MODULE).controller('ProcessToolbarController', ['$scope', '$stateParams', 'workflowApiService', 'workflowFlowService', WorkflowProcessToolbarController]);
+angular.module(CONSTANTS.WORKFLOW_DIRECTIVE_MODULE).controller('ProcessToolbarController', ['$scope', '$stateParams', 'workorderService', 'workflowFlowService', WorkflowProcessToolbarController]);
 
