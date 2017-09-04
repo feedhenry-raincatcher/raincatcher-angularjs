@@ -1,6 +1,6 @@
 var CONSTANTS = require('../constants');
 var _ = require('lodash');
-
+var shortid = require('shortid');
 
 function WorkflowStepFormController($scope, workflowService, workflowFlowService, WORKFLOW_CONFIG, $stateParams, $q) {
   var self = this;
@@ -40,7 +40,10 @@ function WorkflowStepFormController($scope, workflowService, workflowFlowService
         return definition.code === self.model.step.code;
       });
       // Create a clone of model.step and merge with properties from the step definition
-      var stepData = _.assign({},  definition, self.model.step);
+      var stepData = _.assign({}, definition, self.model.step);
+      // Assign id to step so it can be referenced without using code
+      stepData.id = shortid.generate()
+
       self.model.step = {};
       //we check if the step already exist or not, if it exists we remove the old element
       if (self.model.isNew) {
