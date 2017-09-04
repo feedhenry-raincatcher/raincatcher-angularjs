@@ -18,9 +18,11 @@ function WorkflowProcessBeginController($state, workorderService, wfmService, $s
     self.workorder = workorder;
     self.workflow = workorder.workflow;
     self.status = workorder.status;
-    self.stepIndex = workorder.nextStepIndex;
+    // TODO: update step index logic
+    // self.stepIndex = workorder.nextStepIndex;
+    self.stepIndex = 0;
     self.result = workorder.result;
-    self.notCompleted = workorder.nextStepIndex < self.workflow.steps.length;
+    self.notCompleted = self.stepIndex < self.workflow.steps.length;
   });
 
   self.begin = function() {
@@ -28,7 +30,7 @@ function WorkflowProcessBeginController($state, workorderService, wfmService, $s
     if (!self.result) {
       operationPromise = wfmService.beginWorkflow(workorderId);
     } else {
-      operationPromise = wfmService.workflowSummary(workorderId);
+      operationPromise = workorderService.read(workorderId);
     }
     operationPromise.then(function() {
       $state.go('app.workflowProcess.steps', {
