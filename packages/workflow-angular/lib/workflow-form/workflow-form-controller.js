@@ -24,7 +24,6 @@ function WorkflowFormController($scope, workflowService, workflowFlowService, $s
     $timeout(function() {
       self.model = workflow;
     });
-
   });
 
   self.done = function(isValid) {

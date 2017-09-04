@@ -46,7 +46,7 @@ function WorkorderFormController($scope, $state, workorderApiService, workorderF
   self.done = function(isValid) {
     self.submitted = true;
     if (isValid) {
-      var workorderToCreate = JSON.parse(angular.toJson(self.model));
+      var workorderToCreate = self.model;
       var createUpdatePromise;
       if (!self.model.id && self.model.id !== 0) {
         self.model.id = shortid.generate();

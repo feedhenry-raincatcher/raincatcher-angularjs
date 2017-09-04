@@ -31,7 +31,7 @@ ngModule.run(['$templateCache', function ($templateCache) {
     '    <md-input-container class="md-block" flex-gt-sm ng-if="!ctrl.model.id">\n' +
     '      <label for="workflow">Workflow</label>\n' +
     '      <md-select ng-model="ctrl.model.workflow" name="workflow" id="workflow" required>\n' +
-    '        <md-option ng-repeat="workflow in ctrl.workflows" value="{{workflow}}">{{workflow.title}}</md-option>\n' +
+    '        <md-option ng-repeat="workflow in ctrl.workflows" ng-value="workflow">{{workflow.title}}</md-option>\n' +
     '      </md-select>\n' +
     '      <div ng-messages="workorderForm.workflow.$error" ng-if="ctrl.submitted || workorderForm.workflow.$dirty">\n' +
     '        <div ng-message="required">A workflow is required.</div>\n' +
