@@ -3,7 +3,7 @@
 
   <workorder workorder="ctrl.workorder" status="ctrl.workorder.status"></workorder>
   <div ng-if="!ctrl.completed" class="workflow-actions md-padding md-whiteframe-z4">
-    <md-button ng-click="ctrl.begin()" class="md-primary">
+    <md-button aria-label="Begin Workflow" ng-click="ctrl.begin()" class="md-primary">
       <span ng-if="!ctrl.started">Start Workflow</span>
       <span ng-if="ctrl.started">Continue Workflow</span>
     </md-button>
