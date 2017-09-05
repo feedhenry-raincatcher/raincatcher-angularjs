@@ -2,7 +2,6 @@ var CONSTANTS = require('../../constants');
 
 
 /**
- *
  * Lots of this will move to core.
  *
  * Here, we render the current step of the workflow to the user.
@@ -18,28 +17,29 @@ function WorkflowProcessStepsController($scope, $state, wfmService, $timeout, $s
   var self = this;
   var workorderId = $stateParams.workorderId;
 
-  function updateWorkflowState(summary) {
+  function updateWorkflowState(workorder) {
     //If the workflow is complete, then we can switch to the summary view.
-    if (summary.result && summary.result.status === CONSTANTS.STATUS.COMPLETE_DISPLAY) {
+    if (wfmService.isCompleted(workorder)) {
       return $state.go('app.workflowProcess.complete', {
-        workorderId: summary.workorder.id
+        workorderId: workorder.id
       });
     }
 
     //If the next step is < 0 then we are going back to the beginning
-    if (summary.nextStepIndex < 0) {
+    if (wfmService.isOnStep(workorder)) {
       return $state.go('app.workflowProcess.begin', {
-        workorderId: summary.workorder.id
+        workorderId: workorder.id
       });
     }
 
     //Otherwise, render the next step in the workflow.
     $timeout(function() {
-      self.workorder = summary.workorder;
-      self.workflow = summary.workflow;
-      self.result = summary.result;
-      self.stepIndex = summary.nextStepIndex;
-      self.stepCurrent = summary.step;
+      self.workorder = workorder;
+      self.workflow = workorder.workflow;
+      self.result = workorder.results;
+      // TODO
+      self.stepIndex = 0
+      self.stepCurrent = workorder.currentStep;
     });
   }
 
@@ -50,8 +50,8 @@ function WorkflowProcessStepsController($scope, $state, wfmService, $timeout, $s
   };
 
   //Beginning the workflow
-  wfmService.beginWorkflow(workorderId).then(function(workflowSummary) {
-    updateWorkflowState(workflowSummary);
+  wfmService.readWorkOrder(workorderId).then(function(workorder) {
+    updateWorkflowState(workorder);
   });
 
   self.triggerCompleteStep = function(submission) {

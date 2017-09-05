@@ -4,11 +4,8 @@ module.exports = {
   WORKFLOW: "workflow",
   WORKFLOW_FLOW_SERVICE: "workflowFlowService",
   STATUS: {
-    COMPLETE: "complete",
-    COMPLETE_DISPLAY: "Complete",
-    PENDING: "pending",
-    PENDING_DISPLAY: "In Progress",
-    NEW_DISPLAY: "New",
-    UNASSIGNED_DISPLAY: "Unassigned"
+    COMPLETE: "Complete",
+    PENDING: "Pending",
+    NEW: "New",
   }
 };

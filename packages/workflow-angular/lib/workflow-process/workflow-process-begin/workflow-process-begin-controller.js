@@ -1,7 +1,6 @@
 var CONSTANTS = require('../../constants');
 
 /**
- *
  * Controller for starting a workflow process.
  *
  * @param $state
@@ -17,26 +16,19 @@ function WorkflowProcessBeginController($state, workorderService, wfmService, $s
   workorderService.read(workorderId).then(function(workorder) {
     self.workorder = workorder;
     self.workflow = workorder.workflow;
-    self.status = workorder.status;
-    // TODO: update step index logic
-    // self.stepIndex = workorder.nextStepIndex;
-    self.stepIndex = 0;
     self.result = workorder.result;
-    self.notCompleted = self.stepIndex < self.workflow.steps.length;
+    self.started = !wfmService.isNew(self.workorder);
+    self.completed = wfmService.isCompleted(self.workorder);
   });
 
   self.begin = function() {
     var operationPromise;
-    if (!self.result) {
-      operationPromise = wfmService.beginWorkflow(workorderId);
-    } else {
-      operationPromise = workorderService.read(workorderId);
-    }
-    operationPromise.then(function() {
-      $state.go('app.workflowProcess.steps', {
-        workorderId: workorderId
+    wfmService.begin(self.workorder)
+      .then(function() {
+        $state.go('app.workflowProcess.steps', {
+          workorderId: workorderId
+        });
       });
-    });
   };
 }
 
