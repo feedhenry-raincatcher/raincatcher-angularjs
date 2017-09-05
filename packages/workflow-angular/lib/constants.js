@@ -2,7 +2,6 @@ module.exports = {
   WORKFLOW_MODULE_ID: "wfm.workflow",
   WORKFLOW_DIRECTIVE_MODULE: "wfm.workflow.directives",
   WORKFLOW: "workflow",
-  WORKFLOW_API_SERVICE: "workflowApiService",
   WORKFLOW_FLOW_SERVICE: "workflowFlowService",
   STATUS: {
     COMPLETE: "complete",
