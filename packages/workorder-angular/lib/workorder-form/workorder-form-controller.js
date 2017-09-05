@@ -50,6 +50,7 @@ function WorkorderFormController($scope, $state, workorderService, workflowServi
       var createUpdatePromise;
       if (!self.model.id && self.model.id !== 0) {
         self.model.id = shortid.generate();
+        self.model.status = CONSTANTS.STATUS.NEW_DISPLAY;
         createUpdatePromise = workorderService.create(workorderToCreate);
       } else {
         createUpdatePromise = workorderService.update(workorderToCreate);
