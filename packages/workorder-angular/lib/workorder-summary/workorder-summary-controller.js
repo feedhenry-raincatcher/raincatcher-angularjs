@@ -1,6 +1,6 @@
 var CONSTANTS = require('../constants');
 
-function WorkorderSummaryController($scope, $mdDialog, $state, $stateParams, workorderApiService, $q, WORKORDER_CONFIG) {
+function WorkorderSummaryController($scope, $mdDialog, $state, $stateParams, workorderService, userService, $q, WORKORDER_CONFIG) {
   var self = this;
 
   self.adminMode = WORKORDER_CONFIG.adminMode;
@@ -8,10 +8,10 @@ function WorkorderSummaryController($scope, $mdDialog, $state, $stateParams, wor
   function refreshWorkorderData() {
     var workorderId = $stateParams.workorderId;
     //Need to read the workorder from the state parameter
-    var workorderPromise = workorderApiService.readWorkorder(workorderId);
+    var workorderPromise = workorderService.read(workorderId);
 
     var workerPromise = workorderPromise.then(function(workorder) {
-      return workorder && workorder.assignee ? workorderApiService.readUser(workorder.assignee) : null;
+      return workorder && workorder.assignee ? workorderService.readUser(workorder.assignee) : null;
     });
     $q.all([workorderPromise, workerPromise])
       .then(function(results) {
@@ -20,13 +20,14 @@ function WorkorderSummaryController($scope, $mdDialog, $state, $stateParams, wor
         self.result = self.workorder.result;
         self.assignee = results[1];
       }).catch(function(err) {
-        console.info("Error when refreshing workorder", err);
+        console.error("Error when refreshing workorder", err);
       });
   }
 
   refreshWorkorderData();
   // Whenever the list is updated from the server, refresh the workorder list.
-  workorderApiService.subscribeToWokorderUpdates(refreshWorkorderData.bind(self));
+  var subscribe = workorderService.subscribeToDatasetUpdates;
+  subscribe && subscribe(refreshWorkorderData.bind(self));
 
   self.delete = function(event, workorder) {
 
@@ -43,7 +44,7 @@ function WorkorderSummaryController($scope, $mdDialog, $state, $stateParams, wor
       .ok('Proceed')
       .cancel('Cancel');
     $mdDialog.show(confirm).then(function() {
-      return workorderApiService.removeWorkorder(workorder)
+      return workorderService.remove(workorder)
         .then(function() {
           //Finished removing the workorder, go back to the list.
           $state.go('app.workorder', null, { reload: true });
@@ -56,4 +57,4 @@ function WorkorderSummaryController($scope, $mdDialog, $state, $stateParams, wor
 }
 
 
-angular.module(CONSTANTS.WORKORDER_DIRECTIVE).controller('WorkorderSummaryController', ['$scope', '$mdDialog', '$state', '$stateParams', 'workorderApiService', '$q', 'WORKORDER_CONFIG', WorkorderSummaryController]);
+angular.module(CONSTANTS.WORKORDER_DIRECTIVE).controller('WorkorderSummaryController', ['$scope', '$mdDialog', '$state', '$stateParams', 'workorderService', 'userService', '$q', 'WORKORDER_CONFIG', WorkorderSummaryController]);
