@@ -13,7 +13,3 @@ var datasets = config.datasetIds;
 angular.module('wfm.common.apiservices').service("workorderService", ['syncService', function(syncService) {
   return new SyncApiDataService(datasets.workorders, syncService);
 }]);
-
-angular.module('wfm.common.apiservices').service("workflowService", ['syncService', function(syncService) {
-  return new SyncApiDataService('workflows', syncService);
-}]);
