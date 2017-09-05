@@ -22,13 +22,13 @@ function WorkflowProcessBeginController($state, workorderService, wfmService, $s
   });
 
   self.begin = function() {
-    var operationPromise;
     wfmService.begin(self.workorder)
       .then(function() {
         $state.go('app.workflowProcess.steps', {
           workorderId: workorderId
         });
-      });
+      })
+      .catch(console.error.bind(console));
   };
 }
 
