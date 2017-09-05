@@ -17,12 +17,14 @@ function WorkorderListController($scope, workorderService, workorderFlowService,
       self.workorders = workorders;
     });
   }
-
   refreshWorkorderData();
 
   //Whenever the list is updated from the server, refresh the workorder list.
   var subscribe = workorderService.subscribeToDatasetUpdates;
-  subscribe && subscribe(refreshWorkorderData.bind(self));
+  if (subscribe) {
+    var updateMethod = refreshWorkorderData.bind(self);
+    subscribe.bind(workorderService)(updateMethod);
+  }
 
   self.selectWorkorder = function(event, workorder) {
     workorderFlowService.workorderSelected(workorder);

@@ -25,9 +25,13 @@ function WorkorderSummaryController($scope, $mdDialog, $state, $stateParams, wor
   }
 
   refreshWorkorderData();
-  // Whenever the list is updated from the server, refresh the workorder list.
+
+  //Whenever the list is updated from the server, refresh the workorder list.
   var subscribe = workorderService.subscribeToDatasetUpdates;
-  subscribe && subscribe(refreshWorkorderData.bind(self));
+  if (subscribe) {
+    var updateMethod = refreshWorkorderData.bind(self);
+    subscribe.bind(workorderService)(updateMethod);
+  }
 
   self.delete = function(event, workorder) {
 
