@@ -16,7 +16,7 @@ function WorkflowProcessBeginController($state, workorderService, wfmService, $s
   workorderService.read(workorderId).then(function(workorder) {
     self.workorder = workorder;
     self.workflow = workorder.workflow;
-    self.result = workorder.result;
+    self.results = workorder.results;
     self.started = !wfmService.isNew(self.workorder);
     self.completed = wfmService.isCompleted(self.workorder);
   });
