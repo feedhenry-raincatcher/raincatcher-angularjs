@@ -31,8 +31,6 @@ angular.module('wfm-mobile', [
     mainColumnViewId: "content@app",
     toolbarViewId: "toolbar@app"
   }),
-  require('@raincatcher-examples/step-vehicle-inspection'),
-  require('@raincatcher-examples/step-accident'),
   vehicleInspectionStep.ngModule(),
   accidentStep.ngModule()
 ]);
