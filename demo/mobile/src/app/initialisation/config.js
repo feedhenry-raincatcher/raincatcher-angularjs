@@ -16,6 +16,7 @@ angular.module('wfm-mobile').config(['$stateProvider', '$urlRouterProvider', cre
   '$rootScope', '$scope', '$state', '$mdSidenav', 'userService', '$mdDialog',
   function($rootScope, $scope, $state, $mdSidenav, userService, $mdDialog) {
     userService.readUser().then(function(profileData) {
+      console.log('Reading user', profileData);
       if (profileData) {
         $scope.profileData = profileData;
       } else {
