@@ -39,9 +39,9 @@ ngModule.run(['$templateCache', function ($templateCache) {
     '      </form>\n' +
     '    </div>\n' +
     '\n' +
-    '    <!--<div ng-show="ctrl.hasProfileData">\n' +
+    '    <div ng-show="ctrl.hasProfileData">\n' +
     '      <md-button class="md-raised md-primary md-hue-2" ng-click="ctrl.logout()">Log out</md-button>\n' +
-    '    </div>-->\n' +
+    '    </div>\n' +
     '\n' +
     '    <p ng-hide="ctrl.hasProfileData" class="md-body-1">Trouble logging in? Contact the switchboard.</p>\n' +
     '\n' +
@@ -49,6 +49,6 @@ ngModule.run(['$templateCache', function ($templateCache) {
     '\n' +
     '  </div>\n' +
     '\n' +
-    '</div><!-- login -->\n' +
+    '</div>\n' +
     '');
 }]);

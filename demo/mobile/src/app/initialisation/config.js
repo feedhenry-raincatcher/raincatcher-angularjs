@@ -13,12 +13,13 @@ function createMainAppRoute($stateProvider, $urlRouterProvider) {
 }
 
 angular.module('wfm-mobile').config(['$stateProvider', '$urlRouterProvider', createMainAppRoute]).controller('mainController', [
-  '$rootScope', '$scope', '$state', '$mdSidenav', 'userService', '$mdDialog',
-  function($rootScope, $scope, $state, $mdSidenav, userService, $mdDialog) {
+  '$rootScope', '$scope', '$state', '$mdSidenav', 'userService', '$mdDialog', 'syncGlobalManager', 'workflowService', 'workorderService', 'resultService',
+  function($rootScope, $scope, $state, $mdSidenav, userService, $mdDialog, syncGlobalManager, workflowService, workoderService, resultService) {
     userService.readUser().then(function(profileData) {
       console.log('Reading user', profileData);
       if (profileData) {
         $scope.profileData = profileData;
+        syncGlobalManager.syncManagerMap(profileData);
       } else {
         userService.login();
       }
