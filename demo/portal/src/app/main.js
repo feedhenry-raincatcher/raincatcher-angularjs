@@ -12,7 +12,7 @@ logger.setLogger(new logger.ClientLogger(2));
 angular.module('app', [
   require('angular-ui-router'),
   require('angular-material'),
-  require('@raincatcher/angularjs-auth-passport')('app', false),
+  require('./passport'),
   require('./services'),
   require('@raincatcher/angularjs-http'),
   require('ng-sortable'),

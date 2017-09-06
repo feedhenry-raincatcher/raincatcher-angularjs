@@ -27,8 +27,6 @@ function AppConfig($stateProvider, $urlRouterProvider) {
         userService.readUser().then(function(profileData) {
           if (profileData) {
             $scope.profileData = profileData;
-          } else {
-            userService.login();
           }
         }).catch(function(err) {
           console.info(err);
