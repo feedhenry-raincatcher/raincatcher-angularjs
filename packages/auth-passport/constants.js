@@ -1,5 +1,5 @@
 module.exports = {
-  PROFILE_URL: '/profile',
-  LOGIN_URL: '/login',
+  PROFILE_URL: '/user/profile',
+  LOGIN_URL: '/cookie-login',
   LOGOUT_URL: '/logout'
 }

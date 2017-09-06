@@ -3,14 +3,12 @@ var CONSTANTS = require('./constants');
 var $fh = require('fh-js-sdk');
 var cloudUrl;
 var userProfile;
-var USER_CACHE_KEY = 'rcuser_profile';
 
-function PassportAuthService($http, $window, $mdDialog, $state, isMobile) {
+var PassportAuthService = function PassportAuthService($http, $window, $mdDialog, $state) {
   this.http = $http;
   this.window = $window;
   this.dialog = $mdDialog;
   this.state = $state;
-  this.isMobile = isMobile;
   this.init();
 }
 
@@ -18,57 +16,52 @@ function PassportAuthService($http, $window, $mdDialog, $state, isMobile) {
  * Initializes $fh and retrieves the server's URL.
  */
 PassportAuthService.prototype.init = function() {
+  var self = this;
   $fh.on('fhinit', function(error) {
     if (error) {
       logger.error('Unable to initialize auth service due to unsuccessful $fh.init', error);
     } else {
-      cloudUrl = decodeURIComponent($fh.getCloudURL());
+      self.setCloudUrl();
     }
   });
 }
 
 /**
- * TODO: update this description
+ * Sets the cloud URL
+ */
+PassportAuthService.prototype.setCloudUrl = function() {
+  // Note: decodeURIComponent is used for backwards compatability from Keycloak to Passport  
+  cloudUrl = decodeURIComponent($fh.getCloudURL());
+}
+
+/**
+ * Retrieves the cloud URL
+ */
+PassportAuthService.prototype.getCloudUrl = function() {
+  return cloudUrl;
+}
+/**
  * Sends a request to the profile endpoint to retrieve the user's profile data.
  * @returns Returns the profile data retrieved from the server.
  */
 PassportAuthService.prototype.getProfile = function() {
   var self = this;
-  if (self.isMobile) {
-    return new Promise(function(resolve, reject) {
-    if (self.isMobile) {
-      var userProfile = localStorage.getItem(USER_CACHE_KEY);
-      if (userProfile) {
-        try {
-          userProfile = JSON.parse(userProfile);
-        } catch(err) {
-          return reject(new Error(err));
-        }
-      }
-    }
-    console.log('resolving userProfile: ', userProfile);
-    return resolve(userProfile);
-    });
-  }
-
-  return self.http.get('http://localhost:8001/profile').then(function(res) {
+  var url = self.getCloudUrl() + CONSTANTS.PROFILE_URL;
+  return self.http.get(url).then(function(res) {
     if (res.data) {
       return res.data;
     }
   }).catch(function(error) {
-    console.log('redirecting to portal url');
-    this.window.location = cloudUrl + CONSTANTS.LOGIN_URL;
+    self.window.location = self.getCloudUrl() + CONSTANTS.LOGIN_URL;
   });
-  
 }
-
-// Add function to save the profile data to cache
 
 /**
  * Checks if the user has the specified role
  * @param role - The required role needed by the user in order to access the resource
  */
 PassportAuthService.prototype.hasResourceRole = function(role) {
+  // TODO: this needs to be refactored
   if (userProfile.roles && userProfile.roles.length > 0) {
     return userProfile.roles.indexOf(role) > -1;
   }
@@ -79,13 +72,8 @@ PassportAuthService.prototype.hasResourceRole = function(role) {
  * Redirects to the login page
  */
 PassportAuthService.prototype.login = function() {
-  // This should add profile data to cache
-  // Login url should be configurable
-  // Login for mobile app should be a $http call to authenticate <-- this is going to be in the login-controller
-  if (this.isMobile) {
-    return this.state.go('app.login');
-  }
-  return this.window.location = cloudUrl + CONSTANTS.LOGIN_URL;
+  var self = this;
+  return self.window.location = self.getCloudUrl() + CONSTANTS.LOGIN_URL;
 }
 
 /**
@@ -93,42 +81,17 @@ PassportAuthService.prototype.login = function() {
  * Redirects the user to the login page on successful logout.
  */
 PassportAuthService.prototype.logout = function() {
-  // TODO: this should remove user profile from cache
-  // The redirection should redirect to the appropriate login pages for each apps.
-  var req = {
-    method: 'GET',
-    url: cloudUrl + CONSTANTS.LOGOUT_URL
-  };
   var self = this;
-  localStorage.clear();
-  return this.http(req, { withCredentials: true }).then(function() {
-    this.window.location = cloudUrl + CONSTANTS.LOGIN_URL;
+  var url = self.getCloudUrl() + CONSTANTS.LOGOUT_URL;
+  return self.http.get(url).then(function() {
+    self.window.location = self.getCloudUrl() + CONSTANTS.LOGIN_URL;
   }).catch(function(err) {
-    if (err.status === -1) {
-      self.dialog.show(self.dialog.alert({
-        title: 'You Are Offline',
-        textContent: 'Log out operation is not available offline, please try again.',
-        ok: 'OK'
-      }));
-    } else {
-      self.dialog.show(self.dialog.alert({
-        title: 'Logout Operation Failed',
-        textContent: 'The log out operation failed',
-        ok: 'OK'
-      }));
-    }
+    self.dialog.show(self.dialog.alert({
+      title: 'Logout Operation Failed',
+      textContent: 'The log out operation failed',
+      ok: 'OK'
+    }));
   });
 }
 
-module.exports = function(isMobile) {
-  angular.module('wfm.auth.passport').factory('authService', ['$http', '$window', '$mdDialog', '$state',
-    function($http, $window, $mdDialog, $state) {
-      return new PassportAuthService($http, $window, $mdDialog, $state, isMobile);
-    }]);
-
-  angular.module('wfm.auth.passport').config(['$httpProvider', function($httpProvider) {
-    // This property needs to be set to true in order for Passport in portal to work
-    $httpProvider.defaults.withCredentials = true;
-  }]);
-};
-
+module.exports = PassportAuthService;
