@@ -24,25 +24,20 @@ ngModule.run(['$templateCache', function ($templateCache) {
     '</md-toolbar>\n' +
     '\n' +
     '<div class="wfm-maincol-scroll" ng-if="ctrl.workorder.id">\n' +
-    '\n' +
-    '  <workorder workorder="ctrl.workorder" status="ctrl.result.status" assignee="ctrl.assignee"></workorder>\n' +
+    '  <workorder workorder="ctrl.workorder" status="ctrl.workorder.status" assignee="ctrl.assignee"></workorder>\n' +
     '  <md-card ng-if="ctrl.adminMode">\n' +
-    '    <md-progress-linear md-mode="determinate" ng-value="ctrl.progress"></md-progress-linear>\n' +
     '    <md-card-title>\n' +
-    '      <md-card-title-text>\n' +
-    '        <span class="md-headline">Workflow: {{ctrl.workflow.title}}</span>\n' +
+    '      <md-card-title-text>Workflow: {{ctrl.workflow.title}} v{{ctrl.workflow.version}}</md-card-title-text>\n' +
     '      </md-card-title-text>\n' +
     '    </md-card-title>\n' +
     '    <md-card-content>\n' +
-    '      <p class="md-body-1" ng-if="!ctrl.result.stepResults">\n' +
+    '      <p class="md-body-1" ng-if="ctrl.results.length === 0">\n' +
     '        No workflow submissions.\n' +
     '      </p>\n' +
-    '      <workflow-result result="ctrl.result" workflow="ctrl.workflow"></workflow-result>\n' +
+    '      <workorder-result ng-repeat="result in ctrl.results track by $index" result="result" step="ctrl.getStepForResult(result)"></workorder-result>\n' +
     '    </md-card-content>\n' +
     '  </md-card>\n' +
-    '\n' +
-    '</div><!-- wfm-maincol-scroll -->\n' +
-    '\n' +
+    '</div>\n' +
     '\n' +
     '<md-button ng-if="ctrl.adminMode" class="md-fab" aria-label="New Workorder" ui-sref="app.workorder.new">\n' +
     '  <md-icon md-font-set="material-icons">add</md-icon>\n' +

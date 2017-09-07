@@ -1,6 +1,7 @@
 var CONSTANTS = require('../constants');
+var _ = require('lodash');
 
-function WorkorderSummaryController($scope, $mdDialog, $state, $stateParams, workorderService, userService, $q, WORKORDER_CONFIG) {
+function WorkorderSummaryController($mdDialog, $state, $stateParams, workorderService, userService, wfmService, $q, WORKORDER_CONFIG) {
   var self = this;
 
   self.adminMode = WORKORDER_CONFIG.adminMode;
@@ -10,15 +11,17 @@ function WorkorderSummaryController($scope, $mdDialog, $state, $stateParams, wor
     //Need to read the workorder from the state parameter
     var workorderPromise = workorderService.read(workorderId);
 
-    var workerPromise = workorderPromise.then(function(workorder) {
+    var userPromise = workorderPromise.then(function(workorder) {
       return workorder && workorder.assignee ? userService.readUser(workorder.assignee) : null;
     });
-    $q.all([workorderPromise, workerPromise])
+    $q.all([workorderPromise, userPromise])
       .then(function(results) {
-        self.workorder = results[0];
-        self.workflow = self.workorder.workflow;
-        self.result = self.workorder.result;
-        self.assignee = results[1];
+        var workorder = results[0];
+        var user = results[1];
+        self.workorder = workorder;
+        self.workflow = workorder.workflow;
+        self.results = workorder.results;
+        self.assignee = user;
       }).catch(function(err) {
         console.error("Error when refreshing workorder", err);
       });
@@ -34,7 +37,6 @@ function WorkorderSummaryController($scope, $mdDialog, $state, $stateParams, wor
   }
 
   self.delete = function(event, workorder) {
-
     if (!self.adminMode) {
       return;
     }
@@ -58,7 +60,11 @@ function WorkorderSummaryController($scope, $mdDialog, $state, $stateParams, wor
         });
     });
   };
+
+  self.getStepForResult = function(result) {
+    return wfmService.getStepForResult(result, self.workorder);
+  };
 }
 
 
-angular.module(CONSTANTS.WORKORDER_DIRECTIVE).controller('WorkorderSummaryController', ['$scope', '$mdDialog', '$state', '$stateParams', 'workorderService', 'userService', '$q', 'WORKORDER_CONFIG', WorkorderSummaryController]);
+angular.module(CONSTANTS.WORKORDER_DIRECTIVE).controller('WorkorderSummaryController', ['$mdDialog', '$state', '$stateParams', 'workorderService', 'userService', 'wfmService', '$q', 'WORKORDER_CONFIG', WorkorderSummaryController]);

@@ -1,6 +1,10 @@
 <div class="workflow" ng-if="ctrl.workflow">
-  <workflow-progress workflow="ctrl.workflow" step-index="ctrl.stepIndex"></workflow-progress>
+  <workflow-progress workflow="ctrl.workflow" step-index="ctrl.workflow.steps.length"></workflow-progress>
 
-  <workorder workorder="ctrl.workorder" status="ctrl.result.status"></workorder>
-  <workflow-result result="ctrl.result" workflow="ctrl.workflow"></workflow-result>
+  <workorder workorder="ctrl.workorder" status="ctrl.workorder.status"></workorder>
+
+  <div ng-repeat="result in ctrl.results">
+    <md-divider></md-divider>
+    <workorder-result result="result" step="ctrl.getStepForResult(result)"></workorder-result>
+  </div>
 </div>

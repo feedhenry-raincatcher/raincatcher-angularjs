@@ -42,7 +42,7 @@ function WorkflowStepFormController($scope, workflowService, workflowFlowService
       // Create a clone of model.step and merge with properties from the step definition
       var stepData = _.assign({}, definition, self.model.step);
       // Assign id to step so it can be referenced without using code
-      stepData.id = shortid.generate()
+      stepData.id = shortid.generate();
 
       self.model.step = {};
       //we check if the step already exist or not, if it exists we remove the old element
