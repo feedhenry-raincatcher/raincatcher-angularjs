@@ -7,7 +7,6 @@ module.exports = function(config) {
   angular.module(CONSTANTS.WORKORDER_DIRECTIVE, [])
     .constant("WORKORDER_CONFIG", config);
 
-  require('./services/api-service'),
   require('./services/flow-service'),
 
   require('../dist');
@@ -15,7 +14,7 @@ module.exports = function(config) {
   require('./workorder-form');
   require('./workorder-list');
   require('./workorder-status');
-  require('./workorder-submission-result');
+  require('./workorder-result');
   require('./workorder-summary');
 
   return CONSTANTS.WORKORDER_DIRECTIVE;

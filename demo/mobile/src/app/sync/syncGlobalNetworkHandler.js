@@ -1,3 +1,6 @@
+/**
+ * Custom sync network handler that using angular http for requests
+ */
 module.exports = function createHandler(cloudURL, cloudPath, $http) {
   var handler = function(params, success, failure) {
     var url = cloudURL + cloudPath + params.dataset_id;

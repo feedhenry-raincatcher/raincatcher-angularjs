@@ -6,22 +6,25 @@ var CONSTANTS = require('../constants');
  * @constructor
  */
 
-function WorkorderListController($scope, workorderApiService, workorderFlowService, $q, workorderStatusService) {
+function WorkorderListController($scope, workorderService, workorderFlowService, $q, workorderStatusService) {
   var self = this;
 
   self.workorders = [];
 
   function refreshWorkorderData() {
     // Needs $q.when to trigger angular's change detection
-    $q.when(workorderApiService.listWorkorders()).then(function(workorders) {
+    $q.when(workorderService.list()).then(function(workorders) {
       self.workorders = workorders;
     });
   }
-
   refreshWorkorderData();
 
   //Whenever the list is updated from the server, refresh the workorder list.
-  workorderApiService.subscribeToWokorderUpdates(refreshWorkorderData.bind(self));
+  var subscribe = workorderService.subscribeToDatasetUpdates;
+  if (subscribe) {
+    var updateMethod = refreshWorkorderData.bind(self);
+    subscribe.bind(workorderService)(updateMethod);
+  }
 
   self.selectWorkorder = function(event, workorder) {
     workorderFlowService.workorderSelected(workorder);
@@ -43,7 +46,7 @@ function WorkorderListController($scope, workorderApiService, workorderFlowServi
         id: term
       };
 
-      $q.resolve(workorderApiService.searchWorkorders(filter)).then(function(workorders) {
+      $q.resolve(workorderService.search(filter)).then(function(workorders) {
         self.workorders = workorders;
       });
     }
@@ -58,4 +61,4 @@ function WorkorderListController($scope, workorderApiService, workorderFlowServi
   };
 }
 
-angular.module(CONSTANTS.WORKORDER_DIRECTIVE).controller('WorkorderListController', ['$scope', 'workorderApiService', 'workorderFlowService', '$q', 'workorderStatusService', WorkorderListController]);
+angular.module(CONSTANTS.WORKORDER_DIRECTIVE).controller('WorkorderListController', ['$scope', 'workorderService', 'workorderFlowService', '$q', 'workorderStatusService', WorkorderListController]);

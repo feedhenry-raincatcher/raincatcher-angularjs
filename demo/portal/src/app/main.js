@@ -30,7 +30,9 @@ angular.module('app', [
       vehicleInspectionStep.definition,
       accidentStep.definition
     ]
-  })
+  }),
+  vehicleInspectionStep.ngModule(),
+  accidentStep.ngModule()
 ]);
 
 // require('./keycloak');

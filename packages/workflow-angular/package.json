@@ -22,6 +22,7 @@
     "bluebird": "^3.5.0",
     "lodash": "4.7.0",
     "ng-feedhenry": "0.3.0",
+    "shortid": "^2.2.8",
     "string-template": "^1.0.0"
   },
   "devDependencies": {

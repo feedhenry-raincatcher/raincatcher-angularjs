@@ -4,7 +4,7 @@ var getStatusIconColor = function(status) {
   var statusIcon;
   var statusColor;
   switch (status) {
-  case 'In Progress':
+  case 'Pending':
     statusIcon = 'autorenew';
     statusColor = 'warning';
     break;
@@ -12,20 +12,8 @@ var getStatusIconColor = function(status) {
     statusIcon = 'assignment_turned_in';
     statusColor = 'success';
     break;
-  case 'Aborted':
-    statusIcon = 'assignment_late';
-    statusColor = 'danger';
-    break;
-  case 'On Hold':
-    statusIcon = 'pause';
-    statusColor = 'warning';
-    break;
-  case 'Unassigned':
-    statusIcon = 'assignment_ind';
-    statusColor = 'warning';
-    break;
   case 'New':
-    statusIcon = 'new_releases';
+    statusIcon = 'assignment_ind';
     statusColor = '';
     break;
   default:

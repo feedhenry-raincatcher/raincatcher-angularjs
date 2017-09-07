@@ -1,12 +1,15 @@
 <div class="workflow" ng-if="ctrl.workflow">
   <workflow-progress workflow="ctrl.workflow" step-index="-1"></workflow-progress>
 
-  <workorder workorder="ctrl.workorder" status="ctrl.status"></workorder>
-  <div ng-if="ctrl.notCompleted" class="workflow-actions md-padding md-whiteframe-z4">
-    <md-button ng-click="ctrl.begin()" class="md-primary">
-      <span ng-if="ctrl.stepIndex === 0">Begin Workflow</span>
-      <span ng-if="ctrl.stepIndex > 0 && ctrl.stepIndex < ctrl.workflow.steps.length">Continue Workflow</span>
+  <workorder workorder="ctrl.workorder" status="ctrl.workorder.status"></workorder>
+  <div ng-if="!ctrl.completed" class="workflow-actions md-padding md-whiteframe-z4">
+    <md-button aria-label="Begin Workflow" ng-click="ctrl.begin()" class="md-primary">
+      <span ng-if="!ctrl.started">Start Workflow</span>
+      <span ng-if="ctrl.started">Continue Workflow</span>
     </md-button>
   </div>
-  <workflow-result ng-if="ctrl.result" result="ctrl.result" workflow="ctrl.workflow"></workflow-result>
+  <div ng-repeat="result in ctrl.results">
+    <md-divider></md-divider>
+    <workorder-result result="result" step="ctrl.getStepForResult(result)"></workorder-result>
+  </div>
 </div>

@@ -6,11 +6,11 @@ var CONSTANTS = require('../constants');
  *
  * @param $scope
  * @param $stateParams
- * @param {workflowApiService} workflowApiService
+ * @param {workflowservice} workflowService
  * @param $timeout
  * @constructor
  */
-function WorkflowListController($scope, $stateParams, workflowApiService, workflowFlowService, $timeout) {
+function WorkflowListController($scope, $stateParams, workflowService, workflowFlowService, $timeout) {
   var self = this;
   self.workflows = null;
   self.selectedWorkflowId = $stateParams.workflowId;
@@ -18,7 +18,7 @@ function WorkflowListController($scope, $stateParams, workflowApiService, workfl
 
 
   function refreshWorkflows() {
-    workflowApiService.listWorkflows().then(function(workflows) {
+    workflowService.list().then(function(workflows) {
       $timeout(function() {
         _workflows = workflows;
         self.workflows = workflows;
@@ -42,4 +42,4 @@ function WorkflowListController($scope, $stateParams, workflowApiService, workfl
   };
 }
 
-angular.module(CONSTANTS.WORKFLOW_DIRECTIVE_MODULE).controller('WorkflowListController', [ '$scope',  '$stateParams', 'workflowApiService', 'workflowFlowService', '$timeout', WorkflowListController]);
+angular.module(CONSTANTS.WORKFLOW_DIRECTIVE_MODULE).controller('WorkflowListController', [ '$scope',  '$stateParams', 'workflowService', 'workflowFlowService', '$timeout', WorkflowListController]);

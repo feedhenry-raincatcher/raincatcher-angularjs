@@ -2,9 +2,7 @@
   "sync": {
     "forceSyncDelay": 6,
     "datasetIds": {
-      "workorders": "workorders",
-      "workflows": "workflows",
-      "results": "result"
+      "workorders": "workorders"
     },
     "cloudPath": "/sync/",
     "syncOptions": {
@@ -14,13 +12,8 @@
       },
       "workorders": {
         "sync_frequency": 10
-      },
-      "workflows": {
-        "sync_frequency": 60
-      },
-      "results": {
-        "sync_frequency": 60
       }
+
     }
   }
 }

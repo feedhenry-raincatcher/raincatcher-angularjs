@@ -6,7 +6,7 @@ var shortid = require("shortid");
  * Controller for editing and creating workorders.
  * @constructor
  */
-function WorkorderFormController($scope, $state, workorderApiService, workorderFlowService,
+function WorkorderFormController($scope, $state, workorderService, workflowService, workorderFlowService,
   userService, $stateParams, $q) {
   var self = this;
   var today = new Date();
@@ -20,15 +20,17 @@ function WorkorderFormController($scope, $state, workorderApiService, workorderF
   var workorderId = $stateParams.workorderId;
   //Need workorder, workflows, workers
   //If there is a workorder ID in the state URL, then we are editing a worokorder, otherwise we are creating a new one.
-  var workorderPromise = workorderId ? workorderApiService.readWorkorder(workorderId) : $q.when({});
-  var workflowsPromise = workorderApiService.listWorkflows();
+  var workorderPromise = workorderId ? workorderService.read(workorderId) : $q.when({});
+  var workflowsPromise = workflowService.list();
 
   self.userQuery = function(searchText) {
     return userService.listUsers(searchText);
   };
 
   self.userSelected = function(user) {
-    self.model.assignee = user.id;
+    if (user) {
+      self.model.assignee = user.id;
+    }
   };
 
   self.selectWorkorder = function(event, workorder) {
@@ -44,14 +46,15 @@ function WorkorderFormController($scope, $state, workorderApiService, workorderF
   self.done = function(isValid) {
     self.submitted = true;
     if (isValid) {
-      var workorderToCreate = JSON.parse(angular.toJson(self.model));
-
+      var workorderToCreate = self.model;
       var createUpdatePromise;
       if (!self.model.id && self.model.id !== 0) {
         self.model.id = shortid.generate();
-        createUpdatePromise = workorderApiService.createWorkorder(workorderToCreate);
+        self.model.results = [];
+        self.model.status = CONSTANTS.STATUS.NEW_DISPLAY;
+        createUpdatePromise = workorderService.create(workorderToCreate);
       } else {
-        createUpdatePromise = workorderApiService.updateWorkorder(workorderToCreate);
+        createUpdatePromise = workorderService.update(workorderToCreate);
       }
       createUpdatePromise.then(function() {
         //Finished with the update/create, go back to the list.
@@ -86,4 +89,4 @@ function WorkorderFormController($scope, $state, workorderApiService, workorderF
 }
 
 angular.module(CONSTANTS.WORKORDER_DIRECTIVE).controller('WorkorderFormController',
-  ['$scope', '$state', 'workorderApiService', 'workorderFlowService', 'userService', '$stateParams', '$q', WorkorderFormController]);
+  ['$scope', '$state', 'workorderService', 'workflowService', 'workorderFlowService', 'userService', '$stateParams', '$q', WorkorderFormController]);

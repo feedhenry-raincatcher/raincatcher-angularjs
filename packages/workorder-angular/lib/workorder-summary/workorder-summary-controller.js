@@ -1,6 +1,6 @@
 var CONSTANTS = require('../constants');
 
-function WorkorderSummaryController($scope, $mdDialog, $state, $stateParams, workorderApiService, $q, WORKORDER_CONFIG) {
+function WorkorderSummaryController($mdDialog, $state, $stateParams, workorderService, userService, wfmService, $q, WORKORDER_CONFIG) {
   var self = this;
 
   self.adminMode = WORKORDER_CONFIG.adminMode;
@@ -8,36 +8,34 @@ function WorkorderSummaryController($scope, $mdDialog, $state, $stateParams, wor
   function refreshWorkorderData() {
     var workorderId = $stateParams.workorderId;
     //Need to read the workorder from the state parameter
-    var workorderPromise = workorderApiService.readWorkorder(workorderId);
+    var workorderPromise = workorderService.read(workorderId);
 
-    var workflowPromise = workorderPromise.then(function(workorder) {
-      return workorderApiService.readWorkflow(workorder.workflowId);
+    var userPromise = workorderPromise.then(function(workorder) {
+      return workorder && workorder.assignee ? userService.readUser(workorder.assignee) : null;
     });
-
-    var resultPromise = workorderApiService.getResultByWorkorder(workorderId);
-
-    var workerPromise = workorderPromise.then(function(workorder) {
-      return workorder && workorder.assignee ? workorderApiService.readUser(workorder.assignee) : null;
-    });
-    $q.all([workorderPromise, workflowPromise, resultPromise, workerPromise])
+    $q.all([workorderPromise, userPromise])
       .then(function(results) {
-        self.workorder = results[0];
-        self.workflow = results[1];
-        self.result = results[2];
-        self.assignee = results[3];
+        var workorder = results[0];
+        var user = results[1];
+        self.workorder = workorder;
+        self.workflow = workorder.workflow;
+        self.results = workorder.results;
+        self.assignee = user;
       }).catch(function(err) {
-        console.info("Error when refreshing workorder", err);
+        console.error("Error when refreshing workorder", err);
       });
   }
 
   refreshWorkorderData();
-  // Whenever the list is updated from the server, refresh the workorder list.
-  workorderApiService.subscribeToWokorderUpdates(refreshWorkorderData.bind(self));
 
-
+  //Whenever the list is updated from the server, refresh the workorder list.
+  var subscribe = workorderService.subscribeToDatasetUpdates;
+  if (subscribe) {
+    var updateMethod = refreshWorkorderData.bind(self);
+    subscribe.bind(workorderService)(updateMethod);
+  }
 
   self.delete = function(event, workorder) {
-
     if (!self.adminMode) {
       return;
     }
@@ -51,7 +49,7 @@ function WorkorderSummaryController($scope, $mdDialog, $state, $stateParams, wor
       .ok('Proceed')
       .cancel('Cancel');
     $mdDialog.show(confirm).then(function() {
-      return workorderApiService.removeWorkorder(workorder)
+      return workorderService.remove(workorder)
         .then(function() {
           //Finished removing the workorder, go back to the list.
           $state.go('app.workorder', null, { reload: true });
@@ -61,7 +59,11 @@ function WorkorderSummaryController($scope, $mdDialog, $state, $stateParams, wor
         });
     });
   };
+
+  self.getStepForResult = function(result) {
+    return wfmService.getStepForResult(result, self.workorder);
+  };
 }
 
 
-angular.module(CONSTANTS.WORKORDER_DIRECTIVE).controller('WorkorderSummaryController', ['$scope', '$mdDialog', '$state', '$stateParams', 'workorderApiService', '$q', 'WORKORDER_CONFIG', WorkorderSummaryController]);
+angular.module(CONSTANTS.WORKORDER_DIRECTIVE).controller('WorkorderSummaryController', ['$mdDialog', '$state', '$stateParams', 'workorderService', 'userService', 'wfmService', '$q', 'WORKORDER_CONFIG', WorkorderSummaryController]);
