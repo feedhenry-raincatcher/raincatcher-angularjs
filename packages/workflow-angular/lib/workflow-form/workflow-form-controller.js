@@ -33,7 +33,7 @@ function WorkflowFormController($scope, workflowService, workflowFlowService, $s
       var createUpdatePromise;
       if (hasId) {
         self.model.version = self.model.version + 1;
-        createUpdatePromise = workflowService.update(self.model)
+        createUpdatePromise = workflowService.update(self.model);
       } else {
         self.model.version = 1;
         createUpdatePromise = workflowService.create(self.model);

@@ -1,5 +1,4 @@
 var config = require("../../config.json").sync;
-var _ = require('lodash');
 angular.module('wfm.sync', []).service('syncService', ['$http', '$window', 'syncPool', 'userService', function($http, $window, syncPool, userService) {
   return userService.readUser().then(function(user) {
     return syncPool.syncManagerMap(user);

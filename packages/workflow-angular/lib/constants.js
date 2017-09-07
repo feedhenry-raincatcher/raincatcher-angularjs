@@ -6,6 +6,6 @@ module.exports = {
   STATUS: {
     COMPLETE: "Complete",
     PENDING: "Pending",
-    NEW: "New",
+    NEW: "New"
   }
 };

@@ -1,5 +1,4 @@
 var CONSTANTS = require('../constants');
-var _ = require('lodash');
 
 function WorkorderSummaryController($mdDialog, $state, $stateParams, workorderService, userService, wfmService, $q, WORKORDER_CONFIG) {
   var self = this;
