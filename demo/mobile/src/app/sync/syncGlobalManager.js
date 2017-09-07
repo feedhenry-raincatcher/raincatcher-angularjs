@@ -44,7 +44,7 @@ SyncManager.prototype.manageDataset = function(datasetId, options, queryParams, 
 SyncManager.prototype.removeManagers = function() {
   if (this.syncManagers) {
     this.syncManagers.forEach(function(syncDatasetManager) {
-      syncDatasetManager.safeStop(); //start sync for this dataset
+      syncDatasetManager.safeStop(); //stop sync for this dataset
     });
     this.syncManagers = [];
   }
@@ -59,8 +59,9 @@ SyncManager.prototype.syncManagerMap = function(profileData) {
   if (!profileData) {
     return Promise.resolve({});
   }
+
   if (this.syncManagers.length !== 0) {
-    return Promise.resolve(syncManagers);
+    return Promise.resolve(this.syncManagers);
   }
 
   var filter = {
@@ -120,13 +121,23 @@ SyncManager.prototype.forceSync = function(managers) {
  * @returns {{}}
  * @constructor
  */
-function syncGlobalManagerService($http, workflowService, workorderService, resultService) {
+function syncGlobalManagerService($http, workflowService, workorderService, resultService, authService) {
   //Init the sync service
   syncNetworkInit.initSync($http).catch(function(error) {
     logger.getLogger().error("Failed to initialize sync", error);
   });
-  return new SyncManager(workflowService, workorderService, resultService);
+  var syncManager = new SyncManager(workflowService, workorderService, resultService);
+
+  authService.setListener(function(profileData) {
+    if (profileData) {
+      syncManager.syncManagerMap(profileData);
+    } else {
+      syncManager.removeManagers();
+    }
+  });
+
+  return syncManager;
 }
 
 angular.module('wfm.sync')
-  .service('syncGlobalManager', ['$http', 'workflowService', 'workorderService', 'resultService', syncGlobalManagerService]);
+  .service('syncGlobalManager', ['$http', 'workflowService', 'workorderService', 'resultService', 'authService', syncGlobalManagerService]);

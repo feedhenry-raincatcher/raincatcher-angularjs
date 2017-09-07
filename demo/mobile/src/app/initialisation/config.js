@@ -2,7 +2,7 @@ function createMainAppRoute($stateProvider, $urlRouterProvider) {
   // if none of the states are matched, use this as the fallback
   $urlRouterProvider.otherwise(function($injector) {
     var $state = $injector.get("$state");
-    $state.go("app.workorder");
+    $state.go("app.login");
   });
   $stateProvider
     .state('app', {
@@ -13,25 +13,15 @@ function createMainAppRoute($stateProvider, $urlRouterProvider) {
 }
 
 angular.module('wfm-mobile').config(['$stateProvider', '$urlRouterProvider', createMainAppRoute]).controller('mainController', [
-  '$rootScope', '$scope', '$state', '$mdSidenav', 'userService', '$mdDialog', 'syncGlobalManager', 'workflowService', 'workorderService', 'resultService',
-  function($rootScope, $scope, $state, $mdSidenav, userService, $mdDialog, syncGlobalManager, workflowService, workoderService, resultService) {
+  '$scope', '$state', '$mdSidenav', 'userService', 'syncGlobalManager', 'workflowService', 'workorderService', 'resultService',
+  function($scope, $state, $mdSidenav, userService, syncGlobalManager, workflowService, workoderService, resultService) {
     userService.readUser().then(function(profileData) {
-      console.log('Reading user', profileData);
       if (profileData) {
         $scope.profileData = profileData;
-        syncGlobalManager.syncManagerMap(profileData);
-      } else {
-        userService.login();
       }
     }).catch(function(err) {
-      console.info(err);
-      $mdDialog.show($mdDialog.alert({
-        title: 'Failed to Load Profile Data',
-        textContent: 'Unable to load profile data',
-        ok: 'Login'
-      })).then(function() {
-        userService.login();
-      });
+      console.info('Failed to retrieve profile data');
+      userService.login();
     });
 
     $scope.toggleSidenav = function(event, menuId) {

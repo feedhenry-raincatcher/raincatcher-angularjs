@@ -4,54 +4,50 @@ var Bluebird = require("bluebird");
  * Service that is being injected to modules to provide all operations around sync
  */
 function SyncApiDataService() {
+  this.managerPromise = Bluebird.defer();
 }
 
 /**
  * Set manager to be used by this service
  */
 SyncApiDataService.prototype.setManager = function(manager) {
-  this.syncManager = manager;
+   this.managerPromise.resolve(manager);
 }
 
 SyncApiDataService.prototype.list = function() {
-  if (this.syncManager) {
-    return this.syncManager.list();
-  }
-  return Bluebird.resolve([]);
+   return this.managerPromise.promise.then(function(syncManager){
+      return syncManager.list();
+   });
 };
 
 SyncApiDataService.prototype.read = function(objectId) {
-  if (this.syncManager) {
-    return this.syncManager.read(objectId);
-  }
-  return Bluebird.resolve();
+  return this.managerPromise.promise.then(function(syncManager){
+    return syncManager.read(objectId);
+  });
 };
 
 SyncApiDataService.prototype.create = function(objToCreate) {
-  if (this.syncManager) {
-    return this.syncManager.create(objToCreate);
-  }
-  return Bluebird.resolve();
+  return this.managerPromise.promise.then(function(syncManager){
+    return syncManager.create(objToCreate);
+  });
 };
 
 SyncApiDataService.prototype.update = function(objToUpdate) {
-  if (this.syncManager) {
-    return this.syncManager.update(objToUpdate);
-  }
-  return Bluebird.resolve();
+  return this.managerPromise.promise.then(function(syncManager){
+    return syncManager.update(objToUpdate);
+  });
 };
 
 SyncApiDataService.prototype.remove = function(objToRemove) {
-  if (this.syncManager) {
-    return this.syncManager.delete(objToRemove);
-  }
-  return Bluebird.resolve();
+  return this.managerPromise.promise.then(function(syncManager){
+    return syncManager.delete(objToRemove);
+  });
 };
 
 SyncApiDataService.prototype.subscribeToDatasetUpdates = function(methodToCall) {
-  if (this.syncManager) {
-    return this.syncManager.subscribeToDatasetUpdates(methodToCall);
-  }
+  return this.managerPromise.promise.then(function(syncManager){
+    return syncManager.subscribeToDatasetUpdates(methodToCall);
+  });
 };
 
 module.exports = SyncApiDataService;
