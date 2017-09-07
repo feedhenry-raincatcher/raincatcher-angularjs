@@ -21,6 +21,10 @@ function WorkflowProcessBeginController($state, workorderService, wfmService, $s
     self.completed = wfmService.isCompleted(self.workorder);
   });
 
+  self.getStepForResult = function(result) {
+    return wfmService.getStepForResult(result, self.workorder);
+  };
+
   self.begin = function() {
     wfmService.begin(self.workorder)
       .then(function() {

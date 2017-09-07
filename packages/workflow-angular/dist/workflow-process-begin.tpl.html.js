@@ -17,7 +17,10 @@ ngModule.run(['$templateCache', function ($templateCache) {
     '      <span ng-if="ctrl.started">Continue Workflow</span>\n' +
     '    </md-button>\n' +
     '  </div>\n' +
-    '  <workflow-result ng-if="ctrl.results" results="ctrl.results" workflow="ctrl.workflow"></workflow-result>\n' +
+    '  <div ng-repeat="result in ctrl.results">\n' +
+    '    <md-divider></md-divider>\n' +
+    '    <workorder-result result="result" step="ctrl.getStepForResult(result)"></workorder-result>\n' +
+    '  </div>\n' +
     '</div>\n' +
     '');
 }]);

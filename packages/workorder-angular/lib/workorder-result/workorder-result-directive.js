@@ -1,6 +1,6 @@
 var CONSTANTS = require('../constants');
 
-angular.module(CONSTANTS.WORKORDER_DIRECTIVE).directive('workorderSubmissionResult', function($compile) {
+angular.module(CONSTANTS.WORKORDER_DIRECTIVE).directive('workorderResult', function($compile) {
   var render = function(scope, element) {
     var template = scope.step.templates.view;
     element.append(template);

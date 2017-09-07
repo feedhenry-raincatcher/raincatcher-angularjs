@@ -1,0 +1,1 @@
+require('./workorder-result-directive');

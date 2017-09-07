@@ -26,9 +26,6 @@ module.exports = function(config) {
   //This is the view to display the current progress of a workflow. (Which step, summary etc)
   require("./workflow-progress");
 
-  //This is the view to display the result of a workflow to the user (TODO: Does this belong in the result module?)
-  require("./workflow-result");
-
   //This is the view to edit the detail of a single workflow (Currently just the name..)
   require('./workflow-form');
 

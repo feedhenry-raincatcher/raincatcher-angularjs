@@ -8,5 +8,8 @@
       <span ng-if="ctrl.started">Continue Workflow</span>
     </md-button>
   </div>
-  <workflow-result ng-if="ctrl.results" results="ctrl.results" workflow="ctrl.workflow"></workflow-result>
+  <div ng-repeat="result in ctrl.results">
+    <md-divider></md-divider>
+    <workorder-result result="result" step="ctrl.getStepForResult(result)"></workorder-result>
+  </div>
 </div>

@@ -14,7 +14,7 @@ module.exports = function(config) {
   require('./workorder-form');
   require('./workorder-list');
   require('./workorder-status');
-  require('./workorder-submission-result');
+  require('./workorder-result');
   require('./workorder-summary');
 
   return CONSTANTS.WORKORDER_DIRECTIVE;
