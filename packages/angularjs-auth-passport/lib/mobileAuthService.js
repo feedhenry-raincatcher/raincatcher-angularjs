@@ -1,13 +1,14 @@
-var CONSTANTS = require('./constants.js');
-var PassportAuthService = require('@raincatcher/angularjs-auth-passport')('wfm-mobile');
+var CONSTANTS = require('./constants');
+var PassportAuthService = require('./authService');
 
 /**
  * Auth service for the mobile app which extends the Passport Auth module
  */
-function MobileAuthService($http, $window, $mdDialog, $state) {
+function MobileAuthService($http, $httpProvider, $window, $mdDialog, $state) {
   this.state = $state;
   this.http = $http;
   this.loginListener = null;
+  this.setupInterceptors($httpProvider);
   PassportAuthService.call(this, $http, $window, $mdDialog, $state);
 };
 
@@ -24,7 +25,7 @@ MobileAuthService.prototype.getProfile = function() {
           self.loginListener(userProfile);
         }
         return resolve(userProfile);
-      } catch(err) {
+      } catch (err) {
         if (self.loginListener) {
           self.loginListener();
         }
@@ -37,6 +38,24 @@ MobileAuthService.prototype.getProfile = function() {
     return reject(new Error('User profile not found'));
   });
 };
+
+/**
+ * Interceptors that add JWT token to each request
+ */
+MobileAuthService.prototype.setupInterceptors = function($httpProvider) {
+  $httpProvider.interceptors.push([function() {
+    return {
+      'request': function(config) {
+        config.headers = config.headers || {};
+        var token = localStorage.getItem(CONSTANTS.TOKEN_CACHE_KEY);
+        if (token) {
+          config.headers.Authorization = 'JWT ' + token
+        }
+        return config;
+      }
+    };
+  }]);
+}
 
 MobileAuthService.prototype.authenticate = function(username, password) {
   var self = this;
@@ -70,10 +89,6 @@ MobileAuthService.prototype.setListener = function(listener) {
   this.loginListener = listener;
 }
 
-MobileAuthService.prototype.getListener = function() {
-  return this.loginListener;
-}
-
 MobileAuthService.prototype.login = function() {
   var self = this;
   return self.state.go(CONSTANTS.LOGIN_STATE_ROUTE);
@@ -85,11 +100,7 @@ MobileAuthService.prototype.logout = function() {
   if (self.loginListener) {
     self.loginListener();
   }
-  self.state.go(CONSTANTS.LOGIN_STATE_ROUTE, undefined, {reload: true});
+  self.state.go(CONSTANTS.LOGIN_STATE_ROUTE, undefined, { reload: true });
 };
 
-angular.module(CONSTANTS.MOBILE_AUTH_MODULE_ID).factory('authService', ['$http', '$window', '$mdDialog', '$state',
-  function($http, $window, $mdDialog, $state) {
-    var mobileAuthService = new MobileAuthService($http, $window, $mdDialog, $state);
-    return mobileAuthService;
-  }]);
+module.exports = MobileAuthService;

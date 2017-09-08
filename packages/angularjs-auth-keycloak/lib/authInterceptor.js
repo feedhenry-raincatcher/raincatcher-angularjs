@@ -28,7 +28,6 @@ module.exports = function(appName) {
   angular.module(appName).service('authInterceptor', function($q, authService) {
     return new AuthInterceptor($q, authService);
   });
-
   angular.module(appName).config(['$httpProvider', function($httpProvider) {
     $httpProvider.interceptors.push('authInterceptor');
   }]);
