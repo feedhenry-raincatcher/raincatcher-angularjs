@@ -20,19 +20,10 @@ MobileAuthService.prototype.getProfile = function() {
     if (userProfile) {
       try {
         userProfile = JSON.parse(userProfile);
-        if (self.loginListener) {
-          self.loginListener(userProfile);
-        }
         return resolve(userProfile);
       } catch (err) {
-        if (self.loginListener) {
-          self.loginListener();
-        }
         return reject(new Error(err));
       }
-    }
-    if (self.loginListener) {
-      self.loginListener();
     }
     return reject(new Error('User profile not found'));
   });

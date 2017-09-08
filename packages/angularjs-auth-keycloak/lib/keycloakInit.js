@@ -53,6 +53,9 @@ module.exports = function(appName, keycloakConfig, initConfig) {
             }).error(error);
           });
         }
+        keycloakAuthService.setListener = function() {
+          // NOTE: No need to listen to login/logout events for Keycloak as the login page is in a different page from the app itself.
+        };
         return keycloakAuthService;
       });
 
