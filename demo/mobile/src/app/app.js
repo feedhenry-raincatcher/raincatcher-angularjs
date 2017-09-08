@@ -14,7 +14,7 @@ angular.module('wfm-mobile', [
   require('angular-ui-router'),
   require('angular-material'),
   // Enables passport auth service to be used
-  require('../passport'),
+  require('./passport'),
   require('./services'),
   require('./sync'),
   // Set of the data services

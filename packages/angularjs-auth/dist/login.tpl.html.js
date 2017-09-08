@@ -10,7 +10,7 @@ ngModule.run(['$templateCache', function ($templateCache) {
     '<div class="login" flex>\n' +
     '\n' +
     '  <div layout-padding  class="area">\n' +
-    '    <div ng-hide="ctrl.hasProfileData">\n' +
+    '    <div ng-hide="ctrl.hasTokenData">\n' +
     '      <form name="loginForm" ng-submit="ctrl.login(loginForm.$valid)" novalidate>\n' +
     '        <h1 class="md-headline">{{ ctrl.title }}</h1>\n' +
     '\n' +
@@ -39,11 +39,11 @@ ngModule.run(['$templateCache', function ($templateCache) {
     '      </form>\n' +
     '    </div>\n' +
     '\n' +
-    '    <div ng-show="ctrl.hasProfileData">\n' +
+    '    <div ng-show="ctrl.hasTokenData">\n' +
     '      <md-button class="md-raised md-primary md-hue-2" ng-click="ctrl.logout()">Log out</md-button>\n' +
     '    </div>\n' +
     '\n' +
-    '    <p ng-hide="ctrl.hasProfileData" class="md-body-1">Trouble logging in? Contact the switchboard.</p>\n' +
+    '    <p ng-hide="ctrl.hasTokenData" class="md-body-1">Trouble logging in? Contact the switchboard.</p>\n' +
     '\n' +
     '    </md-content>\n' +
     '\n' +

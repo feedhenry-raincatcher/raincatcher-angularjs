@@ -35,5 +35,7 @@ angular.module('app', [
   accidentStep.ngModule()
 ]);
 
+
 // require('./keycloak');
+
 require('./config');

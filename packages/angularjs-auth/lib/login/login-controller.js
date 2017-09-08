@@ -6,11 +6,7 @@ function LoginCtrl($timeout, $http, $state, $scope, userService, userConfig) {
   self.loginErrorMessage = "";
   self.loginMessages = { success: false, error: false };
   $timeout(function() {
-    if (localStorage.getItem(CONSTANTS.TOKEN_CACHE_KEY)) {
-      self.hasProfileData = true;
-    } else {
-      self.hasProfileData = false;
-    }
+    self.hasTokenData = !!localStorage.getItem(CONSTANTS.TOKEN_CACHE_KEY);
   });
   self.login = function(valid) {
     if (valid) {
@@ -19,9 +15,9 @@ function LoginCtrl($timeout, $http, $state, $scope, userService, userConfig) {
       userService.authenticate(self.username, self.password).then(function(err) {
         $timeout(function() {
           self.loginMessages.success = true;
-          $state.go('app.workorder', undefined, {reload: true});
+          $state.go('app.workorder', undefined, { reload: true });
         });
-      }).catch(function(err){
+      }).catch(function(err) {
         $timeout(function() {
           self.loginMessages.error = true;
           self.loginErrorMessage = err;

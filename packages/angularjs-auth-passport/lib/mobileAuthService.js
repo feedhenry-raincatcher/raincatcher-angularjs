@@ -1,18 +1,17 @@
 var CONSTANTS = require('./constants');
-var PassportAuthService = require('./authService');
+var WebAuthService = require('./webAuthService');
 
 /**
  * Auth service for the mobile app which extends the Passport Auth module
  */
-function MobileAuthService($http, $httpProvider, $window, $mdDialog, $state) {
+function MobileAuthService($http, $window, $mdDialog, $state) {
   this.state = $state;
   this.http = $http;
   this.loginListener = null;
-  this.setupInterceptors($httpProvider);
-  PassportAuthService.call(this, $http, $window, $mdDialog, $state);
+  WebAuthService.call(this, $http, $window, $mdDialog, $state);
 };
 
-MobileAuthService.prototype = Object.create(PassportAuthService.prototype);
+MobileAuthService.prototype = Object.create(WebAuthService.prototype);
 MobileAuthService.prototype.constructor = MobileAuthService;
 MobileAuthService.prototype.getProfile = function() {
   var self = this;
@@ -39,27 +38,9 @@ MobileAuthService.prototype.getProfile = function() {
   });
 };
 
-/**
- * Interceptors that add JWT token to each request
- */
-MobileAuthService.prototype.setupInterceptors = function($httpProvider) {
-  $httpProvider.interceptors.push([function() {
-    return {
-      'request': function(config) {
-        config.headers = config.headers || {};
-        var token = localStorage.getItem(CONSTANTS.TOKEN_CACHE_KEY);
-        if (token) {
-          config.headers.Authorization = 'JWT ' + token
-        }
-        return config;
-      }
-    };
-  }]);
-}
-
 MobileAuthService.prototype.authenticate = function(username, password) {
   var self = this;
-  var url = PassportAuthService.prototype.getCloudUrl.call(this) + CONSTANTS.TOKEN_LOGIN_URL;
+  var url = WebAuthService.prototype.getCloudUrl.call(this) + CONSTANTS.TOKEN_LOGIN_URL;
   return new Promise(function(resolve, reject) {
     self.http.post(url, {
       username: username,

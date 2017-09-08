@@ -1,3 +1,4 @@
-# Raincatcher Angular.js auth (login/pi)
+# Raincatcher Angular.js Authorization UI
 
-This module is an AngularJS implementation of login and pin page
+This module contains an AngularJS implementation of login and pin page
+Module should be used together with auth-passport module.
