@@ -4,6 +4,6 @@
   "description": "Captures signatures",
   "templates": {
     "form": "<signature-form></signature-form>",
-    "view": "<signature value='result.submission'></signature>"
+    "view": "<signature></signature>"
   }
 }

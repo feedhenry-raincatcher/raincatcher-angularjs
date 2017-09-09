@@ -2,7 +2,7 @@
 
 var canvasDrawr = require('../canvas-drawr');
 
-var MODULE_NAME = 'wfm.signature';
+var MODULE_NAME = 'raincatcher.step.signature';
 
 function initModule() {
   var ngModule = angular.module(MODULE_NAME, []);

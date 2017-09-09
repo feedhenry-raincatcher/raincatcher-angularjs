@@ -5,7 +5,7 @@ module.exports = function(grunt) {
       src: ["lib/**/*.js"]
     },
     wfmTemplate: {
-      module: 'wfm.signature',
+      module: 'raincatcher.step.signature',
       templateDir: "lib/angular/template",
       outputDir: "dist"
     }

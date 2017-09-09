@@ -3,10 +3,6 @@
   "version": "0.0.1",
   "description": "A signature step for FeedHenry WFM.",
   "main": "lib/index.js",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/feedhenry-raincatcher/raincatcher-signature.git"
-  },
   "scripts": {
     "build": "grunt wfmTemplate:build",
     "watch": "grunt wfmTemplate:watch",
