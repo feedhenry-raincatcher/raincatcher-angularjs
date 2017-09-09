@@ -7,6 +7,7 @@ var logger = require('@raincatcher/logger');
 
 var accidentStep = require('@raincatcher-examples/step-accident');
 var vehicleInspectionStep = require('@raincatcher-examples/step-vehicle-inspection');
+var signatureStep = require('@raincatcher/step-signature');
 
 logger.setLogger(new logger.ClientLogger(2));
 
@@ -23,7 +24,8 @@ angular.module('wfm-mobile', [
     mainColumnViewId: "content@app",
     stepDefinitions: [
       vehicleInspectionStep.definition,
-      accidentStep.definition
+      accidentStep.definition,
+      signatureStep.definition
     ]
   }),
   require('@raincatcher/angularjs-workorder')({
@@ -33,7 +35,8 @@ angular.module('wfm-mobile', [
   }),
   require('@raincatcher/angularjs-auth')(),
   vehicleInspectionStep.ngModule(),
-  accidentStep.ngModule()
+  accidentStep.ngModule(),
+  signatureStep.ngModule()
 ]);
 
 // NOTE: Enable the next line in order to use Keycloak auth service

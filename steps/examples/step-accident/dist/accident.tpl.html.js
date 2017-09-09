@@ -10,7 +10,6 @@ ngModule.run(['$templateCache', function ($templateCache) {
     '<md-subheader>Accident report</md-subheader>\n' +
     '\n' +
     '<md-list class="accident">\n' +
-    '\n' +
     '  <md-list-item class="md-2-line">\n' +
     '    <div class="md-list-item-text">\n' +
     '      <h3>{{model.regNr}} </h3>\n' +
