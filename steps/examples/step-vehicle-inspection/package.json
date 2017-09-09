@@ -9,8 +9,10 @@
     "test": "grunt"
   },
   "keywords": [
-    "wfm",
-    "workorder"
+    "raincatcher-step",
+    "workflow",
+    "raincatcher",
+    "wfm"
   ],
   "author": "feedhenry-raincatcher@redhat.com",
   "license": "MIT",
