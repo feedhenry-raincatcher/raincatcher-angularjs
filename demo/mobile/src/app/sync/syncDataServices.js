@@ -1,11 +1,8 @@
-var config = require("../../config.json").sync;
-
 var SyncApiDataService = require("../sync/syncDataRepository");
-
 var workordersService = new SyncApiDataService();
 
 // WFM based service for workorders
-angular.module('wfm.common.apiservices').service("workorderService", ['syncGlobalManager', function(syncGlobalManager) {
+angular.module('wfm.common.apiservices').service("workorderService", [function() {
   return workordersService;
 }]);
 
@@ -15,4 +12,4 @@ angular.module('wfm.common.apiservices').service("workorderService", ['syncGloba
  **/
 module.exports = {
   workordersService: workordersService
-}
+};

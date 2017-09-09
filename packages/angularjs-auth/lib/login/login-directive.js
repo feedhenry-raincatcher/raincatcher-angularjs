@@ -1,6 +1,6 @@
 var CONSTANTS = require('../constants');
 
-angular.module(CONSTANTS.AUTH_DIRECTIVE_MODULE).directive('login', function($templateCache, USER_CONFIG) {
+angular.module(CONSTANTS.AUTH_DIRECTIVE_MODULE).directive('login', function($templateCache) {
 
   //Users can pass in their own template for login if required.
   return {

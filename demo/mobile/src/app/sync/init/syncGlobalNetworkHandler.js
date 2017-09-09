@@ -1,5 +1,6 @@
 /**
  * Custom sync network handler that using angular http for requests
+ * This handler using $http interceptors that are added by keycloak and passport providers
  */
 module.exports = function createHandler(cloudURL, cloudPath, $http) {
   var handler = function(params, success, failure) {

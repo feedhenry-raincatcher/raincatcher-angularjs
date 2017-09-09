@@ -12,7 +12,7 @@ function LoginCtrl($timeout, $http, $state, $scope, userService, userConfig) {
     if (valid) {
       self.loginErrorMessage = "";
       self.loginMessages.error = false;
-      userService.authenticate(self.username, self.password).then(function(err) {
+      userService.authenticate(self.username, self.password).then(function() {
         $timeout(function() {
           self.loginMessages.success = true;
           $state.go('app.workorder', undefined, { reload: true });

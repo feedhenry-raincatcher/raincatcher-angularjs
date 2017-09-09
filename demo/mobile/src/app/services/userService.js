@@ -23,7 +23,7 @@ UserService.prototype.logout = function logout() {
 
 UserService.prototype.authenticate = function authenticate(username, password) {
   return this.auth.authenticate(username, password);
-}
+};
 
 angular.module('wfm.common.apiservices').service('userService', ['authService', function(authService) {
   return new UserService(authService);

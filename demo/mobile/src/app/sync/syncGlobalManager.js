@@ -17,7 +17,7 @@ var SyncManager = function() {
   // Contains all dataset managers initialized by this class
   this.syncManagers = [];
   // Promise that will be satisfied when managers will be activated
-}
+};
 
 /**
 * Manage sync dataset
@@ -36,7 +36,7 @@ SyncManager.prototype.manageDataset = function(datasetId, options, queryParams, 
       resolve();
     });
   });
-}
+};
 
 /**
  * Remove synchronization managers
@@ -69,12 +69,13 @@ SyncManager.prototype.syncManagerMap = function(profileData) {
   };
   //Initialisation of sync data sets to manage.
   return Promise.all([
-    self.manageDataset(config.datasetIds.workorders, config.syncOptions.workorders, filter, {}),
+    self.manageDataset(config.datasetIds.workorders, config.syncOptions.workorders, filter, {})
   ]).then(function() {
     var workorderManager = new DataManager(config.datasetIds.workorders);
     workorderManager.start(function() { }); //start sync for this dataset
     self.syncManagers.push(workorderManager);
     syncServices.workordersService.setManager(workorderManager);
+
     // Force sync to make sure that data is automatically refreshed
     self.forceSync(self.syncManagers).delay(config.forceSyncDelay * 1000).then(function() {
       self.forceSync(self.syncManagers);
