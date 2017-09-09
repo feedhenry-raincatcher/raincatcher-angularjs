@@ -21,12 +21,7 @@ angular.module('wfm-mobile', [
   // Set of the data services
   require('@raincatcher/angularjs-workflow')({
     mode: "user",
-    mainColumnViewId: "content@app",
-    stepDefinitions: [
-      vehicleInspectionStep.definition,
-      accidentStep.definition,
-      signatureStep.definition
-    ]
+    mainColumnViewId: "content@app"
   }),
   require('@raincatcher/angularjs-workorder')({
     mode: "user",
