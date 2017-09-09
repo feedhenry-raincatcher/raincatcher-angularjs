@@ -4,6 +4,6 @@
   "description": "Form used to report vehicle accidents",
   "templates": {
     "form": "<accident-report-form></accident-report-form>",
-    "view": "<accident-report value='result.submission'></accident-report>"
+    "view": "<accident-report></accident-report>"
   }
 }

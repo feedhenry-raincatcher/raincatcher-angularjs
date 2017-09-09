@@ -10,9 +10,10 @@ function initModule() {
     return {
       restrict: 'E'
       , template: $templateCache.get('wfm-template/vehicle-inspection.tpl.html')
-      , scope: {
-        vehicleInspection: '=value'
-      }
+      , controller: function($scope) {
+        $scope.model = $scope.result.submission;
+      },
+      controllerAs: 'ctrl'
     };
   });
 
@@ -20,8 +21,6 @@ function initModule() {
     return {
       restrict: 'E'
       , template: $templateCache.get('wfm-template/vehicle-inspection-form.tpl.html')
-      , scope: {
-      }
       , controller: function($scope) {
         var self = this;
         self.model = {};

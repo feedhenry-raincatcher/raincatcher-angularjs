@@ -4,6 +4,6 @@
   "description": "Perform Vehicle Inspection and log results",
   "templates": {
     "form": "<vehicle-inspection-form></vehicle-inspection-form>",
-    "view": "<vehicle-inspection value='result.submission'></vehicle-inspection>"
+    "view": "<vehicle-inspection></vehicle-inspection>"
   }
 }
