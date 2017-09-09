@@ -2,9 +2,10 @@ var Bluebird = require("bluebird");
 
 /**
  * Service that is being injected to modules to provide all operations around sync
+ * This service provides wrapper for sync managers.
  */
 function SyncApiDataService() {
-  this.managerPromise = Bluebird.defer();
+  this.managerPromise = createManagerPromise();
 }
 
 /**
@@ -43,6 +44,17 @@ SyncApiDataService.prototype.remove = function(objToRemove) {
     return syncManager.delete(objToRemove);
   });
 };
+
+function createManagerPromise() {
+  var resolve;
+  var promise = new Bluebird(function() {
+      resolve = arguments[0];
+  });
+  return {
+      resolve: resolve,
+      promise: promise
+  };
+}
 
 SyncApiDataService.prototype.subscribeToDatasetUpdates = function(methodToCall) {
   return this.managerPromise.promise.then(function(syncManager){

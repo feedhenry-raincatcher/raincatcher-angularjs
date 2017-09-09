@@ -4,6 +4,8 @@ var Promise = require('bluebird');
 var logger = require('@raincatcher/logger');
 var syncClient = require("@raincatcher/datasync-client");
 var syncNetworkInit = require('./init/syncGlobalNetworkInit');
+var syncServices = require('./syncDataServices');
+
 var DataManager = syncClient.DataManager;
 var syncApi = syncClient.sync;
 
@@ -11,10 +13,10 @@ var syncApi = syncClient.sync;
 /**
  * Hides complexity of all sync operations and allow to register/unregister datasets
  */
-var SyncManager = function(workorderService) {
-  this.workorderService = workorderService;
+var SyncManager = function() {
   // Contains all dataset managers initialized by this class
   this.syncManagers = [];
+  // Promise that will be satisfied when managers will be activated
 }
 
 /**
@@ -72,8 +74,8 @@ SyncManager.prototype.syncManagerMap = function(profileData) {
     var workorderManager = new DataManager(config.datasetIds.workorders);
     workorderManager.start(function() { }); //start sync for this dataset
     self.syncManagers.push(workorderManager);
-    self.workorderService.setManager(workorderManager);
-    // Make initial request to server and another one to retrieve results.
+    syncServices.workordersService.setManager(workorderManager);
+    // Force sync to make sure that data is automatically refreshed
     self.forceSync(self.syncManagers).delay(config.forceSyncDelay * 1000).then(function() {
       self.forceSync(self.syncManagers);
     });
@@ -105,12 +107,12 @@ SyncManager.prototype.forceSync = function(managers) {
  * @returns {{}}
  * @constructor
  */
-function syncGlobalManagerService($http, workorderService, authService) {
+function createGlobalManagerService($http, authService) {
   //Init the sync service
   syncNetworkInit.initSync($http).catch(function(error) {
     logger.getLogger().error("Failed to initialize sync", error);
   });
-  var syncManager = new SyncManager(workorderService);
+  var syncManager = new SyncManager();
   authService.setListener(function(profileData) {
     if (profileData) {
       syncManager.syncManagerMap(profileData);
@@ -118,9 +120,8 @@ function syncGlobalManagerService($http, workorderService, authService) {
       syncManager.removeManagers();
     }
   });
-
   return syncManager;
 }
 
 angular.module('wfm.sync')
-  .service('syncGlobalManager', ['$http', 'workorderService', 'authService', syncGlobalManagerService]);
+  .service('syncGlobalManager', ['$http', 'authService', createGlobalManagerService]);

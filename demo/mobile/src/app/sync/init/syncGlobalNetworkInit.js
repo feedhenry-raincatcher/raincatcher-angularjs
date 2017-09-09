@@ -8,7 +8,10 @@ var syncGlobalNetworkHandler = require('./syncGlobalNetworkHandler');
 var syncApi = syncClient.sync;
 
 /**
-* Initialize sync service
+* Initialize sync service using legacy fh-js-sdk init methods.
+* This method wrap RHMAP js-sdk method to retrieve platform server side url.
+* For upstream developers can setup url as additional parameter:
+* ?url=your-server-url in cordova application.
 *
 * @param $http - angular httpd implementation
 */

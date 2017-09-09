@@ -2,6 +2,6 @@ angular.module('wfm.common.apiservices', []);
 
 require("./userService");
 require("./wfmService");
-require('./syncDataServices');
+require('../sync/syncDataServices');
 
 module.exports = 'wfm.common.apiservices';

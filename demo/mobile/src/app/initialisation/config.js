@@ -13,8 +13,8 @@ function createMainAppRoute($stateProvider, $urlRouterProvider) {
 }
 
 angular.module('wfm-mobile').config(['$stateProvider', '$urlRouterProvider', createMainAppRoute]).controller('mainController', [
-  '$scope', '$state', '$mdSidenav', 'userService', 'syncGlobalManager', 'workorderService',
-  function($scope, $state, $mdSidenav, userService, syncGlobalManager, workoderService) {
+  '$scope', '$state', '$mdSidenav', 'userService', 'syncGlobalManager',
+  function($scope, $state, $mdSidenav, userService, syncGlobalManager) {
     userService.readUser().then(function(profileData) {
       if (profileData) {
         $scope.profileData = profileData;
