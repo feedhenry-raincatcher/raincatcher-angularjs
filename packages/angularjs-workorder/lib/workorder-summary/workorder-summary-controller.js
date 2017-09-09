@@ -11,7 +11,7 @@ function WorkorderSummaryController($mdDialog, $state, $stateParams, workorderSe
     var workorderPromise = workorderService.read(workorderId);
 
     var userPromise = workorderPromise.then(function(workorder) {
-      return workorder && workorder.assignee ? userService.readUser(workorder.assignee) : null;
+      return workorder && workorder.assignee ? userService.readUserById(workorder.assignee) : null;
     });
     $q.all([workorderPromise, userPromise])
       .then(function(results) {
