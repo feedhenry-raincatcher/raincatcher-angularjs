@@ -1,0 +1,32 @@
+{
+  "name": "@raincatcher/step-dynamic-forms",
+  "version": "0.0.1",
+  "description": "RainCatcher WFM step for building forms from definitions",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "grunt wfmTemplate:build",
+    "watch": "grunt wfmTemplate:watch",
+    "test": "grunt"
+  },
+  "keywords": [
+    "raincatcher-step",
+    "workflow",
+    "raincatcher",
+    "wfm"
+  ],
+  "author": "feedhenry-raincatcher@redhat.com",
+  "license": "MIT",
+  "dependencies": {
+    "angular-schema-form": "^0.8.13",
+    "angular-schema-form-bootstrap": "^0.2.0",
+    "lodash": "4.7.0"
+  },
+  "devDependencies": {
+    "fh-wfm-template-build": "0.2.1",
+    "grunt": "^1.0.1",
+    "grunt-cli": "^1.2.0",
+    "grunt-eslint": "^18.0.0",
+    "eslint-config-angular": "^0.5.0",
+    "eslint-plugin-angular": "^1.4.1"
+  }
+}
