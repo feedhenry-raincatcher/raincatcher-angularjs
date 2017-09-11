@@ -38,7 +38,7 @@ The `src` attribute of the image tag is bound to the `value` attribute of the si
 ### Signature CSS styles
 Include the module SASS file in your application sass:
 ```sass
-@import 'node_modules/fh-wfm-appform/sass/appform.scss';
+@import 'node_modules/@raincatcher/step-signature/lib/signature.scss
 ```
 
 #### Directives

@@ -75,4 +75,4 @@ function initModule() {
   return MODULE_NAME;
 }
 
-module.exports = initModule
+module.exports = initModule;
