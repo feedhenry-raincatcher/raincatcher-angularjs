@@ -19,4 +19,5 @@ cache:
     - packages/sync/node_modules
     - examples/step-vehicle-inspection/node_modules
     - examples/step-accident/node_modules
+    - examples/raincatcher-camera/node_modules
     - packages/wfm/node_modules

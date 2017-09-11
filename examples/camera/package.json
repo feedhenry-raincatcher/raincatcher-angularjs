@@ -1,6 +1,6 @@
 {
-  "name": "fh-wfm-camera",
-  "version": "0.0.9",
+  "name": "@raincatcher/camera",
+  "version": "0.0.1",
   "description": "A camera module for WFM.",
   "main": "lib/angular/camera-ng.js",
   "repository": {
@@ -8,11 +8,11 @@
     "url": "https://github.com/feedhenry-raincatcher/raincatcher-camera.git"
   },
   "scripts": {
-    "build": "wfm-template-build -m 'wfm.camera.directives'",
-    "watch": "wfm-template-build -w -m 'wfm.camera.directives'",
+    "build": "grunt wfmTemplate:build",
+    "watch": "grunt wfmTemplate:watch",
     "test": "grunt eslint"
   },
-  "author": "bleathem@gmail.com",
+  "author": "feedhenry-raincatcher@redhat.com",
   "license": "MIT",
   "devDependencies": {
     "fh-wfm-template-build": "0.0.9",
