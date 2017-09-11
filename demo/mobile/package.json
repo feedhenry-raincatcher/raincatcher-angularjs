@@ -14,6 +14,7 @@
   ],
   "author": "feedhenry-raincatcher@redhat.com",
   "license": "MIT",
+  "private": true,
   "dependencies": {
     "@raincatcher/datasync-client": "0.0.1",
     "@raincatcher/angularjs-auth": "0.0.1",
