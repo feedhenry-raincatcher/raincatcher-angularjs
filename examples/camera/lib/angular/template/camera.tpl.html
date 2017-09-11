@@ -1,0 +1,21 @@
+<!--
+ CONFIDENTIAL
+ Copyright 2016 Red Hat, Inc. and/or its affiliates.
+ This is unpublished proprietary source code of Red Hat.
+-->
+<div class="wfm-camera" flex>
+  <md-button class="md-icon-button" aria-label="Back" ng-click="ctrl.cancel()" flex>
+    <md-icon md-font-set="material-icons">arrow_back</md-icon>
+  </md-button>
+  <video  ng-show="ctrl.cameraOn" autoplay></video>
+  <canvas ng-hide="ctrl.cameraOn"></canvas>
+  <div class="wfm-camera-actions" style="z-index: 1000">
+    <md-button ng-show="ctrl.cameraOn" class="wfm-camera-btn" ng-click="ctrl.snap()"></md-button>
+    <md-button ng-hide="ctrl.cameraOn" class="wfm-camera-confirmation-btn md-warn" ng-click="ctrl.startCamera()">
+      <md-icon md-font-set="material-icons">close</md-icon>
+    </md-button>
+    <md-button ng-hide="ctrl.cameraOn" class="wfm-camera-confirmation-btn" ng-click="ctrl.done()">
+      <md-icon md-font-set="material-icons">check</md-icon>
+    </md-button>
+  </div>
+</div>
