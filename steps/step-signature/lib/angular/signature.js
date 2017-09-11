@@ -2,7 +2,7 @@
 
 var canvasDrawr = require('../canvas-drawr');
 
-var MODULE_NAME = 'raincatcher.step.signature';
+var MODULE_NAME = 'wfm.step.signature';
 
 function initModule() {
   var ngModule = angular.module(MODULE_NAME, []);
@@ -12,15 +12,9 @@ function initModule() {
     return {
       restrict: 'E'
       , template: $templateCache.get('wfm-template/signature-form.tpl.html')
-      , scope: {
-        encoding: '=',
-        imageQuality: '=',
-        options: '='
-      }
       , link: function(scope, element, attrs, ctrl) {
         var options = scope.options || {};
-
-        //Initialising a canvas drawer for on-device or with a mouse
+        // Initialising a canvas drawer for on-device or with a mouse
         if ('ontouchstart' in $document[0]) {
           new canvasDrawr.CanvasDrawr(element, options, $document);
         } else {
@@ -37,22 +31,23 @@ function initModule() {
         });
       }
       , controller: function($scope) {
-        var self = this;
-        self.model = {};
-        self.parentController = $scope.$parent;
+        this.model = {};
+        this.parentController = $scope.$parent;
         var encoding = $scope.encoding || 'image/png';
-        var imageQuality = parseFloat($scope.imageQuality) || 0.5; // can be decimal value
+        var imageQuality = parseFloat($scope.imageQuality) || 0.5;
 
+        var self = this;
         self.back = function(event) {
-          self.parentController.ctrl.triggerBackStep(self.model);
+          self.parentController.ctrl.triggerBackStep(this.model);
           event.preventDefault();
           event.stopPropagation();
         };
         self.done = function(event) {
-          self.parentController.ctrl.triggerCompleteStep(self.model);
+          self.parentController.ctrl.triggerCompleteStep(this.model);
           event.preventDefault();
           event.stopPropagation();
         };
+        // Save element in the controller
         self.submit = function(element) {
           var canvas = element[0].getElementsByTagName('canvas')[0];
           self.model.imageURI = canvas.toDataURL(encoding, imageQuality);

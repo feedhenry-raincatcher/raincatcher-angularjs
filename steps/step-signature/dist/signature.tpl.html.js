@@ -1,8 +1,8 @@
 var ngModule;
 try {
-  ngModule = angular.module('raincatcher.step.signature');
+  ngModule = angular.module('wfm.step.signature');
 } catch (e) {
-  ngModule = angular.module('raincatcher.step.signature', []);
+  ngModule = angular.module('wfm.step.signature', []);
 }
 
 ngModule.run(['$templateCache', function ($templateCache) {
