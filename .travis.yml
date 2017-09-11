@@ -17,6 +17,7 @@ cache:
     - packages/workflow-angular/node_modules
     - packages/workorder-angular/node_modules
     - packages/sync/node_modules
-    - examples/step-vehicle-inspection/node_modules
-    - examples/step-accident/node_modules
+    - steps/examples/step-vehicle-inspection/node_modules
+    - steps/step-signature/node_modules
+    - steps/examples/step-accident/node_modules
     - packages/wfm/node_modules
