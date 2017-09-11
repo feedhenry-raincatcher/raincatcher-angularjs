@@ -14,7 +14,7 @@ angular.module('wfm-mobile', [
   require('angular-ui-router'),
   require('angular-material'),
   // Enables passport auth service to be used
-  require('@raincatcher/angularjs-auth-passport')('wfm-mobile'),
+  require('./passport'),
   require('./services'),
   require('./sync'),
   // Set of the data services
@@ -31,6 +31,7 @@ angular.module('wfm-mobile', [
     mainColumnViewId: "content@app",
     toolbarViewId: "toolbar@app"
   }),
+  require('@raincatcher/angularjs-auth')(),
   vehicleInspectionStep.ngModule(),
   accidentStep.ngModule()
 ]);

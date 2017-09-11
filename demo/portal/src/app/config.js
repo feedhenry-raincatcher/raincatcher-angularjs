@@ -25,16 +25,12 @@ function AppConfig($stateProvider, $urlRouterProvider) {
       },
       controller: function($scope, $state, $mdSidenav, $mdDialog, userService) {
         userService.readUser().then(function(profileData) {
-          $scope.profileData = profileData;
+          if (profileData) {
+            $scope.profileData = profileData;
+          }
         }).catch(function(err) {
-          console.error(err);
-          $mdDialog.show($mdDialog.alert({
-            title: 'Failed to Load Profile Data',
-            textContent: 'Unable to load profile data',
-            ok: 'Login'
-          })).then(function() {
-            userService.login();
-          });
+          console.info(err);
+          userService.login();
         });
 
         $scope.$state = $state;

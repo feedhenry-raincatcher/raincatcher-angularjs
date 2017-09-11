@@ -12,7 +12,7 @@ logger.setLogger(new logger.ClientLogger(2));
 angular.module('app', [
   require('angular-ui-router'),
   require('angular-material'),
-  require('@raincatcher/angularjs-auth-passport')('app'),
+  require('./passport'),
   require('./services'),
   require('@raincatcher/angularjs-http'),
   require('ng-sortable'),
@@ -35,5 +35,7 @@ angular.module('app', [
   accidentStep.ngModule()
 ]);
 
+
 // require('./keycloak');
+
 require('./config');

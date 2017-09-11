@@ -16,6 +16,7 @@
   "license": "MIT",
   "dependencies": {
     "@raincatcher/datasync-client": "0.0.1",
+    "@raincatcher/angularjs-auth": "0.0.1",
     "@raincatcher/angularjs-auth-keycloak": "0.0.1",
     "@raincatcher/angularjs-auth-passport": "0.0.1",
     "@raincatcher/angularjs-workflow": "0.0.1",

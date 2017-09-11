@@ -1,4 +1,3 @@
-var keycloakConfig = require('./keycloakConfig');
-var initConfig = require('./keycloakInitConfig');
+var keycloakConfig = require('../../config.json');
 
-require('@raincatcher/angularjs-auth-keycloak')('app', keycloakConfig, initConfig);
+require('@raincatcher/angularjs-auth-keycloak')('app', keycloakConfig.keycloak, keycloakConfig.keycloakInit);
