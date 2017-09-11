@@ -43,7 +43,8 @@ function WorkorderListController($scope, workorderService, workorderFlowService,
 
     if (term.length > 3) {
       var filter = {
-        id: term
+        id: term,
+        title: term
       };
 
       $q.resolve(workorderService.search(filter)).then(function(workorders) {
