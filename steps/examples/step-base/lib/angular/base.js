@@ -1,7 +1,7 @@
 'use strict';
 
 function initModule() {
-  var moduleName = 'wfm.accident';
+  var moduleName = 'wfm.base';
   var ngModule = angular.module(moduleName, []);
 
   require('../../dist');
@@ -9,7 +9,7 @@ function initModule() {
   ngModule.directive('accidentReport', function($templateCache) {
     return {
       restrict: 'E'
-      , template: $templateCache.get('wfm-template/accident.tpl.html')
+      , template: $templateCache.get('wfm-template/base.tpl.html')
       , controller: function($scope) {
         $scope.model = $scope.result.submission;
       },
@@ -20,7 +20,7 @@ function initModule() {
   ngModule.directive('accidentReportForm', function($templateCache) {
     return {
       restrict: 'E'
-      , template: $templateCache.get('wfm-template/accident-form.tpl.html')
+      , template: $templateCache.get('wfm-template/base-form.tpl.html')
       , controller: function($scope) {
         var self = this;
         self.model = {};
