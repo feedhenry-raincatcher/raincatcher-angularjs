@@ -20,5 +20,4 @@ cache:
     - steps/examples/step-vehicle-inspection/node_modules
     - steps/step-signature/node_modules
     - steps/examples/step-accident/node_modules
-    - steps/raincatcher-camera/node_modules
     - packages/wfm/node_modules
