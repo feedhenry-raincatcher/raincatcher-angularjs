@@ -1,0 +1,9 @@
+{
+  "code": "generic-signature",
+  "name": "Signature step",
+  "description": "Captures signatures",
+  "templates": {
+    "form": "<signature-form></signature-form>",
+    "view": "<signature></signature>"
+  }
+}

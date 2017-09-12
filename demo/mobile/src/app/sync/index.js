@@ -1,6 +1,6 @@
 angular.module('wfm.sync', []);
 
-require('./syncServices');
-require('./syncPoolService');
+// Service for general sync interactions
+require('./syncGlobalManager');
 
 module.exports = 'wfm.sync';

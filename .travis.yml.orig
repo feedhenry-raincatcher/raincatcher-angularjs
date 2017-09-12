@@ -1,0 +1,29 @@
+language: node_js
+node_js:
+- '4'
+- 'node'
+sudo: false
+services:
+- docker
+- mongodb
+script:
+- npm run bootstrapCI
+- npm run testCI
+cache:
+  directories:
+    - node_modules
+    - demo/portal/node_modules
+    - demo/mobile/node_modules
+    - packages/workflow-angular/node_modules
+    - packages/workorder-angular/node_modules
+    - packages/sync/node_modules
+<<<<<<< HEAD
+    - examples/step-vehicle-inspection/node_modules
+    - examples/step-accident/node_modules
+    - examples/raincatcher-camera/node_modules
+=======
+    - steps/examples/step-vehicle-inspection/node_modules
+    - steps/step-signature/node_modules
+    - steps/examples/step-accident/node_modules
+>>>>>>> d937167658ac93f3e976408bd5f1f932eaf172c7
+    - packages/wfm/node_modules

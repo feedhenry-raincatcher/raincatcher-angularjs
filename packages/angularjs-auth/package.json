@@ -1,0 +1,32 @@
+{
+  "name": "@raincatcher/angularjs-auth",
+  "version": "0.0.1",
+  "description": "An AngularJS module with login and pin functionality",
+  "main": "./lib/auth-ng.js",
+  "scripts": {
+    "build": "grunt wfmTemplate:build",
+    "watch": "grunt wfmTemplate:watch",
+    "test": "grunt unit"
+  },
+  "keywords": [
+    "wfm",
+    "user"
+  ],
+  "author": "feedhenry-raincatcher@redhat.com",
+  "license": "MIT",
+  "dependencies": {
+    "q": "1.4.1",
+    "shortid": "^2.2.6"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "fh-wfm-template-build": "^0.2.1",
+    "grunt": "^1.0.1",
+    "grunt-eslint": "^18.0.0",
+    "grunt-mocha-test": "^0.13.2",
+    "load-grunt-tasks": "^3.5.2",
+    "mocha": "^3.2.0",
+    "sinon": "^1.17.6",
+    "sinon-as-promised": "^4.0.2"
+  }
+}
