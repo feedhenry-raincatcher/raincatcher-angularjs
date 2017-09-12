@@ -14,6 +14,9 @@
   ],
   "author": "feedhenry-raincatcher@redhat.com",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "q": "1.4.1",
     "shortid": "^2.2.6"
