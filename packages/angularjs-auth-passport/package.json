@@ -11,6 +11,9 @@
   ],
   "license": "Apache-2.0",
   "author": "feedhenry-raincatcher@redhat.com",
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "@raincatcher/logger": "0.0.1",
     "angular": "1.6.1",

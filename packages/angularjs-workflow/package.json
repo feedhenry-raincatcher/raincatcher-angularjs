@@ -18,6 +18,9 @@
   ],
   "author": "feedhenry-raincatcher@redhat.com",
   "license": "Apache-2.0",
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "bluebird": "^3.5.0",
     "lodash": "4.7.0",
