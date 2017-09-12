@@ -1,8 +1,8 @@
 {
-  "name": "@raincatcher/step-after-accident-report",
+  "name": "@raincatcher-examples/step-base",
   "version": "0.0.1",
-  "description": "After Accident Report",
-  "main": "lib/index.js",
+  "description": "Sample base step",
+  "main": "./lib/index.js",
   "scripts": {
     "build": "grunt wfmTemplate:build",
     "watch": "grunt wfmTemplate:watch",

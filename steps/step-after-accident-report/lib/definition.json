@@ -1,7 +1,7 @@
 {
-  "code": "vehicle-inspection",
-  "name": "Vehicle Inspection Step",
-  "description": "Perform Vehicle Inspection and log results",
+  "code": "after-accident-report",
+  "name": "After Accident Report Step",
+  "description": "Report what was fixed and log results",
   "templates": {
     "form": "<vehicle-inspection-form></vehicle-inspection-form>",
     "view": "<vehicle-inspection></vehicle-inspection>"

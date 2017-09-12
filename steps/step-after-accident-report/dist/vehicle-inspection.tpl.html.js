@@ -8,7 +8,7 @@ try {
 ngModule.run(['$templateCache', function ($templateCache) {
   $templateCache.put('wfm-template/vehicle-inspection.tpl.html',
     '\n' +
-    '  <md-subheader>Vehicle Inspection</md-subheader>\n' +
+    '  <md-subheader>After Accident Report</md-subheader>\n' +
     '\n' +
     '  <md-list class="risk-assessment">\n' +
     '\n' +
