@@ -16,7 +16,11 @@
         "@raincatcher/angularjs-http",
         "@raincatcher/vehicle-inspection",
         "@raincatcher/angularjs-workflow",
-        "@raincatcher/angularjs-workorder"
+        "@raincatcher/angularjs-workorder",
+        "@raincatcher/demo-mobile",
+        "@raincatcher/demo-portal",
+        "@raincatcher-examples/step-accident",
+        "@raincatcher-examples/step-vehicle-inspection"
       ]
     }
   },
