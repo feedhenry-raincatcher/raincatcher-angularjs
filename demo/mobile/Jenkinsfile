@@ -20,7 +20,7 @@ INFO_PLIST = "${PROJECT_NAME}/${PROJECT_NAME}-Info.plist"
 VERSION = "1.0.0"
 SHORT_VERSION = "1.0"
 BUNDLE_ID = "com.redhat.demo.wfm"
-OUTPUT_FILE_NAME="${PROJECT_NAME}-${BUILD_CONFIG}.ipa"
+OUTPUT_FILE_NAME="${PROJECT_NAME}-${BUILD_CONFIG}.ipa".replace(" ", "").toLowerCase()
 SDK = "iphoneos"
 
 if (BUILD_CONFIG.toLowerCase() == "debug") {
@@ -29,32 +29,25 @@ if (BUILD_CONFIG.toLowerCase() == "debug") {
     OSX_BUILD_CONFIG = "Release"
 }
 
-
 node(platform) {
     stage("Checkout") {
         checkout scm
     }
 
-    stage("Install local Cordova") {
-        sh "npm install cordova@6.3.1"
-    }
-
     stage("Prepare") {
         sh 'npm install --production'
-        sh "node_modules/cordova/bin/cordova platform rm $platform"
-        sh "node_modules/cordova/bin/cordova platform add $platform"
-        sh "node_modules/cordova/bin/cordova prepare $platform"
+        sh "cordova platform rm ${platform}"
+        sh "cordova platform add ${platform}"
+        sh "cordova prepare ${platform}"
         sh 'rm -rf node_modules'
     }
 
     stage("Build") {
         if (platform == 'android') {
-            withEnv(['CORDOVA_ANDROID_GRADLE_DISTRIBUTION_URL=https://services.gradle.org/distributions/gradle-2.13-bin.zip']) {
-                if (BUILD_CONFIG == 'debug') {
-                   sh "node_modules/cordova/bin/cordova build ${platform} --debug"
-                } else {
-                   sh "node_modules/cordova/bin/cordova build ${platform} --release"
-                }
+            if (BUILD_CONFIG == 'debug') {
+               sh "cordova build ${platform} --debug"
+            } else {
+               sh "cordova build ${platform} --release"
             }
         } else {
             xcodeBuild(
@@ -97,6 +90,7 @@ node(platform) {
                 profileId: "${CODE_SIGN_PROFILE_ID}",
                 clean: CLEAN,
                 verify: true,
+                ipaName: OUTPUT_FILE_NAME,
                 appPath: "platforms/${platform}/build/${OSX_BUILD_CONFIG}-${SDK}/${PROJECT_NAME}.app"
             )
         }
@@ -107,7 +101,7 @@ node(platform) {
             archiveArtifacts artifacts: "platforms/android/build/outputs/apk/android-${BUILD_CONFIG}.apk", excludes: 'platforms/android/build/outputs/apk/*-unaligned.apk'
         }
         if (platform == 'ios') {
-            archiveArtifacts artifacts: "platforms/${platform}/build/${OSX_BUILD_CONFIG}-${SDK}/${PROJECT_NAME}.ipa"
+            archiveArtifacts artifacts: "platforms/${platform}/build/${OSX_BUILD_CONFIG}-${SDK}/${OUTPUT_FILE_NAME}"
         }
     }
 }
