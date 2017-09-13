@@ -5,7 +5,7 @@ module.exports = function(grunt) {
       src: ["lib/**/*.js"]
     },
     wfmTemplate: {
-      module: "wfm.base",
+      module: "wfm.step.base",
       templateDir: "lib/angular/template",
       outputDir: "dist"
     }

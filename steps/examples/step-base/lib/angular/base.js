@@ -1,7 +1,7 @@
 'use strict';
 
 function initModule() {
-  var moduleName = 'wfm.base';
+  var moduleName = 'wfm.step.base';
   var ngModule = angular.module(moduleName, []);
 
   require('../../dist');
