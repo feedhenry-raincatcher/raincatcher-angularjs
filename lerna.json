@@ -10,19 +10,10 @@
   "commands": {
     "publish": {
       "exact": true,
-      "scope": [
-        "@raincatcher/angularjs-auth-keycloak",
-        "@raincatcher/angularjs-auth-passport",
-        "@raincatcher/angularjs-auth",
-        "@raincatcher/angularjs-http",
-        "@raincatcher/vehicle-inspection",
-        "@raincatcher/angularjs-workflow",
-        "@raincatcher/angularjs-workorder",
-        "@raincatcher/demo-mobile",
-        "@raincatcher/demo-portal",
-        "@raincatcher/step-signature",
-        "@raincatcher-examples/step-accident",
-        "@raincatcher-examples/step-vehicle-inspection"
+      "ignore": [
+        "@raincatcher/wfm",
+        "@raincatcher/logger",
+        "@raincatcher/datasync-client"
       ]
     }
   },
