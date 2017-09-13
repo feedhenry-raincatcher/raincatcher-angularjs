@@ -1,13 +1,13 @@
 var ngModule;
 try {
-  ngModule = angular.module('wfm.accident');
+  ngModule = angular.module('wfm.base');
 } catch (e) {
-  ngModule = angular.module('wfm.accident', []);
+  ngModule = angular.module('wfm.base', []);
 }
 
 ngModule.run(['$templateCache', function ($templateCache) {
   $templateCache.put('wfm-template/base-form.tpl.html',
-    '<p class="wfm-accident-row">Please register driver details</p>\n' +
+    '<p class="wfm-accident-row">Please register details</p>\n' +
     '\n' +
     '<div class="wfm-accident-row" class="form-group" ng-form name="accidentForm">\n' +
     '  <md-input-container class="md-block" flex-gt-sm>\n' +

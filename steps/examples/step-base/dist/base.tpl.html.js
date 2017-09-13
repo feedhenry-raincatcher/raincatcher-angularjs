@@ -1,8 +1,8 @@
 var ngModule;
 try {
-  ngModule = angular.module('wfm.accident');
+  ngModule = angular.module('wfm.base');
 } catch (e) {
-  ngModule = angular.module('wfm.accident', []);
+  ngModule = angular.module('wfm.base', []);
 }
 
 ngModule.run(['$templateCache', function ($templateCache) {
