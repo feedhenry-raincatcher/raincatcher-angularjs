@@ -21,7 +21,8 @@ angular.module('wfm-mobile', [
   // Set of the data services
   require('@raincatcher/angularjs-workflow')({
     mode: "user",
-    mainColumnViewId: "content@app"
+    mainColumnViewId: "content@app",
+    toolbarViewId: "toolbar@app"
   }),
   require('@raincatcher/angularjs-workorder')({
     mode: "user",
