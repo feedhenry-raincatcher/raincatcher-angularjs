@@ -35,7 +35,7 @@ angular.module('wfm-mobile', [
 ]);
 
 // NOTE: Enable the next line in order to use Keycloak auth service
-// require('../keycloak');
+// require('./keycloak');
 require('./initialisation');
 
 
