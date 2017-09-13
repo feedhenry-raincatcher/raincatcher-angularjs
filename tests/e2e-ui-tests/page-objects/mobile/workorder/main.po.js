@@ -1,6 +1,6 @@
-var utils = require('../../utils');
+var utils = require('../../../utils');
 
-var WorkorderPage = function {
+var WorkorderPage = function() {
   var locators = {
     heading: element(by.css('workorder-list .md-toolbar-tools h3 span')),
     searchBox: element(by.css('label[for="search"] input')),
@@ -27,7 +27,7 @@ var WorkorderPage = function {
   return {
     locators,
     commands
-  }
+  };
 };
 
 module.exports = WorkorderPage();

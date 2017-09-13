@@ -11,7 +11,7 @@ var pageConstants = require('../../data/page_constants');
  */
 function AuthService() {
 
-};
+}
 
 /**
  * Used to open the login page of the mobile application
@@ -28,7 +28,7 @@ AuthService.prototype.openMobileApp = function() {
  */
 AuthService.prototype.loginToMobileApp = function(usernameOrEmail, password) {
   if (usernameOrEmail !== "") {
-    loginPage.commands.enterUsername(username);
+    loginPage.commands.enterUsername(usernameOrEmail);
   }
   if (password !== "") {
     loginPage.commands.enterPassword(password);
@@ -54,7 +54,7 @@ AuthService.prototype.verifyLoginPageIsVisible = function() {
   ], [
     pageConstants.login.USERNAME_LABEL_MSG,
     pageConstants.login.PASSWORD_LABEL_MSG
-  ])
+  ]);
 };
 
 /**
@@ -90,7 +90,7 @@ AuthService.prototype.verifyUserDetails = function(fullName, email, imagePath) {
  * have been entered, and that the error message is as expected
  */
 AuthService.prototype.verifyErrorMessageIsDisplayed = function() {
-  utils.check.elementVisibilityAndValue(invalidCredentialsErrorMsg,
+  utils.check.elementVisibilityAndValue(loginPage.locators.invalidCredentialsErrorMsg,
     pageConstants.login.AUTH_FAIL_MSG);
 };
 

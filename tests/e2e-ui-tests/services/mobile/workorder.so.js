@@ -1,6 +1,7 @@
 var pageObject = require('../../page-objects/mobile/workorder');
 var mainWorkorderPage = pageObject.main;
 var selectedWorkorderPage = pageObject.selected;
+var utils = require('../../utils');
 
 /**
  *
@@ -46,7 +47,7 @@ WorkorderService.prototype.beginWorkflow = function() {
 };
 
 WorkorderService.prototype.verifyCompletedWorkflowDetailsArePresent = function(params) {
-  utils.check.elementsArePresent([ selectedWorkorderPage.locators ])
+  utils.check.elementsArePresent([ selectedWorkorderPage.locators ]);
 };
 
 

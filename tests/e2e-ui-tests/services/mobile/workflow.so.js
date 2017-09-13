@@ -11,7 +11,7 @@ var pageConstants = require('../../data/page_constants');
  */
 function WorkflowService() {
 
-};
+}
 
 /**
  *
@@ -23,9 +23,9 @@ WorkflowService.prototype.verifyWorkflowFormIsVisible = function() {
     mainWorkflowPage.locators.radioButtons.tires.pass,
     mainWorkflowPage.locators.radioButtons.lights.fail,
     mainWorkflowPage.locators.radioButtons.lights.pass,
-    mainWorkflowPage.locators.buttons.back;
-    mainWorkflowPage.locators.buttons.submitButton;
-  ])
+    mainWorkflowPage.locators.buttons.back,
+    mainWorkflowPage.locators.buttons.submitButton
+  ]);
 };
 
 /**
@@ -52,7 +52,7 @@ WorkflowService.prototype.setWorkflowDetails = function(fuelPercentage, tires, l
 /**
  * Used to complete an entry to a workflow
  */
-WorkflowService.prototype.submitWorkflowDetails = function () {
+WorkflowService.prototype.submitWorkflowDetails = function() {
   mainWorkflowPage.commands.click.button.continue();
 };
 
@@ -78,7 +78,7 @@ WorkflowService.prototype.checkWorkflowDetails = function(heading, fuel, tires, 
   ]);
   utils.expect.resultIsEqualTo(completedWorkflowPage.commands.get.fuelValue(), fuel);
   utils.expect.resultIsEqualTo(completedWorkflowPage.commands.get.tiresValue(), tires);
-  utils.expect.resultIsEqualTo(ccompletedWorkflowPage.commands.get.lightsValue(), lights);
+  utils.expect.resultIsEqualTo(completedWorkflowPage.commands.get.lightsValue(), lights);
 };
 
 module.exports = WorkflowService;

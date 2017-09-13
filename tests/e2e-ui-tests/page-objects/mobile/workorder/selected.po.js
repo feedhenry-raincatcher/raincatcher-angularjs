@@ -1,4 +1,4 @@
-var utils = require('../../utils');
+var utils = require('../../../utils');
 
 var SelectedWorkorderPage = function() {
   var locators = {
@@ -8,7 +8,7 @@ var SelectedWorkorderPage = function() {
     workFlowResultSection: element(by.css('workorder-submission-result'))
   };
 
-  var getListItemChildTdetailsListItems.count()ext = function(index) {
+  var getListItemChildText = function(index) {
     locators.detailsListItems.get(index).element(by.css('h3')).getText();
   };
 
@@ -34,7 +34,7 @@ var SelectedWorkorderPage = function() {
   return {
     locators,
     commands
-  }
+  };
 };
 
 module.exports = SelectedWorkorderPage();

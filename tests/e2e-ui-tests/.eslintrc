@@ -38,6 +38,7 @@
     "localStorage": false,
     "window": false,
     "expect": false,
-    "step": false
+    "step": false,
+    "xstep": false
   }
 }
