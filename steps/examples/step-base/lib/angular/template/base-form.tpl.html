@@ -1,16 +1,17 @@
 <p class="wfm-accident-row">Please register details</p>
-
+<!-- Three field form -->
 <div class="wfm-accident-row" class="form-group" ng-form name="accidentForm">
   <md-input-container class="md-block" flex-gt-sm>
-    <label>Car registration number</label>
+    <label>E.g. Car registration number</label>
+    <!-- Customise change ng-model ctrl.model to own variable --> 
     <input type="text" id="title" name="title" ng-model="ctrl.model.regNr" required>
   </md-input-container>
   <md-input-container class="md-block" flex-gt-sm>
-    <label>Owner name</label>
+    <label>E.g. Owner name</label>
     <input type="text" id="title" name="title" ng-model="ctrl.model.owner" required>
   </md-input-container>
   <md-input-container class="md-block" flex-gt-sm>
-    <label>Owner phone number</label>
+    <label>E.g. Owner phone number</label>
     <input type="text" id="title" name="title" ng-model="ctrl.model.phone" required>
   </md-input-container>
 </div>
