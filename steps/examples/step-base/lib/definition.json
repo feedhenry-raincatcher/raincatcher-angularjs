@@ -1,9 +1,9 @@
 {
-  "code": "base-report-form",
-  "name": "Base Report Form",
+  "code": "base-form",
+  "name": "Base Form",
   "description": "base form used to for steps",
   "templates": {
-    "form": "<base-report-form></base-report-form>",
+    "form": "<base-form></base-form>",
     "view": "<base-report></base-report>"
   }
 }

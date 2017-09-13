@@ -6,7 +6,7 @@ function initModule() {
 
   require('../../dist');
 
-  ngModule.directive('accidentReport', function($templateCache) {
+  ngModule.directive('baseReport', function($templateCache) {
     return {
       restrict: 'E'
       , template: $templateCache.get('wfm-template/base.tpl.html')
@@ -17,7 +17,7 @@ function initModule() {
     };
   });
 
-  ngModule.directive('accidentReportForm', function($templateCache) {
+  ngModule.directive('baseReportForm', function($templateCache) {
     return {
       restrict: 'E'
       , template: $templateCache.get('wfm-template/base-form.tpl.html')
