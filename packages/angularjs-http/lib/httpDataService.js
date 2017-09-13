@@ -1,8 +1,20 @@
 var Promise = require('bluebird');
+var noop = function() { };
 function HttpDataService(entityName, baseUrlPromise, $http) {
   this.entityName = entityName;
   this.baseUrlPromise = baseUrlPromise;
   this.$http = $http;
+
+  this.handlers = {
+    'beforeCreate': noop,
+    'afterCreate': noop,
+    'beforeUpdate': noop,
+    'afterUpdate': noop,
+    'beforeRemove': function() {
+      return true;
+    },
+    'afterRemove': noop,
+  };
 }
 
 HttpDataService.prototype.request = function(relativeUrl, httpConfig) {
@@ -48,23 +60,29 @@ HttpDataService.prototype.read = function(objectId) {
 };
 
 HttpDataService.prototype.create = function(data) {
+  this.handlers.beforeCreate(data);
   return this.request('/' + this.entityName, {
     method: 'POST',
     data: data
-  });
+  }).tap(this.handlers.afterCreate);
 };
 
 HttpDataService.prototype.update = function(data) {
+  this.handlers.beforeUpdate(data);
   return this.request('/' + this.entityName + '/' + data.id, {
     method: 'PUT',
     data: data
-  });
+  }).tap(this.handlers.afterUpdate);
 };
 
 HttpDataService.prototype.remove = function(data) {
+  if (!this.handlers.beforeRemove(data)) {
+    console.info('Remove operation cancelled due to beforeRemove hook');
+    return;
+  }
   return this.request('/' + this.entityName + '/' + data.id, {
     method: 'DELETE'
-  });
+  }).tap(this.handlers.afterRemove);
 };
 
 HttpDataService.prototype.search = function(filter) {
@@ -77,6 +95,49 @@ HttpDataService.prototype.search = function(filter) {
   }).then(function(response) {
     return response.data;
   });
+};
+
+/**
+ * Provides a function that is called before creating a new data item, it can modify it before the operation is commited
+ */
+HttpDataService.prototype.onBeforeCreate = function(cb) {
+  this.handlers.beforeCreate = cb;
+};
+
+/**
+ * Provides a function that is called before updating the data, it can modify it before the operation is commited
+ */
+HttpDataService.prototype.onBeforeUpdate = function(cb) {
+  this.handlers.beforeUpdate = cb;
+};
+
+/**
+ * Provides a function that is called before removing a data item, it can prevent the operation by returning a falsey value
+ */
+HttpDataService.prototype.onBeforeRemove = function(cb) {
+  this.handlers.beforeRemove = cb;
+};
+
+
+/**
+ * Provides a function that is called after creating a new data item
+ */
+HttpDataService.prototype.onAfterCreate = function(cb) {
+  this.handlers.afterCreate = cb;
+};
+
+/**
+ * Provides a function that is called after updating the data
+ */
+HttpDataService.prototype.onAfterUpdate = function(cb) {
+  this.handlers.afterUpdate = cb;
+};
+
+/**
+ * Provides a function that is called after removing a data item
+ */
+HttpDataService.prototype.onAfterRemove = function(cb) {
+  this.handlers.afterRemove = cb;
 };
 
 module.exports = HttpDataService;
