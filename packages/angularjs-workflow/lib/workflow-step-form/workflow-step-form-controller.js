@@ -7,6 +7,10 @@ function WorkflowStepFormController($scope, workflowService, workflowFlowService
   self.submitted = false;
   self.stepDefinitions = WORKFLOW_CONFIG.stepDefinitions;
 
+  workflowService.onBeforeUpdate(function(workflow) {
+    workflow.version = workflow.version + 1;
+  });
+
   function setUpStepData(workflow) {
     self.workflow = workflow;
     if (!$stateParams.code) {
