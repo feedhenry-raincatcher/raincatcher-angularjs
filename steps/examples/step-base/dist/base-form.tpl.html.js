@@ -8,18 +8,19 @@ try {
 ngModule.run(['$templateCache', function ($templateCache) {
   $templateCache.put('wfm-template/base-form.tpl.html',
     '<p class="wfm-accident-row">Please register details</p>\n' +
-    '\n' +
+    '<!-- Three field form -->\n' +
     '<div class="wfm-accident-row" class="form-group" ng-form name="accidentForm">\n' +
     '  <md-input-container class="md-block" flex-gt-sm>\n' +
-    '    <label>Car registration number</label>\n' +
+    '    <label>E.g. Car registration number</label>\n' +
+    '    <!-- Customise change ng-model ctrl.model to own variable --> \n' +
     '    <input type="text" id="title" name="title" ng-model="ctrl.model.regNr" required>\n' +
     '  </md-input-container>\n' +
     '  <md-input-container class="md-block" flex-gt-sm>\n' +
-    '    <label>Owner name</label>\n' +
+    '    <label>E.g. Owner name</label>\n' +
     '    <input type="text" id="title" name="title" ng-model="ctrl.model.owner" required>\n' +
     '  </md-input-container>\n' +
     '  <md-input-container class="md-block" flex-gt-sm>\n' +
-    '    <label>Owner phone number</label>\n' +
+    '    <label>E.g. Owner phone number</label>\n' +
     '    <input type="text" id="title" name="title" ng-model="ctrl.model.phone" required>\n' +
     '  </md-input-container>\n' +
     '</div>\n' +
