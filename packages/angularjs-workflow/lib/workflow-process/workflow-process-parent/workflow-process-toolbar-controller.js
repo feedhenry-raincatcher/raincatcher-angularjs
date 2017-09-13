@@ -9,7 +9,7 @@ var CONSTANTS = require('../../constants');
  * @param workorderService
  * @constructor
  */
-function WorkflowProcessToolbarController($scope, $stateParams, workorderService, workflowFlowService) {
+function WorkflowProcessToolbarController($scope, $stateParams, workorderService, $state) {
   var workorderId = $stateParams.workorderId;
 
   workorderService.read(workorderId).then(function(workorder) {
@@ -18,9 +18,9 @@ function WorkflowProcessToolbarController($scope, $stateParams, workorderService
 
   //Want to close this workflow and switch back to the list of workorders
   $scope.close = function() {
-    workflowFlowService.goToWorkflowList();
+    $state.go('app.workorder');
   };
 }
 
-angular.module(CONSTANTS.WORKFLOW_DIRECTIVE_MODULE).controller('ProcessToolbarController', ['$scope', '$stateParams', 'workorderService', 'workflowFlowService', WorkflowProcessToolbarController]);
+angular.module(CONSTANTS.WORKFLOW_DIRECTIVE_MODULE).controller('ProcessToolbarController', ['$scope', '$stateParams', 'workorderService', '$state', WorkflowProcessToolbarController]);
 
