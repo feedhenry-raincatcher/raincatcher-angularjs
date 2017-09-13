@@ -36,4 +36,13 @@
     </div>
     <md-divider></md-divider>
   </md-list-item>
+
+  <md-list-item class="md-2-line" ng-show="workorder.workflow">
+    <md-icon md-font-set="material-icons">label</md-icon>
+    <div class="md-list-item-text">
+      <h3>{{workorder.workflow.title}} v{{workorder.workflow.version}}</h3>
+      <p>Workflow</p>
+    </div>
+    <md-divider></md-divider>
+  </md-list-item>
 </md-list>
