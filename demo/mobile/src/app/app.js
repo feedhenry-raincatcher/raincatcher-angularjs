@@ -8,7 +8,7 @@ var logger = require('@raincatcher/logger');
 var accidentStep = require('@raincatcher-examples/step-accident');
 var vehicleInspectionStep = require('@raincatcher-examples/step-vehicle-inspection');
 var signatureStep = require('@raincatcher/step-signature');
-var afterAccidentReportStep = require('@raincatcher/step-after-accident-report');
+
 
 logger.setLogger(new logger.ClientLogger(2));
 
