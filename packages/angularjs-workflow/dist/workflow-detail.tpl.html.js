@@ -10,7 +10,7 @@ ngModule.run(['$templateCache', function ($templateCache) {
     '<md-toolbar class="content-toolbar">\n' +
     '  <div class="md-toolbar-tools">\n' +
     '    <h3>\n' +
-    '      {{ctrl.workflow.title}}\n' +
+    '      {{ctrl.workflow.title}} v{{ctrl.workflow.version}}\n' +
     '    </h3>\n' +
     '    <span flex></span>\n' +
     '    <md-button class="md-icon-button" aria-label="Edit" ui-sref="app.workflow.edit({workflowId: ctrl.workflow.id})">\n' +
