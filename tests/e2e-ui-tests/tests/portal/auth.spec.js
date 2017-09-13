@@ -6,6 +6,7 @@ describe("Portal Auth E2E", function() {
   describe("Valid authentication scenario", function() {
     describe('Check user can login with valid credentials', function() {
       step('open portal login', function() {
+        browser.ignoreSynchronization = true;
         authService.openPortalApp();
       });
 
@@ -19,6 +20,7 @@ describe("Portal Auth E2E", function() {
       });
 
       step('verify workorders screen is displayed', function() {
+        browser.ignoreSynchronization = false;
         authService.verifySuccessfulLogin();
       });
     });
@@ -29,6 +31,7 @@ describe("Portal Auth E2E", function() {
       });
 
       step('verify login page is displayed', function() {
+        browser.ignoreSynchronization = true;
         authService.verifyLoginPageIsVisible();
       });
     });
@@ -41,7 +44,7 @@ describe("Portal Auth E2E", function() {
       });
 
       step('attempt to login as ' + authData.users.DAISY.username + ' with password ' + authData.password.INVALID_PASSWORD, function() {
-        authservice.loginToPortalApp(authData.users.DAISY.username,
+        authService.loginToPortalApp(authData.users.DAISY.username,
           authData.password.INVALID_PASSWORD);
       });
 
@@ -56,7 +59,7 @@ describe("Portal Auth E2E", function() {
       });
 
       step('attempt to login as ' + authData.users.DAISY.username + ' without a password', function() {
-        authservice.loginToPortalApp(authData.users.DAISY.username, "")
+        authService.loginToPortalApp(authData.users.DAISY.username, "");
       });
 
       step('verify login error message is displayed', function() {
@@ -81,8 +84,7 @@ describe("Portal Auth E2E", function() {
   });
 
   describe('Access control tests', function() {
-    step('', function() {
-      console.log('Access control tests still to be implemented');
+    step('Access control tests still to be implemented', function() {
     });
-  })
+  });
 });

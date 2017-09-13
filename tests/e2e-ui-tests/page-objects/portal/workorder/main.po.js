@@ -1,9 +1,9 @@
-var consts = require('../../utils/constants');
-var utils = require('../../utils');
+var consts = require('../../../data/page_constants');
+var utils = require('../../../utils');
 
 var MainWorkorderPage = function() {
   var locators = {
-    header: element(by.xpath('//h3/span[text()="Workorders"]')),
+    header: element(by.css('#content > div.ng-scope.flex > div > h2')),
 
     emptyTitle: element(by.css('h2.md-title')),
     emptyBody: element(by.css('div p.md-body-1')),
@@ -33,17 +33,17 @@ var MainWorkorderPage = function() {
       return locators.sideMenuButton.click();
     },
     selfCheck: function() {
-      return browser.getLocationAbsUrl().then(function(result) {
-        utils.expect.resultIsEquelTo(result, consts.workorders.URL);
+      return browser.getCurrentUrl().then(function(result) {
+        expect(result).to.include(consts.workorders.URL);
         return locators.header.isPresent();
       }).then(function(result) {
         utils.expect.resultIsTrue(result);
         return locators.emptyTitle.getText();
       }).then(function(result) {
-        utils.expect.resultIsEquelTo(result, consts.workorders.DEFAULT_HEADING);
+        utils.expect.resultIsEqualTo(result, consts.workorders.portal.DEFAULT_HEADING);
         return locators.emptyBody.getText();
       }).then(function(result) {
-        utils.expect.resultIsEquelTo(result, consts.workorders.DEFAULT_BODY);
+        utils.expect.resultIsEqualTo(result, consts.workorders.portal.DEFAULT_BODY);
         return locators.newButton.isPresent();
       }).then(function(result) {
         utils.expect.resultIsTrue(result);

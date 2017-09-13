@@ -46,21 +46,21 @@ var WorkflowPage = function() {
     },
     dragSlider: function(percentage) {
       var value = null;
-      switch(percentage) {
-        case percentage < 13:
-          value = 0;
-          break;
-        case percentage < 38:
-          value = 25;
-          break;
-        case percentage < 63:
-          value = 50;
-          break;
-        case percentage < 88:
-          value = 75;
-          break;
-        default:
-          value = 100;
+      switch (percentage) {
+      case percentage < 13:
+        value = 0;
+        break;
+      case percentage < 38:
+        value = 25;
+        break;
+      case percentage < 63:
+        value = 50;
+        break;
+      case percentage < 88:
+        value = 75;
+        break;
+      default:
+        value = 100;
       }
       //TODO - finish slider implementation
     }
@@ -69,7 +69,7 @@ var WorkflowPage = function() {
   return {
     locators,
     commands
-  }
+  };
 };
 
 module.exports = WorkflowPage();
