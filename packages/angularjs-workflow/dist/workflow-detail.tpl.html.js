@@ -35,7 +35,7 @@ ngModule.run(['$templateCache', function ($templateCache) {
     '        </md-button>\n' +
     '        <md-button class="md-icon-button" aria-label="Delete Step"\n' +
     '                   ng-click="ctrl.deleteStep($event, step, $index, ctrl.workflow)">\n' +
-    '          <md-icon md-font-set="material-icons">delete step</md-icon>\n' +
+    '          <md-icon md-font-set="material-icons">delete sweep</md-icon>\n' +
     '        </md-button>\n' +
     '      </md-card-actions>\n' +
     '    </md-card>\n' +
