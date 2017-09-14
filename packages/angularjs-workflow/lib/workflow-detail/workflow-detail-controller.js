@@ -17,10 +17,6 @@ function WorkflowDetailController($scope, $mdDialog, $stateParams, workflowServi
   var self = this;
   self.workflow = null;
 
-  workflowService.onBeforeUpdate(function(workflow) {
-    workflow.version = workflow.version + 1;
-  });
-
   //Used with the ng-sortable module
   self.dragControlListeners = {
     containment: '#stepList',

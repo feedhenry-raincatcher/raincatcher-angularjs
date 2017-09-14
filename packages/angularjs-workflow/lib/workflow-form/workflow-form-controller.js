@@ -15,13 +15,6 @@ function WorkflowFormController($scope, workflowService, workflowFlowService, $s
   self.model = false;
   self.submitted = false;
 
-  workflowService.onBeforeCreate(function(workflow) {
-    workflow.version = 1;
-  });
-  workflowService.onBeforeUpdate(function(workflow) {
-    workflow.version = workflow.version + 1;
-  });
-
   //If there is no workflow ID, then we are creating a new workflow.
   var workflowPromise = $stateParams.workflowId ? workflowService.read($stateParams.workflowId) : $q.when({
     steps: []
