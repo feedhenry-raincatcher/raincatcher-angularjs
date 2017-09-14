@@ -24,7 +24,7 @@ ngModule.run(['$templateCache', function ($templateCache) {
     '\n' +
     '<div class="wfm-maincol-scroll" ng-if="ctrl.workflow">\n' +
     '  <div id="stepList" ng-model="ctrl.workflow.steps" as-sortable="ctrl.dragControlListeners">\n' +
-    '    <md-card ng-repeat="step in ctrl.workflow.steps track by $index"  as-sortable-item>\n' +
+    '    <md-card ng-repeat="step in ctrl.workflow.steps track by $index"  ng-model="step" as-sortable-item>\n' +
     '      <md-card-content as-sortable-item-handle>\n' +
     '        <workflow-step-detail step="step"></workflow-step-detail>\n' +
     '      </md-card-content>\n' +
@@ -35,7 +35,7 @@ ngModule.run(['$templateCache', function ($templateCache) {
     '        </md-button>\n' +
     '        <md-button class="md-icon-button" aria-label="Delete Step"\n' +
     '                   ng-click="ctrl.deleteStep($event, step, $index, ctrl.workflow)">\n' +
-    '          <md-icon md-font-set="material-icons">delete sweep</md-icon>\n' +
+    '          <md-icon md-font-set="material-icons">delete step</md-icon>\n' +
     '        </md-button>\n' +
     '      </md-card-actions>\n' +
     '    </md-card>\n' +
