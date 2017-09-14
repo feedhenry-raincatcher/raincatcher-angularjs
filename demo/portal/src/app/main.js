@@ -33,6 +33,7 @@ angular.module('app', [
       signatureStep.definition
     ]
   }),
+  require('@raincatcher/angularjs-extensions'),
   vehicleInspectionStep.ngModule(),
   accidentStep.ngModule(),
   signatureStep.ngModule()

@@ -23,6 +23,7 @@
     "@raincatcher/angularjs-auth-passport": "0.0.1",
     "@raincatcher/angularjs-workflow": "0.0.1",
     "@raincatcher/angularjs-workorder": "0.0.1",
+    "@raincatcher/angularjs-extensions": "0.0.1",
     "@raincatcher/step-signature": "0.0.1",
     "@raincatcher-examples/step-vehicle-inspection": "0.0.1",
     "@raincatcher-examples/step-accident": "0.0.1",
