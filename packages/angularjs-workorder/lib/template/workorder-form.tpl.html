@@ -17,7 +17,7 @@
   <div layout-gt-sm="row">
     <md-input-container class="md-block" flex-gt-sm ng-if="ctrl.model.id">
       <label>Workflow</label>
-      <input type="text" ng-model="ctrl.model.workflow.title" ng-disabled="true">
+      <input type="text" value="{{ctrl.model.workflow.title + ' v' + ctrl.model.workflow.version}}" ng-disabled="true">
     </md-input-container>
     <md-input-container class="md-block" flex-gt-sm ng-if="!ctrl.model.id">
       <label for="workflow">Workflow</label>

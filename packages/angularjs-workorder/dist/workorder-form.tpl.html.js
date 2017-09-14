@@ -26,7 +26,7 @@ ngModule.run(['$templateCache', function ($templateCache) {
     '  <div layout-gt-sm="row">\n' +
     '    <md-input-container class="md-block" flex-gt-sm ng-if="ctrl.model.id">\n' +
     '      <label>Workflow</label>\n' +
-    '      <input type="text" ng-model="ctrl.model.workflow.title" ng-disabled="true">\n' +
+    '      <input type="text" value="{{ctrl.model.workflow.title + \' v\' + ctrl.model.workflow.version}}" ng-disabled="true">\n' +
     '    </md-input-container>\n' +
     '    <md-input-container class="md-block" flex-gt-sm ng-if="!ctrl.model.id">\n' +
     '      <label for="workflow">Workflow</label>\n' +
