@@ -9,6 +9,7 @@ var accidentStep = require('@raincatcher-examples/step-accident');
 var vehicleInspectionStep = require('@raincatcher-examples/step-vehicle-inspection');
 var signatureStep = require('@raincatcher/step-signature');
 
+
 logger.setLogger(new logger.ClientLogger(2));
 
 angular.module('wfm-mobile', [
