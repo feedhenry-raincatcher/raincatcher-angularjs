@@ -15,13 +15,35 @@ ngModule.run(['$templateCache', function ($templateCache) {
     '    <input type="text" id="title" name="title" ng-model="ctrl.model.regNr" required>\n' +
     '  </md-input-container>\n' +
     '  <md-input-container class="md-block" flex-gt-sm>\n' +
-    '    <label>Owner name</label>\n' +
-    '    <input type="text" id="title" name="title" ng-model="ctrl.model.owner" required>\n' +
+    '    <label>Driver name</label>\n' +
+    '    <input type="text" id="title" name="title" ng-model="ctrl.model.driverName" required>\n' +
     '  </md-input-container>\n' +
     '  <md-input-container class="md-block" flex-gt-sm>\n' +
-    '    <label>Owner phone number</label>\n' +
-    '    <input type="text" id="title" name="title" ng-model="ctrl.model.phone" required>\n' +
+    '    <label>Driver phone number</label>\n' +
+    '    <input type="text" id="title" name="title" ng-model="ctrl.model.driverPhone" required>\n' +
     '  </md-input-container>\n' +
+    '  \n' +
+    '  <md-input-container class="md-block" flex-gt-sm>\n' +
+    '    <md-radio-group ng-model="ctrl.model.driverIsOwner">\n' +
+    '      <md-radio-button ng-value=true class="md-primary" >Driver owns the car</md-radio-button>\n' +
+    '      <md-radio-button ng-value=false> Car owned by third party </md-radio-button>\n' +
+    '    </md-radio-group>\n' +
+    '\n' +
+    '\n' +
+    '  <div ng-if="ctrl.model.driverIsOwner === false">\n' +
+    '      <md-input-container class="md-block" flex-gt-sm>\n' +
+    '          <label>Owner name</label>\n' +
+    '          <input type="text" id="title" name="title" ng-model="ctrl.model.ownerName" required>\n' +
+    '      </md-input-container>\n' +
+    '      <md-input-container class="md-block" flex-gt-sm>\n' +
+    '          <label>Owner phone number</label>\n' +
+    '          <input type="text" id="title" name="title" ng-model="ctrl.model.ownerPhone" required>\n' +
+    '        </md-input-container>\n' +
+    '  </div>\n' +
+    '\n' +
+    '  \n' +
+    '\n' +
+    '\n' +
     '</div>\n' +
     '\n' +
     '<md-divider></md-divider>\n' +

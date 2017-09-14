@@ -6,13 +6,35 @@
     <input type="text" id="title" name="title" ng-model="ctrl.model.regNr" required>
   </md-input-container>
   <md-input-container class="md-block" flex-gt-sm>
-    <label>Owner name</label>
-    <input type="text" id="title" name="title" ng-model="ctrl.model.owner" required>
+    <label>Driver name</label>
+    <input type="text" id="title" name="title" ng-model="ctrl.model.driverName" required>
   </md-input-container>
   <md-input-container class="md-block" flex-gt-sm>
-    <label>Owner phone number</label>
-    <input type="text" id="title" name="title" ng-model="ctrl.model.phone" required>
+    <label>Driver phone number</label>
+    <input type="text" id="title" name="title" ng-model="ctrl.model.driverPhone" required>
   </md-input-container>
+  
+  <md-input-container class="md-block" flex-gt-sm>
+    <md-radio-group ng-model="ctrl.model.driverIsOwner">
+      <md-radio-button ng-value=true class="md-primary" >Driver owns the car</md-radio-button>
+      <md-radio-button ng-value=false> Car owned by third party </md-radio-button>
+    </md-radio-group>
+
+
+  <div ng-if="ctrl.model.driverIsOwner === false">
+      <md-input-container class="md-block" flex-gt-sm>
+          <label>Owner name</label>
+          <input type="text" id="title" name="title" ng-model="ctrl.model.ownerName" required>
+      </md-input-container>
+      <md-input-container class="md-block" flex-gt-sm>
+          <label>Owner phone number</label>
+          <input type="text" id="title" name="title" ng-model="ctrl.model.ownerPhone" required>
+        </md-input-container>
+  </div>
+
+  
+
+
 </div>
 
 <md-divider></md-divider>
