@@ -1,0 +1,7 @@
+<md-input-container class="md-block">
+  <label>Summary</label>
+  <input type="text" id="inputTitle" name="title" ng-model="ctrl.model.data.summary" required>
+  <div ng-messages="workorderForm.title.$error" ng-if="ctrl.submitted || workorderForm.title.$dirty">
+    <div ng-message="required">A summary is required.</div>
+  </div>
+</md-input-container>

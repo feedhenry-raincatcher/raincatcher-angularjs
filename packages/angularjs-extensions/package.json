@@ -1,0 +1,28 @@
+{
+  "name": "@raincatcher/angularjs-extensions",
+  "version": "0.0.1",
+  "description": "Set of angularjs directives to extend existing UI components",
+  "main": "lib/index.js",
+  "engines": {
+    "node": ">=4.4 <=6.10"
+  },
+  "scripts": {
+    "build": "grunt wfmTemplate:build",
+    "watch": "grunt wfmTemplate:watch"
+  },
+  "keywords": [
+    "wfm",
+    "angularjs"
+  ],
+  "license": "MIT",
+  "author": "feedhenry-raincatcher@redhat.com",
+  "dependencies": {
+    "angular": "1.6.1"
+  },
+  "devDependencies": {
+    "browserify": "^14.4.0",
+    "browserify-shim": "^3.8.14",
+    "fh-wfm-template-build": "0.2.1",
+    "grunt": "0.4.5"
+  }
+}
