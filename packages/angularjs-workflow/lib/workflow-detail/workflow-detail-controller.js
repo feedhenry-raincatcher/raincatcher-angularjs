@@ -20,6 +20,9 @@ function WorkflowDetailController($scope, $mdDialog, $stateParams, workflowServi
   //Used with the ng-sortable module
   self.dragControlListeners = {
     containment: '#stepList',
+    accept: function(sourceItemHandleScope, destSortableScope) {
+      return sourceItemHandleScope.itemScope.sortableScope.$id === destSortableScope.$id;
+    },
     orderChanged :  function() {
       workflowService.update(self.workflow);
     }

@@ -15,7 +15,7 @@
 
 <div class="wfm-maincol-scroll" ng-if="ctrl.workflow">
   <div id="stepList" ng-model="ctrl.workflow.steps" as-sortable="ctrl.dragControlListeners">
-    <md-card ng-repeat="step in ctrl.workflow.steps track by $index"  as-sortable-item>
+    <md-card ng-repeat="step in ctrl.workflow.steps track by $index"  ng-model="step" as-sortable-item>
       <md-card-content as-sortable-item-handle>
         <workflow-step-detail step="step"></workflow-step-detail>
       </md-card-content>
