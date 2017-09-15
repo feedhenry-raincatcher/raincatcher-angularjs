@@ -25,7 +25,7 @@ ngModule.run(['$templateCache', function ($templateCache) {
     '                ng-class="{active: selected.id === workflow.id}" >\n' +
     '    <div class="md-list-item-text">\n' +
     '      <p>\n' +
-    '        {{workflow.title}} <br/>\n' +
+    '        {{workflow.title}} v{{workflow.version}}\n' +
     '      </p>\n' +
     '    </div>\n' +
     '    <md-divider></md-divider>\n' +

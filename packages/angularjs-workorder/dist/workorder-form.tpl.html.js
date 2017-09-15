@@ -26,12 +26,12 @@ ngModule.run(['$templateCache', function ($templateCache) {
     '  <div layout-gt-sm="row">\n' +
     '    <md-input-container class="md-block" flex-gt-sm ng-if="ctrl.model.id">\n' +
     '      <label>Workflow</label>\n' +
-    '      <input type="text" ng-model="ctrl.model.workflow.title" ng-disabled="true">\n' +
+    '      <input type="text" value="{{ctrl.model.workflow.title + \' v\' + ctrl.model.workflow.version}}" ng-disabled="true">\n' +
     '    </md-input-container>\n' +
     '    <md-input-container class="md-block" flex-gt-sm ng-if="!ctrl.model.id">\n' +
     '      <label for="workflow">Workflow</label>\n' +
     '      <md-select ng-model="ctrl.model.workflow" name="workflow" id="workflow" required>\n' +
-    '        <md-option ng-repeat="workflow in ctrl.workflows" ng-value="workflow">{{workflow.title}}</md-option>\n' +
+    '        <md-option ng-repeat="workflow in ctrl.workflows" ng-value="workflow">{{workflow.title}} v{{workflow.version}}</md-option>\n' +
     '      </md-select>\n' +
     '      <div ng-messages="workorderForm.workflow.$error" ng-if="ctrl.submitted || workorderForm.workflow.$dirty">\n' +
     '        <div ng-message="required">A workflow is required.</div>\n' +

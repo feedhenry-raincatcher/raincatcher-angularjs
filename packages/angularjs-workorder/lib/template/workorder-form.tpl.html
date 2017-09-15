@@ -17,12 +17,12 @@
   <div layout-gt-sm="row">
     <md-input-container class="md-block" flex-gt-sm ng-if="ctrl.model.id">
       <label>Workflow</label>
-      <input type="text" ng-model="ctrl.model.workflow.title" ng-disabled="true">
+      <input type="text" value="{{ctrl.model.workflow.title + ' v' + ctrl.model.workflow.version}}" ng-disabled="true">
     </md-input-container>
     <md-input-container class="md-block" flex-gt-sm ng-if="!ctrl.model.id">
       <label for="workflow">Workflow</label>
       <md-select ng-model="ctrl.model.workflow" name="workflow" id="workflow" required>
-        <md-option ng-repeat="workflow in ctrl.workflows" ng-value="workflow">{{workflow.title}}</md-option>
+        <md-option ng-repeat="workflow in ctrl.workflows" ng-value="workflow">{{workflow.title}} v{{workflow.version}}</md-option>
       </md-select>
       <div ng-messages="workorderForm.workflow.$error" ng-if="ctrl.submitted || workorderForm.workflow.$dirty">
         <div ng-message="required">A workflow is required.</div>

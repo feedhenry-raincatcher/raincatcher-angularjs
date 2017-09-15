@@ -45,6 +45,15 @@ ngModule.run(['$templateCache', function ($templateCache) {
     '    </div>\n' +
     '    <md-divider></md-divider>\n' +
     '  </md-list-item>\n' +
+    '\n' +
+    '  <md-list-item class="md-2-line" ng-show="workorder.workflow">\n' +
+    '    <md-icon md-font-set="material-icons">label</md-icon>\n' +
+    '    <div class="md-list-item-text">\n' +
+    '      <h3>{{workorder.workflow.title}} v{{workorder.workflow.version}}</h3>\n' +
+    '      <p>Workflow</p>\n' +
+    '    </div>\n' +
+    '    <md-divider></md-divider>\n' +
+    '  </md-list-item>\n' +
     '</md-list>\n' +
     '');
 }]);

@@ -23,7 +23,7 @@ function WorkflowDetailController($scope, $mdDialog, $stateParams, workflowServi
     accept: function(sourceItemHandleScope, destSortableScope) {
       return sourceItemHandleScope.itemScope.sortableScope.$id === destSortableScope.$id;
     },
-    orderChanged :  function() {
+    orderChanged: function() {
       workflowService.update(self.workflow);
     }
   };
@@ -37,15 +37,15 @@ function WorkflowDetailController($scope, $mdDialog, $stateParams, workflowServi
   });
 
   function showDeleteDialog(workorders, event) {
-    var workflowId  = self.workflow.id;
+    var workflowId = self.workflow.id;
 
     var workorder = workorders.filter(function(workorder) {
       return String(workorder.workflowId) === String(workflowId);
     });
 
     var title = (workorder.length)
-      ? "Workflow is used at least by at least 1 workorder, are you sure you want to delete workflow #'"+workflowId+"?"
-      : "Would you like to delete workflow #"+workflowId+"?";
+      ? "Workflow is used at least by at least 1 workorder, are you sure you want to delete workflow #'" + workflowId + "?"
+      : "Would you like to delete workflow #" + workflowId + "?";
     var confirm = $mdDialog.confirm()
       .title(title)
       .textContent(self.workflow.title)
@@ -59,7 +59,7 @@ function WorkflowDetailController($scope, $mdDialog, $stateParams, workflowServi
 
   function showDeleteStepDialog(step, event) {
     var confirm = $mdDialog.confirm()
-      .title('Would you like to delete step : '+ step.name +' ?')
+      .title('Would you like to delete step : ' + step.name + ' ?')
       .textContent(step.name)
       .ariaLabel('Delete step')
       .targetEvent(event)
