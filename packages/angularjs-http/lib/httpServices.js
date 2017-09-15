@@ -6,6 +6,8 @@ var datasets = {
   results: "results"
 };
 
+// These services must be singletons to allow for event listeners to be global
+// i.e. workorderService.onBeforeCreate, etc.
 var workorderService;
 var workflowService;
 

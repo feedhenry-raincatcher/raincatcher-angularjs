@@ -1,4 +1,5 @@
 var CONSTANTS = require('../constants');
+var _ = require('lodash');
 
 /**
  * Controller for listing Workorders
@@ -18,6 +19,31 @@ function WorkorderListController($scope, workorderService, workorderFlowService,
     });
   }
   refreshWorkorderData();
+
+
+  workorderService.on('create', function(workorder) {
+    $scope.$apply(function() {
+      self.workorders.push(workorder);
+    });
+  });
+
+  workorderService.on('remove', function(workorder) {
+    $scope.$apply(function() {
+      _.remove(self.workorders, function(w) {
+        return w.id === workorder.id;
+      });
+    });
+  });
+
+  workorderService.on('update', function(workorder) {
+    $scope.$apply(function() {
+      var idx = _.findIndex(self.workorders, function(w) {
+        return w.id === workorder.id;
+      });
+
+      self.workorders.splice(idx, 1, workorder);
+    });
+  });
 
   //Whenever the list is updated from the server, refresh the workorder list.
   var subscribe = workorderService.subscribeToDatasetUpdates;

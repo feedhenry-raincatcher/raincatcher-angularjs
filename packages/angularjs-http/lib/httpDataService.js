@@ -1,21 +1,24 @@
 var Promise = require('bluebird');
 var noop = function() { };
+var util = require('util');
+var EventEmitter = require('events').EventEmitter;
+
 function HttpDataService(entityName, baseUrlPromise, $http) {
+  EventEmitter.call(this);
   this.entityName = entityName;
   this.baseUrlPromise = baseUrlPromise;
   this.$http = $http;
 
   this.handlers = {
     'beforeCreate': noop,
-    'afterCreate': noop,
     'beforeUpdate': noop,
-    'afterUpdate': noop,
     'beforeRemove': function() {
       return true;
     },
-    'afterRemove': noop,
   };
 }
+
+util.inherits(HttpDataService, EventEmitter);
 
 HttpDataService.prototype.request = function(relativeUrl, httpConfig) {
   var self = this;
@@ -64,7 +67,7 @@ HttpDataService.prototype.create = function(data) {
   return this.request('/' + this.entityName, {
     method: 'POST',
     data: data
-  }).tap(this.handlers.afterCreate);
+  }).tap(this.triggerEvent('create'));
 };
 
 HttpDataService.prototype.update = function(data) {
@@ -72,17 +75,21 @@ HttpDataService.prototype.update = function(data) {
   return this.request('/' + this.entityName + '/' + data.id, {
     method: 'PUT',
     data: data
-  }).tap(this.handlers.afterUpdate);
+  }).tap(this.triggerEvent('update'));
 };
 
 HttpDataService.prototype.remove = function(data) {
+  var self = this;
   if (!this.handlers.beforeRemove(data)) {
     console.info('Remove operation cancelled due to beforeRemove hook');
     return;
   }
   return this.request('/' + this.entityName + '/' + data.id, {
     method: 'DELETE'
-  }).tap(this.handlers.afterRemove);
+  }).tap(function() {
+    // trigger event manually since DELETE responds with no data
+    self.emit('remove', data);
+  });
 };
 
 HttpDataService.prototype.search = function(filter) {
@@ -118,26 +125,11 @@ HttpDataService.prototype.onBeforeRemove = function(cb) {
   this.handlers.beforeRemove = cb;
 };
 
-
-/**
- * Provides a function that is called after creating a new data item
- */
-HttpDataService.prototype.onAfterCreate = function(cb) {
-  this.handlers.afterCreate = cb;
-};
-
-/**
- * Provides a function that is called after updating the data
- */
-HttpDataService.prototype.onAfterUpdate = function(cb) {
-  this.handlers.afterUpdate = cb;
-};
-
-/**
- * Provides a function that is called after removing a data item
- */
-HttpDataService.prototype.onAfterRemove = function(cb) {
-  this.handlers.afterRemove = cb;
+HttpDataService.prototype.triggerEvent = function(eventName) {
+  var self = this;
+  return function(data) {
+    self.emit(eventName, data);
+  };
 };
 
 module.exports = HttpDataService;
