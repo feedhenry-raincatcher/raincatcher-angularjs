@@ -43,9 +43,15 @@ SyncManager.prototype.manageDataset = function(datasetId, options, queryParams, 
  */
 SyncManager.prototype.removeManagers = function() {
   if (this.syncManagers) {
-    return Promise.map(this.syncManagers, m => m.safeStop()
-      .then(() => m.clearCache())
-      .then(() => this.syncManagers = []));
+    return Promise.map(this.syncManagers, function(syncManager) {
+      syncManager.safeStop()
+        .then(function() {
+          syncManager.clearCache();
+        })
+        .then(function() {
+          this.syncManagers = [];
+        });
+    });
   }
   return Promise.resolve();
 };
