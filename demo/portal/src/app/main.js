@@ -6,6 +6,7 @@ var logger = require('@raincatcher/logger');
 var accidentStep = require('@raincatcher-examples/step-accident');
 var vehicleInspectionStep = require('@raincatcher-examples/step-vehicle-inspection');
 var signatureStep = require('@raincatcher/step-signature');
+var feedbackStep = require('./steps/feedbackStep');
 
 // Create INFO logger
 logger.setLogger(new logger.ClientLogger(2));
@@ -30,12 +31,15 @@ angular.module('app', [
     stepDefinitions: [
       vehicleInspectionStep.definition,
       accidentStep.definition,
-      signatureStep.definition
+      signatureStep.definition,
+      feedbackStep.definition
     ]
   }),
+  // Load steps for preview
   vehicleInspectionStep.ngModule(),
   accidentStep.ngModule(),
-  signatureStep.ngModule()
+  signatureStep.ngModule(),
+  feedbackStep.ngModule
 ]);
 
 

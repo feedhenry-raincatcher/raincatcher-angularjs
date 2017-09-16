@@ -1,0 +1,9 @@
+{
+  "code": "generic-dynamic-forms",
+  "name": "Dynamic forms",
+  "description": "Creates dynamic forms",
+  "templates": {
+    "form": "<dynamic-forms-form></dynamic-forms-form>",
+    "view": "<dynamic-forms></dynamic-forms>"
+  }
+}

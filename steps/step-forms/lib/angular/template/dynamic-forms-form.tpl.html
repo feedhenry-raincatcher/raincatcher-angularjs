@@ -1,0 +1,9 @@
+<md-subheader>{{title}}</md-subheader>
+<div ng-controller="DynamicFormController">
+  <form name="dynamicForm" sf-schema="schema" sf-form="form" sf-model="model" ></form>
+</div>
+<!-- ng-submit="onSubmit(dynamicForm)" -->
+<div class="workflow-actions md-padding md-whiteframe-z4">
+  <md-button class="md-primary md-hue-1" ng-click="ctrl.back($event)">Back</md-button>
+  <md-button class="md-primary" ng-click="ctrl.done($event)">Continue</md-button>
+</div>

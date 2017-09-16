@@ -32,7 +32,8 @@ angular.module('wfm-mobile', [
   require('@raincatcher/angularjs-auth')(),
   vehicleInspectionStep.ngModule(),
   accidentStep.ngModule(),
-  signatureStep.ngModule()
+  signatureStep.ngModule(),
+  require('./steps/feedbackStep').ngModule
 ]);
 
 // NOTE: Enable the next line in order to use Keycloak auth service
