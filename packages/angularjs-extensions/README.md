@@ -6,7 +6,7 @@ This module can be used as template to extend existing RainCatcher user interfac
 
 ## Extending workorders
 
-Extending wororders data is possible by providing implementation for 2 directives:
+Extending workorders data is possible by providing implementation for 2 directives:
 
  - workorder-data
  - workorder-data-edit

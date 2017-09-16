@@ -29,7 +29,7 @@ angular.module('wfm-mobile', [
     mainColumnViewId: "content@app",
     toolbarViewId: "toolbar@app"
   }),
-  require('@raincatcher/angularjs-extensions'),
+  require('@raincatcher-examples/angularjs-extensions'),
   require('@raincatcher/angularjs-auth')(),
   vehicleInspectionStep.ngModule(),
   accidentStep.ngModule(),
