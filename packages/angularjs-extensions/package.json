@@ -21,6 +21,7 @@
     "angular": "1.6.1"
   },
   "devDependencies": {
+    "grunt-cli": "^1.2.0",
     "browserify": "^14.4.0",
     "browserify-shim": "^3.8.14",
     "fh-wfm-template-build": "0.2.1",
