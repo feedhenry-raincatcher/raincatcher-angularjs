@@ -3,9 +3,9 @@ var utils = require('../../../utils');
 var WorkorderPage = function() {
   var locators = {
     heading: element(by.css('workorder-list .md-toolbar-tools h3 span')),
-    searchBox: element(by.css('label[for="search"] input')),
+    searchBox: element(by.css('input[name="search"]')),
     workordersList: element(by.css('workorder-list md-list')),
-    workordersListItems: element.all(by.css('workorder-list md-list md-list-items')),
+    workordersListItems: element.all(by.css('workorder-list md-list md-list-item')),
   };
 
   var commands = {
@@ -21,6 +21,9 @@ var WorkorderPage = function() {
     },
     search: function(workorderName) {
       locators.searchBox.clear().sendKeys(workorderName);
+    },
+    select: function(workorderName) {
+      locators.workordersList.element(by.cssContainingText('md-list-item', workorderName)).click();
     }
   };
 

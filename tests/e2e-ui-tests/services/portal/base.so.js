@@ -159,7 +159,7 @@ BaseService.prototype.expectWarningsPresent = function() {
  * @param {*} expected item details to match
  */
 BaseService.prototype.expectElementDetailsEqualTo = function(promise, expected) {
-  return this.expectElementDetails(promise, expected, utils.expect.resultIsEqualTo);
+  return this.expectElementDetails(promise, expected, utils.expect.resultIncludes);
 };
 
 /**
@@ -177,7 +177,7 @@ BaseService.prototype.expectElementDetailsNotEqualTo = function(promise, expecte
  */
 BaseService.prototype.expectToBeInList = function(expected) {
   var promise = this.search(expected, 1);
-  return this.expectElementDetails(promise, expected, utils.expect.resultIsEqualTo);
+  return this.expectElementDetails(promise, expected, utils.expect.resultIncludes);
 };
 
 /**

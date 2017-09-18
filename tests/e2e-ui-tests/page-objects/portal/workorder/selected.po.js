@@ -5,7 +5,7 @@ var SelectedWorkorderPage = function() {
     workorderHeader: element(by.css('#content > div.ng-scope.flex > workorder-summary > md-toolbar > div > h3')),
     workorderDetails: element(by.css('workorder>md-list')).all(by.css('md-list-item')),
     workSummary: element(by.css('workorder>p')),
-    workflow: element(by.css('md-card>md-card-title>md-card-title-text'))
+    workflow: element(by.css('#content > div.ng-scope.flex > workorder-summary > div > workorder > md-list > md-list-item:nth-child(6) > div > h3'))
   };
 
   var commands = {

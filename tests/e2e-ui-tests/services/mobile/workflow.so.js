@@ -24,7 +24,7 @@ WorkflowService.prototype.verifyWorkflowFormIsVisible = function() {
     mainWorkflowPage.locators.radioButtons.lights.fail,
     mainWorkflowPage.locators.radioButtons.lights.pass,
     mainWorkflowPage.locators.buttons.back,
-    mainWorkflowPage.locators.buttons.submitButton
+    mainWorkflowPage.locators.buttons.continue
   ]);
 };
 
@@ -71,12 +71,11 @@ WorkflowService.prototype.cancelWorkflowChanges = function() {
  * @param tires
  * @param lights
  */
-WorkflowService.prototype.checkWorkflowDetails = function(heading, fuel, tires, lights) {
+WorkflowService.prototype.checkWorkflowDetails = function(heading, tires, lights) {
   utils.check.elementsArePresent([
     completedWorkflowPage.locators.workflowHeader,
     completedWorkflowPage.locators.completedWorkflowListItems
   ]);
-  utils.expect.resultIsEqualTo(completedWorkflowPage.commands.get.fuelValue(), fuel);
   utils.expect.resultIsEqualTo(completedWorkflowPage.commands.get.tiresValue(), tires);
   utils.expect.resultIsEqualTo(completedWorkflowPage.commands.get.lightsValue(), lights);
 };

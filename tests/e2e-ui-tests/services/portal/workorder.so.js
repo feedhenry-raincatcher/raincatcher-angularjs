@@ -69,7 +69,7 @@ WorkorderService.prototype.expectDetailsToBe = function(workorder) {
     utils.expect.resultIsEqualTo(title.h3, workorder.title);
     return Promise.all([
       swp.commands.getWorkflow()
-      .then((workflow) => utils.expect.resultIsEqualTo(workflow, 'Workflow: ' + workorder.workflow + ' v1'))
+      .then((workflow) => utils.expect.resultIsEqualTo(workflow, workorder.workflow + ' v1'))
     ]);
   });
 };

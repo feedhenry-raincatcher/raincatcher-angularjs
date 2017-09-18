@@ -15,8 +15,8 @@ WorkorderService.prototype.verifyNumberOfWorkordersInList = function(expectedNum
   utils.check.listSize(mainWorkorderPage.locators.workordersListItems, expectedNumber);
 };
 
-WorkorderService.prototype.selectWorkorderFromTheListByIndex = function(index) {
-
+WorkorderService.prototype.selectWorkorderFromTheList = function(title) {
+  mainWorkorderPage.commands.select(title);
 };
 
 WorkorderService.prototype.searchForWorkorderInList = function(workorderName) {
@@ -28,18 +28,17 @@ WorkorderService.prototype.verifyWorkorderDetailsArePresentAndCorrect = function
   utils.check.elementsArePresent([
     selectedWorkorderPage.locators.detailsListItems
   ]);
-  utils.expect.resultIsEqualTo(selectedWorkorderPage.commands.get.id, params[0]);
-  utils.expect.resultIsEqualTo(selectedWorkorderPage.commands.get.status, params[1]);
-  utils.expect.resultIsEqualTo(selectedWorkorderPage.commands.get.coordinates, params[2]);
-  utils.expect.resultIsEqualTo(selectedWorkorderPage.commands.get.workorderName, params[3]);
-  utils.expect.resultIsEqualTo(selectedWorkorderPage.commands.get.startDate, params[4]);
-  utils.expect.resultIsEqualTo(selectedWorkorderPage.commands.get.startTime, params[5]);
-  utils.expect.resultIsEqualTo(selectedWorkorderPage.commands.get.finishDate, params[6]);
-  utils.expect.resultIsEqualTo(selectedWorkorderPage.commands.get.finishTime, params[7]);
+  expect(selectedWorkorderPage.commands.get.id()).to.eventually.equal(params.id);
+  expect(selectedWorkorderPage.commands.get.status()).to.eventually.equal(params.status);
+  expect(selectedWorkorderPage.commands.get.workorderName()).to.eventually.equal(params.workorderName);
 };
 
 WorkorderService.prototype.verifyWorkorderWorkflowIsNotCompleted = function() {
-  utils.check.elementsArePresent([ mainWorkorderPage.locators.beginWorkflowButton ]);
+  utils.check.elementsArePresent([ selectedWorkorderPage.locators.beginWorkflowButton ]);
+};
+
+WorkorderService.prototype.verifyWorkorderWorkflowIsCompleted = function() {
+  expect(selectedWorkorderPage.commands.get.status()).to.eventually.equal('Complete');
 };
 
 WorkorderService.prototype.beginWorkflow = function() {
@@ -49,7 +48,5 @@ WorkorderService.prototype.beginWorkflow = function() {
 WorkorderService.prototype.verifyCompletedWorkflowDetailsArePresent = function(params) {
   utils.check.elementsArePresent([ selectedWorkorderPage.locators ]);
 };
-
-
 
 module.exports = WorkorderService;

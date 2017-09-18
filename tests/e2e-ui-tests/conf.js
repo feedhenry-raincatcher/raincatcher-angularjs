@@ -52,8 +52,8 @@ exports.config = {
   },
   onPrepare: function setup() {
     return browser.driver.executeScript(function() {
-      window.sessionStorage.clear();
-      window.localStorage.clear();
+      sessionStorage.clear();
+      localStorage.clear();
     }).then(setupExpect);
   }
 };

@@ -4,7 +4,7 @@ var WorkflowPage = function() {
       back: element(by.css('button[ng-click="ctrl.back($event)"]')),
       continue: element(by.css('button[ng-click="ctrl.done($event)"]'))
     },
-    slider: element(by.css('div.md-track.ticks canvas')),
+    slider: element(by.css('md-slider')),
     radioButtons: {
       lights: {
         fail: element(by.model('ctrl.model.lights')).element(by.css('[aria-label="Fail"]')),

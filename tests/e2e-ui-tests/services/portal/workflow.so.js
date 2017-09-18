@@ -79,7 +79,7 @@ WorkflowService.prototype.expectDetailsToBe = function(workflow) { // TODO imple
     return swp.locators.workflowHeader.getText();
   })
   .then((result) => {
-    utils.expect.resultIsEqualTo(result, workflow.title);
+    utils.expect.resultIncludes(result, workflow.title);
     return swp.locators.stepForm.self.isPresent();
   })
   .then((result) => utils.expect.resultIsTrue(result));
@@ -91,7 +91,7 @@ WorkflowService.prototype.expectElementInfo = function(workflow) {
     utils.expect.resultIsTrue(result);
     return swp.locators.workflowHeader.getText();
   })
-  .then((result) => utils.expect.resultIsEqualTo(result, workflow.title));
+  .then((result) => utils.expect.resultIncludes(result, workflow.title));
 };
 
 WorkflowService.prototype.expectElementDetails = function(promise, expected, expectFunc) {

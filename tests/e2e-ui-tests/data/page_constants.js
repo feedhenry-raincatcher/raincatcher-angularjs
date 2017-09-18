@@ -1,14 +1,17 @@
 module.exports = {
   HASH: '#',
+  api: 'http://localhost:8001/',
   login: {
     URL: {
-      MOBILE: 'http://localhost:9002/?url=http://localhost:8001#!/workflow',
+      MOBILE: 'http://localhost:9002/?url=http://localhost:8001#!/login',
       PORTAL: 'http://localhost:9003/?url=http://localhost:8001#!/workflow'
     },
     DEFAULT_HEADING: 'FeedHenry Workforce Management',
     USERNAME_LABEL_MSG: 'Username or email',
+    USERNAME_LABEL_MSG_MOBILE: 'Username',
     PASSWORD_LABEL_MSG: "Password",
     AUTH_FAIL_MSG: 'Invalid Credentials',
+    AUTH_FAIL_MSG_MOBILE: 'Authentication Failed! Try Again. (Error: Invalid Credentials)'
   },
   logout: {
     URL: '/login',
