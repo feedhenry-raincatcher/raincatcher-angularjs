@@ -7,6 +7,17 @@ var accidentStep = require('@raincatcher-examples/step-accident');
 var vehicleInspectionStep = require('@raincatcher-examples/step-vehicle-inspection');
 var signatureStep = require('@raincatcher/step-signature');
 
+/**
+ * Contains all static step definitions
+ * If module has more than one definition use
+ * stepDefinitions.push(definitions)
+ */
+var stepDefinitions = [
+  vehicleInspectionStep.definition,
+  accidentStep.definition,
+  signatureStep.definition
+];
+
 // Create INFO logger
 logger.setLogger(new logger.ClientLogger(2));
 
@@ -27,11 +38,7 @@ angular.module('app', [
     mode: "admin",
     listColumnViewId: "column2",
     mainColumnViewId: "content@app",
-    stepDefinitions: [
-      vehicleInspectionStep.definition,
-      accidentStep.definition,
-      signatureStep.definition
-    ]
+    stepDefinitions: stepDefinitions
   }),
   vehicleInspectionStep.ngModule(),
   accidentStep.ngModule(),
