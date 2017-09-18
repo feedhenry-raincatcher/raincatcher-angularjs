@@ -1,6 +1,6 @@
 {
   "name": "@raincatcher/angularjs-workflow",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "An Angularjs implementation for workflows",
   "main": "lib/workflow-ng.js",
   "repository": {
