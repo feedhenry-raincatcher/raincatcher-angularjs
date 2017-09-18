@@ -33,7 +33,7 @@ SyncManager.prototype.manageDataset = function(datasetId, options, queryParams, 
       if (err) {
         return reject(err);
       }
-      resolve();
+      return resolve();
     });
   });
 };
