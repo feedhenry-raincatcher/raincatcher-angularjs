@@ -33,7 +33,7 @@ SyncManager.prototype.manageDataset = function(datasetId, options, queryParams, 
       if (err) {
         return reject(err);
       }
-      resolve();
+      return resolve();
     });
   });
 };
@@ -43,10 +43,15 @@ SyncManager.prototype.manageDataset = function(datasetId, options, queryParams, 
  */
 SyncManager.prototype.removeManagers = function() {
   if (this.syncManagers) {
-    this.syncManagers.forEach(function(syncDatasetManager) {
-      syncDatasetManager.safeStop(); //stop sync for this dataset
+    return Promise.map(this.syncManagers, function(syncManager) {
+      syncManager.safeStop()
+        .then(function() {
+          syncManager.clearCache();
+        })
+        .then(function() {
+          this.syncManagers = [];
+        });
     });
-    this.syncManagers = [];
   }
   return Promise.resolve();
 };
