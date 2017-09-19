@@ -1,4 +1,5 @@
 var CONSTANTS = require('../constants');
+var _ = require('lodash');
 
 /**
  *
@@ -10,19 +11,41 @@ var CONSTANTS = require('../constants');
  * @param $timeout
  * @constructor
  */
-function WorkflowListController($scope, $stateParams, workflowService, workflowFlowService, $timeout) {
+function WorkflowListController($scope, $stateParams, workflowService, workflowFlowService) {
   var self = this;
-  self.workflows = null;
   self.selectedWorkflowId = $stateParams.workflowId;
+
+  // full list of workflows
   var _workflows;
+  // filtered list of workflows for display
+  self.workflows = null;
+
+  workflowService.on('create', function(workflow) {
+    _workflows.push(workflow);
+    self.updateFilter();
+  });
+
+  workflowService.on('remove', function(workflow) {
+    _.remove(_workflows, function(w) {
+      return w.id === workflow.id;
+    });
+    self.updateFilter();
+  });
+
+  workflowService.on('update', function(workflow) {
+    var idx = _.findIndex(_workflows, function(w) {
+      return w.id === workflow.id;
+    });
+
+    _workflows.splice(idx, 1, workflow);
+    self.updateFilter();
+  });
 
 
   function refreshWorkflows() {
     workflowService.list().then(function(workflows) {
-      $timeout(function() {
-        _workflows = workflows;
-        self.workflows = workflows;
-      });
+      _workflows = workflows;
+      self.updateFilter();
     });
   }
 
@@ -34,12 +57,22 @@ function WorkflowListController($scope, $stateParams, workflowService, workflowF
   };
 
   self.applyFilter = function(term) {
-    term = term.toLowerCase();
-    self.workflows = _workflows.filter(function(workflow) {
-      return String(workflow.title).toLowerCase().indexOf(term) !== -1
-        || String(workflow.id).indexOf(term) !== -1;
-    });
+    self.term = term;
+    self.updateFilter();
   };
+
+  self.updateFilter = _.debounce(function() {
+    $scope.$apply(function() {
+      if (!self.term) {
+        return self.workflows = _workflows;
+      }
+      var term = self.term.toLowerCase();
+      self.workflows = _workflows.filter(function(workflow) {
+        return String(workflow.title).toLowerCase().indexOf(term) !== -1
+          || String(workflow.id).indexOf(term) !== -1;
+      });
+    });
+  }, 300);
 }
 
-angular.module(CONSTANTS.WORKFLOW_DIRECTIVE_MODULE).controller('WorkflowListController', [ '$scope',  '$stateParams', 'workflowService', 'workflowFlowService', '$timeout', WorkflowListController]);
+angular.module(CONSTANTS.WORKFLOW_DIRECTIVE_MODULE).controller('WorkflowListController', ['$scope', '$stateParams', 'workflowService', 'workflowFlowService', WorkflowListController]);

@@ -1,6 +1,3 @@
-var _ = require('lodash');
-
-// Generating common data repositories
 var HttpApiDataService = require("./httpDataService");
 
 var datasets = {
@@ -8,9 +5,21 @@ var datasets = {
   workflows: "workflows",
   results: "results"
 };
+
+// These services must be singletons to allow for event listeners to be global
+// i.e. workorderService.onBeforeCreate, etc.
+var workorderService;
+var workflowService;
+
 angular.module('wfm.common.apiservices').service("workorderService", ['baseUrl', '$http', function(baseUrlPromise, $http) {
-  return new HttpApiDataService(datasets.workorders, baseUrlPromise, $http);
+  if (!workorderService) {
+    workorderService = new HttpApiDataService(datasets.workorders, baseUrlPromise, $http);
+  }
+  return workorderService;
 }]);
 angular.module('wfm.common.apiservices').service("workflowService", ['baseUrl', '$http', function(baseUrlService, $http) {
-  return new HttpApiDataService(datasets.workflows, baseUrlService, $http);
+  if (!workflowService) {
+    return new HttpApiDataService(datasets.workflows, baseUrlService, $http);
+  }
+  return workflowService;
 }]);
