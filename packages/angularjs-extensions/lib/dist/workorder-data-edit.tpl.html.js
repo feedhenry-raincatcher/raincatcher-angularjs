@@ -5,7 +5,7 @@ try {
   ngModule = angular.module('wfm.ui.extensions', []);
 }
 
-ngModule.run(['$templateCache', function ($templateCache) {
+ngModule.run(['$templateCache', function($templateCache) {
   $templateCache.put('wfm-template/workorder-data-edit.tpl.html',
     '<md-input-container class="md-block">\n' +
     '  <label>Summary</label>\n' +
