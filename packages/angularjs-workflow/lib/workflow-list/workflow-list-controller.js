@@ -61,7 +61,7 @@ function WorkflowListController($scope, $stateParams, workflowService, workflowF
     self.updateFilter();
   };
 
-  self.updateFilter = function() {
+  self.updateFilter = _.debounce(function() {
     $scope.$apply(function() {
       if (!self.term) {
         return self.workflows = _workflows;
@@ -72,7 +72,7 @@ function WorkflowListController($scope, $stateParams, workflowService, workflowF
           || String(workflow.id).indexOf(term) !== -1;
       });
     });
-  };
+  }, 300);
 }
 
 angular.module(CONSTANTS.WORKFLOW_DIRECTIVE_MODULE).controller('WorkflowListController', ['$scope', '$stateParams', 'workflowService', 'workflowFlowService', WorkflowListController]);
