@@ -54,6 +54,9 @@ ngModule.run(['$templateCache', function ($templateCache) {
     '    </div>\n' +
     '    <md-divider></md-divider>\n' +
     '  </md-list-item>\n' +
+    '\n' +
+    '  <workorder-data></workorder-data>\n' +
+    '\n' +
     '</md-list>\n' +
     '');
 }]);

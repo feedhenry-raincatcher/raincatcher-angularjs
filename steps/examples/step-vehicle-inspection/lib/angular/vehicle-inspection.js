@@ -26,12 +26,12 @@ function initModule() {
         self.model = {};
         self.parentController = $scope.$parent;
         self.back = function(event) {
-          this.parentController.ctrl.triggerBackStep(this.model);
+          self.parentController.ctrl.triggerBackStep(self.model);
           event.preventDefault();
           event.stopPropagation();
         };
         self.done = function(event) {
-          this.parentController.ctrl.triggerCompleteStep(this.model);
+          self.parentController.ctrl.triggerCompleteStep(self.model);
           event.preventDefault();
           event.stopPropagation();
         };

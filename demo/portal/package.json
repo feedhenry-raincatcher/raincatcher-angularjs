@@ -17,6 +17,8 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
+    "@raincatcher-examples/angularjs-extensions": "0.0.1",
+    "@raincatcher/step-signature": "0.0.1",
     "@raincatcher-examples/step-accident": "0.0.1",
     "@raincatcher-examples/step-vehicle-inspection": "0.0.1",
     "@raincatcher/angularjs-auth-keycloak": "0.0.1",

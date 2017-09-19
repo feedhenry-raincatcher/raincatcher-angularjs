@@ -55,29 +55,10 @@
     </md-input-container>
   </div>
 
-  <div layout-gt-sm="row" ng-if="ctrl.model.startDate">
-    <md-input-container class="md-block" flex-gt-sm>
-      <label for="inputStartDate">Start Date</label>
-      <input type="date" id="inputStartDate" name="startDate" min="{{today}}" max="{{maxDate}}" ng-model="ctrl.model.startDate"
-        ng-disabled="true">
-    </md-input-container>
-    <md-input-container class="md-block" flex-gt-sm>
-      <label for="inputStartTime">Start Time</label>
-      <input type="time" id="inputStartTime" name="startTime" ng-model="ctrl.model.startTime" ng-disabled="true">
-    </md-input-container>
+  <div>
+    <workorder-data-edit></workorder-data-edit>
   </div>
 
-  <div layout-gt-sm="row" ng-if="ctrl.model.finishTime">
-    <md-input-container class="md-block" flex-gt-sm>
-      <label for="inputFinishDate">Finish Date</label>
-      <input type="date" id="inputFinishDate" name="finishDate" min="{{today}}" max="{{maxDate}}" ng-model="ctrl.model.finishDate"
-        ng-disabled="true">
-    </md-input-container>
-    <md-input-container class="md-block" flex-gt-sm>
-      <label for="inputFinishTime">Finish Time</label>
-      <input type="time" id="inputFinishTime" name="finishTime" ng-model="ctrl.model.finishTime" ng-disabled="true">
-    </md-input-container>
-  </div>
 
   <md-button type="submit" class="md-raised md-primary">{{ctrl.model.id ? 'Update' : 'Create'}} Workorder</md-button>
 </form>

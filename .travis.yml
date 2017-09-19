@@ -14,10 +14,13 @@ cache:
     - node_modules
     - demo/portal/node_modules
     - demo/mobile/node_modules
-    - packages/workflow-angular/node_modules
-    - packages/workorder-angular/node_modules
-    - packages/sync/node_modules
+    - packages/angularjs-auth-keycloak/node_modules
+    - packages/angularjs-auth-passport/node_modules
+    - packages/angularjs-auth/node_modules
+    - packages/angularjs-extensions/node_modules
+    - packages/angularjs-http/node_modules
+    - packages/angularjs-workflow/node_modules
+    - packages/angularjs-workorder/node_modules
     - steps/examples/step-vehicle-inspection/node_modules
-    - steps/step-signature/node_modules
     - steps/examples/step-accident/node_modules
-    - packages/wfm/node_modules
+    - steps/step-signature/node_modules

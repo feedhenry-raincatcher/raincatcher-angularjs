@@ -64,29 +64,10 @@ ngModule.run(['$templateCache', function ($templateCache) {
     '    </md-input-container>\n' +
     '  </div>\n' +
     '\n' +
-    '  <div layout-gt-sm="row" ng-if="ctrl.model.startDate">\n' +
-    '    <md-input-container class="md-block" flex-gt-sm>\n' +
-    '      <label for="inputStartDate">Start Date</label>\n' +
-    '      <input type="date" id="inputStartDate" name="startDate" min="{{today}}" max="{{maxDate}}" ng-model="ctrl.model.startDate"\n' +
-    '        ng-disabled="true">\n' +
-    '    </md-input-container>\n' +
-    '    <md-input-container class="md-block" flex-gt-sm>\n' +
-    '      <label for="inputStartTime">Start Time</label>\n' +
-    '      <input type="time" id="inputStartTime" name="startTime" ng-model="ctrl.model.startTime" ng-disabled="true">\n' +
-    '    </md-input-container>\n' +
+    '  <div>\n' +
+    '    <workorder-data-edit></workorder-data-edit>\n' +
     '  </div>\n' +
     '\n' +
-    '  <div layout-gt-sm="row" ng-if="ctrl.model.finishTime">\n' +
-    '    <md-input-container class="md-block" flex-gt-sm>\n' +
-    '      <label for="inputFinishDate">Finish Date</label>\n' +
-    '      <input type="date" id="inputFinishDate" name="finishDate" min="{{today}}" max="{{maxDate}}" ng-model="ctrl.model.finishDate"\n' +
-    '        ng-disabled="true">\n' +
-    '    </md-input-container>\n' +
-    '    <md-input-container class="md-block" flex-gt-sm>\n' +
-    '      <label for="inputFinishTime">Finish Time</label>\n' +
-    '      <input type="time" id="inputFinishTime" name="finishTime" ng-model="ctrl.model.finishTime" ng-disabled="true">\n' +
-    '    </md-input-container>\n' +
-    '  </div>\n' +
     '\n' +
     '  <md-button type="submit" class="md-raised md-primary">{{ctrl.model.id ? \'Update\' : \'Create\'}} Workorder</md-button>\n' +
     '</form>\n' +

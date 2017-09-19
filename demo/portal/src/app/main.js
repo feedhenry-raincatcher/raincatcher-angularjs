@@ -40,6 +40,7 @@ angular.module('app', [
     mainColumnViewId: "content@app",
     stepDefinitions: stepDefinitions
   }),
+  require('@raincatcher-examples/angularjs-extensions'),
   vehicleInspectionStep.ngModule(),
   accidentStep.ngModule(),
   signatureStep.ngModule()
