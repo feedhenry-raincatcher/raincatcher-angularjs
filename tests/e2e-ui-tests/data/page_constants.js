@@ -4,22 +4,22 @@ module.exports = {
     URL: {
       MOBILE: 'http://localhost:9002/?url=http://localhost:8001#!/workflow',
       PORTAL: 'http://localhost:9003/?url=http://localhost:8001#!/workflow'
-    }
+    },
     DEFAULT_HEADING: 'FeedHenry Workforce Management',
     USERNAME_LABEL_MSG: 'Username or email',
     PASSWORD_LABEL_MSG: "Password",
-    AUTH_FAIL_MSG: 'Invalid credentials',
+    AUTH_FAIL_MSG: 'Invalid Credentials',
   },
   logout: {
     URL: '/login',
     DEFAULT_BODY: 'Trouble logging in? Contact the switchboard.'
-  }
+  },
   workflows: {
     URL: '/workflows/list',
     URL_NEW: '/workflows/list/workflows/',
     DEFAULT_HEADING: "No workflow selected.",
-    // DEFAULT_BODY: "Select a workflow from the menu, or create a new workflow:"
-    DEFAULT_BODY: "Select a workflow from the menu.",
+    DEFAULT_BODY: "Select a workflow from the menu, or create a new workflow:",
+    // DEFAULT_BODY: "Select a workflow from the menu.",
     TITLE_MISSING_MSG: 'A title is required.'
   },
   workorders: {

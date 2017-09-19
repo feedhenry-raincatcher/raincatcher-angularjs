@@ -1,3 +1,10 @@
+function setupExpect() {
+  var chai = require('chai');
+  var chaiAsPromised = require('chai-as-promised');
+  chai.use(chaiAsPromised);
+  global.expect = chai.expect;
+}
+
 exports.config = {
   allScriptsTimeout: 20000,
   mobileURL: '',
@@ -36,28 +43,19 @@ exports.config = {
         'disable-application-cache',
         'disable-offline-load-stale-cache',
         'disk-cache-size=0',
-        'v8-cache-options=off'
+        'v8-cache-options=off',
+        '--window-size=1280,1024'
       ]
     },
     defaultPageLoadTimeout: 10000,
-    defaultImplicitWait: 2000,
-    onPrepare: function setup() {
-      return browser.driver.executeScript(function () {
-        window.sessionStorage.clear();
-        window.localStorage.clear();
-        return {
-          width: window.screen.availWidth,
-          height: window.screen.availHeight,
-        };
-      }).then(function (result) {
-        console.log('Browser Max Window Size', result);
-        browser.driver.manage().window().setSize(result.width, result.height);
-      }).then(function () { // setup expect as global
-        var chai = require('chai');
-        var chaiAsPromised = require('chai-as-promised');
-        chai.use(chaiAsPromised);
-        global.expect = chai.expect;
-      });
-    }
+    defaultImplicitWait: 2000
+  },
+  onPrepare: function setup() {
+    return browser.driver.executeScript(function() {
+      window.sessionStorage.clear();
+      window.localStorage.clear();
+    }).then(setupExpect);
   }
 };
+
+exports.setupExpect = setupExpect;

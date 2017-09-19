@@ -1,5 +1,5 @@
-var consts = require('../../utils/constants');
-var utils = require('../../utils');
+var consts = require('../../../data/page_constants');
+var utils = require('../../../utils');
 
 var NewWorkorderPage = function() {
   var workorderFormSelector = 'form[name="workorderForm"]';
@@ -7,37 +7,18 @@ var NewWorkorderPage = function() {
     workorderForm: {
       self: element(by.css(workorderFormSelector)),
       fields: {
-        title: element(by.css(workorderFormSelector + ' #inputTitle')),
-        address: element(by.css(workorderFormSelector + ' #inputAddress')),
-        latitude: element(by.css(workorderFormSelector + ' input[name="lattitude"]')),
-        longitude: element(by.css(workorderFormSelector + ' input[name="longitude"]')), // ID is wrong in UI
-        summary: element(by.css(workorderFormSelector + ' #inputSummary')),
+        title: element(by.css(workorderFormSelector + ' #inputTitle'))
       },
       dropdowns: {
-        assignee: element(by.css(workorderFormSelector + ' #assignee')),
         workflow: element(by.css(workorderFormSelector + ' #workflow'))
-      },
-      datetime: {
-        // startDate: element(by.css(workorderFormSelector + ' #inputStartDate')), // TODO
-        // startTime: element(by.css(workorderFormSelector + ' #inputStartTime')), // TODO
-        finishDate: element(by.css(workorderFormSelector + ' #inputFinishDate')),
-        finishTime: element(by.css(workorderFormSelector + ' #inputFinishTime')),
       },
       warnings: {
         workflow: element(by.css(workorderFormSelector + ' [ng-messages="workorderForm.workflow.$error"] div')),
         title: element(by.css(workorderFormSelector + ' [ng-messages="workorderForm.title.$error"] div')),
-        address: element(by.css(workorderFormSelector + ' [ng-messages="workorderForm.address.$error"] div')),
-        latitude: element(by.css(workorderFormSelector + ' [ng-messages="workorderForm.lattitude.$error"] div')),
-        longitude: element(by.css(workorderFormSelector + ' [ng-messages="workorderForm.longitude.$error"] div')),
-        // startDate: element(by.css(workorderFormSelector + ' [ng-messages="workorderForm.startDate.$error"] div')), // TODO
-        // startTime: element(by.css(workorderFormSelector + ' [ng-messages="workorderForm.startTime.$error"] div')), // TODO
-        finishDate: element(by.css(workorderFormSelector + ' [ng-messages="workorderForm.finishDate.$error"] div')),
-        finishTime: element(by.css(workorderFormSelector + ' [ng-messages="workorderForm.finishTime.$error"] div')),
-        summary: element(by.css(workorderFormSelector + ' [ng-messages="workorderForm.summary.$error"] div')),
       },
       buttons: {
         create: element(by.css(workorderFormSelector + ' button[aria-label="Create Workorder"]')),
-        update: element(by.css(workorderFormSelector + ' button[aria-label="Update Workorder"]')),
+        update: element(by.css(workorderFormSelector + ' button[aria-label="Create Workorder"]')),
         cancel: element(by.css('workorder-form button[aria-label="Close"]'))
       }
     }
@@ -49,8 +30,8 @@ var NewWorkorderPage = function() {
       return browser.get(consts.HASH + consts.workorders.URL_NEW);
     },
     selfCheck: function() {
-      browser.getLocationAbsUrl().then(function(result) {
-        utils.expect.resultIsEquelTo(result, consts.workorders.URL_NEW);
+      browser.getCurrentUrl().then(function(result) {
+        expect(result).to.include(consts.workorders.portal.URL_NEW);
         return locators.workorderForm.self.isPresent();
       }).then(function(result) {
         utils.expect.resultIsTrue(result);
@@ -101,7 +82,7 @@ var NewWorkorderPage = function() {
       return locators.workorderForm.warnings.workflow.isPresent().then(function(result) {
         utils.expect.resultIsTrue(result);
         return locators.workorderForm.warnings.workflow.getText().then(function(result) {
-          utils.expect.resultIsEquelTo(result, consts.workorders.WORKFLOW_MISSING_MSG);
+          utils.expect.resultIsEqualTo(result, consts.workorders.WORKFLOW_MISSING_MSG);
         });
       });
     },
@@ -109,7 +90,7 @@ var NewWorkorderPage = function() {
       return locators.workorderForm.warnings.title.isPresent().then(function(result) {
         utils.expect.resultIsTrue(result);
         return locators.workorderForm.warnings.title.getText().then(function(result) {
-          utils.expect.resultIsEquelTo(result, consts.workorders.TITLE_MISSING_MSG);
+          utils.expect.resultIsEqualTo(result, consts.workorders.TITLE_MISSING_MSG);
         });
       });
     },
@@ -117,7 +98,7 @@ var NewWorkorderPage = function() {
       return locators.workorderForm.warnings.address.isPresent().then(function(result) {
         utils.expect.resultIsTrue(result);
         return locators.workorderForm.warnings.address.getText().then(function(result) {
-          utils.expect.resultIsEquelTo(result, consts.workorders.ADDRESS_MISSING_MSG);
+          utils.expect.resultIsEqualTo(result, consts.workorders.ADDRESS_MISSING_MSG);
         });
       });
     },
@@ -125,7 +106,7 @@ var NewWorkorderPage = function() {
       return locators.workorderForm.warnings.latitude.isPresent().then(function(result) {
         utils.expect.resultIsTrue(result);
         return locators.workorderForm.warnings.latitude.getText().then(function(result) {
-          utils.expect.resultIsEquelTo(result, consts.workorders.LATITUDE_MISSING_MSG);
+          utils.expect.resultIsEqualTo(result, consts.workorders.LATITUDE_MISSING_MSG);
         });
       });
     },
@@ -133,7 +114,7 @@ var NewWorkorderPage = function() {
       return locators.workorderForm.warnings.longitude.isPresent().then(function(result) {
         utils.expect.resultIsTrue(result);
         return locators.workorderForm.warnings.longitude.getText().then(function(result) {
-          utils.expect.resultIsEquelTo(result, consts.workorders.LONGITUDE_MISSING_MSG);
+          utils.expect.resultIsEqualTo(result, consts.workorders.LONGITUDE_MISSING_MSG);
         });
       });
     },
@@ -141,7 +122,7 @@ var NewWorkorderPage = function() {
       return locators.workorderForm.warnings.finishDate.isPresent().then(function(result) {
         utils.expect.resultIsTrue(result);
         return locators.workorderForm.warnings.finishDate.getText().then(function(result) {
-          utils.expect.resultIsEquelTo(result, consts.workorders.FINISH_DATE_MISSING_MSG);
+          utils.expect.resultIsEqualTo(result, consts.workorders.FINISH_DATE_MISSING_MSG);
         });
       });
     },
@@ -149,7 +130,7 @@ var NewWorkorderPage = function() {
       return locators.workorderForm.warnings.finishTime.isPresent().then(function(result) {
         utils.expect.resultIsTrue(result);
         return locators.workorderForm.warnings.finishTime.getText().then(function(result) {
-          utils.expect.resultIsEquelTo(result, consts.workorders.FINISH_TIME_MISSING_MSG);
+          utils.expect.resultIsEqualTo(result, consts.workorders.FINISH_TIME_MISSING_MSG);
         });
       });
     },
@@ -157,7 +138,7 @@ var NewWorkorderPage = function() {
       return locators.workorderForm.warnings.summary.isPresent().then(function(result) {
         utils.expect.resultIsTrue(result);
         return locators.workorderForm.warnings.summary.getText().then(function(result) {
-          utils.expect.resultIsEquelTo(result, consts.workorders.SUMMARY_MISSING_MSG);
+          utils.expect.resultIsEqualTo(result, consts.workorders.SUMMARY_MISSING_MSG);
         });
       });
     }
