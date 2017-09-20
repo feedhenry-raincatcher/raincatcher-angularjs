@@ -3,7 +3,7 @@ var workflowService = new WorkflowService();
 
 var data = require('../../data/workflows.do');
 
-var constants = require('../../utils/constants');
+var authData = require('../../data/auth.do');
 var AuthService = require('../../services/portal/auth.so');
 var authService = new AuthService();
 
@@ -22,10 +22,10 @@ describe('Workflow E2E', function() {
   before('login', function() {
     browser.ignoreSynchronization = true;
     authService.openPortalApp();
-    authService.loginToPortalApp(constants.auth.usernames.DAISY_DIALER,
-      constants.auth.DEFAULT_PASSWORD);
+    authService.loginToPortalApp(authData.users.DAISY.username,
+      authData.password.DEFAULT_PASSWORD);
     authService.verifySuccessfulLogin();
-    return core.auth.login(constants.auth.usernames.DAISY_DIALER, constants.auth.DEFAULT_PASSWORD)
+    return core.auth.login(authData.users.DAISY.username, authData.password.DEFAULT_PASSWORD)
       .then(() => core.cleanup(prefix));
   });
 

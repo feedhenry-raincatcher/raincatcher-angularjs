@@ -6,7 +6,7 @@ var workflowService = new WorkflowService();
 
 var data = require('../../data/workorders.do');
 
-var constants = require('../../utils/constants');
+var authData = require('../../data/auth.do');
 var AuthService = require('../../services/portal/auth.so');
 var authService = new AuthService();
 
@@ -29,10 +29,10 @@ describe('Workorder E2E', function() {
   before('LOGIN', function() {
     browser.ignoreSynchronization = true;
     authService.openPortalApp();
-    authService.loginToPortalApp(constants.auth.usernames.DAISY_DIALER,
-      constants.auth.DEFAULT_PASSWORD);
+    authService.loginToPortalApp(authData.users.DAISY.username,
+      authData.password.DEFAULT_PASSWORD);
     authService.verifySuccessfulLogin();
-    return core.auth.login(constants.auth.usernames.DAISY_DIALER, constants.auth.DEFAULT_PASSWORD);
+    return core.auth.login(authData.users.DAISY.username, authData.password.DEFAULT_PASSWORD);
   });
 
   after('LOGOUT', function() {
@@ -106,7 +106,7 @@ describe('Workorder E2E', function() {
     context('CANCEL', function() {
       before('create ' + data.params.WORKORDER_TCANCEL + ' workorder', function() {
         const wo = workorderService.clone(data.workorders.CANCEL, data.workflows.WORKFLOW1.title)
-        return core.workorders.createByName(wo.title, constants.auth.usernames.TREVER_SMITH, wo.workflow);
+        return core.workorders.createByName(wo.title, authData.users.TREVER.username, wo.workflow);
       });
       step('open ' + data.params.WORKORDER_TCANCEL + ' workorder details', function() {
         workorderService.open(data.workorders.CANCEL);
@@ -150,7 +150,7 @@ describe('Workorder E2E', function() {
       var searched;
       before('create ' + data.params.WORKORDER_TSEARCH + ' workorder', function() {
         const wo = workorderService.clone(data.workorders.SEARCH, data.workflows.WORKFLOW1.title)
-        return core.workorders.createByName(wo.title, constants.auth.usernames.TREVER_SMITH, wo.workflow);
+        return core.workorders.createByName(wo.title, authData.users.TREVER.username, wo.workflow);
       });
       step('search field is visible and ' + data.params.WORKORDER_TSEARCH + 'is searched', function() {
         searched = workorderService.search(data.workorders.SEARCH, 1);
@@ -172,7 +172,7 @@ describe('Workorder E2E', function() {
     context('DELETE', function() {
       before('create ' + data.params.WORKORDER_TDELETE + ' workorder', function() {
         const wo = workorderService.clone(data.workorders.DELETE, data.workflows.WORKFLOW1.title);
-        return core.workorders.createByName(wo.title, constants.auth.usernames.TREVER_SMITH, wo.workflow);
+        return core.workorders.createByName(wo.title, authData.users.TREVER.username, wo.workflow);
       });
       step('remove ' + data.params.WORKORDER_TDELETE + ' workorder', function() {
         workorderService.remove(data.workorders.DELETE);
