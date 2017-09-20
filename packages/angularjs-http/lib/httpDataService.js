@@ -45,7 +45,7 @@ HttpDataService.prototype.list = function() {
   return this.request('/' + this.entityName, {
     method: 'GET',
     params: {
-      size: '25'
+      size: '100'
     }
   }).then(function(response) {
     // Extract data from paginated response
@@ -96,7 +96,7 @@ HttpDataService.prototype.search = function(filter) {
   return this.request('/' + this.entityName + '/search', {
     method: 'GET',
     params: {
-      size: '25',
+      size: '100',
       filter: filter
     }
   }).then(function(response) {
