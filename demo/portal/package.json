@@ -28,7 +28,7 @@
     "@raincatcher/angularjs-workorder": "0.0.2",
     "@raincatcher/logger": "0.0.1",
     "@raincatcher/step-signature": "0.0.1",
-    "@raincatcher/wfm": "0.0.1",
+    "@raincatcher/wfm": "0.0.4",
     "angular": "1.6.1",
     "angular-animate": "1.5.3",
     "angular-aria": "1.5.3",
