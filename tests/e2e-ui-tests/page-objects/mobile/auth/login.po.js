@@ -3,7 +3,7 @@ var pageConstants = require('../../../data/page_constants');
 var LoginPage = function() {
   var locators = {
     buttons: {
-      submitButton: element(by.id('login'))
+      submitButton: element(by.css('button[type="submit"]'))
     },
     fields: {
       usernameField: element(by.id('username')),
@@ -14,7 +14,7 @@ var LoginPage = function() {
       passwordLabel: element(by.css('label[for="password"]'))
     },
     warnings: {
-      invalidCredentialsErrorMsg: element(by.css('.feedback-error h1'))
+      invalidCredentialsErrorMsg: element(by.css('[ng-message="error"]'))
     }
   };
 

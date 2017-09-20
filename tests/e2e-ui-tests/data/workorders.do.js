@@ -15,84 +15,36 @@ var workorders = {
     workflow: params.WORKFLOW_TCRUDL1,
     assignee: params.WORKER_TCRUDL1,
     title: params.WORKORDER_TCREATE,
-    address: 'Create Street 11',
-    latitude: '412412.2',
-    longitude: '21026.5',
-    startDate: '10/11/2017',
-    startTime: '09:52AM',
-    finishDate: '11/11/2017',
-    finishTime: '09:52AM',
-    summary: 'test5create',
     status: 'New'
   },
   SEARCH: {
     workflow: params.WORKFLOW_TCRUDL1,
     assignee: params.WORKER_TCRUDL1,
     title: params.WORKORDER_TSEARCH,
-    address: 'Search Street 10',
-    latitude: '412412.2',
-    longitude: '21026.5',
-    startDate: '10/11/2017',
-    startTime: '09:52AM',
-    finishDate: '11/11/2017',
-    finishTime: '09:52AM',
-    summary: 'test5search',
     status: 'New'
   },
   UPDATE1: {
     workflow: params.WORKFLOW_TCRUDL1,
     assignee: params.WORKER_TCRUDL1,
     title: params.WORKORDER_TUPDATE1,
-    address: 'Update Street 17',
-    latitude: '412412.2',
-    longitude: '21026.5',
-    startDate: '10/11/2017',
-    startTime: '09:52AM',
-    finishDate: '11/11/2017',
-    finishTime: '09:52AM',
-    summary: 'test5update1',
     status: 'New'
   },
   UPDATE2: {
-    workflow: params.WORKFLOW_TCRUDL2,
+    workflow: params.WORKFLOW_TCRUDL1,
     assignee: params.WORKER_TCRUDL2,
     title: params.WORKORDER_TUPDATE2,
-    address: 'Update Street 18',
-    latitude: '789789.8',
-    longitude: '35687.7',
-    startDate: '10/11/2017',
-    startTime: '09:52AM',
-    finishDate: '11/11/2017',
-    finishTime: '10:00AM',
-    summary: 'test5update2',
     status: 'New'
   },
   CANCEL: {
-    workflow: params.WORKFLOW_TCRUDL2,
+    workflow: params.WORKFLOW_TCRUDL1,
     assignee: params.WORKER_TCRUDL2,
     title: params.WORKORDER_TCANCEL,
-    address: 'Cancel Street 18',
-    latitude: '412412.2',
-    longitude: '21026.5',
-    startDate: '10/11/2017',
-    startTime: '09:52AM',
-    finishDate: '11/11/2017',
-    finishTime: '09:52AM',
-    summary: 'test5cancel',
     status: 'New'
   },
   DELETE: {
     workflow: params.WORKFLOW_TCRUDL1,
     assignee: params.WORKER_TCRUDL1,
     title: params.WORKORDER_TDELETE,
-    address: 'Delete Street 18',
-    latitude: '412412.2',
-    longitude: '21026.5',
-    startDate: '10/11/2017',
-    startTime: '09:52AM',
-    finishDate: '11/11/2017',
-    finishTime: '09:52AM',
-    summary: 'test5delete',
     status: 'New'
   }
 };
@@ -126,13 +78,14 @@ var mobileWorkorders = {
     finishDate: 'Thu Aug 03 2017',
     finishTime: 'Thu Aug 03 2017',
     workSummary: 'Please remove damaged element and return to base',
-    index: 7
+    index: 7,
     workorderData: {
       heading: "Vehicle Inspection",
       fuel: 50,
       lights: "true",
       tires: "false"
     }
+  }
 };
 var workers = {
   WORKER1: {

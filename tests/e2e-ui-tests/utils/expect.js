@@ -16,6 +16,10 @@ module.exports.resultIsNotEqualTo = function(actual, expected) {
   expect(actual).to.not.equal(expected);
 };
 
+module.exports.resultIncludes = function(actual, expected) {
+  expect(actual).to.include(expected);
+};
+
 /**
  * Expect result to be true
  * @param {*} result

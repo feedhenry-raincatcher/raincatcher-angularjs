@@ -1,5 +1,5 @@
-var consts = require('../../utils/constants');
-var utils = require('../../utils');
+var consts = require('../../../data/page_constants');
+var utils = require('../../../utils');
 
 var NewWorkflowPage = function() {
   var workflowFormSelector = 'form[name="workflowForm"]';
@@ -25,8 +25,8 @@ var NewWorkflowPage = function() {
       return browser.get(consts.HASH + consts.workflows.URL_NEW);
     },
     selfCheck: function() {
-      browser.getLocationAbsUrl().then(function(result) {
-        utils.expect.resultIsEquelTo(result, consts.workflows.URL_NEW);
+      browser.getCurrentUrl().then(function(result) {
+        expect(result).to.include(consts.workflows.URL_NEW);
         return locators.workflowForm.self.isPresent();
       }).then(function(result) {
         utils.expect.resultIsTrue(result);
@@ -42,7 +42,7 @@ var NewWorkflowPage = function() {
       return locators.workflowForm.warnings.title.isPresent().then(function(result) {
         utils.expect.resultIsTrue(result);
         return locators.workflowForm.warnings.title.getText().then(function(result) {
-          utils.expect.resultIsEquelTo(result, consts.workflows.TITLE_MISSING_MSG); // TODO title message is required
+          utils.expect.resultIsEqualTo(result, consts.workflows.TITLE_MISSING_MSG); // TODO title message is required
         });
       });
     }

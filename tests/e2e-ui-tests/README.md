@@ -33,7 +33,7 @@ Run the following commands in order to run all tests:
 
 ```
 npm run wdm:start
-npm run test:ui
+npm run test-headless:ui
 ```
 
 To run a single test suite, for example the mobile app test suite run the 
@@ -41,7 +41,7 @@ following commands:
 
 ```
 npm run wdm:start
-npm run test:ui -- --suite=mobile
+npm run test-headless:ui -- --suite=mobile
 ```
 
 Valid test suite values are:
@@ -50,6 +50,12 @@ Valid test suite values are:
 mobile
 portal
 mobile_portal
+```
+
+To run tests without headless mode use:
+
+```
+npm run test:ui
 ```
 
 ## Repository folder structure

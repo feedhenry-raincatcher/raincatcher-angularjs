@@ -8,7 +8,8 @@
     "wdm:update": "webdriver-manager update",
     "wdm:start": "webdriver-manager start &",
     "wdm:stop": "webdriver-manager shutdown",
-    "test:ui": "protractor conf.js"
+    "test:ui": "protractor conf.js",
+    "test-headless:ui": "protractor conf-headless.js"
   },
   "keywords": [
     "E2E",
@@ -22,11 +23,13 @@
     "chai": "^3.5.0",
     "chai-as-promised": "^6.0.0",
     "eslint": "^3.16.1",
+    "html-dnd": "^1.2.0",
     "lodash": "^4.17.4",
     "mocha": "^2.5.3",
     "mocha-jenkins-reporter": "^0.3.8",
     "mocha-steps": "^1.0.2",
-    "protractor": "^4.0.14",
-    "request": "^2.81.0"
+    "protractor": "^5.1.2",
+    "request": "^2.81.0",
+    "request-promise-native": "^1.0.4"
   }
 }

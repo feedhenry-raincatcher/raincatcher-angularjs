@@ -4,7 +4,7 @@ var WorkflowPage = function() {
       back: element(by.css('button[ng-click="ctrl.back($event)"]')),
       continue: element(by.css('button[ng-click="ctrl.done($event)"]'))
     },
-    slider: element(by.css('div.md-track.ticks canvas')),
+    slider: element(by.css('md-slider')),
     radioButtons: {
       lights: {
         fail: element(by.model('ctrl.model.lights')).element(by.css('[aria-label="Fail"]')),
@@ -46,21 +46,21 @@ var WorkflowPage = function() {
     },
     dragSlider: function(percentage) {
       var value = null;
-      switch(percentage) {
-        case percentage < 13:
-          value = 0;
-          break;
-        case percentage < 38:
-          value = 25;
-          break;
-        case percentage < 63:
-          value = 50;
-          break;
-        case percentage < 88:
-          value = 75;
-          break;
-        default:
-          value = 100;
+      switch (percentage) {
+      case percentage < 13:
+        value = 0;
+        break;
+      case percentage < 38:
+        value = 25;
+        break;
+      case percentage < 63:
+        value = 50;
+        break;
+      case percentage < 88:
+        value = 75;
+        break;
+      default:
+        value = 100;
       }
       //TODO - finish slider implementation
     }
@@ -69,7 +69,7 @@ var WorkflowPage = function() {
   return {
     locators,
     commands
-  }
+  };
 };
 
 module.exports = WorkflowPage();

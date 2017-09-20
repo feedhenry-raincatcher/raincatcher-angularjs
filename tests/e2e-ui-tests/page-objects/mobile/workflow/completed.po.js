@@ -6,23 +6,23 @@ var CompletedWorkflowPage = function() {
   };
 
   var getListItemChildText = function(index) {
-    completedWorkflowListItems.get(index).element(by.css('h3')).getText();
+    locators.completedWorkflowListItems.get(index).element(by.css('h3')).getText();
   };
 
   var commands = {
     get: {
       fuelValue: function() {
-        getListItemChildText(0)
+        getListItemChildText(0);
       },
       tiresValue: function() {
-        getListItemChildText(1)
+        getListItemChildText(1);
       },
       lightsValue: function() {
-        getListItemChildText(2)
+        getListItemChildText(2);
       }
     },
     count: function() {
-      completedWorkflowList.count()
+      locators.completedWorkflowListItems.count();
     }
   };
 

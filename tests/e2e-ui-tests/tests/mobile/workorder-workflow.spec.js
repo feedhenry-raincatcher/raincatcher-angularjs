@@ -1,159 +1,107 @@
 var authData = require('../../data/auth.do');
-var workorderData = require('../../data/workorders.do')
+var workorderData = require('../../data/workorders.do');
 var AuthService = require('../../services/mobile/auth.so');
 var authService = new AuthService();
 var WorkorderService = require('../../services/mobile/workorder.so');
 var workorderService = new WorkorderService();
 var WorkflowService = require('../../services/mobile/workflow.so');
 var workflowService = new WorkflowService();
+var core = require('../../utils/api');
+
+const prefix = 'test-';
+const workflowTitle = prefix + 'workflow';
+const workorderTitle = prefix + 'workorder';
+const vehicleStepTitle = prefix + 'vehicle';
 
 describe('Mobile Workorders and Workflow E2E', function() {
-  describe('READ workorders tests', function () {
-    describe(authData.usernames.TREVER_SMITH + ' can read the workorder list', function () {
-      step('login to mobile as ' + authData.usernames.TREVER_SMITH, function () {
-        authService.openMobileApp();
-        authService.verifyLoginPageIsVisible();
-        authService.loginToMobileApp(authData.users.TREVER.username,
-          authData.password.DEFAULT_PASSWORD);
-      });
+  before('Cleanup', function() {
+    return core.auth.login(authData.users.DAISY.username, authData.password.DEFAULT_PASSWORD)
+      .then(() => core.cleanup(prefix));
+  });
 
-      step('verify workorders page is displayed', function () {
-        authService.verifySuccessfulLogin();
-      });
+  describe(authData.users.TREVER.username + ' can complete workorder', function() {
+    let workorder;
 
-      step('verify there are 8 workorders in the workorders list', function () {
-        workorderService.verifyNumberOfWorkordersInList(workorderData.mobileWorkorders.TOTAL);
-      });
-
-      step('select a workorder from the list', function () {
-        workorderService.selectWorkorderFromTheListByIndex(workorderData.mobileWorkorders.FIRST_WORKORDER.index);
-      });
-
-      step('that workorder details are present and correct', function () {
-        workorderService.verifyWorkorderDetailsArePresentAndCorrect(workorderData.mobileWorkorders.FIRST_WORKORDER);
-      });
-
-      step('that the begin workflow button is present', function () {
-        workorderService.verifyWorkorderWorkflowIsNotCompleted();
-      });
-
-      step('logout from mobile', function () {
-        authService.logoutOfMobileApp();
-      });
+    before('Prepare workorder and workflow', function() {
+      let workflow;
+      return core.workflows.create(workflowTitle)
+        .then(wf => {
+          workflow = wf;
+          return core.workflows.addStep(vehicleStepTitle, 'vehicleInspection', wf.id)
+        })
+        .then(() => core.users.filter(authData.users.TREVER.username))
+        .then(u => core.workorders.create(workorderTitle, u.users[0].id, workflow.id))
+        .then(wo => workorder = wo);
     });
 
-    describe('SEARCH workorder tests', function () {
-      step('login to mobile as ' + authData.usernames.TREVER_SMITH, function () {
-        authService.openMobileApp();
-        authService.verifyLoginPageIsVisible();
-        authService.loginToMobileApp(authData.users.TREVER.username,
-          authData.password.DEFAULT_PASSWORD);
+    step('login to mobile as ' + authData.users.TREVER.username, function() {
+      authService.openMobileApp();
+      browser.driver.executeScript(function() {
+        sessionStorage.clear();
+        localStorage.clear();
       });
+      authService.openMobileApp();
+      authService.verifyLoginPageIsVisible();
+      authService.loginToMobileApp(authData.users.TREVER.username,
+        authData.password.DEFAULT_PASSWORD);
+    });
 
-      step('verify workorders page is displayed', function () {
-        authService.verifySuccessfulLogin();
-      });
+    step('verify workorders page is displayed', function() {
+      authService.verifySuccessfulLogin();
+    });
 
-      step('search for a workorder in the list', function () {
-        workorderService.searchForWorkorderInList(workorderData.mobileWorkorders.lastWorkorder.workorderName);
-      });
+    step('select a workorder from list', function() {
+      browser.sleep(20000);
+      workorderService.selectWorkorderFromTheList(workorderTitle);
+    });
 
-      step('verify there is only one workorder in the list', function () {
-        workorderService.verifyNumberOfWorkordersInList(1);
-      });
+    step('that workorder details are present and correct', function() {
+      browser.sleep(1000);
+      const workorderDetails = {
+        id: workorder.id,
+        status: 'New',
+        workorderName: workorderTitle
+      };
+      workorderService.verifyWorkorderDetailsArePresentAndCorrect(workorderDetails);
+    });
 
-      step('select the workorder from the list', function () {
-        workorderService.selectWorkorderFromTheListByIndex(0);
-      });
+    step('that the begin workflow button is present', function() {
+      workorderService.verifyWorkorderWorkflowIsNotCompleted();
+    });
 
-      step('that workorder details are present and correct', function () {
-        workorderService.verifyWorkorderDetailsArePresentAndCorrect(workorderData.mobileWorkorders.lastWorkorder);
-      });
+    step('click on the begin workflow button', function() {
+      workorderService.beginWorkflow();
+    });
 
-      step('logout from mobile', function () {
-        authService.logoutOfMobileApp();
-      });
+    step('verify elements of workflow completeion page are visible', function() {
+      workflowService.verifyWorkflowFormIsVisible();
+    });
 
-      describe('Complete and read workflow tests', function () {
-        step('login to mobile as ' + authData.usernames.TREVER_SMITH, function () {
-          authService.openMobileApp();
-          authService.verifyLoginPageIsVisible();
-          authService.loginToMobileApp(authData.users.TREVER.username,
-            authData.password.DEFAULT_PASSWORD);
-        });
+    step('click back button', function() {
+      workflowService.cancelWorkflowChanges();
+    });
 
-        step('verify workorders page is displayed', function () {
-          authService.verifySuccessfulLogin();
-        });
+    step('verify that the begin workflow button is still present', function() {
+      browser.sleep(1000);
+      workorderService.verifyWorkorderWorkflowIsNotCompleted();
+    });
 
-        step('search for a workorder in the list', function () {
-          workorderService.searchForWorkorderInList(workorderData.mobileWorkorders.lastWorkorder.workorderName);
-        });
+    step('click on begin workflow button', function() {
+      workorderService.beginWorkflow();
+    });
 
-        step('verify there is only one workorder in the list', function () {
-          workorderService.verifyNumberOfWorkordersInList(1);
-        });
+    step('click continue button', function() {
+      browser.sleep(10000);
+      workflowService.submitWorkflowDetails();
+    });
 
-        step('select the workorder from the list', function () {
-          workorderService.selectWorkorderFromTheListByIndex(0);
-        });
+    step('verify workflow section details are correct', function() {
+      browser.sleep(1000);
+      workorderService.verifyWorkorderWorkflowIsCompleted();
+    });
 
-        step('that workorder details are present and correct', function () {
-          workorderService.verifyWorkorderDetailsArePresentAndCorrect(workorderData.mobileWorkorders.lastWorkorder);
-        });
-
-        step('verify that the begin workflow button is present', function () {
-          workorderService.verifyWorkorderWorkflowIsNotCompleted();
-        });
-
-        step('click on the begin workflow button', function () {
-          workorderService.beginWorkflow();
-        });
-
-        step('verify elements of workflow completeion page are visible', function () {
-          workflowService.verifyWorkflowFormIsVisible();
-        });
-
-        step('click back button', function () {
-          workflowService.cancelWorkflowChanges();
-        });
-
-        step('verify that the begin workflow button is still present', function () {
-          workorderService.verifyWorkorderWorkflowIsNotCompleted();
-        });
-
-        step('click on begin workflow button', function () {
-          workorderService.beginWorkflow();
-        });
-
-        step('verify elements of workflow completeion page are visible', function () {
-          workflowService.verifyWorkflowFormIsVisible();
-        });
-
-        step('set the workflow details', function () {
-          workflowService.setWorkflowDetails(
-            workorderData.mobileWorkorders.lastWorkorder.workorderData.fuel,
-            workorderData.mobileWorkorders.lastWorkorder.workorderData.tires,
-            workorderData.mobileWorkorders.lastWorkorder.workorderData.lights)
-        });
-
-        step('click continue button', function () {
-          workflowService.submitWorkflowDetails();
-        });
-
-
-        step('verify workflow section details are correct', function () {
-          workflowService.checkWorkflowDetails(
-            workorderData.mobileWorkorders.lastWorkorder.heading,
-            workorderData.mobileWorkorders.lastWorkorder.workorderData.fuel,
-            workorderData.mobileWorkorders.lastWorkorder.workorderData.tires,
-            workorderData.mobileWorkorders.lastWorkorder.workorderData.lights);
-        });
-
-        step('logout from mobile', function () {
-          authService.logoutOfMobileApp();
-        });
-      });
+    step('logout from mobile', function() {
+      authService.logoutOfMobileApp();
     });
   });
 });

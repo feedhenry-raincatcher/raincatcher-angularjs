@@ -5,7 +5,7 @@ var NavigationTab = function() {
   var locators = {
     toggleNavButton: element(by.css('button[ng-click*="toggleSidenav"]')),
     navList: element(by.css('md-sidenav md-list')),
-    navListItems: element(by.css('md-sidenav md-list')).all(by.css('md-list-item'))
+    navListItems: element(by.css('md-sidenav md-list')).all(by.css('md-list-item')),
     userAvatar: element(by.css('md-sidenav .sidenav-header img')),
     userName: element(by.css('md-sidenav .sidenav-header h3')),
     userEmail: element(by.css('md-sidenav .sidenav-header p'))

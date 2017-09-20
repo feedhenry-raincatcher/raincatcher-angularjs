@@ -11,7 +11,7 @@ var pageConstants = require('../../data/page_constants');
  */
 function AuthService() {
 
-};
+}
 
 /**
  * Used to open the login page of the portal application
@@ -68,7 +68,7 @@ AuthService.prototype.verifySuccessfulLogin = function() {
     workordersPage.locators.newButton,
     workordersPage.locators.search
   ]);
-  utils.check.elementVisibilityAndValue(workordersPage.locators.heading,
+  utils.check.elementVisibilityAndValue(workordersPage.locators.header,
     pageConstants.workorders.portal.DEFAULT_HEADING);
 };
 
@@ -77,7 +77,7 @@ AuthService.prototype.verifySuccessfulLogin = function() {
  * have been entered, and that the error message is as expected
  */
 AuthService.prototype.verifyErrorMessageIsDisplayed = function() {
-  utils.check.elementVisibilityAndValue(loginPage.locators.invalidCredentialsErrorMsg,
+  utils.check.elementVisibilityAndValue(loginPage.locators.warnings.invalidCredentialsErrorMsg,
     pageConstants.login.AUTH_FAIL_MSG);
 };
 
@@ -85,7 +85,7 @@ AuthService.prototype.verifyErrorMessageIsDisplayed = function() {
  * Used to logout of the mobile application
  */
 AuthService.prototype.logoutOfPortalApp = function() {
-  navigationPage.commands.clickLogoutButton();
+  navigationPage.navigateTo.logoutPage();
 };
 
 module.exports = AuthService;
