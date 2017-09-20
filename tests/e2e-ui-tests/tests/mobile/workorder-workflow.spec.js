@@ -6,7 +6,7 @@ var WorkorderService = require('../../services/mobile/workorder.so');
 var workorderService = new WorkorderService();
 var WorkflowService = require('../../services/mobile/workflow.so');
 var workflowService = new WorkflowService();
-var core = require('../../utils/core');
+var core = require('../../utils/api');
 
 const prefix = 'test-';
 const workflowTitle = prefix + 'workflow';

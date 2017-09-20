@@ -10,6 +10,21 @@ var constants = require('../../utils/constants');
 var AuthService = require('../../services/portal/auth.so');
 var authService = new AuthService();
 
+var core = require('../../utils/api');
+
+const prefix = 'test-';
+data.workflows.WORKFLOW1.title = prefix + data.workflows.WORKFLOW1.title;
+data.workflows.WORKFLOW2.title = prefix + data.workflows.WORKFLOW2.title;
+data.workorders.CREATE.title = prefix + data.workorders.CREATE.title;
+data.workorders.CREATE.workflow = prefix + data.workorders.CREATE.workflow;
+data.workorders.UPDATE1.title = prefix + data.workorders.UPDATE1.title;
+data.workorders.UPDATE2.title = prefix + data.workorders.UPDATE2.title;
+data.workorders.UPDATE2.workflow = prefix + data.workorders.UPDATE2.workflow;
+data.workorders.CANCEL.title = prefix + data.workorders.CANCEL.title;
+data.workorders.CANCEL.workflow = prefix + data.workorders.CANCEL.workflow;
+data.workorders.SEARCH.title = prefix + data.workorders.SEARCH.title;
+data.workorders.DELETE.title = prefix + data.workorders.DELETE.title;
+
 describe('Workorder E2E', function() {
   before('LOGIN', function() {
     browser.ignoreSynchronization = true;
@@ -17,6 +32,7 @@ describe('Workorder E2E', function() {
     authService.loginToPortalApp(constants.auth.usernames.DAISY_DIALER,
       constants.auth.DEFAULT_PASSWORD);
     authService.verifySuccessfulLogin();
+    return core.auth.login(constants.auth.usernames.DAISY_DIALER, constants.auth.DEFAULT_PASSWORD);
   });
 
   after('LOGOUT', function() {
@@ -26,11 +42,8 @@ describe('Workorder E2E', function() {
   context('RUN TEST', function() {
     before('create workflows', function() {
       browser.ignoreSynchronization = false;
-      workflowService.create(data.workflows.WORKFLOW1);
-      browser.refresh(); // workaround for https://issues.jboss.org/browse/RAINCATCH-1225
-
-      workflowService.create(data.workflows.WORKFLOW2);
-      browser.refresh(); // workaround for https://issues.jboss.org/browse/RAINCATCH-1225
+      return core.workflows.create(data.workflows.WORKFLOW1.title)
+        .then(() => core.workflows.create(data.workflows.WORKFLOW2.title));
     });
     context('CREATE', function() {
       step('create an empty{} workorder', function() {
@@ -56,13 +69,14 @@ describe('Workorder E2E', function() {
         // TODO
       });
       after('remove ' + data.params.WORKORDER_TCREATE + ' workorder', function() {
-        workorderService.remove(data.workorders.CREATE);
+        return core.workorders.removeByName(data.workorders.CREATE.title);
       });
     });
 
     context('UPDATE', function() {
       before('create ' + data.params.WORKORDER_TUPDATE1 + ' workorder', function() {
-        workorderService.create(workorderService.clone(data.workorders.UPDATE1, data.workflows.WORKFLOW1.title));
+        const wo = workorderService.clone(data.workorders.UPDATE1, data.workflows.WORKFLOW1.title);
+        return core.workorders.createByName(wo.title, undefined, wo.workflow);
       });
       step('update ' + data.params.WORKORDER_TUPDATE1 + ' workorder details', function() {
         workorderService.update(data.workorders.UPDATE1, workorderService.clone(data.workorders.UPDATE2, data.workflows.WORKFLOW2.title));
@@ -84,14 +98,15 @@ describe('Workorder E2E', function() {
         // TODO
       });
       after('remove ' + data.params.WORKORDER_TUPDATE2 + ' workorder', function() {
-        workorderService.remove(data.workorders.UPDATE2);
+        return core.workorders.removeByName(data.workorders.UPDATE2.title);
       });
 
     });
 
     context('CANCEL', function() {
       before('create ' + data.params.WORKORDER_TCANCEL + ' workorder', function() {
-        workorderService.create(workorderService.clone(data.workorders.CANCEL, data.workflows.WORKFLOW1.title));
+        const wo = workorderService.clone(data.workorders.CANCEL, data.workflows.WORKFLOW1.title)
+        return core.workorders.createByName(wo.title, constants.auth.usernames.TREVER_SMITH, wo.workflow);
       });
       step('open ' + data.params.WORKORDER_TCANCEL + ' workorder details', function() {
         workorderService.open(data.workorders.CANCEL);
@@ -127,14 +142,15 @@ describe('Workorder E2E', function() {
         workorderService.expectDetailsToBe(data.workorders.CANCEL);
       });
       after('remove ' + data.params.WORKORDER_TCANCEL + ' workorder', function() {
-        workorderService.remove(data.workorders.CANCEL);
+        return core.workorders.removeByName(data.workorders.CANCEL.title);
       });
     });
 
     context('SEARCH', function() {
       var searched;
       before('create ' + data.params.WORKORDER_TSEARCH + ' workorder', function() {
-        workorderService.create(workorderService.clone(data.workorders.SEARCH, data.workflows.WORKFLOW1.title));
+        const wo = workorderService.clone(data.workorders.SEARCH, data.workflows.WORKFLOW1.title)
+        return core.workorders.createByName(wo.title, constants.auth.usernames.TREVER_SMITH, wo.workflow);
       });
       step('search field is visible and ' + data.params.WORKORDER_TSEARCH + 'is searched', function() {
         searched = workorderService.search(data.workorders.SEARCH, 1);
@@ -149,13 +165,14 @@ describe('Workorder E2E', function() {
         workorderService.searchReset();
       });
       after('create ' + data.params.WORKORDER_TSEARCH + ' workorder', function() {
-        workorderService.remove(data.workorders.SEARCH);
+        return core.workorders.removeByName(data.workorders.SEARCH.title);
       });
     });
 
     context('DELETE', function() {
       before('create ' + data.params.WORKORDER_TDELETE + ' workorder', function() {
-        workorderService.create(workorderService.clone(data.workorders.DELETE, data.workflows.WORKFLOW1.title));
+        const wo = workorderService.clone(data.workorders.DELETE, data.workflows.WORKFLOW1.title);
+        return core.workorders.createByName(wo.title, constants.auth.usernames.TREVER_SMITH, wo.workflow);
       });
       step('remove ' + data.params.WORKORDER_TDELETE + ' workorder', function() {
         workorderService.remove(data.workorders.DELETE);
@@ -168,8 +185,8 @@ describe('Workorder E2E', function() {
       });
     });
     after('remove workflows', function() {
-      workflowService.remove(data.workflows.WORKFLOW1);
-      workflowService.remove(data.workflows.WORKFLOW2);
+      return core.workflows.removeByName(data.workflows.WORKFLOW1.title)
+        .then(() => core.workflows.removeByName(data.workflows.WORKFLOW2.title));
     });
   });
 });

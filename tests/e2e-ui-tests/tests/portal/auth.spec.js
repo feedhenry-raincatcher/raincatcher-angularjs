@@ -84,7 +84,7 @@ describe("Portal Auth E2E", function() {
   });
 
   describe('Access control tests', function() {
-    step('Access control tests still to be implemented', function() {
+    xstep('Access control tests still to be implemented', function() {
     });
   });
 });
