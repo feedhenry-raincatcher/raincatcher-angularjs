@@ -12,12 +12,17 @@ function AuthInterceptor($q, authService) {
 AuthInterceptor.prototype.request = function request(config) {
   var deferred = q.defer();
   if (auth.token) {
+    console.log('refreshing auth token', auth.token);
     auth.updateToken(5).success(function() {
+        console.log('succesfully refreshed token');
         config.headers = config.headers || {};
         config.headers.Authorization = 'Bearer ' + auth.token;
-
         deferred.resolve(config);
-    }).error(function() {
+    }).error(function(error) {
+        console.log('error: ', error);
+        if (error.status === -1) {
+          deferred.resolve();
+        }
         deferred.reject('Failed to refresh token');
     });
   }

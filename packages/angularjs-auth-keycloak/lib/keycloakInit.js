@@ -32,7 +32,6 @@ function formatProfileData(profileData) {
   return profile;
 }
 
-
 module.exports = function(appName, keycloakConfig, initConfig) {
   /**
   * Initializes the Keycloak JS adapter and make it available to controllers
@@ -44,7 +43,13 @@ module.exports = function(appName, keycloakConfig, initConfig) {
 
     keycloakJS.init(initConfig).success(function() {
       logger.info('Successfully initialised Keycloak instance');
-      angular.module(appName).factory('authService', function() {
+      angular.bootstrap(document, [appName]);
+    }).error(function(err) {
+      logger.error('Failed to initialise Keycloak due to the following error', err);
+      angular.bootstrap(document, [appName]);
+    });
+
+    angular.module(appName).factory('authService', function() {
         var keycloakAuthService = keycloakJS;
         keycloakAuthService.getProfile = function() {
           return new Promise(function(success, error) {
@@ -58,11 +63,8 @@ module.exports = function(appName, keycloakConfig, initConfig) {
         };
         return keycloakAuthService;
       });
-
-      // NOTE: Angular should be started after Keycloak has initialized otherwise Angular will cause issues with URL Rewrites
-      angular.bootstrap(document, [appName]);
-    }).error(function(err) {
-      logger.error('Failed to initialise Keycloak due to the following error', err);
-    });
-  });
+    
+    // NOTE: Angular should be started after Keycloak has initialized otherwise Angular will cause issues with URL Rewrites
+    // angular.bootstrap(document, [appName]);
+});
 }

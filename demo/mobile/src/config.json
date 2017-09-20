@@ -24,6 +24,7 @@
     "use-resource-role-mappings": true
   },
   "keycloakInit": {
-    "onLoad": "login-required"
+    "onLoad": "login-required",
+    "scope": "offline_access"
   }
 }

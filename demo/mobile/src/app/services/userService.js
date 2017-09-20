@@ -26,5 +26,6 @@ UserService.prototype.authenticate = function authenticate(username, password) {
 };
 
 angular.module('wfm.common.apiservices').service('userService', ['authService', function(authService) {
+  console.log('authService', authService);
   return new UserService(authService);
 }]);
