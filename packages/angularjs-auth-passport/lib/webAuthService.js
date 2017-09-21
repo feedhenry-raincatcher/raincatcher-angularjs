@@ -25,9 +25,10 @@ WebAuthService.prototype.init = function() {
       logger.error('Unable to initialize auth service due to unsuccessful $fh.init', error);
     } else {
       self.setCloudUrl();
+      self.updateUserProfile();
     }
   });
-}
+};
 
 /**
  * Sets the cloud URL
@@ -50,26 +51,64 @@ WebAuthService.prototype.getCloudUrl = function() {
 WebAuthService.prototype.getProfile = function() {
   var self = this;
   var url = self.getCloudUrl() + CONSTANTS.PROFILE_URL;
-  return self.http.get(url).then(function(res) {
+  return self.http.get(url)
+  .then(function(res) {
     if (res.data) {
       return res.data;
     }
   }).catch(function(error) {
     self.window.location = self.getCloudUrl() + CONSTANTS.LOGIN_URL;
   });
-}
+};
+
+/**
+ * userProfile setter
+ * @param profile - User profile to be set
+ */
+WebAuthService.prototype.setUserProfile = function(profile) {
+  userProfile = profile;
+};
+
+
+/**
+ * Updates and sets user profile class variable.
+ */
+WebAuthService.prototype.updateUserProfile = function() {
+  var self = this;
+  return this.getProfile().then(function(updatedProfile) {
+    self.setUserProfile(updatedProfile);
+  });
+};
+
 
 /**
  * Checks if the user has the specified role
  * @param role - The required role needed by the user in order to access the resource
  */
 WebAuthService.prototype.hasResourceRole = function(role) {
-  // TODO: this needs to be refactored
+  var self = this;
+  var hasResourceRole = false;
+  if (!userProfile) {
+    this.updateUserProfile().then(function() {
+      hasResourceRole = self.checkRoles(role);
+    });
+  } else {
+    hasResourceRole = self.checkRoles(role);
+  }
+
+  return hasResourceRole;
+};
+
+/**
+ * Checks is user has a given role.
+ * @param role - The role to check.
+ */
+WebAuthService.prototype.checkRoles = function(role) {
   if (userProfile.roles && userProfile.roles.length > 0) {
     return userProfile.roles.indexOf(role) > -1;
   }
   return false;
-}
+};
 
 /**
  * Redirects to the login page

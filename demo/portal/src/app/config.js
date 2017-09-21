@@ -14,7 +14,7 @@ var angular = require('angular');
  * @constructor
  */
 function AppConfig($stateProvider, $urlRouterProvider) {
-  $urlRouterProvider.otherwise('/workorders/list');
+  $urlRouterProvider.otherwise('/unauthorised');
 
   $stateProvider
     .state('app', {
@@ -24,9 +24,17 @@ function AppConfig($stateProvider, $urlRouterProvider) {
         columns: 3
       },
       controller: function($scope, $state, $mdSidenav, $mdDialog, userService) {
+        $scope.authorised = [];
+
         userService.readUser().then(function(profileData) {
           if (profileData) {
             $scope.profileData = profileData;
+            var workorderAuthorised = $scope.hasResourceRole('admin', 'workorder');
+            $scope.hasResourceRole('admin', 'workflow');
+            if (workorderAuthorised) {
+              $urlRouterProvider.otherwise('/workorders/list');
+            }
+
           }
         }).catch(function(err) {
           console.info(err);
@@ -40,23 +48,40 @@ function AppConfig($stateProvider, $urlRouterProvider) {
         };
 
         $scope.navigateTo = function(state, params) {
+
           if (state) {
-            if ($mdSidenav('left').isOpen()) {
-              $mdSidenav('left').close();
+            if (params && params.authorised) {
+              if ($mdSidenav('left').isOpen()) {
+                $mdSidenav('left').close();
+              }
+              $state.go(state, params);
+            } else {
+              var message = "Unauthorised";
+              $state.go('app.unauthorised', message);
             }
-            $state.go(state, params);
+
           }
         };
 
-        $scope.hasResourceRole = function(role) {
-          return userService.hasResourceRole(role);
+        $scope.hasResourceRole = function(role, resource) {
+          var authorised = userService.hasResourceRole(role);
+          $scope.authorised[resource] = authorised;
+
+          return authorised;
         };
 
         $scope.logout = function() {
           userService.logout();
         };
       }
-    });
+    })
+    .state('app.unauthorised', {
+      abstract: false,
+      url: '/unauthorised',
+      templateUrl: 'app/main.tpl.html',
+      data: {
+        columns: 2
+      }});
 }
 
-angular.module('app').config(["$stateProvider", "$urlRouterProvider", AppConfig])
+angular.module('app').config(["$stateProvider", "$urlRouterProvider", AppConfig]);
