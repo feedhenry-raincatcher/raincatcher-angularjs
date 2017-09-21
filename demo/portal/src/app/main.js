@@ -24,7 +24,7 @@ logger.setLogger(new logger.ClientLogger(2));
 angular.module('app', [
   require('angular-ui-router'),
   require('angular-material'),
-  require('./passport'),
+  // require('./passport'),
   require('./services'),
   require('@raincatcher/angularjs-http'),
   require('ng-sortable'),
@@ -47,6 +47,6 @@ angular.module('app', [
 ]);
 
 
-// require('./keycloak');
+require('./keycloak');
 
 require('./config');
