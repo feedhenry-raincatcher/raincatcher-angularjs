@@ -74,10 +74,10 @@ WebAuthService.prototype.hasResourceRole = function(role) {
 /**
  * Redirects to the login page
  */
-WebAuthService.prototype.login = function() {
+WebAuthService.prototype.showLoginScreen = function() {
   var self = this;
   return self.window.location = self.getCloudUrl() + CONSTANTS.LOGIN_URL;
-}
+};
 
 /**
  * Logs out the user.

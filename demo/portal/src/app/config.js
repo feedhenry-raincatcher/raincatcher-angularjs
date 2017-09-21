@@ -30,7 +30,7 @@ function AppConfig($stateProvider, $urlRouterProvider) {
           }
         }).catch(function(err) {
           console.info(err);
-          userService.login();
+          userService.showLoginScreen();
         });
 
         $scope.$state = $state;
