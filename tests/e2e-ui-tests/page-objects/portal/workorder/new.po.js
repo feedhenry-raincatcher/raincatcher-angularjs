@@ -12,6 +12,9 @@ var NewWorkorderPage = function() {
       dropdowns: {
         workflow: element(by.css(workorderFormSelector + ' #workflow'))
       },
+      searchInputs: {
+        assignee: element(by.css(workorderFormSelector + ' input[type="search"]'))
+      },
       warnings: {
         workflow: element(by.css(workorderFormSelector + ' [ng-messages="workorderForm.workflow.$error"] div')),
         title: element(by.css(workorderFormSelector + ' [ng-messages="workorderForm.title.$error"] div')),

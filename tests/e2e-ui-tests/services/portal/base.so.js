@@ -27,6 +27,11 @@ BaseService.prototype.create = function(item, dummyParams) {
       return utils.ui.selectPromise(pageObject.new.locators.itemForm.dropdowns, item);
     }
   })
+  .then( ()  => { // fill searchInput selectors
+    if (!dummyParams && pageObject.new.locators.itemForm.searchInputs) {
+      return utils.ui.searchPromise(pageObject.new.locators.itemForm.searchInputs, item);
+    }
+  })
   .then(() => { // fill date and time fields
     if (!dummyParams && pageObject.new.locators.itemForm.datetime) {
       return utils.ui.sendKeysPromise(pageObject.new.locators.itemForm.datetime, item);

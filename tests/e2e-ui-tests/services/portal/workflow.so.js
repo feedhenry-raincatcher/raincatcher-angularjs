@@ -106,7 +106,10 @@ WorkflowService.prototype.addStep = function(workflow, step, dummyParams) {
   .then((result) => utils.expect.resultIsTrue(result))
   .then(() => {
     if (!dummyParams && swp.locators.stepForm.dropdowns) {
-      // utils.ui.sendKeysPromise(swp.locators.stepForm.dropdowns, step);
+      swp.locators.stepForm.dropdowns.type.click();
+      browser.sleep(500);
+      element(by.cssContainingText('.md-select-menu-container.md-active md-option', step.type)).click();
+      browser.sleep(500);
     }
   })
   .then(() => {

@@ -98,8 +98,32 @@ module.exports.selectPromise = function(elements, params) {
   var select = function(kvPair) {
     var el = kvPair.element;
     return el.click()
-      .then(() => browser.sleep(5000))
-      .then(() => element(by.cssContainingText('.md-select-menu-container.md-active md-option .md-text', kvPair.value)).click());
+      .then(() => browser.sleep(1000))
+      .then(() => element(by.cssContainingText('.md-select-menu-container.md-active md-option .md-text', kvPair.value)).click())
+      .then(() => browser.sleep(1000));
+  };
+  var kvPairs = _.map(elements, function(element, key) {
+    return {
+      element: element, value: params[key]};
+  });
+
+  var promise = _.reduce(_.tail(kvPairs), function(prev, kvPair) {
+    return prev.then(function() {
+      return select(kvPair);
+    });
+  }, select(_.head(kvPairs)));
+
+  return promise;
+};
+
+/**
+ *
+ */
+module.exports.searchPromise = function(elements, params) {
+  var select = function(kvPair) {
+    var el = kvPair.element;
+    return el.sendKeys(kvPair.value)
+      .then(() => element(by.css('md-autocomplete-parent-scope')).click());
   };
   var kvPairs = _.map(elements, function(element, key) {
     return {

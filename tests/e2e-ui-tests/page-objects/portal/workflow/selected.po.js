@@ -12,13 +12,10 @@ var SelectedWorkflowPage = function() {
     stepForm: {
       self: element(by.css(stepFormSelector)),
       fields: {
-        code: element(by.css(stepFormSelector + ' #code')),
         name: element(by.css(stepFormSelector + ' #name')),
-        form: element(by.css(stepFormSelector + ' #form')),
-        view: element(by.css(stepFormSelector + ' #view')),
       },
       dropdowns: {
-        formId: element(by.css(stepFormSelector + ' #formId')),
+        type: element(by.css(stepFormSelector + ' md-select')),
       },
       buttons: {
         add: element(by.css(stepFormSelector + ' button[aria-label="Add step"]')), // BUG shoudl be Add step
