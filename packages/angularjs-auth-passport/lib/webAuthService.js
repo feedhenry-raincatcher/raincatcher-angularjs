@@ -54,6 +54,9 @@ WebAuthService.prototype.getProfile = function() {
   return self.http.get(url)
   .then(function(res) {
     if (res.data) {
+      if (!userProfile) {
+        userProfile = res.data;
+      }
       return res.data;
     }
   }).catch(function(error) {

@@ -14,7 +14,12 @@ var angular = require('angular');
  * @constructor
  */
 function AppConfig($stateProvider, $urlRouterProvider) {
-  $urlRouterProvider.otherwise('/unauthorised');
+  var redirectUrlForInvalidRoutes = '/unauthorised';
+
+  $urlRouterProvider.otherwise(function() {
+    console.log(redirectUrlForInvalidRoutes);
+    return redirectUrlForInvalidRoutes;
+  });
 
   $stateProvider
     .state('app', {
@@ -32,7 +37,8 @@ function AppConfig($stateProvider, $urlRouterProvider) {
             var workorderAuthorised = $scope.hasResourceRole('admin', 'workorder');
             $scope.hasResourceRole('admin', 'workflow');
             if (workorderAuthorised) {
-              $urlRouterProvider.otherwise('/workorders/list');
+              redirectUrlForInvalidRoutes = '/workorders/list';
+              $state.go('app.workorder');
             }
 
           }
@@ -56,8 +62,7 @@ function AppConfig($stateProvider, $urlRouterProvider) {
               }
               $state.go(state, params);
             } else {
-              var message = "Unauthorised";
-              $state.go('app.unauthorised', message);
+              $state.go('app.unauthorised');
             }
 
           }
@@ -82,6 +87,7 @@ function AppConfig($stateProvider, $urlRouterProvider) {
       data: {
         columns: 2
       }});
+
 }
 
 angular.module('app').config(["$stateProvider", "$urlRouterProvider", AppConfig]);
