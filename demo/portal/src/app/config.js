@@ -17,7 +17,6 @@ function AppConfig($stateProvider, $urlRouterProvider) {
   var redirectUrlForInvalidRoutes = '/unauthorised';
 
   $urlRouterProvider.otherwise(function() {
-    console.log(redirectUrlForInvalidRoutes);
     return redirectUrlForInvalidRoutes;
   });
 
