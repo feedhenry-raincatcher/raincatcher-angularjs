@@ -34,6 +34,7 @@ WorkorderService.prototype.clearOtherFields = function() {
  */
 WorkorderService.prototype.searchForItem = function(workorder, count) {
   return pageObject.main.commands.search(workorder.title)
+  .then(() => browser.sleep(1000))
   .then(() => pageObject.main.commands.count())
   .then((c) => utils.expect.resultIsEqualTo(c, count));
 };

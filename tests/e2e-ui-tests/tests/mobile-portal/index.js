@@ -19,7 +19,8 @@ const workflow = { title: prefix + 'workflow' };
 const workorder = {
   title: prefix + 'workorder',
   assignee: authData.users.TREVER.fullName,
-  workflow: workflow.title
+  workflow: workflow.title,
+  summary: 'test'
 };
 
 describe('Verify WFM workflow and workorder functionality', function() {

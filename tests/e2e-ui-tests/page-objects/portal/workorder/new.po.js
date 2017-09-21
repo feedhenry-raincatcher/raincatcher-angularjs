@@ -7,7 +7,8 @@ var NewWorkorderPage = function() {
     workorderForm: {
       self: element(by.css(workorderFormSelector)),
       fields: {
-        title: element(by.css(workorderFormSelector + ' #inputTitle'))
+        title: element(by.css(workorderFormSelector + ' #inputTitle')),
+        summary: element(by.css(workorderFormSelector + ' #inputSummary'))
       },
       dropdowns: {
         workflow: element(by.css(workorderFormSelector + ' #workflow'))

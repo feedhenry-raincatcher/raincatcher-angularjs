@@ -79,6 +79,7 @@ describe('Workorder E2E', function() {
         return core.workorders.createByName(wo.title, undefined, wo.workflow);
       });
       step('update ' + data.params.WORKORDER_TUPDATE1 + ' workorder details', function() {
+        browser.refresh(); // workaround for https://issues.jboss.org/browse/RAINCATCH-1225
         workorderService.update(data.workorders.UPDATE1, workorderService.clone(data.workorders.UPDATE2, data.workflows.WORKFLOW2.title));
       });
       step('open ' + data.params.WORKORDER_TUPDATE2 + ' workorder', function() { //RAINCATCH-641
@@ -109,6 +110,7 @@ describe('Workorder E2E', function() {
         return core.workorders.createByName(wo.title, authData.users.TREVER.username, wo.workflow);
       });
       step('open ' + data.params.WORKORDER_TCANCEL + ' workorder details', function() {
+        browser.refresh(); // workaround for https://issues.jboss.org/browse/RAINCATCH-1225
         workorderService.open(data.workorders.CANCEL);
       });
       step('press [delete] button', function() {
@@ -153,6 +155,7 @@ describe('Workorder E2E', function() {
         return core.workorders.createByName(wo.title, authData.users.TREVER.username, wo.workflow);
       });
       step('search field is visible and ' + data.params.WORKORDER_TSEARCH + 'is searched', function() {
+        browser.refresh(); // workaround for https://issues.jboss.org/browse/RAINCATCH-1225
         searched = workorderService.search(data.workorders.SEARCH, 1);
       });
       step('check ' + data.params.WORKORDER_TSEARCH + ' workorder in list', function() {
@@ -175,6 +178,7 @@ describe('Workorder E2E', function() {
         return core.workorders.createByName(wo.title, authData.users.TREVER.username, wo.workflow);
       });
       step('remove ' + data.params.WORKORDER_TDELETE + ' workorder', function() {
+        browser.refresh(); // workaround for https://issues.jboss.org/browse/RAINCATCH-1225
         workorderService.remove(data.workorders.DELETE);
       });
       step('check ' + data.params.WORKORDER_TDELETE + ' workorder not in list', function() {

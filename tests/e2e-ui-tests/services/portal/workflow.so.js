@@ -26,6 +26,7 @@ WorkflowService.prototype.clearOtherFields = _.noop;
  */
 WorkflowService.prototype.searchForItem = function(workflow, count) {
   return mwp.commands.search(workflow.title)
+  .then(() => browser.sleep(1000))
   .then(() => mwp.commands.count())
   .then((c) => utils.expect.resultIsEqualTo(c, count));
 };
