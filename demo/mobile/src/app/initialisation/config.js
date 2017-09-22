@@ -36,10 +36,6 @@ angular.module('wfm-mobile').config(['$stateProvider', '$urlRouterProvider', cre
       }
     };
 
-    $scope.hasResourceRole = function(role) {
-      return userService.hasResourceRole(role);
-    };
-
     $scope.logout = function() {
       userService.logout();
     };
