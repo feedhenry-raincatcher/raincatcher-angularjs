@@ -15,7 +15,9 @@ angular.module('wfm-mobile', [
   require('angular-ui-router'),
   require('angular-material'),
   // Enables passport auth service to be used
-  require('./passport'),
+  // require('./passport'),
+  // Enables keycloak auth service to be used
+  require('./keycloak'),
   require('./services'),
   require('./sync'),
   // Set of the data services
@@ -36,8 +38,6 @@ angular.module('wfm-mobile', [
   signatureStep.ngModule()
 ]);
 
-// NOTE: Enable the next line in order to use Keycloak auth service
-// require('./keycloak');
-require('./initialisation');
 
+require('./initialisation');
 
