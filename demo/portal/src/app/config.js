@@ -60,7 +60,6 @@ function AppConfig($stateProvider, $urlRouterProvider) {
     })
     .state('app.unauthorised', {
       abstract: false,
-      url: '/unauthorised',
       templateUrl: 'app/main.tpl.html',
       data: {
         columns: 2
