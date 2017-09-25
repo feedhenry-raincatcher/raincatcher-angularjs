@@ -2,7 +2,6 @@ var angular = require('angular');
 
 /**
  * Configuration script for the main portal application.
- *
  * This script sets up the resolvers for the sync managers used to manage:
  *
  * - workorders
@@ -27,6 +26,12 @@ function AppConfig($stateProvider, $urlRouterProvider) {
         userService.readUser().then(function(profileData) {
           if (profileData) {
             $scope.profileData = profileData;
+            var isAdmin = userService.hasRole('admin');
+            $scope.workorderEnabled = isAdmin;
+            $scope.workflowEnabled = isAdmin;
+            if (!isAdmin) {
+              $state.go('app.unauthorised');
+            }
           }
         }).catch(function(err) {
           console.info(err);
@@ -48,15 +53,19 @@ function AppConfig($stateProvider, $urlRouterProvider) {
           }
         };
 
-        $scope.hasResourceRole = function(role) {
-          return userService.hasResourceRole(role);
-        };
-
         $scope.logout = function() {
           userService.logout();
         };
       }
+    })
+    .state('app.unauthorised', {
+      abstract: false,
+      url: '/unauthorised',
+      templateUrl: 'app/main.tpl.html',
+      data: {
+        columns: 2
+      }
     });
 }
 
-angular.module('app').config(["$stateProvider", "$urlRouterProvider", AppConfig])
+angular.module('app').config(["$stateProvider", "$urlRouterProvider", AppConfig]);

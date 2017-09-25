@@ -13,7 +13,7 @@ var WebAuthService = function($http, $window, $mdDialog, $state) {
   this.dialog = $mdDialog;
   this.state = $state;
   this.init();
-}
+};
 
 /**
  * Initializes $fh and retrieves the server's URL.
@@ -27,7 +27,7 @@ WebAuthService.prototype.init = function() {
       self.setCloudUrl();
     }
   });
-}
+};
 
 /**
  * Sets the cloud URL
@@ -35,14 +35,15 @@ WebAuthService.prototype.init = function() {
 WebAuthService.prototype.setCloudUrl = function() {
   // Note: decodeURIComponent is used for backwards compatability from Keycloak to Passport
   cloudUrl = decodeURIComponent($fh.getCloudURL());
-}
+};
 
 /**
  * Retrieves the cloud URL
  */
 WebAuthService.prototype.getCloudUrl = function() {
   return cloudUrl;
-}
+};
+
 /**
  * Sends a request to the profile endpoint to retrieve the user's profile data.
  * @returns Returns the profile data retrieved from the server.
@@ -50,26 +51,32 @@ WebAuthService.prototype.getCloudUrl = function() {
 WebAuthService.prototype.getProfile = function() {
   var self = this;
   var url = self.getCloudUrl() + CONSTANTS.PROFILE_URL;
-  return self.http.get(url).then(function(res) {
-    if (res.data) {
-      return res.data;
-    }
-  }).catch(function(error) {
-    self.window.location = self.getCloudUrl() + CONSTANTS.LOGIN_URL;
-  });
-}
+  return self.http.get(url)
+    .then(function(res) {
+      if (res.data) {
+        if (!userProfile) {
+          userProfile = res.data;
+        }
+        return res.data;
+      }
+    }).catch(function(error) {
+      self.window.location = self.getCloudUrl() + CONSTANTS.LOGIN_URL;
+    });
+};
 
 /**
  * Checks if the user has the specified role
+ *
  * @param role - The required role needed by the user in order to access the resource
+ * @param resource - not supported for passportjs (ignored)
  */
-WebAuthService.prototype.hasResourceRole = function(role) {
-  // TODO: this needs to be refactored
-  if (userProfile.roles && userProfile.roles.length > 0) {
+WebAuthService.prototype.hasRole = function(role, resource) {
+
+  if (userProfile && userProfile.roles && userProfile.roles.length > 0) {
     return userProfile.roles.indexOf(role) > -1;
   }
   return false;
-}
+};
 
 /**
  * Redirects to the login page

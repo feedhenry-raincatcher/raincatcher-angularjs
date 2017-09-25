@@ -42,19 +42,28 @@ UserService.prototype.listUsers = function listUsers(filter) {
 };
 
 
-UserService.prototype.hasResourceRole = function hasResourceRole(role) {
-  return this.auth.hasResourceRole(role);
+/**
+ * Checks if user has proper role
+ * @argument role - role for user
+ * @argument resource - (optional) resource user want to access
+ */
+UserService.prototype.hasRole = function hasRole(role, resource) {
+  return this.auth.hasRole(role, resource);
 };
 
-
+/**
+ * Perform login operation
+ */
 UserService.prototype.login = function login() {
   return this.auth.login();
 };
 
+/**
+ * Perform logout operation
+ */
 UserService.prototype.logout = function logout() {
   return this.auth.logout();
-}
-
+};
 
 angular.module('wfm.common.apiservices').service("userService", ['authService', '$http', function(authService, $http) {
   var urlPromise = new Promise(function(resolve, reject) {

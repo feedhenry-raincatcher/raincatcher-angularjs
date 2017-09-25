@@ -42,9 +42,7 @@ ngModule.run(['$templateCache', function ($templateCache) {
     '    <div ng-show="ctrl.hasTokenData">\n' +
     '      <md-button class="md-raised md-primary md-hue-2" ng-click="ctrl.logout()">Log out</md-button>\n' +
     '    </div>\n' +
-    '\n' +
     '    </md-content>\n' +
-    '\n' +
     '  </div>\n' +
     '\n' +
     '</div>\n' +
