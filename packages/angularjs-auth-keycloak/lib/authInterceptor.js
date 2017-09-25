@@ -1,9 +1,17 @@
-var q;
-var auth;
 
-function AuthInterceptor($q, authService) {
-    q = $q;
-    auth = authService;
+var q = require('q');
+
+// Global this
+let self;
+
+/**
+ * Keycloak angular auth interceptor.
+ *
+ * @param {*} keycloakApi - keycloak js client
+ */
+function AuthInterceptor(keycloakApi) {
+  this.keycloakApi = keycloakApi;
+  self = this;
 }
 
 /**
@@ -11,25 +19,23 @@ function AuthInterceptor($q, authService) {
  */
 AuthInterceptor.prototype.request = function request(config) {
   var deferred = q.defer();
-  if (auth.token) {
-    auth.updateToken(5).success(function() {
-        config.headers = config.headers || {};
-        config.headers.Authorization = 'Bearer ' + auth.token;
-
-        deferred.resolve(config);
-    }).error(function() {
-        deferred.reject('Failed to refresh token');
-    });
-  }
+  self.keycloakApi.updateToken().success(function () {
+    config.headers = config.headers || {};
+    config.headers.Authorization = 'Bearer ' + self.keycloakApi.token;
+    deferred.resolve(config);
+  }).error(function () {
+    // Intentionally do not fail on tokens when offline
+    deferred.resolve(config);
+  });
   return deferred.promise;
 }
 
-module.exports = function(appName) {
-  angular.module(appName).service('authInterceptor', function($q, authService) {
-    return new AuthInterceptor($q, authService);
-  });
+module.exports = function (angularModule, keycloakApi) {
+  angularModule.config(['$httpProvider', function ($httpProvider) {
+    $httpProvider.interceptors.push(function () {
+      var interceptor = new AuthInterceptor(keycloakApi);
 
-  angular.module(appName).config(['$httpProvider', function($httpProvider) {
-    $httpProvider.interceptors.push('authInterceptor');
+      return new AuthInterceptor(keycloakApi);
+    });
   }]);
 };

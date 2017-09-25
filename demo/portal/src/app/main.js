@@ -24,7 +24,10 @@ logger.setLogger(new logger.ClientLogger(2));
 angular.module('app', [
   require('angular-ui-router'),
   require('angular-material'),
+  // Enables passport auth service to be used
   require('./passport'),
+  // Enables keycloak auth service to be used
+  // require('./keycloak'),
   require('./services'),
   require('@raincatcher/angularjs-http'),
   require('ng-sortable'),

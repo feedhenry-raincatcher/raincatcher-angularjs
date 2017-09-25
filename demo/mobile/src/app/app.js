@@ -16,6 +16,9 @@ angular.module('wfm-mobile', [
   require('angular-material'),
   // Enables passport auth service to be used
   require('./passport'),
+  require('@raincatcher/angularjs-auth')(),
+  // Enables keycloak auth service to be used
+  // require('./keycloak'),
   require('./services'),
   require('./sync'),
   // Set of the data services
@@ -30,14 +33,11 @@ angular.module('wfm-mobile', [
     toolbarViewId: "toolbar@app"
   }),
   require('@raincatcher-examples/angularjs-extensions'),
-  require('@raincatcher/angularjs-auth')(),
   vehicleInspectionStep.ngModule(),
   accidentStep.ngModule(),
   signatureStep.ngModule()
 ]);
 
-// NOTE: Enable the next line in order to use Keycloak auth service
-// require('./keycloak');
-require('./initialisation');
 
+require('./initialisation');
 
