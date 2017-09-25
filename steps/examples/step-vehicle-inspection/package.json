@@ -1,6 +1,6 @@
 {
   "name": "@raincatcher-examples/step-vehicle-inspection",
-  "version": "0.0.1",
+  "version": "0.0.5",
   "description": "An vehicle-inspection module",
   "main": "lib/index.js",
   "scripts": {

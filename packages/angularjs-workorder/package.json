@@ -1,6 +1,6 @@
 {
   "name": "@raincatcher/angularjs-workorder",
-  "version": "0.0.2",
+  "version": "0.0.5",
   "description": "Angular UI Implementation of Workorders",
   "main": "lib/workorder-ng.js",
   "scripts": {

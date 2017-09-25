@@ -1,6 +1,6 @@
 {
   "name": "@raincatcher/demo-mobile",
-  "version": "0.0.2",
+  "version": "0.0.5",
   "description": "Example demo mobile application",
   "engines": {
     "node": ">=4.4 <=6.10"
