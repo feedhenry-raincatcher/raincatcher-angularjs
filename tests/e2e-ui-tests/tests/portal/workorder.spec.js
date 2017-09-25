@@ -106,7 +106,7 @@ describe('Workorder E2E', function() {
 
     context('CANCEL', function() {
       before('create ' + data.params.WORKORDER_TCANCEL + ' workorder', function() {
-        const wo = workorderService.clone(data.workorders.CANCEL, data.workflows.WORKFLOW1.title)
+        const wo = workorderService.clone(data.workorders.CANCEL, data.workflows.WORKFLOW1.title);
         return core.workorders.createByName(wo.title, authData.users.TREVER.username, wo.workflow);
       });
       step('open ' + data.params.WORKORDER_TCANCEL + ' workorder details', function() {
@@ -151,7 +151,7 @@ describe('Workorder E2E', function() {
     context('SEARCH', function() {
       var searched;
       before('create ' + data.params.WORKORDER_TSEARCH + ' workorder', function() {
-        const wo = workorderService.clone(data.workorders.SEARCH, data.workflows.WORKFLOW1.title)
+        const wo = workorderService.clone(data.workorders.SEARCH, data.workflows.WORKFLOW1.title);
         return core.workorders.createByName(wo.title, authData.users.TREVER.username, wo.workflow);
       });
       step('search field is visible and ' + data.params.WORKORDER_TSEARCH + 'is searched', function() {

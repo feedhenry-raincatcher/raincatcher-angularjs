@@ -6,7 +6,6 @@ var WorkflowService = require('../../services/portal/workflow.so');
 var workflowService = new WorkflowService();
 var WorkorderService = require('../../services/portal/workorder.so');
 var workorderService = new WorkorderService();
-var authData = require('../../data/auth.do');
 var MobileAuthService = require('../../services/mobile/auth.so');
 var mobileAuthService = new MobileAuthService();
 var MobileWorkorderService = require('../../services/mobile/workorder.so');
@@ -19,9 +18,16 @@ const workflow = { title: prefix + 'workflow' };
 const workorder = {
   title: prefix + 'workorder',
   assignee: authData.users.TREVER.fullName,
-  workflow: workflow.title,
-  summary: 'test'
+  workflow: workflow.title + ' v5',
+  summary: 'test',
+  status: 'New'
 };
+const steps = [
+  { name: 'vehicle1', type: 'Vehicle Inspection Step', tires: 'Fail', lights: 'Pass' },
+  { name: 'accident', type: 'Accident Report Form', number: 'testA', owner: 'testB', phone: 'testC' },
+  { name: 'signature', type: 'Signature step' },
+  { name: 'vehicle2', type: 'Vehicle Inspection Step', tires: 'Pass', lights: 'Fail' }
+];
 
 describe('Verify WFM workflow and workorder functionality', function() {
   before('Cleanup', function() {
@@ -44,15 +50,20 @@ describe('Verify WFM workflow and workorder functionality', function() {
     });
 
     step('Add steps', function() {
-      workflowService.addStep(workflow, { name: 'vehicle1', type: 'Vehicle Inspection Step' });
-      workflowService.addStep(workflow, { name: 'accident', type: 'Accident Report Form' });
-      workflowService.addStep(workflow, { name: 'signature', type: 'Signature step' });
-      workflowService.addStep(workflow, { name: 'vehicle2', type: 'Vehicle Inspection Step' });
+      steps.forEach(step =>
+        workflowService.addStep(workflow, step)
+      );
     });
 
-    xstep('Verify step panel is visible, name is correct and step definition is correct', function() {});
+    step('Verify step panel is visible, name is correct and step definition is correct', function() {
+      steps.forEach((step, index) =>
+        workflowService.expectStepToBe(index + 1, step)
+      );
+    });
 
-    xstep('Verify add new step panel is visible below created step, with no values', function() {});
+    step('Verify add new step panel is visible below created step, with no values', function() {
+      workflowService.expectAddStepPresent();
+    });
 
     xstep('Verify if workflow is visible on the side panel', function() {});
   });
@@ -63,7 +74,9 @@ describe('Verify WFM workflow and workorder functionality', function() {
       browser.refresh(); // workaround for https://issues.jboss.org/browse/RAINCATCH-1225
     });
 
-    xstep('Verify test workorder details', function() {});
+    step('Verify test workorder details', function() {
+      workorderService.expectDetailsToBe(workorder);
+    });
 
     xstep('Verify test workorder is in the list', function() {});
   });
@@ -92,37 +105,58 @@ describe('Verify WFM workflow and workorder functionality', function() {
     });
 
     step('Complete first vehicle inspection step', function() {
-      mobileWorkflowService.setWorkflowDetails(50, 'pass', 'fail');
+      mobileWorkflowService.setWorkflowDetails(50, 'fail', 'pass');
+      browser.sleep(5000);
       mobileWorkflowService.submitWorkflowDetails();
     });
 
     step('Complete accident report step', function() {
-      element(by.css('input[ng-model="ctrl.model.regNr"]')).sendKeys('testA');
-      element(by.css('input[ng-model="ctrl.model.owner"]')).sendKeys('testB');
-      element(by.css('input[ng-model="ctrl.model.phone"]')).sendKeys('testC');
+      element(by.css('input[ng-model="ctrl.model.regNr"]')).sendKeys(steps[1].number);
+      element(by.css('input[ng-model="ctrl.model.owner"]')).sendKeys(steps[1].owner);
+      element(by.css('input[ng-model="ctrl.model.phone"]')).sendKeys(steps[1].phone);
+      browser.sleep(5000);
       mobileWorkflowService.submitWorkflowDetails();
     });
 
     step('Complete signature step', function() {
       element(by.css('.signature-form canvas')).click();
+      browser.sleep(5000);
+      mobileWorkflowService.submitWorkflowDetails();
+    });
+
+    step('Select back button to go backwards', function() {
+      mobileWorkflowService.goBack();
+      browser.sleep(5000);
       mobileWorkflowService.submitWorkflowDetails();
     });
 
     step('Complete second vehicle inspection step', function() {
-      mobileWorkflowService.setWorkflowDetails(50, 'fail', 'pass');
+      mobileWorkflowService.setWorkflowDetails(50, 'pass', 'fail');
+      browser.sleep(5000);
       mobileWorkflowService.submitWorkflowDetails();
       browser.sleep(20000);
     });
 
-    xstep('Select back button to go backwards', function() {});
+    step('Check STEP DETAILS are visible in workorder and values are correct', function() {
+      steps.forEach((step, index) =>
+        mobileWorkflowService.checkCompletedWorkflowStep(index, step)
+      );
+    });
 
-    xstep('Check STEP DETAILS are visible in workorder and values are correct', function() {});
+    step('Navigate to workorders page and selected COMPLETED WORKORDER from the list', function() {
+      element(by.css('md-sidenav md-list-item:nth-of-type(1) button')).click();
+      mobileWorkorderService.selectWorkorderFromTheList(workorder.title);
+    });
 
-    xstep('Navigate to workorders page and selected COMPLETED WORKORDER from the list', function() {});
+    step('Verify details have persisted', function() {
+      steps.forEach((step, index) =>
+        mobileWorkflowService.checkCompletedWorkflowStep(index, step)
+      );
+    });
 
-    xstep('Verify details have persisted', function() {});
-
-    xstep('Verify that status icon is correct', function() {});
+    step('Verify that status icon is correct', function() {
+      mobileWorkorderService.verifyWorkorderWorkflowIsCompleted();
+    });
   });
 
   describe('Check Workorder Completetion [Portal App]', function() {
@@ -130,6 +164,10 @@ describe('Verify WFM workflow and workorder functionality', function() {
       authService.openPortalApp();
       workorderService.open(workorder);
       browser.sleep(10000);
+    });
+
+    step('Verfiy details are present and correct and include all steps results', function() {
+      workorderService.expectSteps(steps);
     });
   });
 });

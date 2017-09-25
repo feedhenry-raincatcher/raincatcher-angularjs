@@ -180,4 +180,20 @@ WorkflowService.prototype.expectStepDetailsToBe = function(workflow, expected) {
   });
 };
 
+WorkflowService.prototype.expectStepToBe = function(stepNumber, expected) {
+  element(by.css(`md-card:nth-child(${stepNumber}) workflow-step-detail md-list-item:nth-child(1) h3`))
+    .getText()
+    .then(result => expect(result).to.equal(expected.name));
+  element(by.css(`md-card:nth-child(${stepNumber}) workflow-step-detail md-list-item:nth-child(2) h3`))
+    .getText()
+    .then(result => expect(result).to.equal(expected.type));
+};
+
+WorkflowService.prototype.expectAddStepPresent = function() {
+  swp.locators.stepForm.fields.name.isPresent()
+    .then(result => expect(result).to.be.true);
+  swp.locators.stepForm.dropdowns.type.isPresent()
+    .then(result => expect(result).to.be.true);
+};
+
 module.exports = WorkflowService;

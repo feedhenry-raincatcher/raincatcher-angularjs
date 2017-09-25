@@ -80,4 +80,28 @@ WorkflowService.prototype.checkWorkflowDetails = function(heading, tires, lights
   utils.expect.resultIsEqualTo(completedWorkflowPage.commands.get.lightsValue(), lights);
 };
 
+WorkflowService.prototype.goBack = function() {
+  mainWorkflowPage.locators.buttons.back.click();
+};
+
+WorkflowService.prototype.checkCompletedWorkflowStep = function(stepNumber, step) {
+  const stepDetails = element.all(by.css('[ng-repeat="result in ctrl.results"]')).get(stepNumber);
+  switch (step.type) {
+  case 'Vehicle Inspection Step':
+    stepDetails.element(by.css('md-list-item:nth-of-type(2) h3')).getText()
+      .then(result => expect(result).to.equal(step.tires));
+    stepDetails.element(by.css('md-list-item:nth-of-type(3) h3')).getText()
+      .then(result => expect(result).to.equal(step.lights));
+    break;
+  case 'Accident Report Form':
+    stepDetails.element(by.css('md-list-item:nth-of-type(1) h3')).getText()
+      .then(result => expect(result).to.equal(step.number));
+    stepDetails.element(by.css('md-list-item:nth-of-type(2) h3')).getText()
+      .then(result => expect(result).to.equal(step.owner));
+    stepDetails.element(by.css('md-list-item:nth-of-type(3) h3')).getText()
+      .then(result => expect(result).to.equal(step.phone));
+    break;
+  }
+};
+
 module.exports = WorkflowService;

@@ -18,4 +18,4 @@ module.exports = function(prefix) {
         Promise.resolve()
       );
     });
-}
+};

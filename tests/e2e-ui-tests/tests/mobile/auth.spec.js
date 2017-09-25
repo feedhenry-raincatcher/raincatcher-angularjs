@@ -74,7 +74,7 @@ describe("Mobile Auth E2E", function() {
 
   describe('Access control tests', function() {
     xstep('Access control tests still to be implemented', function() {
-      
+
     });
   });
 });

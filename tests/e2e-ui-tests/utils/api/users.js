@@ -12,4 +12,4 @@ function filter(username) {
 
 module.exports = {
   filter
-}
+};
