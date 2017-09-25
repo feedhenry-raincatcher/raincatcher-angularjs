@@ -17,6 +17,9 @@
   ],
   "license": "MIT",
   "author": "feedhenry-raincatcher@redhat.com",
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "angular": "1.6.1"
   },
