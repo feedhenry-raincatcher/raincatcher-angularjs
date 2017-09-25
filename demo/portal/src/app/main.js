@@ -27,7 +27,7 @@ angular.module('app', [
   // Enables passport auth service to be used
   require('./passport'),
   // Enables keycloak auth service to be used
-  require('./keycloak'),
+  // require('./keycloak'),
   require('./services'),
   require('@raincatcher/angularjs-http'),
   require('ng-sortable'),

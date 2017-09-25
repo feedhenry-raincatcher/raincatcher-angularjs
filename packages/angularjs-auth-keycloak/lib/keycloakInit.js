@@ -15,8 +15,8 @@ module.exports = function(appName, angularModule, keycloakConfig, initConfig) {
   angular.element(document).ready(function() {
     if (window.navigator.onLine) {
       keycloakJS.init(initConfig).success(function() {
-        interceptor(angularModule, keycloakJS);
         logger.info('Successfully initialised Keycloak instance');
+        interceptor(angularModule, keycloakJS);
         keycloakJS.initialized = true;
 
         // NOTE: Angular should be started after Keycloak has initialized otherwise Angular will cause issues with URL Rewrites

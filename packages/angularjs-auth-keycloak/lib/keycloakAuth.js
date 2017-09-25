@@ -32,10 +32,8 @@ KeycloakAuth.prototype.logout = function() {
     }
     return this.showDialog("Keycloak server cannot be reached. Please restart application");
   } else {
-    return this.showDialog("Cannot logout to application while offline");
+    return this.showDialog("Cannot logout from the application while offline");
   }
-
-
 }
 
 KeycloakAuth.prototype.authenticate = function() {
@@ -98,7 +96,7 @@ KeycloakAuth.prototype.showDialog = function(message) {
     textContent: message || 'Cannot perform operation while offline',
     ok: 'Close'
   });
-  this.mdDialog.show(alert);
+  return this.mdDialog.show(alert);
 }
 
 module.exports = KeycloakAuth;
