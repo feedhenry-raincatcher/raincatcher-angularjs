@@ -2,31 +2,47 @@ var profileDataMapper = require('./profileData');
 
 var PROFILE_CACHE_KEY = 'rc_profile';
 
-var KeycloakAuth = function(keycloakLib) {
+/**
+ * Keycloak security interface
+ *
+ * @param keycloakLib - initialized keycloak javascript wrapper
+ * @param $mdDialog - angularjs dialog
+ */
+var KeycloakAuth = function(keycloakLib, $mdDialog) {
   this.keycloakLib = keycloakLib;
 };
 
 KeycloakAuth.prototype.login = function() {
   if (this.keycloakLib) {
-    this.keycloakLib.login(arguments);
+    return this.keycloakLib.login();
+  }
+  if (window.navigator.onLine) {
+    return self.showDialog("Keycloak server cannot be reached. Please restart application");
+  } else {
+    return self.showDialog("Cannot login to application while offline");
   }
 }
 
 KeycloakAuth.prototype.logout = function() {
   if (this.keycloakLib) {
-    this.keycloakLib.logout(arguments);
+    localStorage.clear(PROFILE_CACHE_KEY);
+    return this.keycloakLib.logout();
+  }
+  if (window.navigator.onLine) {
+    return self.showDialog("Keycloak server cannot be reached. Please restart application");
+  } else {
+    return self.showDialog("Cannot logout to application while offline");
   }
 }
 
 KeycloakAuth.prototype.authenticate = function() {
-  if (this.keycloakLib) {
-    this.keycloakLib.authenticate(arguments);
-  }
+  // Not supported - keycloak internally authenticates with his server.
+  // Supporting same interface as passport.js
 }
 
-KeycloakAuth.prototype.hasResourceRole = function() {
+KeycloakAuth.prototype.hasRole = function(role, resource) {
   if (this.keycloakLib) {
-    this.keycloakLib.hasResourceRole(arguments);
+    this.keycloakLib.hasResourceRole(role, resource);
   }
 }
 
@@ -42,6 +58,9 @@ KeycloakAuth.prototype.getProfile = function() {
         return error(error);
       }
     } else {
+      if (!window.navigator.onLine) {
+        return self.showDialog("Cannot login to application while offline");
+      }
       self.keycloakLib.loadUserProfile().success(function(profileData) {
         var userProfile = profileDataMapper(profileData);
         localStorage.setItem(PROFILE_CACHE_KEY, JSON.stringify(userProfile));
@@ -65,5 +84,18 @@ KeycloakAuth.prototype.setKeycloak = function(keycloakLib) {
 KeycloakAuth.prototype.getKeycloak = function(keycloakLib) {
   this.keycloakLib;
 };
+
+/**
+ * Show dialog when keycloak is offline
+ * Internal - non interface method
+ */
+KeycloakAuth.prototype.showDialog = function(message) {
+  alert = this.$mdDialog.alert({
+    title: 'Operation not permitted',
+    textContent: message || 'Cannot perform operation while offline',
+    ok: 'Close'
+  });
+  this.$mdDialog.show(alert)
+}
 
 module.exports = KeycloakAuth;

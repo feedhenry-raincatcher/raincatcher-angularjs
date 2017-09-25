@@ -10,10 +10,10 @@ if (window.navigator.onLine) {
     keycloakConfig.keycloak, keycloakConfig.keycloakInit);
   keycloakModule.interceptor(angularModule, keycloakLib);
 }
-angular.module(MOBILE_AUTH_MODULE_ID).factory('authService', function() {
-  var authService = new keycloakModule.KeycloakAuth(keycloakLib);
+angular.module(MOBILE_AUTH_MODULE_ID).factory('authService', ["$mdDialog", function($mdDialog) {
+  var authService = new keycloakModule.KeycloakAuth(keycloakLib, $mdDialog);
   return authService;
-});
+}]);
 
 
 module.exports = MOBILE_AUTH_MODULE_ID;
