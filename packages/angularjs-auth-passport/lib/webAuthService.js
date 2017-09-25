@@ -52,42 +52,27 @@ WebAuthService.prototype.getProfile = function() {
   var self = this;
   var url = self.getCloudUrl() + CONSTANTS.PROFILE_URL;
   return self.http.get(url)
-  .then(function(res) {
-    if (res.data) {
-      if (!userProfile) {
-        userProfile = res.data;
+    .then(function(res) {
+      if (res.data) {
+        if (!userProfile) {
+          userProfile = res.data;
+        }
+        return res.data;
       }
-      return res.data;
-    }
-  }).catch(function(error) {
-    self.window.location = self.getCloudUrl() + CONSTANTS.LOGIN_URL;
-  });
+    }).catch(function(error) {
+      self.window.location = self.getCloudUrl() + CONSTANTS.LOGIN_URL;
+    });
 };
 
 /**
  * Checks if the user has the specified role
+ *
  * @param role - The required role needed by the user in order to access the resource
+ * @param resource - not supported for passportjs (ignored)
  */
-WebAuthService.prototype.hasResourceRole = function(role) {
-  var self = this;
-  var hasResourceRole = false;
-  if (!userProfile) {
-    this.getProfile().then(function() {
-      hasResourceRole = self.checkRoles(role);
-    });
-  } else {
-    hasResourceRole = self.checkRoles(role);
-  }
+WebAuthService.prototype.hasRole = function(role, resource) {
 
-  return hasResourceRole;
-};
-
-/**
- * Checks is user has a given role.
- * @param role - The role to check.
- */
-WebAuthService.prototype.checkRoles = function(role) {
-  if (userProfile.roles && userProfile.roles.length > 0) {
+  if (userProfile && userProfile.roles && userProfile.roles.length > 0) {
     return userProfile.roles.indexOf(role) > -1;
   }
   return false;
