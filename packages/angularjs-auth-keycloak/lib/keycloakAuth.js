@@ -33,7 +33,7 @@ KeycloakAuth.prototype.hasResourceRole = function() {
 KeycloakAuth.prototype.getProfile = function() {
   var self = this;
   return new Promise(function(success, error) {
-    var userProfile = localStorage.getItem();
+    var userProfile = localStorage.getItem(PROFILE_CACHE_KEY);
     if (userProfile) {
       try {
         userProfile = JSON.parse(localStorage.getItem(PROFILE_CACHE_KEY));
@@ -55,8 +55,15 @@ KeycloakAuth.prototype.setListener = function() {
   // NOTE: No need to listen to login/logout events for Keycloak as the login page is in a different page from the app itself.
 };
 
-KeycloakAuth.prototype.setKeycloakLib = function(keycloakLib) {
+KeycloakAuth.prototype.setKeycloak = function(keycloakLib) {
   this.keycloakLib = keycloakLib;
+};
+
+/**
+ * Internal method to retrieve keycloak library.
+ */
+KeycloakAuth.prototype.getKeycloak = function(keycloakLib) {
+  this.keycloakLib;
 };
 
 module.exports = KeycloakAuth;
