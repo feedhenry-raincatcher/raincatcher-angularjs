@@ -2,7 +2,7 @@
 var q = require('q');
 
 // Global this
-let self;
+var self;
 
 /**
  * Keycloak angular auth interceptor.
