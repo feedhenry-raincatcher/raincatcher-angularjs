@@ -1,6 +1,6 @@
 {
   "name": "@raincatcher-examples/step-accident",
-  "version": "0.0.1",
+  "version": "0.0.5",
   "description": "Sample accident form",
   "main": "./lib/index.js",
   "scripts": {
