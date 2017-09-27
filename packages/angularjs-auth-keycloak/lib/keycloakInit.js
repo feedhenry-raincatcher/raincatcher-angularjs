@@ -1,22 +1,19 @@
 var Keycloak = require('keycloak-js');
 var Promise = require('bluebird');
 var logger = require('@raincatcher/logger').getLogger();
-var interceptor = require("./authInterceptor");
+var mountKeycloakHTTPInterceptor = require("./authInterceptor");
 /**
  * Initializes keycloak library
  */
 module.exports = function(appName, angularModule, keycloakConfig, initConfig) {
   // Setup KeycloakJS Adapter with the given keycloakConfig
   var keycloakJS = Keycloak(keycloakConfig);
-  /**
-  * Initializes the Keycloak JS adapter and make it available to controllers
-  * and services in the application.
-  */
-  angular.element(document).ready(function() {
+
+  function initKeycloak() {
     if (window.navigator.onLine) {
       keycloakJS.init(initConfig).success(function() {
         logger.info('Successfully initialised Keycloak instance');
-        interceptor(angularModule, keycloakJS);
+        mountKeycloakHTTPInterceptor(angularModule, keycloakJS);
         keycloakJS.initialized = true;
 
         // NOTE: Angular should be started after Keycloak has initialized otherwise Angular will cause issues with URL Rewrites
@@ -27,6 +24,25 @@ module.exports = function(appName, angularModule, keycloakConfig, initConfig) {
     } else {
       angular.bootstrap(document, [appName]);
     }
+  }
+
+  /**
+  * Initializes the Keycloak JS adapter and make it available to controllers
+  * and services in the application.
+  */
+  angular.element(document).ready(function() {
+    // For cordova
+    if (window.cordova || window.Cordova) {
+      initConfig.adapter = "cordova";
+      document.addEventListener("deviceready", function onDeviceReady() {
+        window.open = cordova.InAppBrowser.open;
+        initKeycloak();
+      }, false);
+    } else {
+      initKeycloak();
+    }
   });
   return keycloakJS;
 }
+
+
