@@ -20,7 +20,8 @@ var LoginPage = function() {
 
   var commands = {
     openPortalApp: function() {
-      return browser.get(pageConstants.login.URL.PORTAL);
+      browser.get(pageConstants.login.URL.PORTAL);
+      browser.sleep(1000);
     },
     clickSubmitbutton: function() {
       locators.buttons.submitButton.click();
