@@ -36,6 +36,7 @@ angular.module('wfm-mobile').config(['$stateProvider', '$urlRouterProvider', cre
     };
 
     $scope.logout = function() {
+      $scope.profileData = null;
       userService.logout();
     };
   }]);

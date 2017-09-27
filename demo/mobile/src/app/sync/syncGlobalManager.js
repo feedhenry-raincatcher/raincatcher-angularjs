@@ -121,9 +121,7 @@ function createGlobalManagerService($http, authService) {
   });
   var syncManager = new SyncManager();
   authService.setLoginListener(function(profileData) {
-    if (syncManager.syncManagers.length === 0) {
-      syncManager.syncManagerMap(profileData);
-    }
+    syncManager.syncManagerMap(profileData);
   });
 
   authService.setLogoutListener(function(profileData) {

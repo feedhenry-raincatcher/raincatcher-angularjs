@@ -72,16 +72,11 @@ MobileAuthService.prototype.login = function() {
     self.logoutListener();
   }
   localStorage.clear();
-  return self.state.go(CONSTANTS.LOGIN_STATE_ROUTE);
+  self.state.go(CONSTANTS.LOGIN_STATE_ROUTE);
 };
 
 MobileAuthService.prototype.logout = function() {
-  var self = this;
-  if (self.logoutListener) {
-    self.logoutListener();
-  }
-  localStorage.clear();
-  self.state.go(CONSTANTS.LOGIN_STATE_ROUTE, undefined, { reload: true });
+  this.login();
 };
 
 module.exports = MobileAuthService;
