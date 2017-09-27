@@ -124,7 +124,7 @@ function createGlobalManagerService($http, authService) {
     syncManager.syncManagerMap(profileData);
   });
 
-  authService.setLogoutListener(function(profileData) {
+  authService.setLogoutListener(function() {
     syncManager.removeManagers();
   });
   return syncManager;
