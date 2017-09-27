@@ -1,3 +1,4 @@
+var until = protractor.ExpectedConditions;
 var pageConstants = require('../../../data/page_constants');
 
 var LoginPage = function() {
@@ -21,12 +22,12 @@ var LoginPage = function() {
   var commands = {
     openPortalApp: function() {
       browser.get(pageConstants.login.URL.PORTAL);
-      browser.sleep(1000);
     },
     clickSubmitbutton: function() {
       locators.buttons.submitButton.click();
     },
     enterUsername: function(username) {
+      browser.wait(until.presenceOf(locators.fields.usernameField), 10000);
       locators.fields.usernameField.clear().sendKeys(username);
     },
     enterPassword: function(password) {
