@@ -42,6 +42,7 @@ SyncManager.prototype.manageDataset = function(datasetId, options, queryParams, 
  * Remove synchronization managers
  */
 SyncManager.prototype.removeManagers = function() {
+  var self = this;
   if (this.syncManagers) {
     return Promise.map(this.syncManagers, function(syncManager) {
       syncManager.safeStop()
@@ -49,7 +50,7 @@ SyncManager.prototype.removeManagers = function() {
           syncManager.clearCache();
         })
         .then(function() {
-          this.syncManagers = [];
+          self.syncManagers = [];
         });
     });
   }
@@ -119,12 +120,14 @@ function createGlobalManagerService($http, authService) {
     logger.getLogger().error("Failed to initialize sync", error);
   });
   var syncManager = new SyncManager();
-  authService.setListener(function(profileData) {
-    if (profileData) {
+  authService.setLoginListener(function(profileData) {
+    if (syncManager.syncManagers.length === 0) {
       syncManager.syncManagerMap(profileData);
-    } else {
-      syncManager.removeManagers();
     }
+  });
+
+  authService.setLogoutListener(function(profileData) {
+    syncManager.removeManagers();
   });
   return syncManager;
 }

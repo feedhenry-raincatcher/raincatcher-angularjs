@@ -18,7 +18,6 @@ angular.module('wfm-mobile').config(['$stateProvider', '$urlRouterProvider', cre
     userService.readUser().then(function(profileData) {
       if (profileData) {
         $scope.profileData = profileData;
-        syncGlobalManager.syncManagerMap(profileData);
       }
     }).catch(function() {
       console.info('Failed to retrieve profile data');
