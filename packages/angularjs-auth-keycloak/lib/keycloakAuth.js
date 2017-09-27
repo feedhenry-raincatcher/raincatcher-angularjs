@@ -11,6 +11,7 @@ var PROFILE_CACHE_KEY = 'rcuser_profile';
 var KeycloakAuth = function(keycloakLib, $mdDialog) {
   this.keycloakLib = keycloakLib;
   this.mdDialog = $mdDialog;
+  this.loginListener = null;
 };
 
 KeycloakAuth.prototype.login = function() {
@@ -26,8 +27,11 @@ KeycloakAuth.prototype.login = function() {
 
 KeycloakAuth.prototype.logout = function() {
   if (window.navigator.onLine) {
+    if (this.loginListener) {
+      this.loginListener();
+    }
     if (this.keycloakLib.initialized) {
-      localStorage.clear();
+      localStorage.removeItem(PROFILE_CACHE_KEY);
       return this.keycloakLib.logout();
     }
     return this.showDialog("Keycloak server cannot be reached. Please restart application");
@@ -56,6 +60,9 @@ KeycloakAuth.prototype.getProfile = function() {
         userProfile = JSON.parse(localStorage.getItem(PROFILE_CACHE_KEY));
         return success(userProfile);
       } catch (error) {
+        if (self.loginListener) {
+          self.loginListener();
+        }
         return error(error);
       }
     } else {
@@ -66,13 +73,19 @@ KeycloakAuth.prototype.getProfile = function() {
         var userProfile = profileDataMapper(profileData);
         localStorage.setItem(PROFILE_CACHE_KEY, JSON.stringify(userProfile));
         return success(userProfile);
-      }).error(error);
+      }).error(function(err) {
+        if (self.loginListener) {
+          self.loginListener();
+        }
+        return error(err);
+      });
     }
   });
 }
 
-KeycloakAuth.prototype.setListener = function() {
-  // NOTE: No need to listen to login/logout events for Keycloak as the login page is in a different page from the app itself.
+KeycloakAuth.prototype.setListener = function(listener) {
+  // NOTE: No need to listen to login events for Keycloak as the login page is in a different page from the app itself.
+  this.loginListener = listener;
 };
 
 KeycloakAuth.prototype.setKeycloak = function(keycloakLib) {
