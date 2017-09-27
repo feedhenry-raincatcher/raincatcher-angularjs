@@ -7,7 +7,7 @@ This module can be used as template to extend existing RainCatcher user interfac
 ## Extending workorders
 
 RainCatcher by default provides minimal metadata for workorders.
-Depending on business developers can add additional data like gps location, address, description. This data can be used for preview and informational purposes or even for route optimalization and scheduling workorders.
+Depending on business requirements, developers can add additional metadata like gps, location, address and description. This data can be used for preview and informational purposes or even for route optimalization and scheduling workorders.
 
 Extending workorders data is possible by providing implementation for 2 angular directives:
 
@@ -23,7 +23,7 @@ Directives should operate on existing field outside workorder to avoid name conf
 If your user interface requires additional styles or libraries they need to be included in top level application.
 Standard bootstrap and angular material directives are available in top level mobile and portal applications.
 
-https://material.angularjs.org/latest/api
+[Angular reference](https://material.angularjs.org/latest/api)
 
 ## Development
 
@@ -45,7 +45,7 @@ Npm module should be integrated with both mobile and portal applications in orde
 
 ## Publishing
 
-In order to consume module it's needs to be published to public or private npm registry.
+In order to consume a module, it needs to be published to a public or private npm registry.
 
 > Note: Change template package name and authors in order to publish it as your own custom module.
 
