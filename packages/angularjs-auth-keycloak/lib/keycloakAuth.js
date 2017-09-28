@@ -11,9 +11,14 @@ var PROFILE_CACHE_KEY = 'rcuser_profile';
 var KeycloakAuth = function(keycloakLib, $mdDialog) {
   this.keycloakLib = keycloakLib;
   this.mdDialog = $mdDialog;
+  this.loginListener = null;
+  this.logoutListener = null;
 };
 
 KeycloakAuth.prototype.login = function() {
+  if (this.logoutListener) {
+    this.logoutListener();
+  }
   if (window.navigator.onLine) {
     if (this.keycloakLib.initialized) {
       return this.keycloakLib.login();
@@ -26,8 +31,11 @@ KeycloakAuth.prototype.login = function() {
 
 KeycloakAuth.prototype.logout = function() {
   if (window.navigator.onLine) {
+    if (this.logoutListener) {
+      this.logoutListener();
+    }
     if (this.keycloakLib.initialized) {
-      localStorage.clear();
+      localStorage.removeItem(PROFILE_CACHE_KEY);
       return this.keycloakLib.logout();
     }
     return this.showDialog("Keycloak server cannot be reached. Please restart application");
@@ -54,6 +62,9 @@ KeycloakAuth.prototype.getProfile = function() {
     if (userProfile) {
       try {
         userProfile = JSON.parse(localStorage.getItem(PROFILE_CACHE_KEY));
+        if (self.loginListener) {
+          self.loginListener(userProfile);
+        }
         return success(userProfile);
       } catch (error) {
         return error(error);
@@ -65,15 +76,24 @@ KeycloakAuth.prototype.getProfile = function() {
       self.keycloakLib.loadUserProfile().success(function(profileData) {
         var userProfile = profileDataMapper(profileData);
         localStorage.setItem(PROFILE_CACHE_KEY, JSON.stringify(userProfile));
+        if (self.loginListener) {
+          self.loginListener(userProfile);
+        }
         return success(userProfile);
-      }).error(error);
+      }).error(function(err) {
+        return error(err);
+      });
     }
   });
 }
 
-KeycloakAuth.prototype.setListener = function() {
-  // NOTE: No need to listen to login/logout events for Keycloak as the login page is in a different page from the app itself.
+KeycloakAuth.prototype.setLoginListener = function(listener) {
+  this.loginListener = listener;
 };
+
+KeycloakAuth.prototype.setLogoutListener = function(listener) {
+  this.logoutListener = listener;
+}
 
 KeycloakAuth.prototype.setKeycloak = function(keycloakLib) {
   this.keycloakLib = keycloakLib;

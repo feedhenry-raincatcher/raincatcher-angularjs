@@ -8,6 +8,7 @@ function MobileAuthService($http, $window, $mdDialog, $state) {
   this.state = $state;
   this.http = $http;
   this.loginListener = null;
+  this.logoutListener = null;
   WebAuthService.call(this, $http, $window, $mdDialog, $state);
 };
 
@@ -20,6 +21,9 @@ MobileAuthService.prototype.getProfile = function() {
     if (userProfile) {
       try {
         userProfile = JSON.parse(userProfile);
+        if (self.loginListener) {
+          self.loginListener(userProfile);
+        }
         return resolve(userProfile);
       } catch (err) {
         return reject(new Error(err));
@@ -44,9 +48,6 @@ MobileAuthService.prototype.authenticate = function(username, password) {
       }
       resolve();
     }).catch(function(err) {
-      if (self.loginListener) {
-        self.loginListener();
-      }
       if (err.status === 401) {
         reject(new Error('Invalid Credentials'));
       } else if (err.status === -1) {
@@ -57,22 +58,25 @@ MobileAuthService.prototype.authenticate = function(username, password) {
   });
 }
 
-MobileAuthService.prototype.setListener = function(listener) {
+MobileAuthService.prototype.setLoginListener = function(listener) {
   this.loginListener = listener;
+}
+
+MobileAuthService.prototype.setLogoutListener = function(listener) {
+  this.logoutListener = listener;
 }
 
 MobileAuthService.prototype.login = function() {
   var self = this;
-  return self.state.go(CONSTANTS.LOGIN_STATE_ROUTE);
+  if (self.logoutListener) {
+    self.logoutListener();
+  }
+  localStorage.clear();
+  self.state.go(CONSTANTS.LOGIN_STATE_ROUTE);
 };
 
 MobileAuthService.prototype.logout = function() {
-  var self = this;
-  localStorage.clear();
-  if (self.loginListener) {
-    self.loginListener();
-  }
-  self.state.go(CONSTANTS.LOGIN_STATE_ROUTE, undefined, { reload: true });
+  this.login();
 };
 
 module.exports = MobileAuthService;
