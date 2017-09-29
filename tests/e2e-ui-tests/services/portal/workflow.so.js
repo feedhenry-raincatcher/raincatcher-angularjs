@@ -26,6 +26,7 @@ WorkflowService.prototype.clearOtherFields = _.noop;
  */
 WorkflowService.prototype.searchForItem = function(workflow, count) {
   return mwp.commands.search(workflow.title)
+  .then(() => browser.sleep(1000))
   .then(() => mwp.commands.count())
   .then((c) => utils.expect.resultIsEqualTo(c, count));
 };
@@ -106,7 +107,10 @@ WorkflowService.prototype.addStep = function(workflow, step, dummyParams) {
   .then((result) => utils.expect.resultIsTrue(result))
   .then(() => {
     if (!dummyParams && swp.locators.stepForm.dropdowns) {
-      // utils.ui.sendKeysPromise(swp.locators.stepForm.dropdowns, step);
+      swp.locators.stepForm.dropdowns.type.click();
+      browser.sleep(500);
+      element(by.cssContainingText('.md-select-menu-container.md-active md-option', step.type)).click();
+      browser.sleep(500);
     }
   })
   .then(() => {
@@ -174,6 +178,22 @@ WorkflowService.prototype.expectStepDetailsToBe = function(workflow, expected) {
     var formTemplate = swp.commands.getFormTemplate(result.details, result.idx);
     utils.expect.resultIsEqualTo(formTemplate.h3, expected.form);
   });
+};
+
+WorkflowService.prototype.expectStepToBe = function(stepNumber, expected) {
+  element(by.css(`md-card:nth-child(${stepNumber}) workflow-step-detail md-list-item:nth-child(1) h3`))
+    .getText()
+    .then(result => expect(result).to.equal(expected.name));
+  element(by.css(`md-card:nth-child(${stepNumber}) workflow-step-detail md-list-item:nth-child(2) h3`))
+    .getText()
+    .then(result => expect(result).to.equal(expected.type));
+};
+
+WorkflowService.prototype.expectAddStepPresent = function() {
+  swp.locators.stepForm.fields.name.isPresent()
+    .then(result => expect(result).to.be.true);
+  swp.locators.stepForm.dropdowns.type.isPresent()
+    .then(result => expect(result).to.be.true);
 };
 
 module.exports = WorkflowService;

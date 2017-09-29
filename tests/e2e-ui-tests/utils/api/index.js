@@ -4,4 +4,4 @@ module.exports = {
   users: require('./users'),
   workorders: require('./workorders'),
   workflows: require('./workflows')
-}
+};

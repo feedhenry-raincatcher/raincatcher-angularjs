@@ -3,7 +3,7 @@ var AuthService = require('../../services/mobile/auth.so');
 var authService = new AuthService();
 var pageConstants = require('../../data/page_constants');
 
-describe("Mobile Auth E2E", function() {
+xdescribe("Mobile Auth E2E", function() {
   describe("Valid authentication scenario", function() {
     describe('Check user can login with valid credentials', function() {
       step('open mobile login', function() {
@@ -74,7 +74,7 @@ describe("Mobile Auth E2E", function() {
 
   describe('Access control tests', function() {
     xstep('Access control tests still to be implemented', function() {
-      
+
     });
   });
 });

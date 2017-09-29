@@ -27,7 +27,7 @@ describe('Mobile Workorders and Workflow E2E', function() {
       return core.workflows.create(workflowTitle)
         .then(wf => {
           workflow = wf;
-          return core.workflows.addStep(vehicleStepTitle, 'vehicleInspection', wf.id)
+          return core.workflows.addStep(vehicleStepTitle, 'vehicleInspection', wf.id);
         })
         .then(() => core.users.filter(authData.users.TREVER.username))
         .then(u => core.workorders.create(workorderTitle, u.users[0].id, workflow.id))

@@ -9,7 +9,8 @@
     "wdm:start": "webdriver-manager start &",
     "wdm:stop": "webdriver-manager shutdown",
     "test:ui": "protractor conf.js",
-    "test-headless:ui": "protractor conf-headless.js"
+    "test-headless:ui": "protractor conf-headless.js",
+    "test-ci:ui": "protractor conf-ci.js"
   },
   "keywords": [
     "E2E",

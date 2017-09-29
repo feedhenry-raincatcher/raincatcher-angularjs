@@ -2,7 +2,7 @@ var authData = require('../../data/auth.do');
 var AuthService = require('../../services/portal/auth.so');
 var authService = new AuthService();
 
-describe("Portal Auth E2E", function() {
+xdescribe("Portal Auth E2E", function() {
   describe("Valid authentication scenario", function() {
     describe('Check user can login with valid credentials', function() {
       step('open portal login', function() {

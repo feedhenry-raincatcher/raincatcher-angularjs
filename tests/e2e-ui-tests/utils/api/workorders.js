@@ -12,7 +12,7 @@ function create(title, userId, workflowId) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json;charset=UTF-8' },
         body: {
-          assignee: userId, 
+          assignee: userId,
           title,
           workflow,
           id: 'Hz2mJYCq-',
@@ -30,7 +30,8 @@ function createByName(title, user, workflow) {
     .then(wf => workflowId = wf.data.find(w => w.title === workflow).id)
     .then(() => users.filter(user))
     .then(u => {
-      return create(title, u.users[0] && u.users[0].id, workflowId)});
+      return create(title, u.users[0] && u.users[0].id, workflowId);
+    });
 }
 
 function read(workorderId) {
@@ -75,4 +76,4 @@ module.exports = {
   remove,
   removeByName,
   list
-}
+};

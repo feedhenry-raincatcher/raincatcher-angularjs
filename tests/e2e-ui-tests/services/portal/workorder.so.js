@@ -34,6 +34,7 @@ WorkorderService.prototype.clearOtherFields = function() {
  */
 WorkorderService.prototype.searchForItem = function(workorder, count) {
   return pageObject.main.commands.search(workorder.title)
+  .then(() => browser.sleep(1000))
   .then(() => pageObject.main.commands.count())
   .then((c) => utils.expect.resultIsEqualTo(c, count));
 };
@@ -69,7 +70,7 @@ WorkorderService.prototype.expectDetailsToBe = function(workorder) {
     utils.expect.resultIsEqualTo(title.h3, workorder.title);
     return Promise.all([
       swp.commands.getWorkflow()
-      .then((workflow) => utils.expect.resultIsEqualTo(workflow, workorder.workflow + ' v1'))
+      .then((workflow) => utils.expect.resultIsEqualTo(workflow, workorder.workflow))
     ]);
   });
 };
@@ -98,6 +99,32 @@ WorkorderService.prototype.clone = function(workorder, workflowId) {
   var cwor =_.clone(workorder); // + ' - ' +  workorder.workflow;
   cwor.workflow = workflowId;
   return cwor;
+};
+
+WorkorderService.prototype.expectSteps = function(steps) {
+  steps.forEach((step, index) => {
+    switch (step.type) {
+    case 'Vehicle Inspection Step':
+      element(by.css(`workorder-result:nth-of-type(${index + 1}) md-list-item:nth-of-type(2) h3`))
+        .getText()
+        .then(result => expect(result).to.equal(step.tires));
+      element(by.css(`workorder-result:nth-of-type(${index + 1}) md-list-item:nth-of-type(3) h3`))
+        .getText()
+        .then(result => expect(result).to.equal(step.lights));
+      break;
+    case 'Accident Report Form':
+      element(by.css(`workorder-result:nth-of-type(${index + 1}) md-list-item:nth-of-type(1) h3`))
+        .getText()
+        .then(result => expect(result).to.equal(step.number));
+      element(by.css(`workorder-result:nth-of-type(${index + 1}) md-list-item:nth-of-type(2) h3`))
+        .getText()
+        .then(result => expect(result).to.equal(step.owner));
+      element(by.css(`workorder-result:nth-of-type(${index + 1}) md-list-item:nth-of-type(3) h3`))
+        .getText()
+        .then(result => expect(result).to.equal(step.phone));
+      break;
+    }
+  });
 };
 
 module.exports = WorkorderService;

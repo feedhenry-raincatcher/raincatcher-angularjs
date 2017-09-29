@@ -1,6 +1,6 @@
 var params = {
-  WORKER_TCRUDL1: 'wrk1-wor-crudl',
-  WORKER_TCRUDL2: 'wrk2-wor-crudl',
+  WORKER_TCRUDL1: 'Trever Smith',
+  WORKER_TCRUDL2: 'Daisy Dialer',
   WORKFLOW_TCRUDL1: 'wfw1-wor-crudl',
   WORKFLOW_TCRUDL2: 'wfw2-wor-crudl',
   WORKORDER_TCREATE: 'create-wor-crudl',
@@ -15,37 +15,43 @@ var workorders = {
     workflow: params.WORKFLOW_TCRUDL1,
     assignee: params.WORKER_TCRUDL1,
     title: params.WORKORDER_TCREATE,
-    status: 'New'
+    status: 'New',
+    summary: 'test'
   },
   SEARCH: {
     workflow: params.WORKFLOW_TCRUDL1,
     assignee: params.WORKER_TCRUDL1,
     title: params.WORKORDER_TSEARCH,
-    status: 'New'
+    status: 'New',
+    summary: 'test'
   },
   UPDATE1: {
     workflow: params.WORKFLOW_TCRUDL1,
     assignee: params.WORKER_TCRUDL1,
     title: params.WORKORDER_TUPDATE1,
-    status: 'New'
+    status: 'New',
+    summary: 'test'
   },
   UPDATE2: {
     workflow: params.WORKFLOW_TCRUDL1,
     assignee: params.WORKER_TCRUDL2,
     title: params.WORKORDER_TUPDATE2,
-    status: 'New'
+    status: 'New',
+    summary: 'test'
   },
   CANCEL: {
     workflow: params.WORKFLOW_TCRUDL1,
     assignee: params.WORKER_TCRUDL2,
     title: params.WORKORDER_TCANCEL,
-    status: 'New'
+    status: 'New',
+    summary: 'test'
   },
   DELETE: {
     workflow: params.WORKFLOW_TCRUDL1,
     assignee: params.WORKER_TCRUDL1,
     title: params.WORKORDER_TDELETE,
-    status: 'New'
+    status: 'New',
+    summary: 'test'
   }
 };
 var mobileWorkorders = {

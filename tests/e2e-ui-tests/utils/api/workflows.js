@@ -12,7 +12,7 @@ const stepsDefinitions = {
     },
     id: 'Sk4zrQ6qY'
   }
-}
+};
 
 function create(title) {
   return request({
@@ -20,7 +20,7 @@ function create(title) {
     method: 'POST',
     headers: { 'Content-Type': 'application/json;charset=UTF-8' },
     body: {
-      steps: [], 
+      steps: [],
       title
     },
     jar,
@@ -86,4 +86,4 @@ module.exports = {
   removeByName,
   list,
   addStep
-}
+};

@@ -39,6 +39,7 @@
     "window": false,
     "expect": false,
     "step": false,
-    "xstep": false
+    "xstep": false,
+    "sessionStorage": false
   }
 }
