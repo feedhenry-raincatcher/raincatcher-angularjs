@@ -1,6 +1,6 @@
 # FeedHenry RainCatcher Portal
 
-Reference implementation of the Portal  application of a RainCatcher project.
+RainCatcher administrator portal application
 
 ## Documentation
 

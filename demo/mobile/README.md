@@ -1,6 +1,6 @@
 # FeedHenry RainCatcher Mobile
 
-This is a reference implementation of the Mobile Client application of a WFM project.
+RainCatcher mobile field operator application
 
 ## Documentation
 
