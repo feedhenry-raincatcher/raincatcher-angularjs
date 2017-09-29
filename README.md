@@ -1,5 +1,7 @@
 # FeedHenry RainCatcher AngularJS
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/feedhenry-raincatcher/raincatcher-angularjs.svg)](https://greenkeeper.io/)
+
 Reference mobile and portal implementation for RainCatcher.
 
 ## About RainCatcher AngularJS
