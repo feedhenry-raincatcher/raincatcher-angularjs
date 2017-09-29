@@ -1,6 +1,6 @@
 {
   "name": "@raincatcher/angularjs-auth-passport",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "description": "Angularjs based Passport auth module",
   "engines": {
     "node": ">=4.4 <=6.10"
