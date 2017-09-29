@@ -1,6 +1,6 @@
 {
   "name": "@raincatcher-examples/angularjs-extensions",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "description": "Set of angularjs directives to extend existing UI components",
   "main": "lib/index.js",
   "engines": {

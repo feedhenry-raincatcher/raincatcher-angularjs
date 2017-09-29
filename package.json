@@ -11,6 +11,7 @@
     "testCI": "npm run test",
     "start": "lerna run build && lerna run start  --parallel --stream --scope=@raincatcher/demo-*",
     "publish:prepare": "lerna bootstrap && lerna run build",
+    "publish:full": "npm run publish:prepare && lerna publish",
     "publish:dry": "npm run publish:prepare && lerna publish --skip-npm --skip-git --canary --yes",
     "publish:test": "./core/scripts/test-publish.sh",
     "publish:demo-mobile": "rm -rf core/node_modules && lerna bootstrap && lerna run build --scope='@raincatcher/demo-mobile' --include-filtered-dependencies && NODE_DEBUG=gh-pages NODE_PATH=./node_modules node ./core/scripts/publish-app mobile --push true",
