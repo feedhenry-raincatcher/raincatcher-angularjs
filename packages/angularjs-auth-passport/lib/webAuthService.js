@@ -1,6 +1,7 @@
 var logger = require('@raincatcher/logger').getLogger();
 var CONSTANTS = require('./constants');
 var $fh = require('fh-js-sdk');
+
 var cloudUrl;
 var userProfile;
 
@@ -50,7 +51,11 @@ WebAuthService.prototype.getCloudUrl = function() {
  */
 WebAuthService.prototype.getProfile = function() {
   var self = this;
-  var url = self.getCloudUrl() + CONSTANTS.PROFILE_URL;
+  const cloudUrl = this.getCloudUrl();
+  if (!cloudUrl) {
+    return this.showAlertDialog();
+  }
+  var url = cloudUrl + CONSTANTS.PROFILE_URL;
   return self.http.get(url)
     .then(function(res) {
       if (res.data) {
@@ -60,7 +65,7 @@ WebAuthService.prototype.getProfile = function() {
         return res.data;
       }
     }).catch(function(error) {
-      self.window.location = self.getCloudUrl() + CONSTANTS.LOGIN_URL;
+      self.window.location = cloudUrl + CONSTANTS.LOGIN_URL;
     });
 };
 
@@ -71,7 +76,6 @@ WebAuthService.prototype.getProfile = function() {
  * @param resource - not supported for passportjs (ignored)
  */
 WebAuthService.prototype.hasRole = function(role, resource) {
-
   if (userProfile && userProfile.roles && userProfile.roles.length > 0) {
     return userProfile.roles.indexOf(role) > -1;
   }
@@ -82,8 +86,11 @@ WebAuthService.prototype.hasRole = function(role, resource) {
  * Redirects to the login page
  */
 WebAuthService.prototype.login = function() {
-  var self = this;
-  return self.window.location = self.getCloudUrl() + CONSTANTS.LOGIN_URL;
+  const cloudUrl = this.getCloudUrl();
+  if (!cloudUrl) {
+    return this.showAlertDialog();
+  }
+  return this.window.location = cloudUrl + CONSTANTS.LOGIN_URL;
 }
 
 /**
@@ -92,6 +99,10 @@ WebAuthService.prototype.login = function() {
  */
 WebAuthService.prototype.logout = function() {
   var self = this;
+  const cloudUrl = this.getCloudUrl();
+  if (!cloudUrl) {
+    return this.showAlertDialog();
+  }
   var url = self.getCloudUrl() + CONSTANTS.LOGOUT_URL;
   return self.http.get(url).then(function() {
     self.window.location = self.getCloudUrl() + CONSTANTS.LOGIN_URL;
@@ -103,5 +114,17 @@ WebAuthService.prototype.logout = function() {
     }));
   });
 }
+
+
+/**
+ * Private - show dialog when cloudUrl is missing
+ */
+WebAuthService.prototype.showAlertDialog = function() {
+  return self.dialog.show(self.dialog.alert({
+    title: 'Application misconfigured',
+    textContent: 'Application is missing cloud server url. Please see documentation for proper configuration',
+    ok: 'OK'
+  }));
+};
 
 module.exports = WebAuthService;
