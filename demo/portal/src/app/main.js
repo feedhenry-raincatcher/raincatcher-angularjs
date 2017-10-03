@@ -15,7 +15,7 @@ var stepDefinitions = _.flatten([
   vehicleInspectionStep.definition,
   accidentStep.definition,
   signatureStep.definition
-]);
+], true);
 
 // Create INFO logger
 logger.setLogger(new logger.ClientLogger(2));
