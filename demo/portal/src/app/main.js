@@ -2,6 +2,7 @@
 
 var angular = require('angular');
 var logger = require('@raincatcher/logger');
+var _ = require('lodash');
 
 var accidentStep = require('@raincatcher-examples/step-accident');
 var vehicleInspectionStep = require('@raincatcher-examples/step-vehicle-inspection');
@@ -9,14 +10,12 @@ var signatureStep = require('@raincatcher/step-signature');
 
 /**
  * Contains all static step definitions
- * If module has more than one definition use
- * stepDefinitions.push(definitions)
  */
-var stepDefinitions = [
+var stepDefinitions = _.flatten([
   vehicleInspectionStep.definition,
   accidentStep.definition,
   signatureStep.definition
-];
+], true);
 
 // Create INFO logger
 logger.setLogger(new logger.ClientLogger(2));
