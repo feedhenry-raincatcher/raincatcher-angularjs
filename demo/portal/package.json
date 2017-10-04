@@ -1,6 +1,6 @@
 {
   "name": "@raincatcher/demo-portal",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Example demo portal application",
   "engines": {
     "node": ">=4.4 <=6.10"
@@ -21,7 +21,7 @@
     "@raincatcher-examples/step-accident": "0.0.5",
     "@raincatcher-examples/step-vehicle-inspection": "0.0.5",
     "@raincatcher/angularjs-auth-keycloak": "0.1.0",
-    "@raincatcher/angularjs-auth-passport": "0.1.0",
+    "@raincatcher/angularjs-auth-passport": "0.1.1",
     "@raincatcher/angularjs-http": "0.0.5",
     "@raincatcher/angularjs-workflow": "0.0.5",
     "@raincatcher/angularjs-workorder": "0.0.5",
