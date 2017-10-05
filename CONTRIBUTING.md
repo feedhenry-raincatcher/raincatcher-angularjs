@@ -9,9 +9,13 @@ For more information about the FeedHenry project, visit
 
 Whether you're contributing a new feature or bug fix, or simply submitting a
 ticket, the FeedHenry team is available for technical advice or feedback.
-You can reach us at #feedhenry and #feedhenry-raincatcher on [Freenode IRC](https://freenode.net/) or the
-[feedhenry-raincatcher list](https://www.redhat.com/mailman/listinfo/feedhenry-raincatcher)
+
+The best way to reach us is via:
+
+- #feedhenry and #feedhenry-raincatcher on [Freenode IRC](https://freenode.net/)
+- The [feedhenry-raincatcher mailing list](https://www.redhat.com/mailman/listinfo/feedhenry-raincatcher)
 -- both are actively monitored.
+- [Gitter Chat](https://gitter.im/FeedhenryRaincatcher/Lobby)
 
 ## Getting started
 
@@ -27,7 +31,7 @@ not already exist.
 ## Making changes
 
 * Create a topic branch from where you want to base your work.
-  * This is usually the master branch.
+  * This is usually the `master` branch.
   * To quickly create a topic branch based on master; `git checkout -b
     <branch name> master`. By convention we typically include the JIRA issue
     key in the branch name, e.g. `RAINCATCH-1234-my-feature`.
@@ -48,6 +52,7 @@ not already exist.
   (usually master).
   * Advanced users may want to install the [GitHub CLI](https://hub.github.com/)
     and use the `hub pull-request` command.
+* Fill the Pull Request template as required.
 * Update your JIRA ticket to mark that you have submitted code and are ready
 for it to be reviewed (Status: Dev Complete).
   * Include a link to the pull request in the ticket.
