@@ -8,7 +8,8 @@
   "main": "application.js",
   "scripts": {
     "start": "grunt",
-    "build": "grunt build"
+    "build": "grunt build",
+    "test": "grunt eslint"
   },
   "keywords": [
     "wfm"
