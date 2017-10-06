@@ -1,5 +1,5 @@
 var profileDataMapper = require('./profileData');
-
+var Promise = require('bluebird');
 var PROFILE_CACHE_KEY = 'rcuser_profile';
 
 /**
@@ -27,7 +27,7 @@ KeycloakAuth.prototype.login = function() {
   } else {
     return this.showDialog("Cannot login to application while offline");
   }
-}
+};
 
 KeycloakAuth.prototype.logout = function() {
   if (window.navigator.onLine) {
@@ -42,18 +42,18 @@ KeycloakAuth.prototype.logout = function() {
   } else {
     return this.showDialog("Cannot logout from the application while offline");
   }
-}
+};
 
 KeycloakAuth.prototype.authenticate = function() {
   // Not supported - keycloak internally authenticates with his server.
   // Supporting same interface as passport.js
-}
+};
 
 KeycloakAuth.prototype.hasRole = function(role, resource) {
   if (this.keycloakLib.initialized) {
     return this.keycloakLib.hasResourceRole(role, resource);
   }
-}
+};
 
 KeycloakAuth.prototype.getProfile = function() {
   var self = this;
@@ -85,7 +85,7 @@ KeycloakAuth.prototype.getProfile = function() {
       });
     }
   });
-}
+};
 
 KeycloakAuth.prototype.setLoginListener = function(listener) {
   this.loginListener = listener;
@@ -93,7 +93,7 @@ KeycloakAuth.prototype.setLoginListener = function(listener) {
 
 KeycloakAuth.prototype.setLogoutListener = function(listener) {
   this.logoutListener = listener;
-}
+};
 
 KeycloakAuth.prototype.setKeycloak = function(keycloakLib) {
   this.keycloakLib = keycloakLib;
@@ -102,8 +102,8 @@ KeycloakAuth.prototype.setKeycloak = function(keycloakLib) {
 /**
  * Internal method to retrieve keycloak library.
  */
-KeycloakAuth.prototype.getKeycloak = function(keycloakLib) {
-  this.keycloakLib;
+KeycloakAuth.prototype.getKeycloak = function() {
+  return this.keycloakLib;
 };
 
 /**
@@ -117,6 +117,6 @@ KeycloakAuth.prototype.showDialog = function(message) {
     ok: 'Close'
   });
   return this.mdDialog.show(alert);
-}
+};
 
 module.exports = KeycloakAuth;

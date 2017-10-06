@@ -33,13 +33,11 @@ AuthInterceptor.prototype.request = function request(config) {
   }
 
   return deferred.promise;
-}
+};
 
 module.exports = function(angularModule, keycloakApi) {
   angularModule.config(['$httpProvider', function($httpProvider) {
     $httpProvider.interceptors.push(function() {
-      var interceptor = new AuthInterceptor(keycloakApi);
-
       return new AuthInterceptor(keycloakApi);
     });
   }]);

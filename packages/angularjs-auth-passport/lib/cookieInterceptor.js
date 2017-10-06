@@ -7,7 +7,7 @@ module.exports = function setupInterceptor(angularModule) {
     // This property needs to be set to true to allow cookies to be sent to the server
     $httpProvider.defaults.withCredentials = true;
   }]);
-}
+};
 
 
 

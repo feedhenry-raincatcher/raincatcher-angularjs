@@ -29,6 +29,7 @@
   "homepage": "https://github.com/feedhenry-raincatcher/raincatcher#readme",
   "devDependencies": {
     "@types/yargs": "^8.0.2",
+    "eslint": "^4.8.0",
     "gh-pages": "^1.0.0",
     "lerna": "^2.0.0-rc.5",
     "opn-cli": "^3.1.0",

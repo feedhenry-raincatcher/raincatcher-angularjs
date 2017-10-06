@@ -5,6 +5,9 @@
   "engines": {
     "node": ">=4.4 <=6.10"
   },
+  "scripts": {
+    "test": "eslint index.js lib/"
+  },
   "keywords": [
     "wfm",
     "angularjs"

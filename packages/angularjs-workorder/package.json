@@ -31,7 +31,6 @@
   "devDependencies": {
     "body-parser": "1.15.0",
     "chai": "^3.5.0",
-    "eslint": "^3.17.1",
     "fh-wfm-template-build": "0.2.1",
     "grunt": "1.0.1",
     "grunt-eslint": "18.0.0",

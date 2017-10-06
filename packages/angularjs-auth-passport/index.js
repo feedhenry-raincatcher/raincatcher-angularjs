@@ -4,4 +4,4 @@ module.exports = {
   cookieInterceptor: require('./lib/cookieInterceptor'),
   tokenInterceptor: require('./lib/tokenInterceptor'),
   init: require('./lib/initApp')
-}
+};
