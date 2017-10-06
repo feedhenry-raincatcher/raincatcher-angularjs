@@ -11,13 +11,13 @@ module.exports = function setupInterceptor(angularModule) {
           config.headers = config.headers || {};
           var token = localStorage.getItem(CONSTANTS.TOKEN_CACHE_KEY);
           if (token) {
-            config.headers.Authorization = 'JWT ' + token
+            config.headers.Authorization = 'JWT ' + token;
           }
           return config;
         }
       };
     });
   }]);
-}
+};
 
 

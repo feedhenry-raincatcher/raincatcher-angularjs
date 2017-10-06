@@ -51,7 +51,7 @@ WebAuthService.prototype.getCloudUrl = function() {
  */
 WebAuthService.prototype.getProfile = function() {
   var self = this;
-  const cloudUrl = this.getCloudUrl();
+  var cloudUrl = this.getCloudUrl();
   if (!cloudUrl) {
     return this.showAlertDialog();
   }
@@ -64,7 +64,7 @@ WebAuthService.prototype.getProfile = function() {
         }
         return res.data;
       }
-    }).catch(function(error) {
+    }).catch(function() {
       self.window.location = cloudUrl + CONSTANTS.LOGIN_URL;
     });
 };
@@ -76,6 +76,9 @@ WebAuthService.prototype.getProfile = function() {
  * @param resource - not supported for passportjs (ignored)
  */
 WebAuthService.prototype.hasRole = function(role, resource) {
+  if (resource) {
+    console.warn("The parameter 'resource' is ignored for passportjs, supplied value was", resource);
+  }
   if (userProfile && userProfile.roles && userProfile.roles.length > 0) {
     return userProfile.roles.indexOf(role) > -1;
   }
@@ -86,12 +89,12 @@ WebAuthService.prototype.hasRole = function(role, resource) {
  * Redirects to the login page
  */
 WebAuthService.prototype.login = function() {
-  const cloudUrl = this.getCloudUrl();
+  var cloudUrl = this.getCloudUrl();
   if (!cloudUrl) {
     return this.showAlertDialog();
   }
   return this.window.location = cloudUrl + CONSTANTS.LOGIN_URL;
-}
+};
 
 /**
  * Logs out the user.
@@ -99,21 +102,21 @@ WebAuthService.prototype.login = function() {
  */
 WebAuthService.prototype.logout = function() {
   var self = this;
-  const cloudUrl = this.getCloudUrl();
+  var cloudUrl = this.getCloudUrl();
   if (!cloudUrl) {
     return this.showAlertDialog();
   }
   var url = self.getCloudUrl() + CONSTANTS.LOGOUT_URL;
   return self.http.get(url).then(function() {
     self.window.location = self.getCloudUrl() + CONSTANTS.LOGIN_URL;
-  }).catch(function(err) {
+  }).catch(function() {
     self.dialog.show(self.dialog.alert({
       title: 'Logout Operation Failed',
       textContent: 'The log out operation failed',
       ok: 'OK'
     }));
   });
-}
+};
 
 
 /**

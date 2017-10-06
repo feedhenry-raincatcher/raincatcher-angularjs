@@ -6,4 +6,4 @@ module.exports = {
   USER_CACHE_KEY: "rcuser_profile",
   LOGIN_STATE_ROUTE: "app.login",
   TOKEN_LOGIN_URL: "/token-login"
-}
+};

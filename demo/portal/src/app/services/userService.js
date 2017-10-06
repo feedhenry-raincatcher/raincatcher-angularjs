@@ -66,7 +66,7 @@ UserService.prototype.logout = function logout() {
 };
 
 angular.module('wfm.common.apiservices').service("userService", ['authService', '$http', function(authService, $http) {
-  var urlPromise = new Promise(function(resolve, reject) {
+  var urlPromise = new Promise(function(resolve) {
     $fh.on('fhinit', function() {
       var baseUrl = decodeURIComponent($fh.getCloudURL());
       return resolve(baseUrl);

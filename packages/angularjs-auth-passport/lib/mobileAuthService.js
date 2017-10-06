@@ -1,5 +1,6 @@
 var CONSTANTS = require('./constants');
 var WebAuthService = require('./webAuthService');
+var Promise = require('bluebird');
 
 /**
  * Auth service for the mobile app which extends the Passport Auth module
@@ -10,7 +11,7 @@ function MobileAuthService($http, $window, $mdDialog, $state) {
   this.loginListener = null;
   this.logoutListener = null;
   WebAuthService.call(this, $http, $window, $mdDialog, $state);
-};
+}
 
 MobileAuthService.prototype = Object.create(WebAuthService.prototype);
 MobileAuthService.prototype.constructor = MobileAuthService;
@@ -56,15 +57,15 @@ MobileAuthService.prototype.authenticate = function(username, password) {
       reject(err);
     });
   });
-}
+};
 
 MobileAuthService.prototype.setLoginListener = function(listener) {
   this.loginListener = listener;
-}
+};
 
 MobileAuthService.prototype.setLogoutListener = function(listener) {
   this.logoutListener = listener;
-}
+};
 
 MobileAuthService.prototype.login = function() {
   var self = this;

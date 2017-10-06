@@ -1,5 +1,4 @@
 var Keycloak = require('keycloak-js');
-var Promise = require('bluebird');
 var logger = require('@raincatcher/logger').getLogger();
 var mountKeycloakHTTPInterceptor = require("./authInterceptor");
 /**
@@ -33,6 +32,7 @@ module.exports = function(appName, angularModule, keycloakConfig, initConfig) {
   angular.element(document).ready(function() {
     // For cordova
     if (window.cordova || window.Cordova) {
+      var cordova = window.cordova || window.Cordova;
       initConfig.adapter = "cordova";
       document.addEventListener("deviceready", function onDeviceReady() {
         window.open = cordova.InAppBrowser.open;
@@ -43,6 +43,6 @@ module.exports = function(appName, angularModule, keycloakConfig, initConfig) {
     }
   });
   return keycloakJS;
-}
+};
 
 
