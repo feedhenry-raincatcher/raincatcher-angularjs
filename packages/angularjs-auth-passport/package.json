@@ -9,7 +9,7 @@
     "wfm",
     "angularjs"
   ],
-  "license": "Apache-2.0",
+  "license": "MIT",
   "author": "feedhenry-raincatcher@redhat.com",
   "publishConfig": {
     "access": "public"

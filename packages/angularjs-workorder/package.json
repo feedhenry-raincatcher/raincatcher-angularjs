@@ -13,7 +13,7 @@
     "url": "https://github.com/feedhenry-raincatcher/raincatcher-angularjs.git"
   },
   "author": "feedhenry-raincatcher@redhat.com",
-  "license": "Apache-2.0",
+  "license": "MIT",
   "publishConfig": {
     "access": "public"
   },
