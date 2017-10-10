@@ -17,7 +17,7 @@
     "workflow"
   ],
   "author": "feedhenry-raincatcher@redhat.com",
-  "license": "Apache-2.0",
+  "license": "MIT",
   "publishConfig": {
     "access": "public"
   },

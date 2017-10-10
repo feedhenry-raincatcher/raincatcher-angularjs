@@ -2,9 +2,6 @@
   "name": "@raincatcher/angularjs-auth-passport",
   "version": "0.1.1",
   "description": "Angularjs based Passport auth module",
-  "engines": {
-    "node": ">=4.4 <=6.10"
-  },
   "scripts": {
     "test": "eslint index.js lib/"
   },
@@ -12,7 +9,7 @@
     "wfm",
     "angularjs"
   ],
-  "license": "Apache-2.0",
+  "license": "MIT",
   "author": "feedhenry-raincatcher@redhat.com",
   "publishConfig": {
     "access": "public"
