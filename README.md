@@ -46,26 +46,26 @@ to this services.
 
 4. Start demo mobile and portal applications
 Change directory to angular repository
-    
+
         cd ..
         npm run start
 
 Both demo mobile and demo portal should start automatically in your browser.
 
 ## Credentials used to login
-  
+
 **Portal User**
 
 _Username_: `max`
 
 _Password_: `123`
-  
+
 **Mobile User**
 
 _Username_: `trever`
 
 _Password_: `123`
-  
+
 
 ## Repository folder structure
 
@@ -90,3 +90,7 @@ contained in the following directories:
  `npm run bootstrap` - install required dependencies for modules and checkout core repository
 
  `npm run start` - run demo mobile and portal applications
+
+### Contributing to this repository
+
+Check the [Contribution Guide](./CONTRIBUTING.md) for instructions.
