@@ -2,9 +2,6 @@
   "name": "@raincatcher/demo-portal",
   "version": "0.1.1",
   "description": "Example demo portal application",
-  "engines": {
-    "node": ">=4.4 <=6.10"
-  },
   "main": "application.js",
   "scripts": {
     "start": "grunt",
