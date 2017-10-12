@@ -1,6 +1,6 @@
 {
   "name": "@raincatcher/angularjs-auth",
-  "version": "0.0.5",
+  "version": "1.0.0",
   "description": "An AngularJS module with login and pin functionality",
   "main": "./lib/auth-ng.js",
   "scripts": {

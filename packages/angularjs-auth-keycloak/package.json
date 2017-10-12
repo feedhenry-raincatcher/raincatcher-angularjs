@@ -1,6 +1,6 @@
 {
   "name": "@raincatcher/angularjs-auth-keycloak",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Angularjs based Keycloak auth module",
   "scripts": {
     "test": "eslint index.js lib/"
