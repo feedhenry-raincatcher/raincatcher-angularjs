@@ -46,7 +46,7 @@ module.exports = function(grunt) {
           {expand: true, cwd: '<%= app.src %>/', src: ['**/*.html'], dest: '<%= app.dist %>', filter: 'isFile'},
           {expand: true, cwd: '<%= app.src %>/', src: ['**/*.json'], dest: '<%= app.dist %>', filter: 'isFile'},
           {expand: true, cwd: '<%= app.src %>/', src: ['**/*.png'], dest: '<%= app.dist %>', filter: 'isFile'},
-        ],
+        ]
       },
       css: {
         files: [
@@ -69,7 +69,7 @@ module.exports = function(grunt) {
     browserify: {
       options: {
         browserifyOptions: {
-          debug: true,
+          debug: true
         }
       },
       bundle: {
