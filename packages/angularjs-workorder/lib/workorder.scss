@@ -7,6 +7,7 @@ $warning: #FFC107; // amber 500
 .workorder-item{
   .md-list-item-inner{
     align-items: stretch!important;
+    min-height: 48px !important;
   }
   .md-list-item-text{
     margin-left: 26px!important;
@@ -19,12 +20,12 @@ $warning: #FFC107; // amber 500
       &.warning md-icon{ color:   $warning  }
 
     md-icon{
-      vertical-align: top;
+      vertical-align: bottom;
     }
   }
 }
 
-// overwrites wierdo margin angular matterial adds to long text modifier.
+// overwrites wierd margin angular matterial adds to long text modifier.
 .md-long-text{
   margin: 0!important;
 }
