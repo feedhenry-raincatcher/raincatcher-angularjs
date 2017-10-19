@@ -1,0 +1,21 @@
+<p class="wfm-step-row">Please register details</p>
+<!-- Three field form -->
+<div class="wfm-step-row" class="form-group" ng-form name="stepForm">
+  <md-input-container class="md-block" flex-gt-sm>
+    <label>Picture</label>
+    <!-- Customise change ng-model ctrl.model to own variable -->
+    <button ng-click="ctrl.takePicture()">
+  </md-input-container>
+  <md-input-container class="md-block" flex-gt-sm>
+    <label>Taken picture:</label>
+    <img ng-src="{{model.data.pictureUri}}" />
+  </md-input-container>
+</div>
+
+<md-divider></md-divider>
+
+
+<div class="workflow-actions md-padding md-whiteframe-z4">
+  <md-button class="md-primary md-hue-1" ng-click="ctrl.back($event)">Back</md-button>
+  <md-button class="md-primary" ng-disabled="stepForm.$invalid || stepForm.$pristine" ng-click="ctrl.done($event)">Continue</md-button>
+</div>
