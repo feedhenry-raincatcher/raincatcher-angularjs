@@ -11,13 +11,13 @@ ngModule.run(['$templateCache', function ($templateCache) {
     '<!-- Three field form -->\n' +
     '<div class="wfm-step-row" class="form-group" ng-form name="stepForm">\n' +
     '  <md-input-container class="md-block" flex-gt-sm>\n' +
-    '    <label>E.g. First Name</label>\n' +
+    '    <label>Picture</label>\n' +
     '    <!-- Customise change ng-model ctrl.model to own variable -->\n' +
-    '    <input type="text" id="title" name="title" ng-model="ctrl.model.firstName" required>\n' +
+    '    <button ng-click="ctrl.takePicture()">\n' +
     '  </md-input-container>\n' +
     '  <md-input-container class="md-block" flex-gt-sm>\n' +
-    '    <label>E.g. Last Name </label>\n' +
-    '    <input type="text" id="title" name="title" ng-model="ctrl.model.lastName" required>\n' +
+    '    <label>Taken picture:</label>\n' +
+    '    <img ng-src="{{model.data.pictureUri}}" />\n' +
     '  </md-input-container>\n' +
     '</div>\n' +
     '\n' +
@@ -28,6 +28,5 @@ ngModule.run(['$templateCache', function ($templateCache) {
     '  <md-button class="md-primary md-hue-1" ng-click="ctrl.back($event)">Back</md-button>\n' +
     '  <md-button class="md-primary" ng-disabled="stepForm.$invalid || stepForm.$pristine" ng-click="ctrl.done($event)">Continue</md-button>\n' +
     '</div>\n' +
-    '<!-- workflow-actions-->\n' +
     '');
 }]);
