@@ -1,7 +1,12 @@
-/* global navigator */
 'use strict';
 
-function initModule() {
+var Camera = require('../Camera');
+
+/**
+ * Initializer for the Camera step
+ * @param {cameraOptionsBuilder} cameraOptionsBuilder A function to build additional options for the cordova camera
+ */
+function initModule(cameraOptionsBuilder) {
   var moduleName = 'wfm.step.camera';
   var ngModule = angular.module(moduleName, []);
 
@@ -24,6 +29,9 @@ function initModule() {
       , template: $templateCache.get('wfm-template/camera-form.tpl.html')
       , controller: function($scope) {
         var self = this;
+
+        this.camera = new Camera(cameraOptionsBuilder);
+
         self.model = {};
         self.parentController = $scope.$parent;
         self.back = function(event) {
@@ -41,9 +49,7 @@ function initModule() {
           self.model.data.pictureUri = uri;
         };
         self.takePicture = function() {
-          debugger;
-          var cameraOptions = require('../index').definition.cameraOptions;
-          navigator.camera.getPicture(function(uri) {
+          self.camera.capture().then(function(uri) {
             window.resolveLocalFileSystemURI(uri, function(entry) {
               console.log('Image saved to ' + entry.fullPath);
 
@@ -59,7 +65,7 @@ function initModule() {
               // in this case, just display the data-uri
               self.displayImage(uri);
             });
-          }, console.error, cameraOptions);
+          }).catch(console.error);
         };
       }
       , controllerAs: 'ctrl'
