@@ -46,9 +46,12 @@ function initModule(cameraOptionsBuilder) {
         };
 
         self.displayImage = function(uri) {
-          self.model.data = self.model.data || {};
-          self.model.data.pictureUri = uri;
+          $scope.$apply(function() {
+            self.model.data = self.model.data || {};
+            self.model.data.pictureUri = uri;
+          });
         };
+
         self.takePicture = function() {
           self.camera.capture().then(function(uri) {
             window.resolveLocalFileSystemURL(uri, function(entry) {
@@ -57,13 +60,13 @@ function initModule(cameraOptionsBuilder) {
               // FileSync plugin, which can be private to the app
               // Cordova's camera plugin only has options to save pictures to the OS' public gallery, shared with other apps
 
-              self.displayImage(uri);
+              return self.displayImage(uri);
             }, function onFileSystemURIError() {
               // Can be a data-uri when running in a browser,
               // so resolving will fail
 
               // in this case, just display the data-uri
-              self.displayImage(uri);
+              return self.displayImage('data:image/jpg;base64,' + uri);
             });
           }).catch(console.error);
         };

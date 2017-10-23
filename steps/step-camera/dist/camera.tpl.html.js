@@ -11,7 +11,7 @@ ngModule.run(['$templateCache', function ($templateCache) {
     '<md-list>\n' +
     '  <md-list-item class="md-2-line">\n' +
     '    <div class="md-list-item-text">\n' +
-    '      <img src="{{model.data.uri}}" alt="">\n' +
+    '      <img src="{{model.data.pictureUri}}" alt="">\n' +
     '      <p>Picture</p>\n' +
     '    </div>\n' +
     '    <md-divider></md-divider>\n' +

@@ -10,7 +10,7 @@ var buildCameraOptions = require('./buildCameraOptions');
 
 Camera.prototype.init = function(optionsFn) {
   console.log('init called', window.cordova);
-  this.initPromise = new Promise(function(resolve, reject) {
+  return this.initPromise = new Promise(function(resolve, reject) {
     if (!window.cordova) {
       return reject('This module requires Apache Cordova to be available');
     }
