@@ -23,14 +23,14 @@ function initModule(cameraOptionsBuilder) {
     };
   });
 
-  ngModule.directive('cameraForm', function($scope, $templateCache) {
+  ngModule.directive('cameraForm', function($templateCache) {
     return {
       restrict: 'E'
       , template: $templateCache.get('wfm-template/camera-form.tpl.html')
       , controller: function($scope) {
         var self = this;
 
-        this.camera = new Camera(cameraOptionsBuilder);
+        self.camera = new Camera(cameraOptionsBuilder);
 
         self.model = {};
         self.parentController = $scope.$parent;
@@ -46,12 +46,12 @@ function initModule(cameraOptionsBuilder) {
         };
 
         self.displayImage = function(uri) {
+          self.model.data = {};
           self.model.data.pictureUri = uri;
         };
         self.takePicture = function() {
           self.camera.capture().then(function(uri) {
-            window.resolveLocalFileSystemURI(uri, function(entry) {
-              console.log('Image saved to ' + entry.fullPath);
+            window.resolveLocalFileSystemURL(uri, function(entry) {
 
               // TODO: Here we would move the file to the storage folder configured for the
               // FileSync plugin, which can be private to the app
