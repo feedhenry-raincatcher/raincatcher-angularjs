@@ -46,7 +46,7 @@ function initModule(cameraOptionsBuilder) {
         };
 
         self.displayImage = function(uri) {
-          self.model.data = {};
+          self.model.data = self.model.data || {};
           self.model.data.pictureUri = uri;
         };
         self.takePicture = function() {
