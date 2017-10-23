@@ -1,0 +1,34 @@
+{
+  "name": "@raincatcher/step-camera",
+  "version": "1.0.0",
+  "description": "Camera Step for RainCatcher",
+  "main": "./lib/index.js",
+  "scripts": {
+    "build": "grunt wfmTemplate:build",
+    "watch": "grunt wfmTemplate:watch",
+    "test": "grunt"
+  },
+  "keywords": [
+    "raincatcher-step",
+    "workflow",
+    "raincatcher",
+    "wfm"
+  ],
+  "author": "feedhenry-raincatcher@redhat.com",
+  "license": "MIT",
+  "dependencies": {
+    "bluebird": "^3.5.1",
+    "lodash": "4.7.0",
+    "yosay": "^2.0.1"
+  },
+  "devDependencies": {
+    "fh-wfm-template-build": "0.2.1",
+    "grunt": "^1.0.1",
+    "grunt-cli": "^1.2.0",
+    "grunt-eslint": "^18.0.0"
+  },
+  "optionalDependencies": {
+    "@types/cordova-plugin-camera": "0.0.3",
+    "@types/cordova-plugin-file": "0.0.3"
+  }
+}
