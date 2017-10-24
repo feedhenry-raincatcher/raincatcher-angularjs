@@ -1,5 +1,5 @@
 {
-  "name": "@raincatcher/step-camera",
+  "name": "@raincatcher/step-gallery",
   "version": "1.0.0",
   "description": "Camera Step for RainCatcher",
   "main": "./lib/index.js",
