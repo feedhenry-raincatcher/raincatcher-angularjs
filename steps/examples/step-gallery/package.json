@@ -1,7 +1,7 @@
 {
   "name": "@raincatcher/step-gallery",
   "version": "1.0.0",
-  "description": "Camera Step for RainCatcher",
+  "description": "Gallery Step for RainCatcher",
   "main": "./lib/index.js",
   "scripts": {
     "build": "grunt wfmTemplate:build",
@@ -12,14 +12,15 @@
     "raincatcher-step",
     "workflow",
     "raincatcher",
+    "camera",
     "wfm"
   ],
   "author": "feedhenry-raincatcher@redhat.com",
   "license": "MIT",
   "dependencies": {
+    "@raincatcher/camera": "1.0.0",
     "bluebird": "^3.5.1",
-    "lodash": "4.7.0",
-    "yosay": "^2.0.1"
+    "lodash": "4.7.0"
   },
   "devDependencies": {
     "fh-wfm-template-build": "0.2.1",

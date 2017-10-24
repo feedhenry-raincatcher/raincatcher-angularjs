@@ -1,10 +1,10 @@
 var definition = {
-  "code": "camera-form",
-  "name": "Picture Step",
-  "description": "Camera Step for RainCatcher",
+  "code": "gallery-form",
+  "name": "Picture Gallery",
+  "description": "Captures and displays multiple pictures",
   "templates": {
-    "form": "<camera-form></camera-form>",
-    "view": "<camera></camera>"
+    "form": "<gallery-form></gallery-form>",
+    "view": "<gallery></gallery>"
   }
 };
 

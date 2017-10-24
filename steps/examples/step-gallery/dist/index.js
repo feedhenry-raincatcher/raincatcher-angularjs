@@ -1,2 +1,2 @@
-require('./camera-form.tpl.html.js');
-require('./camera.tpl.html.js');
+require('./gallery-form.tpl.html.js');
+require('./gallery.tpl.html.js');

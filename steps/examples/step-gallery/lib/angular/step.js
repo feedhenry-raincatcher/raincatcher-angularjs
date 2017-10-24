@@ -1,21 +1,21 @@
 'use strict';
 
-var Camera = require('../Camera');
+var Camera = require('@raincatcher/camera').Camera;
 
 /**
- * Initializer for the Camera step
- * @param {cameraOptionsBuilder} cameraOptionsBuilder A function to build additional options for the cordova camera
+ * Initializer for the Gallery step
+ * @param {galleryOptionsBuilder} cameraOptionsBuilder A function to build additional options for the cordova gallery
  */
 function initModule(cameraOptionsBuilder) {
-  var moduleName = 'wfm.step.camera';
+  var moduleName = 'wfm.step.gallery';
   var ngModule = angular.module(moduleName, []);
 
   require('../../dist');
 
-  ngModule.directive('camera', function($templateCache) {
+  ngModule.directive('gallery', function($templateCache) {
     return {
       restrict: 'E'
-      , template: $templateCache.get('wfm-template/camera.tpl.html')
+      , template: $templateCache.get('wfm-template/gallery.tpl.html')
       , controller: function($scope) {
         $scope.model = $scope.result.submission;
       },
@@ -23,10 +23,10 @@ function initModule(cameraOptionsBuilder) {
     };
   });
 
-  ngModule.directive('cameraForm', function($templateCache) {
+  ngModule.directive('galleryForm', function($templateCache) {
     return {
       restrict: 'E'
-      , template: $templateCache.get('wfm-template/camera-form.tpl.html')
+      , template: $templateCache.get('wfm-template/gallery-form.tpl.html')
       , controller: function($scope) {
         var self = this;
 
@@ -45,28 +45,25 @@ function initModule(cameraOptionsBuilder) {
           event.stopPropagation();
         };
 
-        self.displayImage = function(uri) {
+        self.addImage = function(uri) {
           $scope.$apply(function() {
-            self.model.data = self.model.data || {};
-            self.model.data.pictureUri = uri;
+            self.model.localPictures = self.model.localPictures || [];
+            self.model.localPictures.push(uri);
           });
         };
 
         self.takePicture = function() {
           self.camera.capture().then(function(uri) {
             window.resolveLocalFileSystemURL(uri, function(entry) {
-
-              // TODO: Here we would move the file to the storage folder configured for the
-              // FileSync plugin, which can be private to the app
               // Cordova's camera plugin only has options to save pictures to the OS' public gallery, shared with other apps
 
-              return self.displayImage(uri);
+              return self.addImage(uri);
             }, function onFileSystemURIError() {
               // Can be a data-uri when running in a browser,
               // so resolving will fail
 
               // in this case, just display the data-uri
-              return self.displayImage('data:image/jpg;base64,' + uri);
+              return self.addImage('data:image/jpg;base64,' + uri);
             });
           }).catch(console.error);
         };

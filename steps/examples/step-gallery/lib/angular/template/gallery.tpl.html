@@ -1,0 +1,9 @@
+<md-subheader>Gallery</md-subheader>
+<md-list>
+  <md-list-item class="md-2-line">
+    <div class="md-list-item-text" ng-repeat="uri in model.data.pictures">
+      <img ng-src="{{uri}}" alt="">
+    </div>
+    <md-divider></md-divider>
+  </md-list-item>
+</md-list>
