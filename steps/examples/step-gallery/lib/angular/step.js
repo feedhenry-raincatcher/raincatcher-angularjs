@@ -8,7 +8,8 @@ var Camera = require('@raincatcher/camera').Camera;
  */
 function initModule(cameraOptionsBuilder) {
   var moduleName = 'wfm.step.gallery';
-  var ngModule = angular.module(moduleName, []);
+  // require http module to get server baseUrl
+  var ngModule = angular.module(moduleName, ['wfm.http']);
 
   require('../../dist');
 
@@ -23,14 +24,16 @@ function initModule(cameraOptionsBuilder) {
     };
   });
 
-  ngModule.directive('galleryForm', function($templateCache) {
+  ngModule.directive('galleryForm', ['baseUrl', '$templateCache', function(baseUrl, $templateCache) {
     return {
       restrict: 'E'
       , template: $templateCache.get('wfm-template/gallery-form.tpl.html')
       , controller: function($scope) {
         var self = this;
 
-        self.camera = new Camera(cameraOptionsBuilder);
+        baseUrl.then(function(serverBaseUrl) {
+          self.camera = new Camera(serverBaseUrl, cameraOptionsBuilder);
+        });
 
         self.model = {};
         self.parentController = $scope.$parent;
@@ -60,7 +63,7 @@ function initModule(cameraOptionsBuilder) {
       }
       , controllerAs: 'ctrl'
     };
-  });
+  }]);
 
   return moduleName;
 }
