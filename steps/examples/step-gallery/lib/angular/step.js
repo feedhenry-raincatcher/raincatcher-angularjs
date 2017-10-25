@@ -53,18 +53,8 @@ function initModule(cameraOptionsBuilder) {
         };
 
         self.takePicture = function() {
-          self.camera.capture().then(function(uri) {
-            window.resolveLocalFileSystemURL(uri, function(entry) {
-              // Cordova's camera plugin only has options to save pictures to the OS' public gallery, shared with other apps
-
-              return self.addImage(uri);
-            }, function onFileSystemURIError() {
-              // Can be a data-uri when running in a browser,
-              // so resolving will fail
-
-              // in this case, just display the data-uri
-              return self.addImage('data:image/jpg;base64,' + uri);
-            });
+          self.camera.capture().then(function(fileEntry) {
+            return self.addImage(fileEntry.uri);
           }).catch(console.error);
         };
       }
