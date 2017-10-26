@@ -34,7 +34,7 @@ function initModule($fh, cameraOptionsBuilder) {
         var self = this;
 
         getServerUrl($fh).then(function(serverBaseUrl) {
-          self.camera = new Camera(serverBaseUrl, cameraOptionsBuilder);
+          self.camera = new Camera(serverBaseUrl + '/api/file', cameraOptionsBuilder);
         });
 
         self.model = {};
