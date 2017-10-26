@@ -9,7 +9,7 @@ var Camera = require('@raincatcher/camera').Camera;
 function initModule(cameraOptionsBuilder) {
   var moduleName = 'wfm.step.gallery';
   // require http module to get server baseUrl
-  var ngModule = angular.module(moduleName, ['wfm.http']);
+  var ngModule = angular.module(moduleName, []);
 
   require('../../dist');
 
