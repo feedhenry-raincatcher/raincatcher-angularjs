@@ -1,15 +1,17 @@
 'use strict';
 
 var Camera = require('@raincatcher/camera').Camera;
+var getServerUrl = require('./urlProvider');
 
 /**
  * Initializer for the Gallery step
  * @param {galleryOptionsBuilder} cameraOptionsBuilder A function to build additional options for the cordova gallery
+ * @param $fh feedhenry client library
  */
-function initModule(cameraOptionsBuilder) {
+function initModule($fh, cameraOptionsBuilder) {
   var moduleName = 'wfm.step.gallery';
   // require http module to get server baseUrl
-  var ngModule = angular.module(moduleName, ['wfm.http']);
+  var ngModule = angular.module(moduleName, []);
 
   require('../../dist');
 
@@ -24,15 +26,15 @@ function initModule(cameraOptionsBuilder) {
     };
   });
 
-  ngModule.directive('galleryForm', ['baseUrl', '$templateCache', function(baseUrl, $templateCache) {
+  ngModule.directive('galleryForm', ['$templateCache', function($templateCache) {
     return {
       restrict: 'E'
       , template: $templateCache.get('wfm-template/gallery-form.tpl.html')
       , controller: function($scope) {
         var self = this;
 
-        baseUrl.then(function(serverBaseUrl) {
-          self.camera = new Camera(serverBaseUrl, cameraOptionsBuilder);
+        getServerUrl($fh).then(function(serverBaseUrl) {
+          self.camera = new Camera(serverBaseUrl + '/api/file', cameraOptionsBuilder);
         });
 
         self.model = {};

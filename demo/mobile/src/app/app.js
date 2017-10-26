@@ -4,6 +4,7 @@ var angular = require('angular');
 window.async = require('async');
 window._ = require('underscore');
 var logger = require('@raincatcher/logger');
+var $fh = require('fh-js-sdk');
 
 var accidentStep = require('@raincatcher-examples/step-accident');
 var vehicleInspectionStep = require('@raincatcher-examples/step-vehicle-inspection');
@@ -37,7 +38,7 @@ angular.module('wfm-mobile', [
   vehicleInspectionStep.ngModule(),
   accidentStep.ngModule(),
   signatureStep.ngModule(),
-  galleryStep.ngModule()
+  galleryStep.ngModule($fh)
 ]);
 
 

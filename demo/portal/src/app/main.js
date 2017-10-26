@@ -7,7 +7,7 @@ var _ = require('lodash');
 var accidentStep = require('@raincatcher-examples/step-accident');
 var vehicleInspectionStep = require('@raincatcher-examples/step-vehicle-inspection');
 var signatureStep = require('@raincatcher/step-signature');
-var cameraStep = require('@raincatcher/step-gallery');
+var galleryStep = require('@raincatcher/step-gallery');
 
 /**
  * Contains all static step definitions
@@ -48,7 +48,7 @@ angular.module('app', [
   vehicleInspectionStep.ngModule(),
   accidentStep.ngModule(),
   signatureStep.ngModule(),
-  cameraStep.ngModule()
+  galleryStep.ngModule($fh)
 ]);
 
 
