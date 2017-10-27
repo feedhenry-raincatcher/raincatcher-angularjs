@@ -11,7 +11,7 @@ var FileManager = require('@raincatcher/filestore-client').FileManager;
 function initModule(cameraOptionsBuilder) {
   var moduleName = 'wfm.step.gallery';
   // require http module to get server baseUrl
-  var ngModule = angular.module(moduleName, ['http']);
+  var ngModule = angular.module(moduleName, []);
 
   require('../../dist');
 
