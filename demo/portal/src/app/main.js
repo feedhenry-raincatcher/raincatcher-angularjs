@@ -8,6 +8,7 @@ var accidentStep = require('@raincatcher-examples/step-accident');
 var vehicleInspectionStep = require('@raincatcher-examples/step-vehicle-inspection');
 var signatureStep = require('@raincatcher/step-signature');
 var galleryStep = require('@raincatcher/step-gallery');
+var $fh = require('fh-js-sdk');
 
 /**
  * Contains all static step definitions
@@ -16,7 +17,7 @@ var stepDefinitions = _.flatten([
   vehicleInspectionStep.definition,
   accidentStep.definition,
   signatureStep.definition,
-  cameraStep.definition
+  galleryStep.definition
 ], true);
 
 // Create INFO logger
