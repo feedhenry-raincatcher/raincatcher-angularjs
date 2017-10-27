@@ -36,6 +36,7 @@ function initModule($fh, cameraOptionsBuilder) {
         var fileManagerClient = {
           upload: function(uri, formData) {
             return $http({
+              url: uri,
               method: 'POST',
               headers: {
                 'Content-Type': 'multipart/form-data'
