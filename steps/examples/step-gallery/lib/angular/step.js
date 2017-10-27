@@ -1,6 +1,7 @@
 'use strict';
 
 var Camera = require('@raincatcher/camera').Camera;
+var FileManager = require('@raincatcher/filestore-client').FileManager;
 var getServerUrl = require('./urlProvider');
 
 /**
@@ -26,7 +27,7 @@ function initModule($fh, cameraOptionsBuilder) {
     };
   });
 
-  ngModule.directive('galleryForm', ['$templateCache', function($templateCache) {
+  ngModule.directive('galleryForm', ['$templateCache', '$http', function($templateCache, $http) {
     return {
       restrict: 'E'
       , template: $templateCache.get('wfm-template/gallery-form.tpl.html')
@@ -34,7 +35,8 @@ function initModule($fh, cameraOptionsBuilder) {
         var self = this;
 
         getServerUrl($fh).then(function(serverBaseUrl) {
-          self.camera = new Camera(serverBaseUrl + '/api/file', cameraOptionsBuilder);
+          self.fileManager = new FileManager(serverBaseUrl + '/api/file', 'gallery', $http);
+          self.camera = new Camera(cameraOptionsBuilder);
         });
 
         self.model = {};
@@ -58,8 +60,15 @@ function initModule($fh, cameraOptionsBuilder) {
         };
 
         self.takePicture = function() {
-          self.camera.capture().then(function(fileEntry) {
-            return self.addImage(fileEntry.uri);
+          self.camera.capture().then(function(captureResponse) {
+            self.addImage(captureResponse.value);
+            return captureResponse;
+          }).then(function(captureResponse) {
+            const file = {
+              uri: captureResponse.value,
+              type: captureResponse.type
+            };
+            return self.fileManager.scheduleFileToBeUploaded(file);
           }).catch(console.error);
         };
       }
