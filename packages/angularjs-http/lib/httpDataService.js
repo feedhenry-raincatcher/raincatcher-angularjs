@@ -41,6 +41,14 @@ HttpDataService.prototype.request = function(relativeUrl, httpConfig) {
   });
 };
 
+HttpDataService.prototype.upload = function(relativeUrl, data) {
+  var httpConfig = {
+    method: 'POST',
+    data: data,
+  };
+  return this.request(relativeUrl, httpConfig);
+};
+
 HttpDataService.prototype.list = function() {
   return this.request('/' + this.entityName, {
     method: 'GET',
