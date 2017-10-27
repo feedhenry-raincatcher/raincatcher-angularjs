@@ -1,17 +1,17 @@
 'use strict';
 
 var Camera = require('@raincatcher/camera').Camera;
-var getServerUrl = require('./urlProvider');
+var FileManager = require('@raincatcher/filestore-client').FileManager;
 
 /**
  * Initializer for the Gallery step
  * @param {galleryOptionsBuilder} cameraOptionsBuilder A function to build additional options for the cordova gallery
  * @param $fh feedhenry client library
  */
-function initModule($fh, cameraOptionsBuilder) {
+function initModule(cameraOptionsBuilder) {
   var moduleName = 'wfm.step.gallery';
   // require http module to get server baseUrl
-  var ngModule = angular.module(moduleName, []);
+  var ngModule = angular.module(moduleName, ['http']);
 
   require('../../dist');
 
@@ -26,16 +26,15 @@ function initModule($fh, cameraOptionsBuilder) {
     };
   });
 
-  ngModule.directive('galleryForm', ['$templateCache', function($templateCache) {
+  ngModule.directive('galleryForm', ['$templateCache', 'workorderService', function($templateCache, workorderService) {
     return {
       restrict: 'E'
       , template: $templateCache.get('wfm-template/gallery-form.tpl.html')
       , controller: function($scope) {
         var self = this;
 
-        getServerUrl($fh).then(function(serverBaseUrl) {
-          self.camera = new Camera(serverBaseUrl + '/api/file', cameraOptionsBuilder);
-        });
+        self.camera = new Camera(cameraOptionsBuilder);
+        self.fileManager = new FileManager('/api/file', workorderService, 'camera');
 
         self.model = {};
         self.parentController = $scope.$parent;
@@ -59,8 +58,13 @@ function initModule($fh, cameraOptionsBuilder) {
 
         self.takePicture = function() {
           self.camera.capture().then(function(fileEntry) {
+            self.uploadPicture(fileEntry);
             return self.addImage(fileEntry.uri);
           }).catch(console.error);
+        };
+
+        self.uploadPicture = function(fileEntry) {
+          self.fileManager.scheduleFileToBeUploaded(fileEntry);
         };
       }
       , controllerAs: 'ctrl'
