@@ -33,9 +33,27 @@ function initModule($fh, cameraOptionsBuilder) {
       , template: $templateCache.get('wfm-template/gallery-form.tpl.html')
       , controller: function($scope) {
         var self = this;
+        var fileManagerClient = {
+          upload: function(uri, formData) {
+            return $http({
+              url: uri,
+              method: 'POST',
+              headers: {
+                'Content-Type': 'multipart/form-data'
+              },
+              data: formData
+            });
+          },
+          download: function(uri) {
+            return $http({
+              method: 'GET',
+              url: uri
+            });
+          }
+        };
 
         getServerUrl($fh).then(function(serverBaseUrl) {
-          self.fileManager = new FileManager(serverBaseUrl + '/api/file', 'gallery', $http);
+          self.fileManager = new FileManager(serverBaseUrl + '/api/file', 'gallery', fileManagerClient);
           self.camera = new Camera(cameraOptionsBuilder);
         });
 
@@ -64,7 +82,7 @@ function initModule($fh, cameraOptionsBuilder) {
             self.addImage(captureResponse.value);
             return captureResponse;
           }).then(function(captureResponse) {
-            const file = {
+            var file = {
               uri: captureResponse.value,
               type: captureResponse.type
             };
