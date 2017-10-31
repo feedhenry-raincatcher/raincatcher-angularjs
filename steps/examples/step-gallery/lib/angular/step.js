@@ -3,6 +3,7 @@
 var Camera = require('@raincatcher/camera').Camera;
 var FileManager = require('@raincatcher/filestore-client').FileManager;
 var getServerUrl = require('./urlProvider');
+var path = require('path');
 
 /**
  * Initializer for the Gallery step
@@ -39,7 +40,7 @@ function initModule($fh, cameraOptionsBuilder) {
               url: uri,
               method: 'POST',
               headers: {
-                'Content-Type': 'multipart/form-data'
+                'Content-Type': undefined
               },
               data: formData
             });
@@ -53,7 +54,7 @@ function initModule($fh, cameraOptionsBuilder) {
         };
 
         getServerUrl($fh).then(function(serverBaseUrl) {
-          self.fileManager = new FileManager(serverBaseUrl + '/api/file', 'gallery', fileManagerClient);
+          self.fileManager = new FileManager(path.join(serverBaseUrl, '/file/binary/'), 'gallery', fileManagerClient);
           self.camera = new Camera(cameraOptionsBuilder);
         });
 
