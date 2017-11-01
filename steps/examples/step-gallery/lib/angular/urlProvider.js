@@ -1,3 +1,4 @@
+var Promise = require('bluebird');
 /**
  * Helper method fetch base url for the server using feedhenry library.
  */
@@ -8,8 +9,8 @@ module.exports = function getUrl($fh) {
       if (error) {
         return reject(error);
       }
-      resolve(decodeURIComponent($fh.getCloudURL()));
+      return resolve(decodeURIComponent($fh.getCloudURL()));
     });
   });
-}
+};
 
