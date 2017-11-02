@@ -3,6 +3,7 @@
 var Camera = require('@raincatcher/camera').Camera;
 var FileManager = require('@raincatcher/filestore-client').FileManager;
 var getServerUrl = require('./urlProvider');
+var uuid = require('uuid-js');
 
 /**
  * Initializer for the Gallery step
@@ -22,6 +23,7 @@ function initModule($fh, cameraOptionsBuilder) {
       , template: $templateCache.get('wfm-template/gallery.tpl.html')
       , controller: function($scope) {
         $scope.model = $scope.result.submission;
+        console.log('$scope.model: ', $scope.model);
       },
       controllerAs: 'ctrl'
     };
@@ -71,22 +73,27 @@ function initModule($fh, cameraOptionsBuilder) {
           event.stopPropagation();
         };
 
-        self.addImage = function(uri) {
+        self.addImage = function(uri, id) {
           $scope.$apply(function() {
             self.model.localPictures = self.model.localPictures || [];
-            self.model.localPictures.push(uri);
+            self.model.localPictures.push({uri: uri, id: id});
+            console.log('>>>>>> localPictures', self.model.localPictures);
           });
         };
 
         self.takePicture = function() {
           self.camera.capture().then(function(captureResponse) {
-            self.addImage(captureResponse.value);
+            captureResponse.id = uuid.create().toString();
+            self.addImage(captureResponse.value, captureResponse.id);
+            console.log('>>>>>> captureResponse', captureResponse);
             return captureResponse;
           }).then(function(captureResponse) {
             var file = {
               uri: captureResponse.value,
-              type: captureResponse.type
+              type: captureResponse.type,
+              id: captureResponse.id
             };
+            console.log('>>>>> Scheduling file to be uploaded, FILE: ', file);
             return self.fileManager.scheduleFileToBeUploaded(file);
           }).catch(console.error);
         };

@@ -1,6 +1,6 @@
-<div class="wfm-step-row" layout="row" layout-align="center" flex-gt-sm ng-repeat="uri in ctrl.model.localPictures">
+<div class="wfm-step-row" layout="row" layout-align="center" flex-gt-sm ng-repeat="picture in ctrl.model.localPictures">
   <md-card flex>
-    <img ng-src="{{uri}}"/>
+    <img ng-src="{{picture.uri}}"/>
   </md-card>
 </div>
 <div class="wfm-step-row" class="form-group" ng-form name="stepForm">
