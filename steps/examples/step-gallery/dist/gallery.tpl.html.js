@@ -5,7 +5,7 @@ try {
   ngModule = angular.module('wfm.step.gallery', []);
 }
 
-ngModule.run(['$templateCache', function($templateCache) {
+ngModule.run(['$templateCache', function ($templateCache) {
   $templateCache.put('wfm-template/gallery.tpl.html',
     '<md-subheader>Gallery</md-subheader>\n' +
     '<md-list>\n' +

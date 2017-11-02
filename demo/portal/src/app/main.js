@@ -49,7 +49,7 @@ angular.module('app', [
   vehicleInspectionStep.ngModule(),
   accidentStep.ngModule(),
   signatureStep.ngModule(),
-  galleryStep.ngModule($fh)
+  galleryStep.ngModule($fh, undefined, "admin")
 ]);
 
 

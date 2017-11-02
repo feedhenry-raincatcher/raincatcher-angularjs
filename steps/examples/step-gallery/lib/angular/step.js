@@ -10,7 +10,7 @@ var uuid = require('uuid-js');
  * @param {galleryOptionsBuilder} cameraOptionsBuilder A function to build additional options for the cordova gallery
  * @param $fh feedhenry client library
  */
-function initModule($fh, cameraOptionsBuilder) {
+function initModule($fh, cameraOptionsBuilder, mode) {
   var moduleName = 'wfm.step.gallery';
   // require http module to get server baseUrl
   var ngModule = angular.module(moduleName, []);
@@ -33,8 +33,12 @@ function initModule($fh, cameraOptionsBuilder) {
           var gallery = $scope.result.submission.gallery;
           var pictures = [];
           for (var i in gallery) {
-            if (gallery[i].id) {
-              pictures.push(baseFileUrl + gallery[i].id);
+            if (gallery[i]) {
+              if (mode === "admin") {
+                pictures.push(baseFileUrl + gallery[i].id);
+              } else {
+                pictures.push(gallery[i].uri);
+              }
             }
           }
           return pictures;
