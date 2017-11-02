@@ -22,8 +22,23 @@ function initModule($fh, cameraOptionsBuilder) {
       restrict: 'E'
       , template: $templateCache.get('wfm-template/gallery.tpl.html')
       , controller: function($scope) {
-        $scope.model = $scope.result.submission;
-        console.log('$scope.model: ', $scope.model);
+        var self = this;
+
+        getServerUrl($fh).then(function(serverBaseUrl) {
+          var baseFileUrl = new URL('/file/', serverBaseUrl);
+          $scope.pictures = self.getPictures(baseFileUrl);
+        });
+
+        self.getPictures = function(baseFileUrl) {
+          var gallery = $scope.result.submission.gallery;
+          var pictures = [];
+          for (var i in gallery) {
+            if (gallery[i].id) {
+              pictures.push(baseFileUrl + gallery[i].id);
+            }
+          }
+          return pictures;
+        };
       },
       controllerAs: 'ctrl'
     };
@@ -75,9 +90,8 @@ function initModule($fh, cameraOptionsBuilder) {
 
         self.addImage = function(uri, id) {
           $scope.$apply(function() {
-            self.model.localPictures = self.model.localPictures || [];
-            self.model.localPictures.push({uri: uri, id: id});
-            console.log('>>>>>> localPictures', self.model.localPictures);
+            self.model.gallery = self.model.gallery || [];
+            self.model.gallery.push({uri: uri, id: id});
           });
         };
 
@@ -85,7 +99,6 @@ function initModule($fh, cameraOptionsBuilder) {
           self.camera.capture().then(function(captureResponse) {
             captureResponse.id = uuid.create().toString();
             self.addImage(captureResponse.value, captureResponse.id);
-            console.log('>>>>>> captureResponse', captureResponse);
             return captureResponse;
           }).then(function(captureResponse) {
             var file = {
@@ -93,7 +106,6 @@ function initModule($fh, cameraOptionsBuilder) {
               type: captureResponse.type,
               id: captureResponse.id
             };
-            console.log('>>>>> Scheduling file to be uploaded, FILE: ', file);
             return self.fileManager.scheduleFileToBeUploaded(file);
           }).catch(console.error);
         };

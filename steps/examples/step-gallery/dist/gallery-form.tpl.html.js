@@ -7,9 +7,8 @@ try {
 
 ngModule.run(['$templateCache', function ($templateCache) {
   $templateCache.put('wfm-template/gallery-form.tpl.html',
-    '<div class="wfm-step-row" layout="row" layout-align="center" flex-gt-sm ng-repeat="picture in ctrl.model.localPictures">\n' +
+    '<div class="wfm-step-row" layout="row" layout-align="center" flex-gt-sm ng-repeat="picture in ctrl.model.gallery">\n' +
     '  <md-card flex>\n' +
-    '    {{picture}}\n' +
     '    <img ng-src="{{picture.uri}}"/>\n' +
     '  </md-card>\n' +
     '</div>\n' +
