@@ -3,13 +3,14 @@
 var Camera = require('@raincatcher/camera').Camera;
 var FileManager = require('@raincatcher/filestore-client').FileManager;
 var getServerUrl = require('./urlProvider');
+var uuid = require('uuid-js');
 
 /**
  * Initializer for the Gallery step
  * @param {galleryOptionsBuilder} cameraOptionsBuilder A function to build additional options for the cordova gallery
  * @param $fh feedhenry client library
  */
-function initModule($fh, cameraOptionsBuilder) {
+function initModule($fh, cameraOptionsBuilder, mode) {
   var moduleName = 'wfm.step.gallery';
   // require http module to get server baseUrl
   var ngModule = angular.module(moduleName, []);
@@ -21,7 +22,27 @@ function initModule($fh, cameraOptionsBuilder) {
       restrict: 'E'
       , template: $templateCache.get('wfm-template/gallery.tpl.html')
       , controller: function($scope) {
-        $scope.model = $scope.result.submission;
+        var self = this;
+
+        getServerUrl($fh).then(function(serverBaseUrl) {
+          var baseFileUrl = new URL('/file/', serverBaseUrl);
+          $scope.pictures = self.getPictures(baseFileUrl);
+        });
+
+        self.getPictures = function(baseFileUrl) {
+          var gallery = $scope.result.submission.gallery;
+          var pictures = [];
+          for (var i in gallery) {
+            if (gallery[i]) {
+              if (mode === "admin") {
+                pictures.push(baseFileUrl + gallery[i].id);
+              } else {
+                pictures.push(gallery[i].uri);
+              }
+            }
+          }
+          return pictures;
+        };
       },
       controllerAs: 'ctrl'
     };
@@ -71,21 +92,23 @@ function initModule($fh, cameraOptionsBuilder) {
           event.stopPropagation();
         };
 
-        self.addImage = function(uri) {
+        self.addImage = function(uri, id) {
           $scope.$apply(function() {
-            self.model.localPictures = self.model.localPictures || [];
-            self.model.localPictures.push(uri);
+            self.model.gallery = self.model.gallery || [];
+            self.model.gallery.push({uri: uri, id: id});
           });
         };
 
         self.takePicture = function() {
           self.camera.capture().then(function(captureResponse) {
-            self.addImage(captureResponse.value);
+            captureResponse.id = uuid.create().toString();
+            self.addImage(captureResponse.value, captureResponse.id);
             return captureResponse;
           }).then(function(captureResponse) {
             var file = {
               uri: captureResponse.value,
-              type: captureResponse.type
+              type: captureResponse.type,
+              id: captureResponse.id
             };
             return self.fileManager.scheduleFileToBeUploaded(file);
           }).catch(console.error);

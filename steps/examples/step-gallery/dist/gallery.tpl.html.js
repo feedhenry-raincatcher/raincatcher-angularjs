@@ -10,7 +10,7 @@ ngModule.run(['$templateCache', function ($templateCache) {
     '<md-subheader>Gallery</md-subheader>\n' +
     '<md-list>\n' +
     '  <md-list-item class="md-2-line">\n' +
-    '    <div class="md-list-item-text" ng-repeat="uri in model.data.pictures">\n' +
+    '    <div class="md-list-item-text" ng-repeat="uri in pictures">\n' +
     '      <img ng-src="{{uri}}" alt="">\n' +
     '    </div>\n' +
     '    <md-divider></md-divider>\n' +
