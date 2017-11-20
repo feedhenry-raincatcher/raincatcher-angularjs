@@ -18,8 +18,8 @@
   "author": "feedhenry-raincatcher@redhat.com",
   "license": "MIT",
   "dependencies": {
-    "@raincatcher/camera": "1.0.0",
-    "@raincatcher/filestore-client": "1.0.0",
+    "@raincatcher/camera": "1.1.0",
+    "@raincatcher/filestore-client": "1.1.0",
     "bluebird": "^3.5.1",
     "lodash": "4.7.0",
     "uuid-js": "^0.7.5"
