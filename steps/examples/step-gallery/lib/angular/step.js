@@ -48,7 +48,7 @@ function initModule($fh, cameraOptionsBuilder, mode) {
     };
   });
 
-  ngModule.directive('galleryForm', ['$templateCache', '$http', function($templateCache, $http) {
+  ngModule.directive('galleryForm', ['$templateCache', '$http', '$mdDialog', function($templateCache, $http, $mdDialog) {
     return {
       restrict: 'E'
       , template: $templateCache.get('wfm-template/gallery-form.tpl.html')
@@ -95,11 +95,19 @@ function initModule($fh, cameraOptionsBuilder, mode) {
         self.addImage = function(uri, id) {
           $scope.$apply(function() {
             self.model.gallery = self.model.gallery || [];
-            self.model.gallery.push({uri: uri, id: id});
+            self.model.gallery.push({ uri: uri, id: id });
           });
         };
 
         self.takePicture = function() {
+          if (!window.navigator.camera) {
+            var alert = $mdDialog.alert({
+              title: 'Camera not available in browser',
+              textContent: 'Camera plugin not available. Try running project in emulator or using `cordova run browser`.',
+              ok: 'Close'
+            });
+            return $mdDialog.show(alert);
+          }
           self.camera.capture().then(function(captureResponse) {
             captureResponse.id = uuid.create().toString();
             self.addImage(captureResponse.value, captureResponse.id);
