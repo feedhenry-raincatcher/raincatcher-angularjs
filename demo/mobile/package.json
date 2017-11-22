@@ -1,6 +1,6 @@
 {
   "name": "@raincatcher/demo-mobile",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Example demo mobile application",
   "scripts": {
     "start": "grunt",
@@ -21,10 +21,10 @@
     "@raincatcher/angularjs-auth-keycloak": "1.0.0",
     "@raincatcher/angularjs-auth-passport": "1.0.0",
     "@raincatcher/angularjs-workflow": "1.0.0",
-    "@raincatcher/angularjs-workorder": "1.0.0",
+    "@raincatcher/angularjs-workorder": "1.1.0",
     "@raincatcher/datasync-client": "1.0.0",
     "@raincatcher/logger": "1.0.0",
-    "@raincatcher/step-gallery": "1.0.0",
+    "@raincatcher/step-gallery": "1.1.0",
     "@raincatcher/step-signature": "1.0.0",
     "@raincatcher/wfm": "1.0.0",
     "android-versions": "^1.2.1",
