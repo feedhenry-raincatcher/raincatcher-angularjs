@@ -7,6 +7,8 @@ var _ = require('lodash');
 var accidentStep = require('@raincatcher-examples/step-accident');
 var vehicleInspectionStep = require('@raincatcher-examples/step-vehicle-inspection');
 var signatureStep = require('@raincatcher/step-signature');
+var galleryStep = require('@raincatcher/step-gallery');
+var $fh = require('fh-js-sdk');
 
 /**
  * Contains all static step definitions
@@ -14,7 +16,8 @@ var signatureStep = require('@raincatcher/step-signature');
 var stepDefinitions = _.flatten([
   vehicleInspectionStep.definition,
   accidentStep.definition,
-  signatureStep.definition
+  signatureStep.definition,
+  galleryStep.definition
 ], true);
 
 // Create INFO logger
@@ -45,7 +48,8 @@ angular.module('app', [
   require('@raincatcher-examples/angularjs-extensions'),
   vehicleInspectionStep.ngModule(),
   accidentStep.ngModule(),
-  signatureStep.ngModule()
+  signatureStep.ngModule(),
+  galleryStep.ngModule($fh, undefined, "admin")
 ]);
 
 
