@@ -18,18 +18,18 @@
     "access": "public"
   },
   "dependencies": {
-    "q": "1.4.1",
-    "shortid": "^2.2.6"
+    "q": "1.5.1",
+    "shortid": "^2.2.8"
   },
   "devDependencies": {
-    "chai": "^3.5.0",
+    "chai": "^4.1.2",
     "fh-wfm-template-build": "^0.2.1",
     "grunt": "^1.0.1",
-    "grunt-eslint": "^18.0.0",
-    "grunt-mocha-test": "^0.13.2",
+    "grunt-eslint": "^20.1.0",
+    "grunt-mocha-test": "^0.13.3",
     "load-grunt-tasks": "^3.5.2",
-    "mocha": "^3.2.0",
-    "sinon": "^1.17.6",
-    "sinon-as-promised": "^4.0.2"
+    "mocha": "^4.0.1",
+    "sinon": "^4.1.2",
+    "sinon-as-promised": "^4.0.3"
   }
 }
