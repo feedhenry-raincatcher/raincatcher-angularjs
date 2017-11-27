@@ -18,19 +18,19 @@
     "access": "public"
   },
   "dependencies": {
-    "angular": "^1.6.6",
+    "angular": "1.6.6",
     "angular-animate": "1.6.6",
     "angular-aria": "1.6.6",
     "angular-material": "1.1.5",
     "angular-messages": "1.6.6",
     "angular-ui-router": "0.4.3",
-    "bluebird": "^3.5.1",
+    "bluebird": "3.5.1",
     "lodash": "4.17.4",
-    "shortid": "^2.2.8"
+    "shortid": "2.2.8"
   },
   "devDependencies": {
     "body-parser": "1.18.2",
-    "chai": "^4.1.2",
+    "chai": "4.1.2",
     "fh-wfm-template-build": "0.2.1",
     "grunt": "1.0.1",
     "grunt-eslint": "20.1.0",
