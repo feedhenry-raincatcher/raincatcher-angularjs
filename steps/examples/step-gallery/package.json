@@ -20,18 +20,18 @@
   "dependencies": {
     "@raincatcher/camera": "1.1.0",
     "@raincatcher/filestore-client": "1.1.0",
-    "bluebird": "^3.5.1",
-    "lodash": "4.7.0",
-    "uuid-js": "^0.7.5"
+    "bluebird": "3.5.1",
+    "lodash": "4.17.4",
+    "uuid-js": "0.7.5"
   },
   "publishConfig": {
     "access": "public"
   },
   "devDependencies": {
     "fh-wfm-template-build": "0.2.1",
-    "grunt": "^1.0.1",
-    "grunt-cli": "^1.2.0",
-    "grunt-eslint": "^18.0.0"
+    "grunt": "1.0.1",
+    "grunt-cli": "1.2.0",
+    "grunt-eslint": "20.1.0"
   },
   "optionalDependencies": {
     "@types/cordova-plugin-camera": "0.0.3",
