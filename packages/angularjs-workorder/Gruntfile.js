@@ -8,17 +8,6 @@ module.exports = function(grunt) {
     eslint: {
       src: ["lib/**/*.js"]
     },
-    mochaTest: {
-      test: {
-        src: ['lib/**/*-spec.js'],
-        options: {
-          reporter: 'Spec',
-          logErrors: true,
-          timeout: 1000,
-          run: true
-        }
-      }
-    },
     wfmTemplate: {
       module: "wfm.workorder.directives",
       templateDir: "lib/template",
@@ -27,6 +16,6 @@ module.exports = function(grunt) {
   });
 
   grunt.loadNpmTasks('fh-wfm-template-build');
-  grunt.registerTask('test', ['eslint', 'mochaTest']);
+  grunt.registerTask('test', ['eslint']);
   grunt.registerTask('default', ['test']);
 };
