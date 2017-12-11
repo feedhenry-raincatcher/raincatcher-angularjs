@@ -17,6 +17,7 @@
     "publish:demo-mobile": "rm -rf core/node_modules && lerna bootstrap && lerna run build --scope='@raincatcher/demo-mobile' --include-filtered-dependencies && NODE_DEBUG=gh-pages NODE_PATH=./node_modules node ./core/scripts/publish-app mobile --push true",
     "publish:demo-portal": "rm -rf core/node_modules && lerna bootstrap && lerna run build --scope='@raincatcher/demo-portal' --include-filtered-dependencies && NODE_DEBUG=gh-pages NODE_PATH=./node_modules node ./core/scripts/publish-app portal --push true",
     "update:check": "lerna exec --concurrency 1 -- ncu",
+    "depcheck": "lerna exec --parallel --stream -- depcheck --dev --specials='mocha,bin' --ignores='ts-node,@types/*' --ignore-dirs='example'",
     "update:run": "lerna exec -- ncu -a --removeRange -x 'fh-js-sdk'"
   },
   "repository": {
@@ -31,6 +32,7 @@
   "homepage": "https://github.com/feedhenry-raincatcher/raincatcher#readme",
   "devDependencies": {
     "@types/yargs": "8.0.2",
+    "depcheck": "^0.6.8",
     "eslint": "4.11.0",
     "gh-pages": "1.1.0",
     "lerna": "2.5.1",
