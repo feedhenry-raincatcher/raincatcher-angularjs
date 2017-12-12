@@ -1,7 +1,6 @@
 'use strict';
 
 var uglifyify = require('uglifyify');
-var _ = require('lodash');
 
 module.exports = function(grunt) {
 
@@ -12,19 +11,17 @@ module.exports = function(grunt) {
   require('time-grunt')(grunt);
 
   var browserifyConfg = {
-    alias: {
-    },
     external: [
-      'lodash', 'q', 'rx', 'async', 'c3', 'd3', 'angular', 'angular-ui-router', 'angular-material', 'ng-sortable'
+      'angular', 'angular-ui-router', 'angular-material'
     ]
   };
 
   browserifyConfg.vendor = browserifyConfg.external.reduce(function(alias, lib) {
-    if (! alias[lib]) {
+    if (!alias[lib]) {
       alias[lib] = null;
     }
     return alias;
-  }, _.clone(browserifyConfg.alias));
+  }, {});
 
   // Define the configuration for all the tasks
   grunt.initConfig({
@@ -56,7 +53,7 @@ module.exports = function(grunt) {
       },
       css: {
         files: [
-        {cwd: 'node_modules/', src: ['angular-material/angular-material.css', 'c3/c3.css'], dest: '<%= app.dist %>/css/', expand: true, flatten: true }
+          { cwd: 'node_modules/', src: ['angular-material/angular-material.css'], dest: '<%= app.dist %>/css/', expand: true, flatten: true }
         ]
       }
     },
@@ -84,7 +81,7 @@ module.exports = function(grunt) {
         },
         options: {
           watch: true,
-          alias: browserifyConfg.alias,
+          alias: {},
           external: browserifyConfg.external
         }
       },
@@ -95,7 +92,7 @@ module.exports = function(grunt) {
           debug: false,
           alias: browserifyConfg.vendor,
           transform: [
-            [uglifyify, {global: true}]
+            [uglifyify, { global: true }]
           ]
         }
       }
@@ -161,22 +158,13 @@ module.exports = function(grunt) {
 
     eslint: {
       src: ['application.js', 'src/**/*.js']
-    },
-
-    mochify: {
-      options: {
-        reporter: 'spec'
-      },
-      unit: {
-        src: ['src/app/**/*-spec.js']
-      }
     }
   });
 
   grunt.registerTask('serve', function(target) {
     if (target === 'local') {
       var conn = 'http://' + grunt.config.get('connect.options.hostname') + ':' +
-      grunt.config.get('connect.options.port');
+        grunt.config.get('connect.options.port');
       var url = grunt.option('url') || grunt.config.get('app.default_local_server_url');
       grunt.config.set('app.url', conn + '/?url=' + url);
     } else {
@@ -189,7 +177,7 @@ module.exports = function(grunt) {
     ]);
   });
 
-  grunt.registerTask('test', ['eslint', 'mochify:unit']);
+  grunt.registerTask('test', ['eslint']);
 
   grunt.registerTask('build', ['clean:dist', 'sass', 'copy', 'clean:server', 'browserify']);
 
