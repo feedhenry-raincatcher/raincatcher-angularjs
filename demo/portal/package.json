@@ -41,6 +41,7 @@
     "shortid": "2.2.8"
   },
   "devDependencies": {
+    "browserify-shim": "3.8.14",
     "grunt": "1.0.1",
     "grunt-browserify": "5.2.0",
     "grunt-contrib-clean": "1.1.0",
