@@ -15,7 +15,7 @@ module.exports = function(grunt) {
 
     },
     external: [
-      'lodash', 'async', 'angular', 'angular-ui-router', 'angular-material'
+      'angular', 'angular-ui-router', 'angular-material'
     ]
   };
 

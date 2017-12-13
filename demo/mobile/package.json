@@ -34,6 +34,7 @@
     "angular-material": "1.1.5",
     "angular-ui-router": "0.4.3",
     "bluebird": "3.5.1",
+    "browserify-shim": "3.8.14",
     "cordova-android": "6.3.0",
     "cordova-browser": "5.0.1",
     "cordova-plugin-camera": "3.0.0",

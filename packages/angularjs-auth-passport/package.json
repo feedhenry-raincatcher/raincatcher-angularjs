@@ -17,6 +17,7 @@
   "dependencies": {
     "@raincatcher/logger": "1.1.0",
     "bluebird": "3.5.1",
+    "browserify-shim": "3.8.14",
     "fh-js-sdk": "2.18.6"
   },
   "peerDependencies": {
