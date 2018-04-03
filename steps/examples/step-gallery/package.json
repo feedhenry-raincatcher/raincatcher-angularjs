@@ -21,7 +21,6 @@
     "@raincatcher/camera": "1.1.0",
     "@raincatcher/filestore-client": "1.1.0",
     "bluebird": "3.5.1",
-    "lodash": "4.17.4",
     "uuid-js": "0.7.5"
   },
   "publishConfig": {

@@ -1,8 +1,6 @@
 'use strict';
 
 var angular = require('angular');
-window.async = require('async');
-window._ = require('underscore');
 var logger = require('@raincatcher/logger');
 var $fh = require('fh-js-sdk');
 

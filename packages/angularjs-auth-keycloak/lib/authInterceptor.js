@@ -1,8 +1,5 @@
 
-var q = require('q');
-
-// Global this
-var self;
+var Promise = require('bluebird');
 
 /**
  * Keycloak angular auth interceptor.
@@ -11,28 +8,25 @@ var self;
  */
 function AuthInterceptor(keycloakApi) {
   this.keycloakApi = keycloakApi;
-  self = this;
 }
 
 /**
  * Refreshes the Keycloak tokens upon every request
  */
 AuthInterceptor.prototype.request = function request(config) {
-  var deferred = q.defer();
-  if (self.keycloakApi.token) {
-    self.keycloakApi.updateToken().success(function() {
+  if (!this.keycloakApi || !this.keycloakApi.token) {
+    return Promise.resolve(config);
+  }
+  return new Promise(function(resolve) {
+    this.keycloakApi.updateToken().success(function() {
       config.headers = config.headers || {};
-      config.headers.Authorization = 'Bearer ' + self.keycloakApi.token;
-      deferred.resolve(config);
+      config.headers.Authorization = 'Bearer ' + this.keycloakApi.token;
+      return resolve(config);
     }).error(function() {
       // Intentionally do not fail on tokens when offline
-      deferred.resolve(config);
+      resolve(config);
     });
-  } else {
-    deferred.resolve(config);
-  }
-
-  return deferred.promise;
+  });
 };
 
 module.exports = function(angularModule, keycloakApi) {

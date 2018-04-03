@@ -1,8 +1,6 @@
 'use strict';
 
-var browserifyNgannotate = require('browserify-ngannotate');
 var uglifyify = require('uglifyify');
-var _ = require('lodash');
 
 module.exports = function(grunt) {
 
@@ -17,7 +15,7 @@ module.exports = function(grunt) {
 
     },
     external: [
-      'lodash', 'q', 'rx', 'async', 'angular', 'angular-ui-router', 'angular-material'
+      'angular', 'angular-ui-router', 'angular-material'
     ]
   };
 
@@ -26,7 +24,7 @@ module.exports = function(grunt) {
       alias[lib] = null;
     }
     return alias;
-  }, _.clone(browserifyConfg.alias));
+  }, {});
 
   // Define the configuration for all the tasks
   grunt.initConfig({
@@ -78,12 +76,7 @@ module.exports = function(grunt) {
         },
         options: {
           watch: true,
-          alias: browserifyConfg.alias,
-          external: browserifyConfg.external,
-          transform: [
-            // [browserifyNgannotate, {global: true}]
-            // , [uglifyify, {global: true}]
-          ]
+          external: browserifyConfg.external
         }
       },
       vendor: {
